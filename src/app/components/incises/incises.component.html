@@ -1,0 +1,71 @@
+<div class="bloque">
+    <div class="bloque2">
+        <div class="arriba">
+            <div class="izquierda" id="A"></div>
+            <div class="medio"     id="B">
+                <table>
+                    <thead>
+                        <th>Scrwm</th>
+                        <th>User</th>
+                        <th>Content</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let incise of inciseService.incises">
+                            <td>{{ incise.scrwm }}</td>
+                            <td>{{ incise.user }}</td>
+                            <td>{{ incise.content }}</td>
+                            <td>
+                                <a (click)="editIncise(incise)">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                                <a (click)="deleteIncise(incise._id)">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="derecha"   id="C"></div>
+        </div>
+        <div class="centro">
+            <div class="izquierda" id="D"></div>
+            <div class="medio"     id="E">
+                <div class="card">
+                    <div class="card-content">
+                        <form #inciseForm="ngForm" (ngSubmit)="addIncise(inciseForm)">
+                            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="inciseService.selectedIncise._id">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" name="scrwm" #scrwm="ngModel" [(ngModel)]="inciseService.selectedIncise.scrwm" placeholder="Enter Scrwm">
+                                </div>
+                                <div class="input-field col s12">
+                                    <input type="text" name="user" #user="ngModel" [(ngModel)]="inciseService.selectedIncise.user" placeholder="Enter User">
+                                </div>
+                                <div class="input-field col s12">
+                                    <input type="text" name="content" #content="ngModel" [(ngModel)]="inciseService.selectedIncise.content" placeholder="Enter Content">
+                                </div>
+                                <div class="card-action">
+                                    <div class="input-field col s12">
+                                        <button class="btn" (click)="resetForm(inciseForm)">Clean</button>
+                                        <button class="btn right">Save</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>  
+            </div>
+            <div class="derecha"   id="F">
+            </div>
+        </div>
+        <div class="abajo">
+            <div class="izquierda" id="G"></div>
+            <div class="medio"     id="H"></div>
+            <div class="derecha"   id="I"></div>
+        </div>
+    </div>
+</div>
+
+  <!-- <div class="medio"     id="E" contenteditable=true></div> -->
