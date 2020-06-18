@@ -33,5 +33,5 @@ export class InciseService {
   deleteIncise(_id: string) {
     return this.http.delete(this.URL_API + `/${_id}`);
   }
-  
+
 }

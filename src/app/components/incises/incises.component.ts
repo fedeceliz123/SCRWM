@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InciseService } from '../../services/incise.service';
 import { NgForm } from '@angular/forms';
 import { Incise } from 'src/app/models/incise';
-
-declare var M: any;
+import { Content } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-incises',
@@ -20,53 +19,34 @@ export class IncisesComponent implements OnInit {
     this.getIncises();
   }
 
-  addIncise(form: NgForm){
-    if(form.value._id){
-      this.inciseService.putIncise(form.value)
-        .subscribe(res => {
-          console.log(res);
-          this.resetForm(form);
-          M.toast({html: 'Updated Successfuly'});
-          this.getIncises();
-        });
-    } else { 
-      this.inciseService.postIncise(form.value)
-        .subscribe(res => {
-          this.resetForm(form);
-          M.toast({html: 'Saved Successfuly'});
-          this.getIncises();
-        });
-    }    
-  }
-
   getIncises(){
     this.inciseService.getIncises()
       .subscribe(res => {
         this.inciseService.incises = res as Incise[];
-        console.log(res);
       });
+  }
+
+  newIncise(event: any, Incise: Incise){
+    if (event.key == 'Enter') {
+      Incise.content = document.getElementById('E').textContent;
+      this.inciseService.postIncise(Incise)
+      .subscribe(res => {
+      this.getIncises();
+      document.getElementById('E').textContent = "";
+      });
+    }
   }
 
   editIncise(incise: Incise){
+    const ID = incise._id;
     this.inciseService.selectedIncise = incise;
-  }
-
-  deleteIncise(_id: string){
-    if(confirm('Are you sure?')){
-      this.inciseService.deleteIncise(_id)
+    const C = document.getElementById('E')
+    C.textContent = incise.content;
+    C.focus();
+    this.inciseService.deleteIncise(incise._id)
       .subscribe(res => {
-        this.getIncises();    
-        M.toast({html: 'Deleted'});        
+      this.getIncises();       
       });
-    }
   }
-
-  resetForm(form?: NgForm){
-    if (form){
-      form.reset();
-      this.inciseService.selectedIncise = new Incise();
-    }
-  }
-
 
 }
