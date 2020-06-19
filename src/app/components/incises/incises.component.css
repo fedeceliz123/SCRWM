@@ -19,12 +19,12 @@ body{
 
 .arriba, .centro, .abajo {
     height: 400px;
-    width: 1800px;
+    width: 1700px;
     display:flex;
 }
 
 .izquierda, .medio, .derecha{
-    border: 1PX solid rgb(0 , 0, 0, 0);
+    border: 1PX solid rgb(0 , 0, 0, 0.1);
     margin: 3px;
     width: 600px;
     font-size: 25px;

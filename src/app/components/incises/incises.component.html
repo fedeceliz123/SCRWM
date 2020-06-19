@@ -11,14 +11,18 @@
         </div>
         <div class="centro">
             <div class="izquierda" id="D"></div>
-            <div class="medio"     id="E" contenteditable="true" (keypress)="newIncise($event, inciseService.selectedIncise)"></div>
-            <div class="derecha"   id="F">
-            </div>
+            <div class="medio" id="E" contenteditable="true" (keydown.enter)="onKeypress($event, inciseService.selectedIncise)"></div>
+            <div class="derecha"   id="F"></div>
         </div>
         <div class="abajo">
             <div class="izquierda" id="G"></div>
             <div class="medio"     id="H" ></div>
-            <div class="derecha"   id="I"></div>
+            <div>
+                <div class="derecha"   id="I"></div>
+                Editando: <input #_id="ngModel" [(ngModel)]="inciseService.selectedIncise._id">
+            </div>
         </div>
     </div>
 </div>
+
+type="hidden"

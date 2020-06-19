@@ -11,7 +11,7 @@ export class Incise {
         this.right = right;
         this.date = date;
         this.modified = modified;
-        this.record = record
+        this.record
     }
 
     // se agrega el "_id" porque los datos vienen de Mongodb
@@ -25,5 +25,5 @@ export class Incise {
     right: string;
     date: string;
     modified: string;
-    record: string;
+    record: number;
 }

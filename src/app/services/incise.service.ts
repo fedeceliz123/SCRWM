@@ -6,19 +6,26 @@ import { Incise } from '../models/incise'
 @Injectable({
   providedIn: 'root'
 })
+
 export class InciseService {
 
   selectedIncise: Incise;
+
   //para almacenar los incisos:
   incises: Incise[];
+
   //para no escribir cada vez la dirección:
   readonly URL_API = 'http://localhost:3000/api/scrwm';
 
   constructor(private http: HttpClient) {
     this.selectedIncise = new Incise();
-   }
+  }
 
   getIncises() {
+    return this.http.get(this.URL_API);
+  }
+
+  getIncise() {
     return this.http.get(this.URL_API);
   }
 
@@ -35,3 +42,4 @@ export class InciseService {
   }
 
 }
+
