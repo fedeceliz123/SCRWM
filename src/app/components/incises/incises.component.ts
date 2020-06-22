@@ -1,8 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { InciseService } from '../../services/incise.service';
-import { NgForm, NgModel } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { InciseService } from '../../services/incise.service'
 import { Incise } from 'src/app/models/incise';
-import { AttrAst } from '@angular/compiler';
 
 @Component({
   selector: 'app-incises',
@@ -13,74 +11,141 @@ import { AttrAst } from '@angular/compiler';
 export class IncisesComponent implements OnInit {
 
   constructor(public inciseService: InciseService) { }
-  
+ 
   // Cuando la aplicación inicia
   ngOnInit(): void { 
     this.getIncises();
   }
 
-  getIncises(){
-    this.inciseService.getIncises()
+  deleteAll(){
+    for (var i in this.inciseService.incises) {
+      this.inciseService.deleteIncise(this.inciseService.incises[i]._id)
       .subscribe(res => {
-        this.inciseService.incises = res as Incise[];
-        this.sortById(Incise);
+        this.getIncises();
+        const C = document.getElementById('E');
+        C.textContent = "";
+        C.focus();
+        this.resetCenter();      
       });
-  }
-
-  sortById(Incise){
-  console.log(Incise.sort(function(a,b){
-        if (a._id < b._id){ return 1 }
-        if (a._id > b._id){ return -1}
-        return 0; 
-      }));
     }
+  }
 
   editIncise(incise: Incise){
     this.inciseService.selectedIncise = incise;
-    const C = document.getElementById('E')
+    this.linkIncisesDown(incise);
+    const C = document.getElementById('E');
     C.textContent = incise.content;
     C.focus();
+    this.showAbove(incise);
+    this.showBelow(incise);
   }
 
-  onKeypress(event: any, Incise: Incise){
-      if(Incise._id){
-        if (document.getElementById('E').textContent == ""){
-          this.deleteIncise(Incise._id);
-        } else {
-          this.editedIncise(Incise);
-        }
-      } else {
-        this.followingIncise(Incise);
-      }
+  editedIncise(incise: Incise){
+    if(this.Below[0]){
+      incise.content = document.getElementById('E').textContent;
+      this.inciseService.putIncise(incise)
+      .subscribe(res => {
+        this.getIncises();
+        this.editIncise(this.Below[0]);
+      });
+    } else {
+      incise.content = document.getElementById('E').textContent;
+      this.inciseService.putIncise(incise)
+      .subscribe(res => {
+        this.getIncises();
+        document.getElementById('E').textContent = "";
+        this.resetCenter();      
+      });
+    }
   }
 
-  followingIncise(Incise: Incise){
-    Incise.content = document.getElementById('E').textContent;
-    this.inciseService.postIncise(Incise)
+  followingIncise(incise: Incise){
+    this.linkIncisesUp(incise);
+    incise.content = document.getElementById('E').textContent;
+    this.inciseService.postIncise(incise)
       .subscribe(res => {
         document.getElementById('E').textContent = "";
         this.getIncises();
       });
   }
 
-  editedIncise(Incise: Incise){
-    Incise.content = document.getElementById('E').textContent;
-    this.inciseService.putIncise(Incise)
-    .subscribe(res => {
-      this.getIncises();
-      document.getElementById('E').textContent = "";
-      this.resetCenter();
-      });
-    }
-
-  deleteIncise(_id: string){
-//  if(confirm('Are you sure?')){
-    this.inciseService.deleteIncise(_id)
+  getIncises(){
+    this.inciseService.getIncises()
       .subscribe(res => {
-      this.resetCenter();
-      this.getIncises();    
+        this.inciseService.incises = res as Incise[];
+        if(this.inciseService.selectedIncise._id){
+          return;
+        } else {
+          this.Above = [];
+          this.Below = [];
+          var Linkable = [];
+          for (var i in this.inciseService.incises) {
+            Linkable.push([i, this.inciseService.incises[i]]);
+          }
+          const linkable = Linkable.slice(-1)[0];
+          if(linkable){
+            this.Above.push(linkable[1]);
+          }
+        }
     });
-//  }
+  }
+
+  linkIncisesDown(incise: Incise){
+    const Linkable = this.inciseService.incises;
+    for (var i in Linkable) {
+      if (incise.up === Linkable[i]._id){
+        Linkable[i].down = incise._id;
+        this.inciseService.putIncise(Linkable[i])
+        .subscribe(res => {
+          this.getIncises();
+          });
+      };
+    } 
+  }
+
+  linkIncisesUp(incise: Incise){
+    var Linkable = [];
+    for (var i in this.inciseService.incises) {
+      Linkable.push([i, this.inciseService.incises[i]]);
+    }
+    const linkable = Linkable.slice(-1)[0];
+    if(linkable){
+      incise.up = linkable[1]._id;
+    }
+  }
+
+  onKeypress(event: any, incise: Incise){
+    if(incise._id){
+      if (document.getElementById('E').textContent == ""){
+        return;
+      } else {
+        this.editedIncise(incise);
+      }
+    } else {
+      this.followingIncise(incise);
+    }
+  }
+
+  Above: any = [];
+  showAbove(incise: Incise){ 
+    this.Above = [];
+    const D = this.inciseService.incises;
+    for (var i = 0; i < D.length; i++) {
+      if(D[i]._id === incise.up){
+        this.Above.push(D[i]);
+      }
+    }
+  }
+
+  Below: any = [];
+  showBelow(incise: Incise){ 
+    this.Below = [];
+    const D = this.inciseService.incises;
+    for (var i = 0; i < D.length; i++) {
+      if(D[i]._id === incise.down){
+        this.Below.push(D[i]);
+      }
+    }
   }
 
   resetCenter(){

@@ -25,7 +25,7 @@ export class InciseService {
     return this.http.get(this.URL_API);
   }
 
-  getIncise() {
+  getIncise(_id) {
     return this.http.get(this.URL_API);
   }
 

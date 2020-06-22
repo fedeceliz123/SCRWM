@@ -1,11 +1,11 @@
 <div class="bloque">
     <div class="bloque2">
         <div class="arriba">
-            <div class="izquierda" id="A"></div>
+            <div class="izquierda" id="A" (click)="deleteAll()"></div>
             <div class="medio"     id="B">
-                        <div *ngFor="let incise of inciseService.incises">
-                            <div id="B" (click)="editIncise(incise)">{{ incise.content }}</div>
-                        </div>
+                <div *ngFor="let incise of Above">
+                    <div id="B" (click)="editIncise(incise)">{{ incise.content }}</div>
+                </div>
             </div>
             <div class="derecha"   id="C"></div>
         </div>
@@ -16,13 +16,13 @@
         </div>
         <div class="abajo">
             <div class="izquierda" id="G"></div>
-            <div class="medio"     id="H" ></div>
-            <div>
-                <div class="derecha"   id="I"></div>
-                Editando: <input #_id="ngModel" [(ngModel)]="inciseService.selectedIncise._id">
+            <div class="medio"     id="H">
+                <div *ngFor="let incise of Below">
+                    <div id="H" (click)="editIncise(incise)">{{ incise.content }}</div>
+                </div>
+            </div>
+            <div class="derecha"   id="I">
             </div>
         </div>
     </div>
 </div>
-
-type="hidden"
