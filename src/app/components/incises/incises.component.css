@@ -32,23 +32,44 @@ body{
     border-radius: 10px;
 }
 
-#E{
-    font-size: 30px;
-    overflow: scroll;   
-    outline:none;
-    color: rgb(15, 6, 141);
 
+#A{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    overflow: hidden;
+    text-align: right;
+    color: red;
 }
-
-::-webkit-scrollbar {
-    display: none;
-}   
 
 #B{
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
     overflow: hidden;
+}
+
+#C{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    color: green;
+}
+
+#D{
+    text-align: right;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}   
+
+#E{
+    font-size: 30px;
+    overflow: scroll;   
+    outline:none;
+    color: rgb(15, 6, 141);
+
 }
 
 #borrar, #bajar, #subir, #izquierdar, #derechar{

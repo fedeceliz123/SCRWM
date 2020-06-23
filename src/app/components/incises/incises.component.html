@@ -1,19 +1,31 @@
 <div class="bloque">
     <div class="bloque2">
+
         <div class="arriba">
-            <div class="izquierda" id="A" (click)="deleteAll()"></div>
+            <div class="izquierda" id="A" (click)="deleteAll()">(Delete All)</div>
             <div class="medio"     id="B">
                 <div *ngFor="let incise of Above">
                     <div id="B" (click)="editIncise(incise)">{{ incise.content }}</div>
                 </div>
             </div>
-            <div class="derecha"   id="C"></div>
+            <div class="derecha"   id="C" (click)="inciseComment(inciseService.selectedIncise)">(Comment)</div>
         </div>
+
         <div class="centro">
-            <div class="izquierda" id="D"></div>
-            <div class="medio" id="E" contenteditable="true" (keydown.enter)="onKeypress($event, inciseService.selectedIncise)"></div>
-            <div class="derecha"   id="F"></div>
+            <div class="izquierda" id="D">
+                <div *ngFor="let incise of Left">
+                    <div id="D" (click)="editIncise(incise)">{{ incise.content }}</div>
+                </div>
+            </div>
+            <div class="medio" id="E" contenteditable="true" (keydown.enter)="onKeypress($event)">
+            </div>
+            <div class="derecha"   id="F">
+                <div *ngFor="let incise of Right">
+                    <div id="F" (click)="editIncise(incise)">{{ incise.content }}</div>
+                </div>
+            </div>
         </div>
+
         <div class="abajo">
             <div class="izquierda" id="G"></div>
             <div class="medio"     id="H">
