@@ -12,7 +12,7 @@ export class Incise {
         date: string;
         modified: string;
         record: string;
-
+        
     constructor(_id="", scrwm="", user="", content="", up="", down="", left="", right="", date="", modified="",record=""){
         this._id = _id;
         this.scrwm = scrwm;

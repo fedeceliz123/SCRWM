@@ -2,7 +2,7 @@
     <div class="bloque2">
 
         <div class="arriba">
-            <div class="izquierda" id="A" (click)="deleteAll()">(Delete All)</div>
+            <div class="izquierda" id="A"></div>
             <div class="medio"     id="B">
                 <div *ngFor="let incise of Above">
                     <div id="B" (click)="editUp(incise)">{{ incise.content }}</div>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="abajo">
-            <div class="izquierda" id="G"></div>
+            <div class="izquierda" id="G"(click)="deleteAll()">(Del. all)</div>
             <div class="medio"     id="H">
                 <div *ngFor="let incise of Below">
                     <div id="H" (click)="editDown(incise)">{{ incise.content }}</div>

@@ -25,21 +25,15 @@ body{
 
 .izquierda, .medio, .derecha{
     border: 1PX solid rgb(0 , 0, 0, 0);
-    margin: 3px;
+    margin: 5px;
     width: 600px;
     font-size: 25px;
     color: rgb(0, 110, 255);
     border-radius: 10px;
 }
 
-
-#A{
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-    overflow: hidden;
-    text-align: right;
-    color: red;
+::-webkit-scrollbar {
+    display: none;
 }
 
 #B{
@@ -53,27 +47,33 @@ body{
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
-    color: green;
+    color: gray;
 }
 
-#D{
-    text-align: right;
+#D {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: flex-end;
 }
 
-::-webkit-scrollbar {
-    display: none;
-}   
-
-#E{
+#E {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
     font-size: 30px;
     overflow: scroll;   
     outline:none;
     color: rgb(15, 6, 141);
-
 }
 
-#borrar, #bajar, #subir, #izquierdar, #derechar{
-    color:#f8c1ea;
-    text-decoration:none; 
-    font-size:20px;
+#F {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+#G{
+    text-align: right;
+    color: gray;
 }
