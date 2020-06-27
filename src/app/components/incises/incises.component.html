@@ -5,7 +5,7 @@
             <div class="izquierda" id="A" (click)="deleteAll()">(Delete All)</div>
             <div class="medio"     id="B">
                 <div *ngFor="let incise of Above">
-                    <div id="B" (click)="editIncise(incise)">{{ incise.content }}</div>
+                    <div id="B" (click)="editUp(incise)">{{ incise.content }}</div>
                 </div>
             </div>
             <div class="derecha"   id="C" (click)="inciseComment(inciseService.selectedIncise)">(Comment)</div>
@@ -30,7 +30,7 @@
             <div class="izquierda" id="G"></div>
             <div class="medio"     id="H">
                 <div *ngFor="let incise of Below">
-                    <div id="H" (click)="editIncise(incise)">{{ incise.content }}</div>
+                    <div id="H" (click)="editDown(incise)">{{ incise.content }}</div>
                 </div>
             </div>
             <div class="derecha"   id="I">

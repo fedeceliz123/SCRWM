@@ -10,9 +10,8 @@ import { Incise } from '../models/incise'
 export class InciseService {
 
   selectedIncise: Incise;
-
-  //para almacenar los incisos:
   incises: Incise[];
+
 
   //para no escribir cada vez la dirección:
   readonly URL_API = 'http://localhost:3000/api/scrwm';
