@@ -14,14 +14,14 @@
         <div class="centro">
             <div class="izquierda" id="D">
                 <div *ngFor="let incise of Left">
-                    <div id="D" (click)="editIncise(incise)">{{ incise.content }}</div>
+                    <div id="D" (click)="editLeft(incise)">{{ incise.content }}</div>
                 </div>
             </div>
             <div class="medio" id="E" contenteditable="true" (keydown.enter)="onKeypress($event)">
             </div>
             <div class="derecha"   id="F">
                 <div *ngFor="let incise of Right">
-                    <div id="F" (click)="editIncise(incise)">{{ incise.content }}</div>
+                    <div id="F" (click)="editRight(incise)">{{ incise.content }}</div>
                 </div>
             </div>
         </div>
