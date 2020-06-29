@@ -10,14 +10,15 @@ import { Incise } from 'src/app/models/incise';
 })
 export class IncisesComponent implements OnInit {
 
-  constructor(public inciseService: InciseService) { }
- 
   Above: any = [];
   Below: any = [];
   Left: any = [];
   Right: any = [];
   DirLast: any = "";
   IdLast: any = "";
+  
+  constructor(public inciseService: InciseService) { }
+
 
   ngOnInit(): void {
     this.Init();

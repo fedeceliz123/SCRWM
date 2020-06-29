@@ -1,13 +1,8 @@
-body{
-    background-color:  rgba(84, 115, 251, 0.81);
-    overflow: hidden;
-}
-
 .bloque{
     background-color: white;
-    box-shadow: 8px 8px 30px 12px  rgb(90, 120, 255, 0.7) inset, -8px -8px 30px 12px  rgb(90, 120, 255, 0.7) inset;
+    box-shadow: 8px 8px 30px 12px  rgba(143, 174, 195, 0.7) inset, -8px -8px 30px 12px  rgb(143, 174, 195, 0.7) inset;
     border-radius: 10px;
-    height: 592px;
+    height: 582px;
 }
 
 .bloque2{
@@ -28,7 +23,7 @@ body{
     margin: 5px;
     width: 600px;
     font-size: 25px;
-    color: rgb(0, 110, 255);
+    color: rgb(93, 186, 248);
     border-radius: 10px;
 }
 
@@ -64,7 +59,7 @@ body{
     font-size: 30px;
     overflow: scroll;   
     outline:none;
-    color: rgb(15, 6, 141);
+    color:blue;
 }
 
 #F {
