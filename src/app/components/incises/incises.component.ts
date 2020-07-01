@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InciseService } from '../../services/incise.service'
 import { Incise } from 'src/app/models/incise';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-incises',
@@ -17,7 +18,7 @@ export class IncisesComponent implements OnInit {
   DirLast: any = "";
   IdLast: any = "";
   
-  constructor(public inciseService: InciseService) { }
+  constructor(public inciseService: InciseService, public authService: AuthService) { }
 
 
   ngOnInit(): void {
