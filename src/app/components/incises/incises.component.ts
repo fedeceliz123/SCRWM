@@ -23,6 +23,7 @@ export class IncisesComponent implements OnInit {
 
   ngOnInit(): void {
     this.Init();
+    console.log(this.authService.currentUser)
   }
 
   deleteAll(){                          // Tiene un bug

@@ -6,7 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <ng-container *ngIf="!authService.loggedIn()">
+                <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/signup">Register</a>
                         </li>
@@ -14,6 +14,11 @@
                             <a class="nav-link" routerLink="/signin">Login</a>
                         </li>
                 </ng-container>
+                <ng-template #loggedIn>
+                    <li class="nav-item">
+                        <a class="nav-link" style="cursor: pointer" (click)="authService.logOut()">Logut</a>
+                    </li>
+                </ng-template>
             </ul>
         </div>
     </div>
