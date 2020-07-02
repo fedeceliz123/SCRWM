@@ -1,12 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">Scrwm</a>
+        <h1  href="#">Scrwm</h1>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
+                <ng-container *ngIf="!authService.loggedIn(); else loggedIn, scrwmsList">
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/signup">Register</a>
                         </li>
@@ -16,10 +16,44 @@
                 </ng-container>
                 <ng-template #loggedIn>
                     <li class="nav-item">
+                        <a class="nav-link" style="cursor: pointer">New Scrwm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="cursor: pointer" (click)="deleteUsers">Delete All Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="cursor: pointer" (click)="deleteScrwms">Delete All Scrwms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="cursor: pointer" (click)="deleteIncises()">Delete All Incises</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" style="cursor: pointer" (click)="authService.logOut()">Logut</a>
                     </li>
+
                 </ng-template>
             </ul>
         </div>
     </div>
 </nav>
+
+<div *ngIf="authService.loggedIn()">
+    <h5>Users</h5>
+    <div class="navbar-expand-lg navbar-light bg-light">
+        <div class="nav-item" *ngFor="let user of authService.users">
+            <a  routerLink="/incises">{{ user.username }}</a>
+        </div>
+    </div>
+    <h5>Scrwms</h5>
+    <div class="navbar-expand-lg navbar-light bg-light">
+        <div class="nav-item" *ngFor="let scrwm of scrwmService.scrwms">
+            <a routerLink="/incises">{{ scrwm._id }}</a>
+        </div>
+    </div>
+    <h5>Incises</h5>
+    <div class="navbar-expand-lg navbar-light bg-light">
+        <div class="nav-item" *ngFor="let incise of inciseService.incises">
+            <a routerLink="/incises">{{ incise._id }}</a>
+        </div>
+    </div>
+</div>

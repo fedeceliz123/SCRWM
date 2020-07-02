@@ -2,19 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
-import { User } from '../../models/user'
+import { IncisesComponent } from '../incises/incises.component'
+import { User } from '../../models/user';
+import { Token } from '@angular/compiler/src/ml_parser/lexer';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css'],
-  providers: [AuthService]
+  providers: [AuthService, IncisesComponent],
 })
 
 export class SigninComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
+    private incisesComponent: IncisesComponent,
     private router: Router
   ) { }
 
@@ -25,28 +28,12 @@ export class SigninComponent implements OnInit {
     this.authService.signIn(form.value)
     .subscribe(
       res => {
-        console.log(res)
         localStorage.setItem('token', res.token);
-        this.router.navigate(['/incises']);
+        this.router.navigate(['/tasks']);
       },
       err => console.log(err)
     )
+    this.authService.findCurrentUser(form.value.username, form.value.password);
   }
  
-  getUsers(){
-    this.authService.getUsers()
-    .subscribe(res => {
-      this.authService.users = res as User[];
-      console.log(this.authService.users);
-    });
-  }
-
-  deleteUser(){
-    for(var i in this.authService.users){
-      this.authService.deleteUser(this.authService.users[i]._id)
-      .subscribe(res => {
-      });
-    }
-  }
-
 }

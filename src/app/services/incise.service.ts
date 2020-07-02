@@ -5,13 +5,12 @@ import { Incise } from '../models/incise'
 @Injectable({
   providedIn: 'root'
 })
-
 export class InciseService {
 
   selectedIncise: Incise;
   incises: Incise[];
 
-  readonly URL_API = 'http://localhost:3000/api/scrwm/incises';       //para no escribir cada vez la dirección:
+  readonly URL_API = 'http://localhost:3000/api/scrwm/incises';
 
   constructor(private http: HttpClient) {
     this.selectedIncise = new Incise();

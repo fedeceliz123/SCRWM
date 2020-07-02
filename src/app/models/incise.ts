@@ -1,7 +1,6 @@
 export class Incise {
 
-        // se agrega el "_id" porque los datos vienen de Mongodb
-        _id: string;
+        _id: string;                // se agrega el "_id" porque los datos vienen de Mongodb
         scrwm: string;
         user: string;
         content: string;

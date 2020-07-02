@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InciseService } from '../../services/incise.service'
 import { Incise } from 'src/app/models/incise';
 import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user'
 
 @Component({
   selector: 'app-incises',
@@ -20,19 +21,7 @@ export class IncisesComponent implements OnInit {
   
   constructor(public inciseService: InciseService, public authService: AuthService) { }
 
-
   ngOnInit(): void {
-    this.Init();
-    console.log(this.authService.currentUser)
-  }
-
-  deleteAll(){                          // Tiene un bug
-    for (var i in this.inciseService.incises) {
-      this.inciseService.deleteIncise(this.inciseService.incises[i]._id)
-      .subscribe(res => {
-        document.getElementById('E').textContent = "";
-      });
-    }
     this.Init();
   }
 

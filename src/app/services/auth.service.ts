@@ -6,16 +6,16 @@ import { User } from '../models/user';
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
 
   private URL = 'http://localhost:3000/api/scrwm/'
 
-  currentUser: User;
+  selectedUser: User;
   users: User[];
+  UserId: String = "";
 
   constructor(private http: HttpClient, private router: Router) {
-    this.currentUser = new User();
+    this.selectedUser = new User();
   }                                                                  // la clase HttpClient se instancia en este objeto
 
   signUp(user: User){
@@ -46,5 +46,26 @@ export class AuthService {
     localStorage.removeItem('token');
     this.router.navigate(['/tasks'])
   }
+
+
+  findCurrentUser(username: string, password: string){
+    this.getUsers()
+    .subscribe(res => {
+      this.users = res as User[];
+      const A = this.users;
+      for(var i in A){
+        if (A[i].username === username){
+          if (A[i].password === password){
+            console.log(A[i]);
+            this.selectedUser = A[i];
+            console.log(this.selectedUser);
+            this.UserId = A[i]._id;
+            console.log(this.UserId);
+          }
+        }
+      }
+    });
+  }
+
 
 }
