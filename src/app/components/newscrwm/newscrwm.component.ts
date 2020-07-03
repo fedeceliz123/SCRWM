@@ -17,7 +17,7 @@ export class NewscrwmComponent implements OnInit {
 
   constructor(public scrwmService: ScrwmService,
               public inciseService: InciseService,
-              private route: Router) { }
+              private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -26,10 +26,9 @@ export class NewscrwmComponent implements OnInit {
 
   newScrwm(form: NgForm){
     this.scrwmService.postScrwm(form.value)
-    .subscribe(
-      res => {
-        this.getScrwm(form.value.title, form.value.subtitle);
-      });
+    .subscribe(res => {
+      this.getScrwm(form.value.title, form.value.subtitle);
+    });
   }
 
   getScrwm(title: string, subtitle: string){
@@ -52,26 +51,23 @@ export class NewscrwmComponent implements OnInit {
     });
   }
 
-    getIncise(scrwmId: string){
-      this.inciseService.getIncises()
-      .subscribe(res => {
-        this.inciseService.incises = res as Incise[];
-        if(this.inciseService.incises.slice(-1)[0]){
-          this.inciseService.selectedIncise = this.inciseService.incises.slice(-1)[0];
-
-          this.inciseService.selectedIncise.user = scrwmId;
-          this.inciseService.putIncise(this.inciseService.selectedIncise)
-          .subscribe(res => {
-          });
-
-          this.scrwmService.selectedScrwm.inciseInit = this.inciseService.selectedIncise._id;
-          this.scrwmService.putScrwm(this.scrwmService.selectedScrwm)
-          .subscribe(res => {
-          });
+  getIncise(scrwmId: string){
+    this.inciseService.getIncises()
+    .subscribe(res => {
+      this.inciseService.incises = res as Incise[];
+      if(this.inciseService.incises.slice(-1)[0]){
+        this.inciseService.selectedIncise = this.inciseService.incises.slice(-1)[0];
+        this.inciseService.selectedIncise.user = scrwmId;
+        this.inciseService.putIncise(this.inciseService.selectedIncise)
+        .subscribe(res => {
+        });
+        this.scrwmService.selectedScrwm.inciseInit = this.inciseService.selectedIncise._id;
+        this.scrwmService.putScrwm(this.scrwmService.selectedScrwm)
+        .subscribe(res => {
+        });
       }
-
     });
+    this.router.navigate(['/incises']);
   }
-
 
 }

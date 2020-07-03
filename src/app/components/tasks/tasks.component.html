@@ -38,23 +38,11 @@
 
 <div class="body">
     <div class="left" *ngIf="authService.loggedIn()">
-        <h5>Users</h5>
-        <div class="navbar-expand-lg navbar-light bg-light">
-            <div class="nav-item" *ngFor="let user of authService.users">
-                <a  routerLink="/incises">{{ user.username }}</a>
-            </div>
-        </div>
-        <h5>Scrwms</h5>
+        <h5>my Scrwms</h5>
         <div class="navbar-expand-lg navbar-light bg-light">
             <div class="nav-item" style="margin-bottom: 5px" *ngFor="let scrwm of scrwmService.scrwms">
                 <a routerLink="/incises">{{ scrwm.title }} </a>
                 <a>[{{ scrwm.subtitle }}]</a>
-            </div>
-        </div>
-        <h5>Incises</h5>
-        <div class="navbar-expand-lg navbar-light bg-light">
-            <div class="nav-item" *ngFor="let incise of inciseService.incises">
-                <a routerLink="/incises">{{ incise._id }}</a>
             </div>
         </div>
     </div>    
