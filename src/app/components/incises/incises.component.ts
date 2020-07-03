@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { InciseService } from '../../services/incise.service'
+
+import { InciseService } from '../../services/incise.service';
 import { AuthService } from '../../services/auth.service';
 import { ScrwmService } from '../../services/scrwm.service';
 
-
 import { Incise } from 'src/app/models/incise';
-import { User } from '../../models/user'
-import { Scrwm } from '../../models/scrwm'
-
-import { TasksComponent } from 'src/app/components/tasks/tasks.component'
-
 
 @Component({
   selector: 'app-incises',
@@ -25,15 +20,26 @@ export class IncisesComponent implements OnInit {
   Right: any = [];
   DirLast: any = "";
   IdLast: any = "";
+  IdUser: any = "";
+  IdScrwm: any = "";
   
   constructor(public inciseService: InciseService, 
               public authService: AuthService,
               public scrwmService: ScrwmService,
-              public tasksComponent: TasksComponent
               ) { }
 
   ngOnInit(): void {
     this.Init();
+  }
+
+  getIds(scrwm: any){
+    for(var i in this.inciseService.incises){
+      if(this.inciseService.incises[i]._id === scrwm){
+        this.IdUser = this.inciseService.incises[i].user;
+        this.IdScrwm = this.inciseService.incises[i].scrwm;
+        console.log(this.IdUser, this.IdScrwm);
+      }
+    }
   }
 
   Init(){                                //Cuando se actualiza la página. Crea un Inciso si no lo hay
@@ -91,7 +97,7 @@ export class IncisesComponent implements OnInit {
   onKeypress(event: any){           //Cuando se presiona Enter
     this.DirLast = "Up";
     this.editedIncise();
-    console.log(this.tasksComponent.idScrwm);
+    console.log(this.IdUser, this.IdScrwm);
   } 
 
   inciseComment(iCommented: Incise){        //genera comentario lateral

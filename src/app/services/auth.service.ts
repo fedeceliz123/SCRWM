@@ -47,21 +47,4 @@ export class AuthService {
     this.router.navigate(['/tasks'])
   }
 
-
-  findCurrentUser(username: string, password: string){
-    this.getUsers()
-    .subscribe(res => {
-      this.users = res as User[];
-      const A = this.users;
-      for(var i in A){
-        if (A[i].username === username){
-          if (A[i].password === password){
-            this.selectedUser = A[i];
-            this.UserId = A[i]._id;
-          }
-        }
-      }
-    });
-  }
-
 }

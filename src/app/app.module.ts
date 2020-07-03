@@ -32,6 +32,7 @@ import { NewscrwmComponent } from './components/newscrwm/newscrwm.component';
     AuthGuard,
     TasksComponent,
     NewscrwmComponent,
+    IncisesComponent, 
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

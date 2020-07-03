@@ -10,7 +10,6 @@ import { Incise } from 'src/app/models/incise';
 
 import { NewscrwmComponent } from 'src/app/components/newscrwm/newscrwm.component';
 
-
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -24,10 +23,6 @@ export class TasksComponent implements OnInit {
               public inciseService: InciseService,
               public newscrwmComponent: NewscrwmComponent
               ) { }
-
-
-  idScrwm: string = "";
-  idUser: string = "";
 
   ngOnInit(): void {
     this.getUsers();

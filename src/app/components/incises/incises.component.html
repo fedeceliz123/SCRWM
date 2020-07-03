@@ -17,7 +17,7 @@
                     <div id="D" (click)="editLeft(incise)">{{ incise.content }}</div>
                 </div>
             </div>
-            <div class="medio" id="E" contenteditable="true" (keydown.enter)="onKeypress($event)">
+            <div class="medio" id="E" contenteditable="true" (keydown.enter)="onKeypress($event)" aria-placeholder="Type here...">
             </div>
             <div class="derecha"   id="F">
                 <div *ngFor="let incise of Right">
