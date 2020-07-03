@@ -5,8 +5,11 @@ import { AuthService } from '../../services/auth.service';
 import { InciseService } from '../../services/incise.service';
 
 import { Scrwm } from 'src/app/models/scrwm';
-import { User } from '../../models/user'
+import { User } from 'src/app/models/user'
 import { Incise } from 'src/app/models/incise';
+
+import { NewscrwmComponent } from 'src/app/components/newscrwm/newscrwm.component';
+
 
 @Component({
   selector: 'app-tasks',
@@ -19,7 +22,12 @@ export class TasksComponent implements OnInit {
   constructor(public scrwmService: ScrwmService, 
               public authService: AuthService,
               public inciseService: InciseService,
+              public newscrwmComponent: NewscrwmComponent
               ) { }
+
+
+  idScrwm: string = "";
+  idUser: string = "";
 
   ngOnInit(): void {
     this.getUsers();
@@ -55,7 +63,6 @@ export class TasksComponent implements OnInit {
     });
   }
 
-
   deleteUsers(){
     this.authService.getUsers()
     .subscribe(res => {
@@ -68,19 +75,18 @@ export class TasksComponent implements OnInit {
     });
   }
 
-    deleteScrwms(){
-      this.scrwmService.getScrwms()
-      .subscribe(res => {
-        this.scrwmService.scrwms = res as Scrwm[];
-        for(var i in this.scrwmService.scrwms){
-          this.scrwmService.deleteScrwm(this.scrwmService.scrwms[i]._id)
-          .subscribe(res => {
-            this.scrwmService.selectedScrwm = new Scrwm();
-          });
-        }
-      });
+  deleteScrwms(){
+    this.scrwmService.getScrwms()
+    .subscribe(res => {
+      this.scrwmService.scrwms = res as Scrwm[];
+      for(var i in this.scrwmService.scrwms){
+        this.scrwmService.deleteScrwm(this.scrwmService.scrwms[i]._id)
+        .subscribe(res => {
+          this.scrwmService.selectedScrwm = new Scrwm();
+        });
+      }
+    });  
   }
-
 
   deleteIncises(){
     this.inciseService.getIncises()
@@ -92,6 +98,6 @@ export class TasksComponent implements OnInit {
         });
       }
     });
-}
+  }
 
 }

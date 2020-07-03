@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { InciseService } from '../../services/incise.service'
-import { Incise } from 'src/app/models/incise';
 import { AuthService } from '../../services/auth.service';
+import { ScrwmService } from '../../services/scrwm.service';
+
+
+import { Incise } from 'src/app/models/incise';
 import { User } from '../../models/user'
+import { Scrwm } from '../../models/scrwm'
+
+import { TasksComponent } from 'src/app/components/tasks/tasks.component'
+
 
 @Component({
   selector: 'app-incises',
@@ -19,7 +26,11 @@ export class IncisesComponent implements OnInit {
   DirLast: any = "";
   IdLast: any = "";
   
-  constructor(public inciseService: InciseService, public authService: AuthService) { }
+  constructor(public inciseService: InciseService, 
+              public authService: AuthService,
+              public scrwmService: ScrwmService,
+              public tasksComponent: TasksComponent
+              ) { }
 
   ngOnInit(): void {
     this.Init();
@@ -80,7 +91,8 @@ export class IncisesComponent implements OnInit {
   onKeypress(event: any){           //Cuando se presiona Enter
     this.DirLast = "Up";
     this.editedIncise();
-  }
+    console.log(this.tasksComponent.idScrwm);
+  } 
 
   inciseComment(iCommented: Incise){        //genera comentario lateral
     this.DirLast = "Left";

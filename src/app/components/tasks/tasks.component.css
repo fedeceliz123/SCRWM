@@ -1,0 +1,8 @@
+.body{
+display: flex;
+padding: 5px;
+}
+
+.left{
+    min-width: 500px;
+}

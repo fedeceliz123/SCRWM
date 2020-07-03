@@ -7,6 +7,7 @@ import { SigninComponent } from './components/signin/signin.component'
 import { SignupComponent } from './components/signup/signup.component'
 
 import { AuthGuard } from './auth.guard';
+import { NewscrwmComponent } from './components/newscrwm/newscrwm.component';
 
 const routes: Routes = [
   {
@@ -30,8 +31,13 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent,
+  },
+  {
+    path: 'newscrwm',
+    component: NewscrwmComponent,
   }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

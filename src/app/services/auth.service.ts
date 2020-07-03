@@ -56,16 +56,12 @@ export class AuthService {
       for(var i in A){
         if (A[i].username === username){
           if (A[i].password === password){
-            console.log(A[i]);
             this.selectedUser = A[i];
-            console.log(this.selectedUser);
             this.UserId = A[i]._id;
-            console.log(this.UserId);
           }
         }
       }
     });
   }
-
 
 }

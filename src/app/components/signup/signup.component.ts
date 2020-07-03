@@ -29,6 +29,7 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['/tasks']);
       },
       err => console.log(err)
-    )
+    );
   }
+
 }
