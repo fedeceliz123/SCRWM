@@ -7,15 +7,12 @@ import { NgForm } from '@angular/forms';
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  providers: [AuthService]
 })
-
 export class SignupComponent implements OnInit {
 
-  constructor(
-    public authService: AuthService,
-    private router: Router
-  ) { }
+  constructor(public authService: AuthService,
+              private router: Router
+              ) { }
 
   ngOnInit(): void {
   }
@@ -26,7 +23,7 @@ export class SignupComponent implements OnInit {
       res => {
         console.log(res)
         //localStorage.setItem('token', res.token);
-        this.router.navigate(['/tasks']);
+        this.router.navigate(['/init']);
       },
       err => console.log(err)
     );

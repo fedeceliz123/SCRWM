@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { InciseService } from '../../services/incise.service';
-import { AuthService } from '../../services/auth.service';
-import { ScrwmService } from '../../services/scrwm.service';
 
 import { Incise } from 'src/app/models/incise';
 
@@ -23,10 +21,7 @@ export class IncisesComponent implements OnInit {
   IdUser: any = "";
   IdScrwm: any = "";
   
-  constructor(public inciseService: InciseService, 
-              public authService: AuthService,
-              public scrwmService: ScrwmService,
-              ) { }
+  constructor(public inciseService: InciseService ) { }
 
   ngOnInit(): void {
     this.Init();

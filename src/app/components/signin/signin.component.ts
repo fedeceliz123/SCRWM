@@ -6,8 +6,6 @@ import { AuthService } from '../../services/auth.service';
 import { ScrwmService } from '../../services/scrwm.service';
 import { InciseService  } from 'src/app/services/incise.service';
 
-import { NewscrwmComponent } from '../newscrwm/newscrwm.component';
-
 import { User } from '../../models/user';
 import { Scrwm } from 'src/app/models/scrwm';
 import { Incise } from 'src/app/models/incise';
@@ -16,9 +14,7 @@ import { Incise } from 'src/app/models/incise';
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css'],
-  providers: [AuthService, NewscrwmComponent],
 })
-
 export class SigninComponent implements OnInit {
 
   constructor(
