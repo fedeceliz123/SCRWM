@@ -12,6 +12,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { NewscrwmComponent } from './components/newscrwm/newscrwm.component';
+import { InitComponent } from './components/init/init.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NewscrwmComponent } from './components/newscrwm/newscrwm.component';
     SignupComponent,
     SigninComponent,
     TasksComponent,
-    NewscrwmComponent
+    NewscrwmComponent,
+    InitComponent
   ],
   imports: [
     BrowserModule,

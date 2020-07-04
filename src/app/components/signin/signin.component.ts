@@ -1,26 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Token } from '@angular/compiler/src/ml_parser/lexer';
 
 import { AuthService } from '../../services/auth.service';
 import { ScrwmService } from '../../services/scrwm.service';
-import { InciseService  } from 'src/app/services/incise.service'
+import { InciseService  } from 'src/app/services/incise.service';
 
-import { IncisesComponent } from '../incises/incises.component'
-import { NewscrwmComponent } from '../newscrwm/newscrwm.component'
+import { NewscrwmComponent } from '../newscrwm/newscrwm.component';
 
 import { User } from '../../models/user';
 import { Scrwm } from 'src/app/models/scrwm';
 import { Incise } from 'src/app/models/incise';
-import { Subscriber } from 'rxjs';
-
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css'],
-  providers: [AuthService, IncisesComponent, NewscrwmComponent],
+  providers: [AuthService, NewscrwmComponent],
 })
 
 export class SigninComponent implements OnInit {
@@ -29,7 +25,6 @@ export class SigninComponent implements OnInit {
     public authService: AuthService,
     public inciseService: InciseService,
     public scrwmService: ScrwmService,
-    private incisesComponent: IncisesComponent,
     private router: Router
   ) { }
 
@@ -136,13 +131,10 @@ export class SigninComponent implements OnInit {
   }
 
   cleanScrwm(){
-    console.log("1");
     for(var i in this.scrwmService.scrwms){
       if(!this.scrwmService.scrwms[i].creator){
-        console.log("2");
         this.scrwmService.deleteScrwm(this.scrwmService.scrwms[i]._id)
         .subscribe(res => {
-          console.log("3");
         });
       }
     }
