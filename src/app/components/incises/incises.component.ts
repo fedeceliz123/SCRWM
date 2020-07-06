@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { InciseService } from '../../services/incise.service';
 import { Incise } from 'src/app/models/incise';
@@ -18,7 +18,29 @@ export class IncisesComponent implements OnInit {
   Right: any = [];
   DirLast: any = "";
   IdLast: any = "";
-  
+
+  @HostListener('window:keydown', ['$event']) spaceEvent(event: any){
+  console.log(event);
+    if(event.keyCode === 37){
+      this.DirLast = "Right";
+      this.editedIncise();
+    } else if(event.keyCode === 38){
+      this.DirLast = "Down";
+      this.editedIncise();
+    } else if(event.keyCode === 39){
+      this.DirLast = "Left";
+      this.editedIncise();
+    } else if(event.keyCode === 40){
+      this.DirLast = "Up";
+      this.editedIncise();
+    } else if(event.keyCode === 13){
+      this.DirLast = "Up";
+      this.editedIncise();
+    } else if(event.keyCode === 27){
+      this.exit();
+    }
+  } 
+
   constructor(public inciseService: InciseService, 
               public scrwmService: ScrwmService,
               private router: Router,
@@ -101,16 +123,6 @@ export class IncisesComponent implements OnInit {
         }
       }
     }
-  }
-
-  onKeypress(event: any){           //Cuando se presiona Enter
-    this.DirLast = "Up";
-    this.editedIncise();
-  } 
-
-  inciseComment(iCommented: Incise){        //genera comentario lateral
-    this.DirLast = "Left";
-    this.editedIncise();
   }
 
   editedIncise(){                                         //El inciso central se guarda

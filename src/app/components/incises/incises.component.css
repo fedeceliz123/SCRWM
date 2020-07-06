@@ -33,9 +33,11 @@
 
 #B{
     display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-    overflow: hidden;
+    flex-direction: row;
+    align-items: flex-end;
+    overflow: scroll; 
+    padding: 5px;
+    min-width: 300px;
 }
 
 #C{
@@ -46,10 +48,7 @@
 }
 
 #D {
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    justify-content: flex-end;
+text-align: right;
 }
 
 #E {
@@ -62,7 +61,7 @@
     color:blue;
 }
 
-#F {
+#F{
     overflow: scroll; 
 }
 
@@ -75,4 +74,5 @@
     overflow: scroll; 
     display: flex;
     padding: 5px;
+    min-width: 300px;
 }

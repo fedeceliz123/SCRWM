@@ -4,20 +4,20 @@
         <div class="arriba">
             <div class="izquierda" id="A"></div>
             <div class="medio"     id="B">
-                <div *ngFor="let incise of Above">
-                    <div id="B" (click)="editAround(incise, 'Up')">{{ incise.content }}</div>
-                </div>
+                <ul *ngFor="let incise of Above">
+                    <li id="H" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
+                </ul>
             </div>
             <div class="derecha"   id="C"></div>
         </div>
 
         <div class="centro">
-            <div class="izquierda" id="D">
-                <div *ngFor="let incise of Left">
-                    <div id="D" (click)="editAround(incise, 'Left')">{{ incise.content }}</div>
-                </div>
+            <div class="derecha"   id="D">
+                <ul *ngFor="let incise of Left">
+                    <li id="F" (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
+                </ul>
             </div>
-            <div class="medio" id="E" contenteditable="true" (keydown.enter)="onKeypress($event)" aria-placeholder="Type here...">
+            <div class="medio" id="E" contenteditable="true" aria-placeholder="Type here...">
             </div>
             <div class="derecha"   id="F">
                 <ul *ngFor="let incise of Right">
@@ -29,13 +29,11 @@
         <div class="abajo">
             <div class="izquierda" id="G"></div>
             <div class="medio"     id="H">
-                <div *ngFor="let incise of Below">
-                    <div id="H" (click)="editAround(incise, 'Down')">{{ incise.content }}</div>
-                </div>
+                <ul *ngFor="let incise of Below">
+                    <li id="H" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
+                </ul>
             </div>
             <div class="derecha"   id="I">
-                <div class="btn btn-primary" style="margin-left: 30px" (click)="inciseComment(inciseService.selectedIncise)">Comment</div>
-                <div class="btn btn-primary" style="margin-left: 30px" (click)="exit()">Back</div>
             </div>
         </div>
     </div>
