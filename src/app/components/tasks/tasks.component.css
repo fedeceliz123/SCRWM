@@ -1,5 +1,12 @@
 .body{
-display: flex;
-justify-content: space-around;
+    display: grid;
+    padding: 1rem;
 }
 
+.left{
+    grid-column: 1 / 2;
+}
+
+.right{
+    grid-column: 2 / 3;
+}

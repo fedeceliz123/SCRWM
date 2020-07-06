@@ -29,23 +29,18 @@ export class IncisesComponent implements OnInit {
   }
 
   findInciseInit(){
-    console.log("1");
     this.scrwmService.getScrwms()
     .subscribe(res => {   
       this.scrwmService.scrwms = res as Scrwm[];
       for(var i in this.scrwmService.scrwms){
         if(this.scrwmService.scrwms[i]._id === sessionStorage.getItem('currentScrwmId')){
-          console.log("2");
           this.scrwmService.selectedScrwm = this.scrwmService.scrwms[i];
           this.inciseService.getIncises()
           .subscribe(res => {
-            console.log("3");
             this.inciseService.incises = res as Incise[];
             for(var j in this.inciseService.incises){
-              console.log("4");
               if(this.inciseService.incises[j]._id === this.scrwmService.selectedScrwm.inciseInit){
                 this.inciseService.selectedIncise = this.inciseService.incises[j];
-                console.log("5");
                 this.toCenter();
               }
             }
@@ -55,9 +50,7 @@ export class IncisesComponent implements OnInit {
     });
   }
 
-
   Init(){      
-      console.log("Init");
       this.inciseService.getIncises()
       .subscribe(res => {
         this.inciseService.incises = res as Incise[];
@@ -187,12 +180,12 @@ export class IncisesComponent implements OnInit {
       case "Down":
         A.down = incise._id;
         break;
-          case "Left":
+      case "Left":
         A.left = incise._id;
         break;
-        case "Right":
-          A.right = incise._id;
-          break;
+      case "Right":
+        A.right = incise._id;
+        break;
     }
     this.inciseService.putIncise(A)
       .subscribe(res => {
