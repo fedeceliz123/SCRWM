@@ -85,16 +85,20 @@ export class IncisesComponent implements OnInit {
           this.Right.push(D[i]);
         }
       }
-      switch(D[i]._id){
-        case incise.down:
+      for(var k in incise.down){
+        if(incise.down[k] === D[i]._id){
           this.Below.push(D[i]);
-          break;
-        case incise.left:
+        }
+      }
+      for(var l in incise.left){
+        if(incise.left[l] === D[i]._id){
           this.Left.push(D[i]);
-          break;
-        case incise.up:
+        }
+      }
+      for(var m in incise.up){
+        if(incise.up[m] === D[i]._id){
           this.Above.push(D[i]);
-          break;
+        }
       }
     }
   }
@@ -177,13 +181,31 @@ export class IncisesComponent implements OnInit {
     A.content = document.getElementById('E').textContent;
     switch (this.DirLast){
       case "Up":
-        A.up = incise._id;
+        for(var i in A.up){
+          if(A.up[i] === incise._id){
+            this.linkStereo2(incise, A);
+            return;
+          }
+        }
+        A.up.push(incise._id);
         break;
       case "Down":
-        A.down = incise._id;
+        for(var i in A.down){
+          if(A.down[i] === incise._id){
+            this.linkStereo2(incise, A);
+            return;
+          }
+        }
+        A.down.push(incise._id);
         break;
       case "Left":
-        A.left = incise._id;
+        for(var i in A.left){
+          if(A.left[i] === incise._id){
+            this.linkStereo2(incise, A);
+            return;
+          }
+        }
+        A.left.push(incise._id);
         break;
       case "Right":
         for(var i in A.right){
@@ -195,7 +217,6 @@ export class IncisesComponent implements OnInit {
         A.right.push(incise._id);
         break;
     }
-    this.linkStereo2(incise, A); 
   }
 
   linkStereo2(incise: Incise, A: Incise){
@@ -204,10 +225,22 @@ export class IncisesComponent implements OnInit {
       });
     switch (this.DirLast){
       case "Up":
-        incise.down = A._id;
+        for(var i in incise.down){
+          if(incise.down[i] === A._id){
+            this.linkStereo3(A, incise);
+            return;
+          }
+        }
+        incise.down.push(A._id);
         break;
       case "Down":
-        incise.up = A._id;
+        for(var i in incise.up){
+          if(incise.up[i] === A._id){
+            this.linkStereo3(A, incise);
+            return;
+          }
+        }
+        incise.up.push(A._id);
         break;
       case "Left":
         for(var i in incise.right){
@@ -219,7 +252,13 @@ export class IncisesComponent implements OnInit {
         incise.right.push(A._id);
         break;
       case "Right":
-        incise.left = A._id;
+        for(var i in incise.left){
+          if(incise.left[i] === A._id){
+            this.linkStereo3(A, incise);
+            return;
+          }
+        }
+        incise.left.push(A._id);
         break;
     }
     this.linkStereo3(A, incise);

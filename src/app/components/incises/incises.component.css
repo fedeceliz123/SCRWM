@@ -70,3 +70,9 @@
     text-align: right;
     color: gray;
 }
+
+#H{
+    overflow: scroll; 
+    display: flex;
+    padding: 5px;
+}
