@@ -7,12 +7,12 @@ export class Incise {
         up: string;
         down: string;
         left: string;
-        right: string;
+        right: string[];
         date: string;
         modified: string;
         record: string;
         
-    constructor(_id="", scrwm="", user="", content="", up="", down="", left="", right="", date="", modified="",record=""){
+    constructor(_id="", scrwm="", user="", content="", up="", down="", left="", date="", modified="",record=""){
         this._id = _id;
         this.scrwm = scrwm;
         this.user = user;
@@ -20,7 +20,7 @@ export class Incise {
         this.up = up;
         this.down = down;
         this.left = left;
-        this.right = right;
+        this.right = [];
         this.date = date;
         this.modified = modified;
         this.record = record;

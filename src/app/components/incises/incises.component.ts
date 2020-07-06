@@ -79,16 +79,18 @@ export class IncisesComponent implements OnInit {
     this.DirLast = "";
     this.IdLast = "";
     const D = this.inciseService.incises;
-    for (var i = 0; i < D.length; i++){
+    for (var i in D){
+      for(var j in incise.right){
+        if(incise.right[j] === D[i]._id){
+          this.Right.push(D[i]);
+        }
+      }
       switch(D[i]._id){
         case incise.down:
           this.Below.push(D[i]);
           break;
         case incise.left:
           this.Left.push(D[i]);
-          break;
-        case incise.right:
-          this.Right.push(D[i]);
           break;
         case incise.up:
           this.Above.push(D[i]);
@@ -164,10 +166,10 @@ export class IncisesComponent implements OnInit {
         this.DirLast = "Right";
         break;  
     }
-    this.linkStereo(incise);
+    this.linkStereo1(incise);
   }  
 
-  linkStereo(incise: Incise){                               // linkea mutuamente el inciso cliqueado con el que estaba
+  linkStereo1(incise: Incise){                               // linkea mutuamente el inciso cliqueado con el que estaba
     if (document.getElementById('E').textContent === ""){
       document.getElementById('E').textContent = "...";
     };
@@ -184,9 +186,19 @@ export class IncisesComponent implements OnInit {
         A.left = incise._id;
         break;
       case "Right":
-        A.right = incise._id;
+        for(var i in A.right){
+          if(A.right[i] === incise._id){
+            this.linkStereo2(incise, A);
+            return;
+          }
+        }
+        A.right.push(incise._id);
         break;
     }
+    this.linkStereo2(incise, A); 
+  }
+
+  linkStereo2(incise: Incise, A: Incise){
     this.inciseService.putIncise(A)
       .subscribe(res => {
       });
@@ -198,12 +210,22 @@ export class IncisesComponent implements OnInit {
         incise.up = A._id;
         break;
       case "Left":
-        incise.right = A._id;
+        for(var i in incise.right){
+          if(incise.right[i] === A._id){
+            this.linkStereo3(A, incise);
+            return;
+          }
+        }
+        incise.right.push(A._id);
         break;
       case "Right":
         incise.left = A._id;
         break;
     }
+    this.linkStereo3(A, incise);
+  }
+
+  linkStereo3(A: Incise, incise: Incise){
     this.inciseService.putIncise(incise)
       .subscribe(res => {
       });
