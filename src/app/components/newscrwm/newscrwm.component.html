@@ -1,18 +1,18 @@
-<app-tasks></app-tasks>
-<div class="container">
+<app-init></app-init>
+<div class="container p-5">
     <div class="row">
-        <div>
+        <div class="col-md-4 mx-auto">
             <div class="card">
                 <div class="card-header">
-                    New Incise
+                    signIn
                 </div>
                 <div class="card-body">
                     <form #scrwmForm="ngForm" (ngSubmit)="newScrwm(scrwmForm)">
                         <div class="form-group"> 
-                            <input type="text" name="title" #title="ngModel" [(ngModel)]="scrwmService.selectedScrwm.title" class="form-control" placeholder="Title" required autofocus>
+                            <input type="text" name="title" #title="ngModel" [ngModel]="scrwmService.selectedScrwm.title" class="form-control" placeholder="Title" required autofocus>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="subtitle" #subtitle="ngModel" [(ngModel)]="scrwmService.selectedScrwm.subtitle" class="form-control" placeholder="Subtitle" required>
+                            <input type="text" name="subtitle" #subtitle="ngModel" [ngModel]="scrwmService.selectedScrwm.subtitle" class="form-control" placeholder="Subtitle" required>
                         </div>
                         <button class="btn btn-primary btn-block">Start New Scrwm</button>
                         <button class="btn btn-primary btn-block" routerLink="/tasks">Back</button>

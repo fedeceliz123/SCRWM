@@ -22,16 +22,7 @@ export class InitComponent implements OnInit {
               ){}
 
   ngOnInit(): void {
-    this.getUsers();
     this.getScrwms();
-    this.getIncises();
-  }
-
-  getUsers(){
-    this.authService.getUsers()
-    .subscribe(res => {
-      this.authService.users = res as User[];
-    });
   }
 
   getScrwms(){
@@ -45,13 +36,6 @@ export class InitComponent implements OnInit {
         .subscribe(res => {
         });
       }
-    });
-  }
-
-  getIncises(){
-    this.inciseService.getIncises()
-    .subscribe(res => {
-      this.inciseService.incises = res as Incise[];
     });
   }
 

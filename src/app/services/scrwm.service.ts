@@ -13,7 +13,7 @@ export class ScrwmService {
   readonly URL_API = 'http://localhost:3000/api/scrwm/scrwms';
 
   constructor(private http: HttpClient) { 
-    this.selectedScrwm = new Scrwm();
+    this.selectedScrwm = new Scrwm(); 
   }
 
   getScrwms() {

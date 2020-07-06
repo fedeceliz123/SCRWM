@@ -27,98 +27,102 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signIn(form: NgForm){                          // ata el usuario a selectedUser
+  signIn(form: NgForm){
     this.authService.signIn(form.value)
-    .subscribe(
-      res => {
+    .subscribe(res => {
         localStorage.setItem('token', res.token);
-        this.findUser(form.value.username, form.value.password);
+        this.findUser(form);
       },
       err => console.log(err)
     )
   }
  
-  findUser(username: string, password: string){
+  findUser(form: NgForm){
     this.authService.getUsers()
     .subscribe(res => {
-      this.authService.users = res as User[];
-      const A = this.authService.users;
+      const A = this.authService.users = res as User[];
       for(var i in A){
-        if (A[i].username === username){
-          if (A[i].password === password){
-            this.findScrwm(A[i]);
+        if (A[i].username === form.value.username){
+          if (A[i].password === form.value.password){
+            sessionStorage.setItem('currentUserId', A[i]._id);
+            this.findScrwm(A[i]._id);
           }
         }
       }
     });
   }
 
-  findScrwm(user: User){
+  findScrwm(userId: any){
     this.scrwmService.getScrwms()
     .subscribe(res => {
-      this.scrwmService.scrwms = res as Scrwm[];
-      for(var i in this.scrwmService.scrwms){
-        if(this.scrwmService.scrwms[i].creator === user._id){
+      const B = this.scrwmService.scrwms = res as Scrwm[];
+      for(var i in B){
+        if(B[i].creator === userId){
           this.router.navigate(['/tasks']);
-          console.log("AAA");
           return;
         }
       }
-      if(this.scrwmService.scrwms.slice(-1)[0]){
-        this.scrwmService.selectedScrwm = this.scrwmService.scrwms.slice(-1)[0];
-      }
-      this.firstScrwm(user);
+      this.firstScrwm(userId);
     }); 
   }
 
-  firstScrwm(user: User){
-    const A = this.scrwmService.selectedScrwm;
-    A.creator = user._id;
-    A.title = "First Scrwm";
-    A.subtitle = "subtitle...";
-    this.scrwmService.postScrwm(A)
+  firstScrwm(userId: any){
+    const C = this.scrwmService.selectedScrwm;
+    C.creator = userId;
+    C.title = "First Scrwm";
+    C.subtitle = "subtitle...";
+    this.scrwmService.postScrwm(C)
     .subscribe(res => {
-      this.getScrwm(user);
+      this.getScrwm(userId);
     });
   }
 
-  getScrwm(user: User){
+  getScrwm(userId: any){
     this.scrwmService.getScrwms()
     .subscribe(res => {
-      this.scrwmService.scrwms = res as Scrwm[];
-      for(var i in this.scrwmService.scrwms){
-        if(this.scrwmService.scrwms[i].creator === user._id){
-          this.newIncise(user, this.scrwmService.scrwms[i]);
+      const D = this.scrwmService.scrwms = res as Scrwm[];
+      for(var i in D){
+        if(!D[i].creator){
+          this.scrwmService.deleteScrwm(D[i]._id)
+          .subscribe(res => {
+          });
+        }
+        if(D[i].creator === userId){
+          if(!D[i].inciseInit){
+            sessionStorage.setItem('currentScrwmId', D[i]._id);
+            this.newIncise(userId, D[i]);
+          }
         }
       }
     });
   }
 
-  newIncise(user: User, scrwm: Scrwm){
-    const A = this.inciseService.selectedIncise;
-    A.user = user._id;
-    A.scrwm = scrwm._id;
-    this.inciseService.postIncise(A)
+  newIncise(userId: any, scrwm: Scrwm){
+    const E = this.inciseService.selectedIncise = new Incise;
+    E.user = userId;
+    E.scrwm = scrwm._id;
+    this.inciseService.postIncise(E)
     .subscribe(res => {
-      this.getIncise(user, scrwm);
+      this.getIncise(userId, scrwm);
     });
   }
 
-  getIncise(user: User, scrwm: any){
+  getIncise(userId: any, scrwm: Scrwm){
     this.inciseService.getIncises()
     .subscribe(res => {
-      this.inciseService.incises = res as Incise[];
-      for(var i in this.inciseService.incises){
-        if(this.inciseService.incises[i].user === user._id){
-          if(this.inciseService.incises[i].scrwm === scrwm._id){
-            scrwm.inciseInit = this.inciseService.incises[i];
+      const F = this.inciseService.incises = res as Incise[];
+      for(var i in F){
+        if(!F[i].scrwm){
+          this.inciseService.deleteIncise(F[i]._id)
+          .subscribe(res => {
+          });
+        }
+        if(F[i].user === userId){
+          if(F[i].scrwm === scrwm._id){
+            scrwm.inciseInit = F[i]._id;
             this.scrwmService.putScrwm(scrwm)
             .subscribe(res => {
             });
-            this.inciseService.putIncise(this.inciseService.incises[i])
-            .subscribe(res => {
-            });
-            this.cleanScrwm();
             this.router.navigate(['/tasks']);
           }
         }
@@ -126,14 +130,4 @@ export class SigninComponent implements OnInit {
     });
   }
 
-  cleanScrwm(){
-    for(var i in this.scrwmService.scrwms){
-      if(!this.scrwmService.scrwms[i].creator){
-        this.scrwmService.deleteScrwm(this.scrwmService.scrwms[i]._id)
-        .subscribe(res => {
-        });
-      }
-    }
-  }
- 
 }

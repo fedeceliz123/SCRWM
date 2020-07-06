@@ -4,12 +4,11 @@
         <h5>my Scrwms</h5>
         <div class="navbar-expand-lg navbar-light bg-light">
             <div class="nav-item" style="margin-bottom: 5px" *ngFor="let scrwm of scrwmService.scrwms">
-                <a routerLink="/incises">{{ scrwm.title }} </a>
-                <a>[{{ scrwm.subtitle }}]</a>
+                <a (click)="getInciseInit(scrwm)" style="cursor: pointer">{{ scrwm.title }} </a>
+                <a (click)="getInciseInit(scrwm)" style="cursor: pointer">[{{ scrwm.subtitle }}]</a>
             </div>
         </div>
     </div>    
     <div class="right" #right>
-        
     </div>
 </div>

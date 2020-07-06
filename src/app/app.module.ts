@@ -22,7 +22,7 @@ import { InitComponent } from './components/init/init.component';
     SigninComponent,
     TasksComponent,
     NewscrwmComponent,
-    InitComponent
+    InitComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +34,8 @@ import { InitComponent } from './components/init/init.component';
     AuthGuard,
     TasksComponent,
     NewscrwmComponent,
-    IncisesComponent, 
+    IncisesComponent,
+    SigninComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

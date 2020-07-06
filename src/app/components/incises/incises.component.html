@@ -5,7 +5,7 @@
             <div class="izquierda" id="A"></div>
             <div class="medio"     id="B">
                 <div *ngFor="let incise of Above">
-                    <div id="B" (click)="editUp(incise)">{{ incise.content }}</div>
+                    <div id="B" (click)="editAround(incise, 'Up')">{{ incise.content }}</div>
                 </div>
             </div>
             <div class="derecha"   id="C"></div>
@@ -14,14 +14,14 @@
         <div class="centro">
             <div class="izquierda" id="D">
                 <div *ngFor="let incise of Left">
-                    <div id="D" (click)="editLeft(incise)">{{ incise.content }}</div>
+                    <div id="D" (click)="editAround(incise, 'Left')">{{ incise.content }}</div>
                 </div>
             </div>
             <div class="medio" id="E" contenteditable="true" (keydown.enter)="onKeypress($event)" aria-placeholder="Type here...">
             </div>
             <div class="derecha"   id="F">
                 <div *ngFor="let incise of Right">
-                    <div id="F" (click)="editRight(incise)">{{ incise.content }}</div>
+                    <div id="F" (click)="editAround(incise, 'Right')">{{ incise.content }}</div>
                 </div>
             </div>
         </div>
@@ -30,12 +30,12 @@
             <div class="izquierda" id="G"></div>
             <div class="medio"     id="H">
                 <div *ngFor="let incise of Below">
-                    <div id="H" (click)="editDown(incise)">{{ incise.content }}</div>
+                    <div id="H" (click)="editAround(incise, 'Down')">{{ incise.content }}</div>
                 </div>
             </div>
             <div class="derecha"   id="I">
                 <div class="btn btn-primary" style="margin-left: 30px" (click)="inciseComment(inciseService.selectedIncise)">Comment</div>
-                <div class="btn btn-primary" style="margin-left: 30px" routerLink="/tasks">Back</div>
+                <div class="btn btn-primary" style="margin-left: 30px" (click)="exit()">Back</div>
             </div>
         </div>
     </div>
