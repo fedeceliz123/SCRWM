@@ -1,8 +1,5 @@
 .body{
 display: flex;
-padding: 5px;
+justify-content: space-around;
 }
 
-.left{
-    min-width: 500px;
-}

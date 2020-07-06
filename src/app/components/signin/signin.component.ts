@@ -67,7 +67,8 @@ export class SigninComponent implements OnInit {
   }
 
   firstScrwm(userId: any){
-    const C = this.scrwmService.selectedScrwm;
+    console.log("A");
+    const C = this.scrwmService.selectedScrwm = new Scrwm;
     C.creator = userId;
     C.title = "First Scrwm";
     C.subtitle = "subtitle...";
@@ -78,17 +79,16 @@ export class SigninComponent implements OnInit {
   }
 
   getScrwm(userId: any){
+    console.log("B");
     this.scrwmService.getScrwms()
     .subscribe(res => {
+      console.log("C");
       const D = this.scrwmService.scrwms = res as Scrwm[];
       for(var i in D){
-        if(!D[i].creator){
-          this.scrwmService.deleteScrwm(D[i]._id)
-          .subscribe(res => {
-          });
-        }
         if(D[i].creator === userId){
+          console.log("D");
           if(!D[i].inciseInit){
+            console.log("E");
             sessionStorage.setItem('currentScrwmId', D[i]._id);
             this.newIncise(userId, D[i]);
           }
@@ -98,30 +98,32 @@ export class SigninComponent implements OnInit {
   }
 
   newIncise(userId: any, scrwm: Scrwm){
+    console.log("1");
     const E = this.inciseService.selectedIncise = new Incise;
     E.user = userId;
     E.scrwm = scrwm._id;
     this.inciseService.postIncise(E)
     .subscribe(res => {
+      console.log("2");
       this.getIncise(userId, scrwm);
     });
   }
 
   getIncise(userId: any, scrwm: Scrwm){
+    console.log("3");
     this.inciseService.getIncises()
     .subscribe(res => {
+      console.log("4");
       const F = this.inciseService.incises = res as Incise[];
       for(var i in F){
-        if(!F[i].scrwm){
-          this.inciseService.deleteIncise(F[i]._id)
-          .subscribe(res => {
-          });
-        }
         if(F[i].user === userId){
+          console.log("5");
           if(F[i].scrwm === scrwm._id){
+            console.log("6");
             scrwm.inciseInit = F[i]._id;
             this.scrwmService.putScrwm(scrwm)
             .subscribe(res => {
+              console.log("7");
             });
             this.router.navigate(['/tasks']);
           }
