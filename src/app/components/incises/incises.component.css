@@ -22,7 +22,7 @@
     border: 1PX solid rgb(0 , 0, 0, 0);
     margin: 5px;
     width: 600px;
-    font-size: 25px;
+    font-size: 20px;
     color: rgb(93, 186, 248);
     border-radius: 10px;
 }
@@ -31,48 +31,52 @@
     display: none;
 }
 
-#B{
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    overflow: scroll; 
-    padding: 5px;
-    min-width: 300px;
-}
-
-#C{
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-    color: gray;
-}
-
-#D {
-text-align: right;
-}
-
 #E {
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    font-size: 30px;
+    font-size: 25px;
     overflow: scroll;   
     outline:none;
     color:blue;
 }
 
+#B{
+    display: flex;
+    overflow: scroll;
+    flex-direction: row;
+    align-items: flex-end; 
+}
+
+#B1{
+    min-width: 300px;
+}
+
+
+#H{
+    display: flex;
+    overflow: scroll;
+}
+
+#H1{
+    min-width: 300px;
+}
+
+#D {
+    display: inline-block;
+    overflow: scroll;
+    padding-right: 20px;
+}
+
+#D1{
+    max-height: 150px;
+    overflow: hidden;
+    text-align: right;
+}
+
+
 #F{
     overflow: scroll; 
 }
 
-#G{
-    text-align: right;
-    color: gray;
-}
-
-#H{
-    overflow: scroll; 
-    display: flex;
-    padding: 5px;
-    min-width: 300px;
+#F1{
+    max-height: 150px;
+    overflow: hidden;
 }

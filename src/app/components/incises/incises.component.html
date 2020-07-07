@@ -5,7 +5,7 @@
             <div class="izquierda" id="A"></div>
             <div class="medio"     id="B">
                 <ul *ngFor="let incise of Above">
-                    <li id="H" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
+                    <li  id="B1" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
                 </ul>
             </div>
             <div class="derecha"   id="C"></div>
@@ -14,14 +14,14 @@
         <div class="centro">
             <div class="derecha"   id="D">
                 <ul *ngFor="let incise of Left">
-                    <li id="F" (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
+                    <li id="D1" class="row" (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
                 </ul>
             </div>
             <div class="medio" id="E" contenteditable="true" aria-placeholder="Type here...">
             </div>
             <div class="derecha"   id="F">
                 <ul *ngFor="let incise of Right">
-                    <li id="F" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
+                    <li id="F1" class="row" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
                 </ul>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div class="izquierda" id="G"></div>
             <div class="medio"     id="H">
                 <ul *ngFor="let incise of Below">
-                    <li id="H" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
+                    <li id="H1" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
                 </ul>
             </div>
             <div class="derecha"   id="I">
