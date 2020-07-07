@@ -25,19 +25,6 @@ export class TasksComponent {
       this.router.navigate(['/incises']);
     }
 
-    UserName = "Nulo";
-
-    getCurrentUser(scrwm: Scrwm){
-      this.authService.getUsers()
-      .subscribe(res => {
-        const A = this.authService.users = res as User[];
-        for(var i in A){ 
-          if(scrwm.creator === A[i]._id){
-            this.UserName = A[i].username;
-          }
-        } 
-
-      });
-    }
+  selectedUser = sessionStorage.getItem('currentUserId');
 
 }

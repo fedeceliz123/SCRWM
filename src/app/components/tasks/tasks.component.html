@@ -1,20 +1,32 @@
 <app-init></app-init>
-<div class="body">
-    <div class="left">
-        <h5>my Scrwms</h5>
-        <div class="navbar-expand-lg navbar-light bg-light">
-            <div class="nav-item" style="margin-bottom: 8px" *ngFor="let scrwm of scrwmService.scrwms">
-                <a (click)="getInciseInit(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}] </a>
-            </div>
-        </div>
-    </div>    
+<div class="body">  
     <div class="right" #right>
+        <div class="left">
+            <h5>my Scrwms</h5>
+            <div class="navbar-expand-lg navbar-light bg-light">
+                <div *ngFor="let user of authService.users">
+                    <ng-container *ngIf="user._id === selectedUser">
+                        <h6> {{ user.username }} </h6>
+                        <div class="nav-item" style="margin-bottom: 8px" *ngFor="let scrwm of scrwmService.scrwms">
+                            <div>
+                                <a (click)="getInciseInit(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}]</a>
+                            </div> 
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>  
         <h5>Shared Scrwms</h5>
         <div class="navbar-expand-lg navbar-light bg-light">
-            <div class="nav-item" style="margin-bottom: 8px" *ngFor="let scrwm of scrwmService.scrwms">
-                <div>
-                    <a (click)="getInciseInit(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}]</a>
-                </div> 
+            <div *ngFor="let user of authService.users">
+                <ng-container *ngIf="user._id != selectedUser">
+                    <h6> _{{ user.username }} </h6>
+                    <div class="nav-item" style="margin-bottom: 8px" *ngFor="let scrwm of scrwmService.scrwms">
+                        <div>
+                            <a (click)="getInciseInit(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}]</a>
+                        </div> 
+                    </div>
+                </ng-container>
             </div>
         </div>
     </div>

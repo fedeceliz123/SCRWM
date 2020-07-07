@@ -24,8 +24,9 @@ export class IncisesComponent implements OnInit {
       this.DirLast = "Up";
       this.editedIncise();
       this.editedIncise();
-    }
-    if (event.ctrlKey){
+    } else if(event.keyCode === 27){
+      this.exit();
+    } else if(event.ctrlKey){
       if(event.keyCode === 37){
         this.DirLast = "Right";
         this.editedIncise();
@@ -38,8 +39,6 @@ export class IncisesComponent implements OnInit {
       } else if(event.keyCode === 40){
         this.DirLast = "Up";
         this.editedIncise();
-      } else if(event.keyCode === 27){
-        this.exit();
       }  
     }
   }

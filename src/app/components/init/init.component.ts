@@ -22,6 +22,7 @@ export class InitComponent implements OnInit {
               ){}
 
   ngOnInit(): void {
+    this.getUsers();
     this.getScrwms();
   }
 
@@ -29,13 +30,13 @@ export class InitComponent implements OnInit {
     this.scrwmService.getScrwms()
     .subscribe(res => {
       this.scrwmService.scrwms = res as Scrwm[];
-      if(this.scrwmService.scrwms.slice(-1)[0]){
-        this.scrwmService.selectedScrwm = this.scrwmService.scrwms.slice(-1)[0];
-      } else {
-        this.scrwmService.postScrwm(this.scrwmService.selectedScrwm)
-        .subscribe(res => {
-        });
-      }
+    });
+  }
+
+  getUsers(){
+    this.authService.getUsers()
+    .subscribe(res => {
+      this.authService.users = res as User[];
     });
   }
 
