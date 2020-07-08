@@ -1,11 +1,48 @@
-<div class="bloque">
+<div *ngIf="minIncise; else maxIncise">
+    <span>
+        <div class="cont-left">
+            <div class="left">     
+                <div        id="A"></div>
+                <div        id="B">
+                    <ul *ngFor="let incise of Above">
+                        <li id="B1" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
+                    </ul>
+                </div>
+                <div        id="C"></div>
+                <div        id="D">
+                    <ul *ngFor="let incise of Left">
+                        <li id="D1" (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
+                    </ul>
+                </div>
+                <div        id="E" contenteditable="true" aria-placeholder="Type here..."></div>
+                <div        id="F">
+                    <ul *ngFor="let incise of Right">
+                        <li id="F1" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
+                    </ul>
+                </div> 
+                <div        id="G"></div>
+                <div        id="H">
+                    <ul *ngFor="let incise of Below">
+                        <li id="H1" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
+                    </ul>
+                </div>
+                <div        id="I">
+                </div>                   
+            </div>
+        </div>    
+    </span>
+</div>
+  
+  <ng-template #maxIncise>
+    <span>
+ <div class="bloque">
     <div class="bloque2">
 
         <div class="arriba">
             <div class="izquierda" id="A"></div>
             <div class="medio"     id="B">
                 <ul *ngFor="let incise of Above">
-                    <li  id="B1" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
+                    <li id="H" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
                 </ul>
             </div>
             <div class="derecha"   id="C"></div>
@@ -14,14 +51,14 @@
         <div class="centro">
             <div class="derecha"   id="D">
                 <ul *ngFor="let incise of Left">
-                    <li id="D1" class="row" (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
+                    <li id="F" (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
                 </ul>
             </div>
             <div class="medio" id="E" contenteditable="true" aria-placeholder="Type here...">
             </div>
             <div class="derecha"   id="F">
                 <ul *ngFor="let incise of Right">
-                    <li id="F1" class="row" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
+                    <li id="F" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
                 </ul>
             </div>
         </div>
@@ -30,11 +67,13 @@
             <div class="izquierda" id="G"></div>
             <div class="medio"     id="H">
                 <ul *ngFor="let incise of Below">
-                    <li id="H1" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
+                    <li id="H" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
                 </ul>
             </div>
             <div class="derecha"   id="I">
             </div>
         </div>
     </div>
-</div>
+</div>    </span>
+  </ng-template>
+

@@ -1,33 +1,41 @@
 <app-init></app-init>
 <div class="body">  
-    <div class="right" #right>
-        <div class="left">
-            <h5>my Scrwms</h5>
+    <app-incises></app-incises>
+    <div class="right">
+        <h5 style="color: brown"></h5>
+        <div class="above">
             <div class="navbar-expand-lg navbar-light bg-light">
-                <div *ngFor="let user of authService.users">
-                    <ng-container *ngIf="user._id === selectedUser">
-                        <h6> {{ user.username }} </h6>
+                <ng-container *ngFor="let user of authService.users">
+                    <div *ngIf="user._id === selectedUser">     
+                        <h6> _{{ user.username }} </h6>  
                         <div class="nav-item" style="margin-bottom: 8px" *ngFor="let scrwm of scrwmService.scrwms">
-                            <div>
-                                <a (click)="getInciseInit(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}]</a>
-                            </div> 
+                            <div *ngIf="scrwm.creator === selectedUser">    
+                                <div>
+                                    <a (click)="getInciseInit(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}]</a>
+                                </div> 
+                            </div>
                         </div>
-                    </ng-container>
-                </div>
-            </div>
-        </div>  
-        <h5>Shared Scrwms</h5>
-        <div class="navbar-expand-lg navbar-light bg-light">
-            <div *ngFor="let user of authService.users">
-                <ng-container *ngIf="user._id != selectedUser">
-                    <h6> _{{ user.username }} </h6>
-                    <div class="nav-item" style="margin-bottom: 8px" *ngFor="let scrwm of scrwmService.scrwms">
-                        <div>
-                            <a (click)="getInciseInit(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}]</a>
-                        </div> 
                     </div>
                 </ng-container>
             </div>
         </div>
+        <h5 style="color: brown">shared Scrwms</h5>
+        <div class="below">
+            
+            <div class="navbar-expand-lg navbar-light bg-light">
+                <ng-container *ngFor="let user of authService.users">
+                    <div *ngIf="user._id != selectedUser">
+                        <h6> _{{ user.username }} </h6>      
+                        <div class="nav-item" style="margin-bottom: 8px" *ngFor="let scrwm of scrwmService.scrwms">
+                            <div *ngIf="scrwm.creator === user._id">    
+                                <div>
+                                    <a (click)="getInciseInit(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}]</a>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>  
     </div>
 </div>

@@ -18,31 +18,7 @@ export class IncisesComponent implements OnInit {
   Right: any = [];
   DirLast: any = "";
   IdLast: any = "";
-
-  @HostListener('window:keydown', ['$event']) spaceEvent(event: any){
-    if(event.keyCode === 13){
-      this.DirLast = "Up";
-      this.editedIncise();
-      this.editedIncise();
-    } else if(event.keyCode === 27){
-      this.exit();
-    } else if(event.ctrlKey){
-      if(event.keyCode === 37){
-        this.DirLast = "Right";
-        this.editedIncise();
-      } else if(event.keyCode === 38){
-        this.DirLast = "Down";
-        this.editedIncise();
-      } else if(event.keyCode === 39){
-        this.DirLast = "Left";
-        this.editedIncise();
-      } else if(event.keyCode === 40){
-        this.DirLast = "Up";
-        this.editedIncise();
-      }  
-    }
-  }
-
+  minIncise: boolean;
 
   constructor(public inciseService: InciseService, 
               public scrwmService: ScrwmService,
@@ -50,22 +26,33 @@ export class IncisesComponent implements OnInit {
               ){ }
 
   ngOnInit(): void {
+    this.minIncise= false;
     this.findInciseInit();
+  }
+
+  MinOrMax(){
+    if(this.router.url === '/incise'){
+      this.minIncise = false;
+    } else if (this.router.url === '/tasks'){
+      this.minIncise = true;
+    }
   }
 
   findInciseInit(){
     this.scrwmService.getScrwms()
     .subscribe(res => {   
-      this.scrwmService.scrwms = res as Scrwm[];
-      for(var i in this.scrwmService.scrwms){
-        if(this.scrwmService.scrwms[i]._id === sessionStorage.getItem('currentScrwmId')){
-          this.scrwmService.selectedScrwm = this.scrwmService.scrwms[i];
+      const A = this.scrwmService.scrwms = res as Scrwm[];
+      for(var i in A){
+        if(A[i]._id === sessionStorage.getItem('currentScrwmId')){
+          this.scrwmService.selectedScrwm = A[i];
+          console.log(this.scrwmService.selectedScrwm);
           this.inciseService.getIncises()
           .subscribe(res => {
-            this.inciseService.incises = res as Incise[];
-            for(var j in this.inciseService.incises){
-              if(this.inciseService.incises[j]._id === this.scrwmService.selectedScrwm.inciseInit){
-                this.inciseService.selectedIncise = this.inciseService.incises[j];
+            const B = this.inciseService.incises = res as Incise[];
+            for(var j in B){
+              if(B[j]._id === this.scrwmService.selectedScrwm.inciseInit){
+                this.inciseService.selectedIncise = B[j];
+                console.log(this.inciseService.selectedIncise);
                 this.toCenter();
               }
             }
@@ -84,16 +71,13 @@ export class IncisesComponent implements OnInit {
       });  
   }
 
-  toCenter(){                 //Muestra en el centro el inciso actual
+  toCenter(){                          //Muestra en el centro el inciso actual
     const incise = this.inciseService.selectedIncise;
     const C = document.getElementById('E');
     C.textContent = incise.content;
-    this.inciseService.getIncises()         // ésto parece que puede no ir...
-    .subscribe(res => {
-      this.inciseService.incises = res as Incise[];
-      C.focus();
-      this.showAround(incise);
-      });
+    C.focus();
+    this.showAround(incise);
+
   }
 
   showAround(incise: Incise){                //Muestra los incisos al rededor
@@ -128,9 +112,32 @@ export class IncisesComponent implements OnInit {
     }
   }
 
+  @HostListener('window:keydown', ['$event']) spaceEvent(event: any){
+    if(event.keyCode === 13){
+      this.DirLast = "Up";
+      this.editedIncise();
+    } else if(event.keyCode === 27){
+      this.exit();
+    } else if(event.ctrlKey){
+      if(event.keyCode === 37){
+        this.DirLast = "Right";
+        this.editedIncise();
+      } else if(event.keyCode === 38){
+        this.DirLast = "Down";
+        this.editedIncise();
+      } else if(event.keyCode === 39){
+        this.DirLast = "Left";
+        this.editedIncise();
+      } else if(event.keyCode === 40){
+        this.DirLast = "Up";
+        this.editedIncise();
+      }  
+    }
+  }
+
   editedIncise(){                                         //El inciso central se guarda
     if (document.getElementById('E').textContent === ""){
-      document.getElementById('E').textContent = "...";
+      document.getElementById('E').textContent = "...1... ";
     }
     const incise = this.inciseService.selectedIncise;
     this.IdLast = incise._id;
@@ -190,7 +197,7 @@ export class IncisesComponent implements OnInit {
 
   linkStereo1(incise: Incise){                               // linkea mutuamente el inciso cliqueado con el que estaba
     if (document.getElementById('E').textContent === ""){
-      document.getElementById('E').textContent = "...";
+      document.getElementById('E').textContent = "...2...";
     };
     const A = this.inciseService.selectedIncise;
     A.content = document.getElementById('E').textContent;
@@ -236,13 +243,24 @@ export class IncisesComponent implements OnInit {
 
   linkStereo2(incise: Incise, A: Incise){
     this.inciseService.putIncise(A)
+    .subscribe(res => {
+      this.inciseService.getIncises()
       .subscribe(res => {
+        this.inciseService.incises = res as Incise[];
+        this.linkStereo3(incise, A);
       });
+    });
+  }
+
+  linkStereo3(incise: Incise, A: Incise){
+    this.inciseService.putIncise(A)
+      .subscribe(res => { 
+      }); 
     switch (this.DirLast){
       case "Up":
         for(var i in incise.down){
           if(incise.down[i] === A._id){
-            this.linkStereo3(A, incise);
+            this.linkStereo4(A, incise);
             return;
           }
         }
@@ -251,7 +269,7 @@ export class IncisesComponent implements OnInit {
       case "Down":
         for(var i in incise.up){
           if(incise.up[i] === A._id){
-            this.linkStereo3(A, incise);
+            this.linkStereo4(A, incise);
             return;
           }
         }
@@ -260,7 +278,7 @@ export class IncisesComponent implements OnInit {
       case "Left":
         for(var i in incise.right){
           if(incise.right[i] === A._id){
-            this.linkStereo3(A, incise);
+            this.linkStereo4(A, incise);
             return;
           }
         }
@@ -269,17 +287,17 @@ export class IncisesComponent implements OnInit {
       case "Right":
         for(var i in incise.left){
           if(incise.left[i] === A._id){
-            this.linkStereo3(A, incise);
+            this.linkStereo4(A, incise);
             return;
           }
         }
         incise.left.push(A._id);
         break;
     }
-    this.linkStereo3(A, incise);
+    this.linkStereo4(A, incise);
   }
 
-  linkStereo3(A: Incise, incise: Incise){
+  linkStereo4(A: Incise, incise: Incise){
     this.inciseService.putIncise(incise)
       .subscribe(res => {
       });
@@ -293,9 +311,9 @@ export class IncisesComponent implements OnInit {
 
   exit(){
     this.scrwmService.selectedScrwm.inciseInit = this.inciseService.selectedIncise._id;
+    this.minIncise= true;
     this.scrwmService.putScrwm(this.scrwmService.selectedScrwm)
     .subscribe(res => {
-      this.inciseService.selectedIncise = new Incise;
       this.router.navigate(['/tasks']);
     });
   }

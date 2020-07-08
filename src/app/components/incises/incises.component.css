@@ -1,3 +1,31 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+.cont-left{
+    width: 810px;
+    height: 525px;
+    background-color: white;
+    box-shadow: 8px 8px 30px 12px  rgba(143, 174, 195, 0.7) inset, -8px -8px 30px 12px  rgb(143, 174, 195, 0.7) inset;
+    border-radius: 10px; 
+    overflow: hidden;    
+}
+
+.left{
+    display: grid;
+    grid-template-columns: 500px 500px 500px;
+    grid-template-rows: 350px 350px 350px;
+    grid-gap: 8px;  
+    overflow: absolute;
+    transform: translate(-350px, -260px);
+    color: rgb(93, 186, 248);
+}
+
+
+
+
+
+
 .bloque{
     background-color: white;
     box-shadow: 8px 8px 30px 12px  rgba(143, 174, 195, 0.7) inset, -8px -8px 30px 12px  rgb(143, 174, 195, 0.7) inset;
@@ -22,61 +50,35 @@
     border: 1PX solid rgb(0 , 0, 0, 0);
     margin: 5px;
     width: 600px;
-    font-size: 20px;
+    font-size: 15   px;
     color: rgb(93, 186, 248);
     border-radius: 10px;
 }
 
-::-webkit-scrollbar {
-    display: none;
-}
-
 #E {
-    font-size: 25px;
+    font-size: 20px;
     overflow: scroll;   
     outline:none;
     color:blue;
 }
 
-#B{
+#B, #H{
     display: flex;
-    overflow: scroll;
+    overflow-y: scroll;
+    min-width: 300px;
+}
+
+#B{
     flex-direction: row;
     align-items: flex-end; 
 }
 
-#B1{
-    min-width: 300px;
-}
-
-
-#H{
-    display: flex;
-    overflow: scroll;
-}
-
-#H1{
-    min-width: 300px;
-}
-
 #D {
-    display: inline-block;
     overflow: scroll;
-    padding-right: 20px;
-}
-
-#D1{
-    max-height: 150px;
-    overflow: hidden;
+    padding-right: 10px;
     text-align: right;
 }
 
-
 #F{
     overflow: scroll; 
-}
-
-#F1{
-    max-height: 150px;
-    overflow: hidden;
 }
