@@ -15,6 +15,7 @@ import { NewscrwmComponent } from './components/newscrwm/newscrwm.component';
 import { InitComponent } from './components/init/init.component';
 import { ShowAroundComponent } from './components/incises/show-around/show-around.component';
 import { KeyListenerComponent } from './components/incises/key-listener/key-listener.component';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { KeyListenerComponent } from './components/incises/key-listener/key-list
     InitComponent,
     ShowAroundComponent,
     KeyListenerComponent,
+    HighlightDirective,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,7 @@ import { KeyListenerComponent } from './components/incises/key-listener/key-list
     SigninComponent,
     ShowAroundComponent,
     KeyListenerComponent,
+    HighlightDirective,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

@@ -10,6 +10,8 @@ import { KeyListenerComponent } from 'src/app/components/incises/key-listener/ke
 import { Incise } from 'src/app/models/incise';
 import { Scrwm } from 'src/app/models/scrwm';
 
+import { HighlightDirective } from 'src/app/directives/highlight.directive'
+
 @Component({
   selector: 'app-incises',
   templateUrl: './incises.component.html',
@@ -22,6 +24,7 @@ export class IncisesComponent {
                 public scrwmService: ScrwmService,
                 public showAround: ShowAroundComponent,
                 public keyListener: KeyListenerComponent,
+                public highLight: HighlightDirective,
                 public router: Router,
                 ){ }
 
@@ -37,8 +40,7 @@ export class IncisesComponent {
         this.showAround.DirLast = "Down";
         this.keyListener.editedIncise();
       } else if(event.keyCode === 39){
-        this.showAround.DirLast = "Left";
-        this.keyListener.editedIncise();
+        alert("Please select what you want to comment after pressing Ctrl key")
       } else if(event.keyCode === 40){
         this.showAround.DirLast = "Up";
         this.keyListener.editedIncise();
@@ -50,8 +52,20 @@ export class IncisesComponent {
     if(event.ctrlKey){
       const selectedText = window.getSelection().toString().trim();
       if (selectedText){
-        this.showAround.DirLast = "Left";
-        this.keyListener.editedIncise();  
+
+        const span = document.getElementById('E');
+
+        span.textContent.substring(5, 8);
+
+      span.style.backgroundColor = "orange";
+      span.style.color = "black";
+
+
+      
+
+
+        //this.showAround.DirLast = "Left";
+        //this.keyListener.editedIncise();  
       }
     }
   }

@@ -16,7 +16,7 @@
                         <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
                     </ul>
                 </div>
-                <div id="E" class="selection"></div>
+                <div id="E"></div>
                 <div class="Derecha">
                     <ul *ngFor="let incise of showAround.Right">
                         <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
@@ -30,7 +30,7 @@
                     </ul>
                 </div>
                 <div>
-                    <button class="btn btn-primary" (click)="zoomMax()" >{{numberOfClicks}} {{ Expand }} </button>
+                    <button class="btn btn-primary" (click)="zoomMax()" > {{ Expand }} </button>
                 </div> 
 
             </div>
@@ -56,7 +56,7 @@
                         <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
                     </ul>
                 </div>
-                <div id="E" class="selection"></div>
+                <div id="E"></div>
                 <div class="Derecha">
                     <ul *ngFor="let incise of showAround.Right">
                         <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
@@ -70,7 +70,7 @@
                     </ul>
                 </div>
                 <div>
-                    <button class="btn btn-primary" (click)="zoomMin()" >{{numberOfClicks}} {{Contract}} </button>
+                    <button class="btn btn-primary" (click)="zoomMin()" > {{Contract}} </button>
                 </div>
 
             </div>
