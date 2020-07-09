@@ -1,9 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { ScrwmService } from '../../services/scrwm.service';
-import { IncisesComponent } from 'src/app/components/incises/incises.component';
 import { AuthService } from 'src/app/services/auth.service';
-import { Scrwm } from 'src/app/models/scrwm';
-import { Router } from '@angular/router';
+import { InciseService } from 'src/app/services/incise.service';
+import { IncisesComponent } from 'src/app/components/incises/incises.component';
+
 
 @Component({
   selector: 'app-tasks',
@@ -15,12 +15,9 @@ export class TasksComponent {
   constructor(public scrwmService: ScrwmService,
               public incisesComponent: IncisesComponent,
               public authService: AuthService,
-              private router: Router,
+              public inciseService: InciseService,
               ) { }
 
-    getInciseInit(scrwm: Scrwm){
-      sessionStorage.setItem('currentScrwmId', scrwm._id);
-      this.router.navigate(['/incises']);
-    }
   selectedUser = sessionStorage.getItem('currentUserId');
+
 }

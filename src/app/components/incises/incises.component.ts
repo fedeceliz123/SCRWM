@@ -1,8 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { InciseService } from '../../services/incise.service';
-import { Incise } from 'src/app/models/incise';
+
 import { ScrwmService } from 'src/app/services/scrwm.service';
+import { InciseService } from '../../services/incise.service';
+
+import { Incise } from 'src/app/models/incise';
 import { Scrwm } from 'src/app/models/scrwm';
 
 @Component({
@@ -18,108 +20,79 @@ export class IncisesComponent implements OnInit {
   Right: any = [];
   DirLast: any = "";
   IdLast: any = "";
-  minIncise: boolean;
 
   constructor(public inciseService: InciseService, 
               public scrwmService: ScrwmService,
-              private router: Router,
+              public router: Router,
               ){ }
 
   ngOnInit(): void {
-    this.minIncise= false;
-    this.findInciseInit();
   }
 
-  MinOrMax(){
-    if(this.router.url === '/incise'){
-      this.minIncise = false;
-    } else if (this.router.url === '/tasks'){
-      this.minIncise = true;
-    }
-  }
-
-  findInciseInit(){
-    this.scrwmService.getScrwms()
-    .subscribe(res => {   
-      const A = this.scrwmService.scrwms = res as Scrwm[];
-      for(var i in A){
-        if(A[i]._id === sessionStorage.getItem('currentScrwmId')){
-          this.scrwmService.selectedScrwm = A[i];
-          console.log(this.scrwmService.selectedScrwm);
-          this.inciseService.getIncises()
-          .subscribe(res => {
-            const B = this.inciseService.incises = res as Incise[];
-            for(var j in B){
-              if(B[j]._id === this.scrwmService.selectedScrwm.inciseInit){
-                this.inciseService.selectedIncise = B[j];
-                console.log(this.inciseService.selectedIncise);
-                this.toCenter();
-              }
-            }
-          }); 
+  getByScrwm(scrwm: Scrwm){
+    document.getElementById('E').contentEditable = "true";
+    sessionStorage.setItem('currentScrwmId', scrwm._id);
+    this.inciseService.getIncises()
+    .subscribe(res =>{
+      const I = this.inciseService.incises = res as Incise[];
+      for(var i in I){
+        if(I[i]._id === scrwm.inciseInit){
+          this.inciseService.selectedIncise = I[i];
+          this.toCenter(this.inciseService.selectedIncise);
         }
       }
     });
-  }
-
-  Init(){      
-      this.inciseService.getIncises()
-      .subscribe(res => {
-        this.inciseService.incises = res as Incise[];
-        this.inciseService.selectedIncise = this.inciseService.incises.slice(-1)[0];
-        this.toCenter();
-      });  
-  }
-
-  toCenter(){                          //Muestra en el centro el inciso actual
-    const incise = this.inciseService.selectedIncise;
-    const C = document.getElementById('E');
-    C.textContent = incise.content;
-    C.focus();
-    this.showAround(incise);
 
   }
 
-  showAround(incise: Incise){                //Muestra los incisos al rededor
+  toCenter(incise: Incise){  
+    document.getElementById('E').textContent = incise.content;
+    document.getElementById('E').focus();
     this.Above = [];
     this.Below = [];
     this.Left = [];
     this.Right = [];
     this.DirLast = "";
     this.IdLast = "";
-    const D = this.inciseService.incises;
-    for (var i in D){
-      for(var j in incise.right){
-        if(incise.right[j] === D[i]._id){
-          this.Right.push(D[i]);
-        }
-      }
-      for(var k in incise.down){
-        if(incise.down[k] === D[i]._id){
-          this.Below.push(D[i]);
-        }
-      }
-      for(var l in incise.left){
-        if(incise.left[l] === D[i]._id){
-          this.Left.push(D[i]);
-        }
-      }
-      for(var m in incise.up){
-        if(incise.up[m] === D[i]._id){
-          this.Above.push(D[i]);
-        }
-      }
-    }
+    this.showAround(incise);
   }
 
+  showAround(incise: Incise){
+    this.inciseService.getIncises()
+    .subscribe(res =>{
+      const D = this.inciseService.incises = res as Incise[];
+      for (var i in D){
+        for(var j in incise.right){
+          if(incise.right[j] === D[i]._id){
+            this.Right.push(D[i]);
+          }
+        }
+        for(var k in incise.down){
+          if(incise.down[k] === D[i]._id){
+            this.Below.push(D[i]);
+          }
+        }
+        for(var l in incise.left){
+          if(incise.left[l] === D[i]._id){
+            this.Left.push(D[i]);
+          }
+        }
+        for(var m in incise.up){
+          if(incise.up[m] === D[i]._id){
+            this.Above.push(D[i]);
+          }
+        }
+      }
+    });
+    console.log(this.Above);
+  }
+  
   @HostListener('window:keydown', ['$event']) spaceEvent(event: any){
     if(event.keyCode === 13){
       this.DirLast = "Up";
       this.editedIncise();
-    } else if(event.keyCode === 27){
-      this.exit();
     } else if(event.ctrlKey){
-      if(event.keyCode === 37){
+             if(event.keyCode === 37){
         this.DirLast = "Right";
         this.editedIncise();
       } else if(event.keyCode === 38){
@@ -135,25 +108,23 @@ export class IncisesComponent implements OnInit {
     }
   }
 
-  editedIncise(){                                         //El inciso central se guarda
+  editedIncise(){  
     if (document.getElementById('E').textContent === ""){
       document.getElementById('E').textContent = "...1... ";
     }
     const incise = this.inciseService.selectedIncise;
     this.IdLast = incise._id;
     incise.content = document.getElementById('E').textContent;
+    this.getCurrentScrwm(incise);
     this.inciseService.putIncise(incise)
-      .subscribe(res => {
+    .subscribe(res => {
         this.inciseService.selectedIncise = new Incise();
-        this.linkMono();
-        this.showAround(this.inciseService.selectedIncise);
         document.getElementById('E').textContent = "";
+        this.linkMono(this.inciseService.selectedIncise);
     });
   }
 
-  linkMono(){                                           // el inciso central se linkea con otro
-    const incise = this.inciseService.selectedIncise;
-    if(this.IdLast){
+  linkMono(incise: Incise){  
       switch(this.DirLast){
       case "Up":
           incise.up = this.IdLast;
@@ -168,12 +139,37 @@ export class IncisesComponent implements OnInit {
           incise.right = this.IdLast;
         break;
       }
-    }
     incise.user = sessionStorage.getItem('currentUserId');
     incise.scrwm = sessionStorage.getItem('currentScrwmId');
+      this.saveIncise(incise);
+  }
+
+  saveIncise(incise: Incise){
     this.inciseService.postIncise(incise)
     .subscribe(res => {
-       this.Init();
+      incise = res as Incise;
+      this.inciseService.selectedIncise = incise;
+      this.toCenter(this.inciseService.selectedIncise);
+    });
+  }
+
+  getCurrentScrwm(incise: Incise){
+    this.scrwmService.getScrwms()
+    .subscribe(res =>{
+      const A = this.scrwmService.scrwms = res as Scrwm [];
+      for(var i in A){
+        if(A[i]._id === sessionStorage.getItem('currentScrwmId')){
+          A[i].inciseInit = incise._id;
+          this.saveScrwm(A[i]);
+        }
+      }
+    });
+  }
+
+  saveScrwm(scrwm: Scrwm){
+    this.scrwmService.putScrwm(scrwm)
+    .subscribe(res =>{
+      scrwm = res as Scrwm;
     });
   }
 
@@ -195,7 +191,7 @@ export class IncisesComponent implements OnInit {
     this.linkStereo1(incise);
   }  
 
-  linkStereo1(incise: Incise){                               // linkea mutuamente el inciso cliqueado con el que estaba
+  linkStereo1(incise: Incise){ 
     if (document.getElementById('E').textContent === ""){
       document.getElementById('E').textContent = "...2...";
     };
@@ -239,6 +235,7 @@ export class IncisesComponent implements OnInit {
         A.right.push(incise._id);
         break;
     }
+    this.linkStereo2(incise, A)
   }
 
   linkStereo2(incise: Incise, A: Incise){
@@ -253,9 +250,6 @@ export class IncisesComponent implements OnInit {
   }
 
   linkStereo3(incise: Incise, A: Incise){
-    this.inciseService.putIncise(A)
-      .subscribe(res => { 
-      }); 
     switch (this.DirLast){
       case "Up":
         for(var i in incise.down){
@@ -299,23 +293,41 @@ export class IncisesComponent implements OnInit {
 
   linkStereo4(A: Incise, incise: Incise){
     this.inciseService.putIncise(incise)
-      .subscribe(res => {
-      });
-    this.inciseService.selectedIncise = incise;
-    this.inciseService.getIncises()
     .subscribe(res => {
-      this.inciseService.incises = res as Incise[];
+      this.inciseService.getIncises()
+      .subscribe(res => {
+        this.inciseService.incises = res as Incise[];
+        this.getCurrentScrwm(incise);
+        this.inciseService.selectedIncise = incise;
+        this.toCenter(this.inciseService.selectedIncise);
       });
-    this.toCenter();
+    });
   }
 
-  exit(){
-    this.scrwmService.selectedScrwm.inciseInit = this.inciseService.selectedIncise._id;
-    this.minIncise= true;
-    this.scrwmService.putScrwm(this.scrwmService.selectedScrwm)
-    .subscribe(res => {
-      this.router.navigate(['/tasks']);
+  Expand = "< <  > >"
+  Contract = "> >  < <"
+
+  zoomMin(){
+    this.router.navigate(['/tasks']);
+    this.actualizeScrwm();
+  }
+
+  zoomMax(){
+    this.router.navigate(['/incises']);
+    this.actualizeScrwm();
+  }
+
+  actualizeScrwm(){
+    this.scrwmService.getScrwms()
+    .subscribe(res =>{
+      const A = this.scrwmService.scrwms = res as Scrwm [];
+      for(var i in A){
+        if(A[i]._id === sessionStorage.getItem('currentScrwmId')){
+          this.getByScrwm(A[i]);
+        }
+      }
     });
+
   }
 
 }

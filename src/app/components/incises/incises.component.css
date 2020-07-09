@@ -1,84 +1,66 @@
-::-webkit-scrollbar {
-    display: none;
-}
-
-.cont-left{
+.bloqueMin{
     width: 810px;
     height: 525px;
     background-color: white;
     box-shadow: 8px 8px 30px 12px  rgba(143, 174, 195, 0.7) inset, -8px -8px 30px 12px  rgb(143, 174, 195, 0.7) inset;
     border-radius: 10px; 
-    overflow: hidden;    
+    overflow: hidden; 
 }
 
-.left{
+.bloqueMin2{
+    color: rgb(93, 186, 248);
     display: grid;
     grid-template-columns: 500px 500px 500px;
     grid-template-rows: 350px 350px 350px;
     grid-gap: 8px;  
     overflow: absolute;
     transform: translate(-350px, -260px);
-    color: rgb(93, 186, 248);
 }
 
-
-
-
-
-
-.bloque{
+.bloqueMax{
+    height: 592px;
     background-color: white;
     box-shadow: 8px 8px 30px 12px  rgba(143, 174, 195, 0.7) inset, -8px -8px 30px 12px  rgb(143, 174, 195, 0.7) inset;
-    border-radius: 10px;
-    height: 592px;
+    border-radius: 10px; 
+    overflow: hidden;
 }
 
-.bloque2{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.arriba, .centro, .abajo {
-    height: 400px;
-    width: 1700px;
-    display:flex;
-}
-
-.izquierda, .medio, .derecha{
-    border: 1PX solid rgb(0 , 0, 0, 0);
-    margin: 5px;
-    width: 600px;
-    font-size: 15   px;
+.bloqueMax2{
     color: rgb(93, 186, 248);
-    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 700px 700px 700px;
+    grid-template-rows:400px 400px 40px;
+    grid-gap: 8px;  
+    grid-gap: 8px;  
+    transform: translate(-400px, -300px);
 }
 
-#E {
+::-webkit-scrollbar {
+    display: none;
+}
+
+.Arriba, .Izquierda, .Derecha, .Abajo{
+    overflow: scroll;
+}
+
+#E{
     font-size: 20px;
-    overflow: scroll;   
     outline:none;
-    color:blue;
+    color:rgb(5, 5, 120);
+    overflow: scroll;
 }
 
-#B, #H{
+.Arriba, .Abajo{
     display: flex;
-    overflow-y: scroll;
     min-width: 300px;
 }
 
-#B{
+.Arriba{
     flex-direction: row;
     align-items: flex-end; 
 }
 
-#D {
-    overflow: scroll;
+.Izquierda{
     padding-right: 10px;
     text-align: right;
-}
-
-#F{
-    overflow: scroll; 
 }

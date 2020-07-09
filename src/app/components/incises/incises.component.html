@@ -1,79 +1,80 @@
-<div *ngIf="minIncise; else maxIncise">
+<div *ngIf="router.url === '/tasks'; else maxIncise">
     <span>
-        <div class="cont-left">
-            <div class="left">     
-                <div        id="A"></div>
-                <div        id="B">
+        <div class="bloqueMin">
+            <div class="bloqueMin2">
+
+                <div></div>
+                <div class="Arriba">
                     <ul *ngFor="let incise of Above">
-                        <li id="B1" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
+                        <li class="Arriba" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
                     </ul>
                 </div>
-                <div        id="C"></div>
-                <div        id="D">
+                <div></div>
+
+                <div class="Izquierda">
                     <ul *ngFor="let incise of Left">
-                        <li id="D1" (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
+                        <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
                     </ul>
                 </div>
-                <div        id="E" contenteditable="true" aria-placeholder="Type here..."></div>
-                <div        id="F">
+                <div id="E"></div>
+                <div class="Derecha">
                     <ul *ngFor="let incise of Right">
-                        <li id="F1" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
-                    </ul>
-                </div> 
-                <div        id="G"></div>
-                <div        id="H">
-                    <ul *ngFor="let incise of Below">
-                        <li id="H1" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
+                        <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
                     </ul>
                 </div>
-                <div        id="I">
-                </div>                   
+
+                <div></div>
+                <div class="Abajo">
+                    <ul *ngFor="let incise of Below">
+                        <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
+                    </ul>
+                </div>
+                <div>
+                    <button class="btn btn-primary" (click)="zoomMax()" > {{ Expand }} </button>
+                </div> 
+
             </div>
         </div>    
     </span>
 </div>
   
-  <ng-template #maxIncise>
+<ng-template #maxIncise>
     <span>
- <div class="bloque">
-    <div class="bloque2">
+        <div class="bloqueMax">
+            <div class="bloqueMax2">
 
-        <div class="arriba">
-            <div class="izquierda" id="A"></div>
-            <div class="medio"     id="B">
-                <ul *ngFor="let incise of Above">
-                    <li id="H" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
-                </ul>
-            </div>
-            <div class="derecha"   id="C"></div>
-        </div>
+                <div></div>
+                <div class="Arriba">
+                    <ul *ngFor="let incise of Above">
+                        <li class="Arriba" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
+                    </ul>
+                </div>
+                <div></div>
 
-        <div class="centro">
-            <div class="derecha"   id="D">
-                <ul *ngFor="let incise of Left">
-                    <li id="F" (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
-                </ul>
-            </div>
-            <div class="medio" id="E" contenteditable="true" aria-placeholder="Type here...">
-            </div>
-            <div class="derecha"   id="F">
-                <ul *ngFor="let incise of Right">
-                    <li id="F" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
-                </ul>
-            </div>
-        </div>
+                <div class="Izquierda">
+                    <ul *ngFor="let incise of Left">
+                        <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
+                    </ul>
+                </div>
+                <div id="E"></div>
+                <div class="Derecha">
+                    <ul *ngFor="let incise of Right">
+                        <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
+                    </ul>
+                </div>
+                
+                <div></div>
+                <div class="Abajo">
+                    <ul *ngFor="let incise of Below">
+                        <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
+                    </ul>
+                </div>
+                <div>
+                    <button class="btn btn-primary" (click)="zoomMin()" >{{Contract}} </button>
+                </div>
 
-        <div class="abajo">
-            <div class="izquierda" id="G"></div>
-            <div class="medio"     id="H">
-                <ul *ngFor="let incise of Below">
-                    <li id="H" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
-                </ul>
             </div>
-            <div class="derecha"   id="I">
-            </div>
-        </div>
-    </div>
-</div>    </span>
-  </ng-template>
+        </div>    
+    </span>
+</ng-template>
 
