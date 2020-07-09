@@ -26,7 +26,6 @@ export class ShowAroundComponent implements OnInit {
   }
 
   getByScrwm(scrwm: Scrwm){
-    document.getElementById('E').contentEditable = "true";
     sessionStorage.setItem('currentScrwmId', scrwm._id);
     this.inciseService.getIncises()
     .subscribe(res =>{
@@ -50,6 +49,7 @@ export class ShowAroundComponent implements OnInit {
     this.DirLast = "";
     this.IdLast = "";
     this.showAround(incise);
+    this.isEditable(incise);
   }
 
   showAround(incise: Incise){
@@ -79,6 +79,14 @@ export class ShowAroundComponent implements OnInit {
         }
       }
     });
+  }
+
+  isEditable(incise: Incise){
+    if(incise.user === sessionStorage.getItem('currentUserId')){
+      document.getElementById('E').contentEditable = "true";
+    } else {
+      document.getElementById('E').contentEditable = "false";
+    }
   }
 
 }

@@ -23,18 +23,20 @@ export class KeyListenerComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  editedIncise(){  
-    if (document.getElementById('E').textContent === ""){
-      document.getElementById('E').textContent = "...1... ";
+  editedIncise(){
+    const C = document.getElementById('E');
+    if (C.textContent === ""){
+      C.textContent = "...1... ";
     }
+    C.contentEditable = "true";
     const incise = this.inciseService.selectedIncise;
     this.showAround.IdLast = incise._id;
-    incise.content = document.getElementById('E').textContent;
+    incise.content = C.textContent;
     this.getCurrentScrwm(incise);
     this.inciseService.putIncise(incise)
     .subscribe(res => {
         this.inciseService.selectedIncise = new Incise();
-        document.getElementById('E').textContent = "";
+        C.textContent = "";
         this.linkMono(this.inciseService.selectedIncise);
     });
   }
