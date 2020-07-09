@@ -11,7 +11,7 @@
                         <div class="nav-item" style="margin-bottom: 8px" *ngFor="let scrwm of scrwmService.scrwms">
                             <div *ngIf="scrwm.creator === selectedUser">    
                                 <div>
-                                    <a (click)="incisesComponent.getByScrwm(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}]</a>
+                                    <a (click)="showAround.getByScrwm(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}]</a>
                                 </div> 
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                         <div class="nav-item" style="margin-bottom: 8px" *ngFor="let scrwm of scrwmService.scrwms">
                             <div *ngIf="scrwm.creator === user._id">    
                                 <div>
-                                    <a (click)="incisesComponent.getByScrwm(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}]</a>
+                                    <a (click)="showAround.getByScrwm(scrwm)" style="cursor: pointer">{{ scrwm.title }} [{{ scrwm.subtitle }}]</a>
                                 </div> 
                             </div>
                         </div>

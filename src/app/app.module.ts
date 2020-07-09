@@ -13,6 +13,8 @@ import { SigninComponent } from './components/signin/signin.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { NewscrwmComponent } from './components/newscrwm/newscrwm.component';
 import { InitComponent } from './components/init/init.component';
+import { ShowAroundComponent } from './components/incises/show-around/show-around.component';
+import { KeyListenerComponent } from './components/incises/key-listener/key-listener.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { InitComponent } from './components/init/init.component';
     TasksComponent,
     NewscrwmComponent,
     InitComponent,
+    ShowAroundComponent,
+    KeyListenerComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +40,8 @@ import { InitComponent } from './components/init/init.component';
     NewscrwmComponent,
     IncisesComponent,
     SigninComponent,
+    ShowAroundComponent,
+    KeyListenerComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

@@ -3,6 +3,7 @@ import { ScrwmService } from '../../services/scrwm.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { InciseService } from 'src/app/services/incise.service';
 import { IncisesComponent } from 'src/app/components/incises/incises.component';
+import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
 
 
 @Component({
@@ -16,6 +17,7 @@ export class TasksComponent {
               public incisesComponent: IncisesComponent,
               public authService: AuthService,
               public inciseService: InciseService,
+              public showAround: ShowAroundComponent,
               ) { }
 
   selectedUser = sessionStorage.getItem('currentUserId');

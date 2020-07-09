@@ -5,27 +5,27 @@
 
                 <div></div>
                 <div class="Arriba">
-                    <ul *ngFor="let incise of Above">
+                    <ul *ngFor="let incise of showAround.Above">
                         <li class="Arriba" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
                     </ul>
                 </div>
                 <div></div>
 
                 <div class="Izquierda">
-                    <ul *ngFor="let incise of Left">
+                    <ul *ngFor="let incise of showAround.Left">
                         <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
                     </ul>
                 </div>
                 <div id="E"></div>
                 <div class="Derecha">
-                    <ul *ngFor="let incise of Right">
+                    <ul *ngFor="let incise of showAround.Right">
                         <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
                     </ul>
                 </div>
 
                 <div></div>
                 <div class="Abajo">
-                    <ul *ngFor="let incise of Below">
+                    <ul *ngFor="let incise of showAround.Below">
                         <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
                     </ul>
                 </div>
@@ -45,27 +45,27 @@
 
                 <div></div>
                 <div class="Arriba">
-                    <ul *ngFor="let incise of Above">
+                    <ul *ngFor="let incise of showAround.Above">
                         <li class="Arriba" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
                     </ul>
                 </div>
                 <div></div>
 
                 <div class="Izquierda">
-                    <ul *ngFor="let incise of Left">
+                    <ul *ngFor="let incise of showAround.Left">
                         <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
                     </ul>
                 </div>
                 <div id="E"></div>
                 <div class="Derecha">
-                    <ul *ngFor="let incise of Right">
+                    <ul *ngFor="let incise of showAround.Right">
                         <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
                     </ul>
                 </div>
                 
                 <div></div>
                 <div class="Abajo">
-                    <ul *ngFor="let incise of Below">
+                    <ul *ngFor="let incise of showAround.Below">
                         <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
                     </ul>
                 </div>

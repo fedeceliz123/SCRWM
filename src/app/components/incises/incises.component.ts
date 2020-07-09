@@ -1,8 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ScrwmService } from 'src/app/services/scrwm.service';
-import { InciseService } from '../../services/incise.service';
+import { InciseService } from 'src/app/services/incise.service';
+
+import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
+import { KeyListenerComponent } from 'src/app/components/incises/key-listener/key-listener.component'
 
 import { Incise } from 'src/app/models/incise';
 import { Scrwm } from 'src/app/models/scrwm';
@@ -12,180 +15,49 @@ import { Scrwm } from 'src/app/models/scrwm';
   templateUrl: './incises.component.html',
   styleUrls: ['./incises.component.css'],
 })
-export class IncisesComponent implements OnInit {
+export class IncisesComponent {
 
-  Above: any = [];
-  Below: any = [];
-  Left: any = [];
-  Right: any = [];
-  DirLast: any = "";
-  IdLast: any = "";
+    constructor(public inciseService: InciseService, 
+                public scrwmService: ScrwmService,
+                public showAround: ShowAroundComponent,
+                public keyListener: KeyListenerComponent,
+                public router: Router,
+                ){ }
 
-  constructor(public inciseService: InciseService, 
-              public scrwmService: ScrwmService,
-              public router: Router,
-              ){ }
-
-  ngOnInit(): void {
-  }
-
-  getByScrwm(scrwm: Scrwm){
-    document.getElementById('E').contentEditable = "true";
-    sessionStorage.setItem('currentScrwmId', scrwm._id);
-    this.inciseService.getIncises()
-    .subscribe(res =>{
-      const I = this.inciseService.incises = res as Incise[];
-      for(var i in I){
-        if(I[i]._id === scrwm.inciseInit){
-          this.inciseService.selectedIncise = I[i];
-          this.toCenter(this.inciseService.selectedIncise);
-        }
-      }
-    });
-
-  }
-
-  toCenter(incise: Incise){  
-    document.getElementById('E').textContent = incise.content;
-    document.getElementById('E').focus();
-    this.Above = [];
-    this.Below = [];
-    this.Left = [];
-    this.Right = [];
-    this.DirLast = "";
-    this.IdLast = "";
-    this.showAround(incise);
-  }
-
-  showAround(incise: Incise){
-    this.inciseService.getIncises()
-    .subscribe(res =>{
-      const D = this.inciseService.incises = res as Incise[];
-      for (var i in D){
-        for(var j in incise.right){
-          if(incise.right[j] === D[i]._id){
-            this.Right.push(D[i]);
-          }
-        }
-        for(var k in incise.down){
-          if(incise.down[k] === D[i]._id){
-            this.Below.push(D[i]);
-          }
-        }
-        for(var l in incise.left){
-          if(incise.left[l] === D[i]._id){
-            this.Left.push(D[i]);
-          }
-        }
-        for(var m in incise.up){
-          if(incise.up[m] === D[i]._id){
-            this.Above.push(D[i]);
-          }
-        }
-      }
-    });
-    console.log(this.Above);
-  }
-  
   @HostListener('window:keydown', ['$event']) spaceEvent(event: any){
     if(event.keyCode === 13){
-      this.DirLast = "Up";
-      this.editedIncise();
-    } else if(event.ctrlKey){
-             if(event.keyCode === 37){
-        this.DirLast = "Right";
-        this.editedIncise();
-      } else if(event.keyCode === 38){
-        this.DirLast = "Down";
-        this.editedIncise();
-      } else if(event.keyCode === 39){
-        this.DirLast = "Left";
-        this.editedIncise();
-      } else if(event.keyCode === 40){
-        this.DirLast = "Up";
-        this.editedIncise();
-      }  
-    }
-  }
-
-  editedIncise(){  
-    if (document.getElementById('E').textContent === ""){
-      document.getElementById('E').textContent = "...1... ";
-    }
-    const incise = this.inciseService.selectedIncise;
-    this.IdLast = incise._id;
-    incise.content = document.getElementById('E').textContent;
-    this.getCurrentScrwm(incise);
-    this.inciseService.putIncise(incise)
-    .subscribe(res => {
-        this.inciseService.selectedIncise = new Incise();
-        document.getElementById('E').textContent = "";
-        this.linkMono(this.inciseService.selectedIncise);
-    });
-  }
-
-  linkMono(incise: Incise){  
-      switch(this.DirLast){
-      case "Up":
-          incise.up = this.IdLast;
-        break;
-      case "Down":
-          incise.down = this.IdLast;
-        break;
-      case "Left":
-          incise.left = this.IdLast;
-        break;
-      case "Right":
-          incise.right = this.IdLast;
-        break;
+        this.showAround.DirLast = "Up";
+        this.keyListener.editedIncise();
+      } else if(event.ctrlKey){
+               if(event.keyCode === 37){
+          this.showAround.DirLast = "Right";
+          this.keyListener.editedIncise();
+        } else if(event.keyCode === 38){
+          this.showAround.DirLast = "Down";
+          this.keyListener.editedIncise();
+        } else if(event.keyCode === 39){
+          this.showAround.DirLast = "Left";
+          this.keyListener.editedIncise();
+        } else if(event.keyCode === 40){
+          this.showAround.DirLast = "Up";
+          this.keyListener.editedIncise();
+        }  
       }
-    incise.user = sessionStorage.getItem('currentUserId');
-    incise.scrwm = sessionStorage.getItem('currentScrwmId');
-      this.saveIncise(incise);
-  }
-
-  saveIncise(incise: Incise){
-    this.inciseService.postIncise(incise)
-    .subscribe(res => {
-      incise = res as Incise;
-      this.inciseService.selectedIncise = incise;
-      this.toCenter(this.inciseService.selectedIncise);
-    });
-  }
-
-  getCurrentScrwm(incise: Incise){
-    this.scrwmService.getScrwms()
-    .subscribe(res =>{
-      const A = this.scrwmService.scrwms = res as Scrwm [];
-      for(var i in A){
-        if(A[i]._id === sessionStorage.getItem('currentScrwmId')){
-          A[i].inciseInit = incise._id;
-          this.saveScrwm(A[i]);
-        }
-      }
-    });
-  }
-
-  saveScrwm(scrwm: Scrwm){
-    this.scrwmService.putScrwm(scrwm)
-    .subscribe(res =>{
-      scrwm = res as Scrwm;
-    });
-  }
+    }
 
   editAround(incise: Incise, direction: any){
     switch(direction){
       case "Up":
-        this.DirLast = "Up";
+        this.showAround.DirLast = "Up";
         break;
       case "Down":
-        this.DirLast = "Down";
+        this.showAround.DirLast = "Down";
         break;        
       case "Left":
-        this.DirLast = "Left";
+        this.showAround.DirLast = "Left";
         break;
       case "Right":
-        this.DirLast = "Right";
+        this.showAround.DirLast = "Right";
         break;  
     }
     this.linkStereo1(incise);
@@ -197,7 +69,7 @@ export class IncisesComponent implements OnInit {
     };
     const A = this.inciseService.selectedIncise;
     A.content = document.getElementById('E').textContent;
-    switch (this.DirLast){
+    switch (this.showAround.DirLast){
       case "Up":
         for(var i in A.up){
           if(A.up[i] === incise._id){
@@ -250,7 +122,7 @@ export class IncisesComponent implements OnInit {
   }
 
   linkStereo3(incise: Incise, A: Incise){
-    switch (this.DirLast){
+    switch (this.showAround.DirLast){
       case "Up":
         for(var i in incise.down){
           if(incise.down[i] === A._id){
@@ -297,9 +169,9 @@ export class IncisesComponent implements OnInit {
       this.inciseService.getIncises()
       .subscribe(res => {
         this.inciseService.incises = res as Incise[];
-        this.getCurrentScrwm(incise);
+        this.keyListener.getCurrentScrwm(incise);
         this.inciseService.selectedIncise = incise;
-        this.toCenter(this.inciseService.selectedIncise);
+        this.showAround.toCenter(this.inciseService.selectedIncise);
       });
     });
   }
@@ -323,7 +195,7 @@ export class IncisesComponent implements OnInit {
       const A = this.scrwmService.scrwms = res as Scrwm [];
       for(var i in A){
         if(A[i]._id === sessionStorage.getItem('currentScrwmId')){
-          this.getByScrwm(A[i]);
+          this.showAround.getByScrwm(A[i]);
         }
       }
     });
