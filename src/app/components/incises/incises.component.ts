@@ -1,4 +1,4 @@
-import { Component, HostListener} from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ScrwmService } from 'src/app/services/scrwm.service';
@@ -15,6 +15,7 @@ import { Scrwm } from 'src/app/models/scrwm';
   templateUrl: './incises.component.html',
   styleUrls: ['./incises.component.css'],
 })
+
 export class IncisesComponent {
 
     constructor(public inciseService: InciseService, 
@@ -26,24 +27,34 @@ export class IncisesComponent {
 
   @HostListener('window:keydown', ['$event']) spaceEvent(event: any){
     if(event.keyCode === 13){
+      this.showAround.DirLast = "Up";
+      this.keyListener.editedIncise();
+    } else if(event.ctrlKey){
+      if(event.keyCode === 37){
+        this.showAround.DirLast = "Right";
+        this.keyListener.editedIncise();
+      } else if(event.keyCode === 38){
+        this.showAround.DirLast = "Down";
+        this.keyListener.editedIncise();
+      } else if(event.keyCode === 39){
+        this.showAround.DirLast = "Left";
+        this.keyListener.editedIncise();
+      } else if(event.keyCode === 40){
         this.showAround.DirLast = "Up";
         this.keyListener.editedIncise();
-      } else if(event.ctrlKey){
-               if(event.keyCode === 37){
-          this.showAround.DirLast = "Right";
-          this.keyListener.editedIncise();
-        } else if(event.keyCode === 38){
-          this.showAround.DirLast = "Down";
-          this.keyListener.editedIncise();
-        } else if(event.keyCode === 39){
-          this.showAround.DirLast = "Left";
-          this.keyListener.editedIncise();
-        } else if(event.keyCode === 40){
-          this.showAround.DirLast = "Up";
-          this.keyListener.editedIncise();
-        }  
+      }  
+    }
+  }
+
+  @HostListener('mouseup', ['$event']) mouseUp(event: any) {
+    if(event.ctrlKey){
+      const selectedText = window.getSelection().toString().trim();
+      if (selectedText){
+        this.showAround.DirLast = "Left";
+        this.keyListener.editedIncise();  
       }
     }
+  }
 
   editAround(incise: Incise, direction: any){
     switch(direction){
