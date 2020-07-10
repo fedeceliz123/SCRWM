@@ -23,7 +23,7 @@
                         <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
                     </ul>
                 </div>
-                <div id="E"></div>
+                <div id="E" (keydown)="editIncise($event)"></div>
                 <div class="Derecha">
                     <ul *ngFor="let incise of showAround.Right">
                         <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>

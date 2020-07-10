@@ -28,7 +28,7 @@ export class IncisesComponent {
                 public router: Router,
                 ){ }
 
-  @HostListener('window:keydown', ['$event']) spaceEvent(event: any){
+  editIncise(event: any){
     if(event.keyCode === 13){
       this.showAround.DirLast = "Up";
       this.keyListener.editedIncise();
