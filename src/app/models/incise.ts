@@ -17,7 +17,7 @@ export class Incise {
         audios: [];
         videos: [];
         
-    constructor(_id="", scrwm="", user="", content="", subcontent="", date="", modified="",record=""){
+    constructor(_id="", scrwm="", user="", content="", subcontent="", date="", modified=""){
         this._id = _id;
         this.scrwm = scrwm;
         this.user = user;

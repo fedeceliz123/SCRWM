@@ -16,6 +16,7 @@ export class ShowAroundComponent implements OnInit {
   Below: any = [];
   Left: any = [];
   Right: any = [];
+  Hashtags: any = [];
   DirLast: any = "";
   IdLast: any = "";
 
@@ -41,15 +42,22 @@ export class ShowAroundComponent implements OnInit {
 
   toCenter(incise: Incise){  
     document.getElementById('E').textContent = incise.content;
-    document.getElementById('E').focus();
     this.Above = [];
     this.Below = [];
     this.Left = [];
     this.Right = [];
+    this.Hashtags = [];
     this.DirLast = "";
     this.IdLast = "";
+    this.showHashtag(incise);
     this.showAround(incise);
     this.isEditable(incise);
+  }
+
+  showHashtag(incise: Incise){
+    for(var i in incise.hashtag){
+      this.Hashtags.push(incise.hashtag[i]);
+    }
   }
 
   showAround(incise: Incise){
