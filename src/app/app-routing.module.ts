@@ -14,7 +14,7 @@ import { InitComponent } from './components/init/init.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/init',
+    redirectTo: '/tasks',
     pathMatch: 'full'
   },
   {
