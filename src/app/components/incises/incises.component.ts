@@ -212,7 +212,20 @@ export class IncisesComponent {
         }
       }
     });
-
   }
+
+  addHashtag:boolean = false;
+
+  HT(){
+    this.addHashtag = true;
+  }
+
+  HT2(event: any, HTInput: any){
+    if(event.keyCode === 32){
+      this.addHashtag = false;
+      console.log(HTInput.value);
+    }
+  }
+
 
 }
