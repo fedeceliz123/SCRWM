@@ -52,20 +52,8 @@ export class IncisesComponent {
     if(event.ctrlKey){
       const selectedText = window.getSelection().toString().trim();
       if (selectedText){
-
-        const span = document.getElementById('E');
-
-        span.textContent.substring(5, 8);
-
-      span.style.backgroundColor = "orange";
-      span.style.color = "black";
-
-
-      
-
-
-        //this.showAround.DirLast = "Left";
-        //this.keyListener.editedIncise();  
+        this.showAround.DirLast = "Left";
+        this.keyListener.editedIncise();  
       }
     }
   }

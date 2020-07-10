@@ -84,6 +84,7 @@ export class ShowAroundComponent implements OnInit {
   isEditable(incise: Incise){
     if(incise.user === sessionStorage.getItem('currentUserId')){
       document.getElementById('E').contentEditable = "true";
+      document.getElementById('E').focus();
     } else {
       document.getElementById('E').contentEditable = "false";
     }
