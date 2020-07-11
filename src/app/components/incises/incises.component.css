@@ -41,6 +41,7 @@
 
 .Arriba, .Izquierda, .Derecha, .Abajo{
     overflow: scroll;
+    cursor: pointer;
 }
 
 #E{
@@ -78,3 +79,7 @@
     padding-left: 8px;
     padding-right: 12px;
 }
+
+#HT:hover {
+    background-color: orangered;
+  }

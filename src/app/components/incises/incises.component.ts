@@ -11,7 +11,6 @@ import { Incise } from 'src/app/models/incise';
 import { Scrwm } from 'src/app/models/scrwm';
 
 import { HighlightDirective } from 'src/app/directives/highlight.directive'
-import { ɵHttpInterceptingHandler } from '@angular/common/http';
 
 @Component({
   selector: 'app-incises',
@@ -225,7 +224,18 @@ export class IncisesComponent {
     if(event.keyCode === 32){
       this.addHashtag = false;
       this.inciseService.selectedIncise.hashtag.push(HTInput.value);
+      this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
       this.showAround.toCenter(this.inciseService.selectedIncise);
+    }
+  }
+
+  deleteHashtag(hashtag: string){
+    const A = this.inciseService.selectedIncise;
+    for(var i in A.hashtag){
+      if(A.hashtag[i] === hashtag){
+        delete(A.hashtag[i]);
+        this.showAround.toCenter(A);
+      }
     }
   }
 
