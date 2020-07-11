@@ -23,6 +23,7 @@ export class SignupComponent implements OnInit {
       res => {
         console.log(res)
         //localStorage.setItem('token', res.token);
+        form.reset();
         this.router.navigate(['/init']);
       },
       err => console.log(err)

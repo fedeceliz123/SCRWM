@@ -44,6 +44,7 @@ export class SigninComponent implements OnInit {
       for(var i in A){
         if (A[i].username === form.value.username){
           if (A[i].password === form.value.password){
+            form.reset();
             sessionStorage.setItem('currentUserId', A[i]._id);
             this.findScrwm(A[i]._id);
           }
