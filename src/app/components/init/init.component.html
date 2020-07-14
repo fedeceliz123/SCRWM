@@ -1,37 +1,43 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <h1 style="cursor: pointer" routerLink="/">labyrinth</h1>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <ng-container *ngIf="!authService.loggedIn(); else loggedIn, scrwmsList">
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/signup">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/signin">Login</a>
-                        </li>
-                </ng-container>
-                <ng-template #loggedIn>
-                    <li class="nav-item">
-                        <a class="nav-link" style="cursor: pointer" routerLink="/newscrwm">New Scrwm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="cursor: pointer" (click)="deleteUsers()">(Delete All Users)</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="cursor: pointer" (click)="deleteScrwms()">(Delete All Scrwms)</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="cursor: pointer" (click)="deleteIncises()">(Delete All Incises)</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="cursor: pointer" (click)="authService.logOut()">Logut</a>
-                    </li>
-                </ng-template>
-            </ul>
-        </div>
+<nav>
+    <div class="nav-wrapper"
+    >
+      <a class="brand-logo" style="margin-left: 20px;">labyrinth</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <ng-container *ngIf="!authService.loggedIn(); else loggedIn, scrwmsList">
+            <li><a class="nav-link" routerLink="/signup">Register</a></li>
+            <li style="margin-right: 20px;"><a class="nav-link" routerLink="/signin">Login</a></li>
+        </ng-container>
+        <ng-template #loggedIn style="margin-right: 20px;">
+          <li>
+            <nav style="flex: left;">
+            <div class="nav-wrapper #64b5f6 blue lighten-2">
+              <form>
+                <div class="input-field" >
+                  <input  id="search" type="search" required>
+                  <label class="label-icon" for="search"><i>#</i></label>
+                </div>
+              </form>
+            </div>
+          </nav>
+          </li>
+          <li><a class="nav-link" style="cursor: pointer; margin-left: 10px;" routerLink="/newscrwm">New Scrwm</a></li>
+          <li><a class="nav-link" style="cursor: pointer; margin-left: 10px;" (click)="deleteUsers()">(Delete All Users)</a></li>
+          <li>
+            <nav>
+            <div class="nav-wrapper #64b5f6 blue lighten-2">
+              <form>
+                <div class="input-field" >
+                  <input  id="search" type="search" required>
+                  <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                </div>
+              </form>
+            </div>
+          </nav>
+          </li>
+          <li style="margin-right: 20px;"><a class="nav-link" style="cursor: pointer; margin-left: 10px;" (click)="authService.logOut()">Logut</a></li>
+
+        </ng-template>
+      </ul>
     </div>
-</nav>
+  </nav>
+     

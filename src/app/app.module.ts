@@ -16,6 +16,10 @@ import { InitComponent } from './components/init/init.component';
 import { ShowAroundComponent } from './components/incises/show-around/show-around.component';
 import { KeyListenerComponent } from './components/incises/key-listener/key-listener.component';
 import { HighlightDirective } from './directives/highlight.directive';
+import { TextEditorComponent } from './components/incises/text-editor/text-editor.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module'
+
 
 @NgModule({
   declarations: [
@@ -29,12 +33,15 @@ import { HighlightDirective } from './directives/highlight.directive';
     ShowAroundComponent,
     KeyListenerComponent,
     HighlightDirective,
+    TextEditorComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [
     AuthGuard,
@@ -45,6 +52,7 @@ import { HighlightDirective } from './directives/highlight.directive';
     ShowAroundComponent,
     KeyListenerComponent,
     HighlightDirective,
+    TextEditorComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

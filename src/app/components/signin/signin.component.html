@@ -1,24 +1,22 @@
 <app-init></app-init>
-<div class="container p-5">
-    <div class="row">
-        <div class="col-md-4 mx-auto">
-            <div class="card">
-                <div class="card-header">
-                    signIn
-                </div>
-                <div class="card-body">
-                    <form #userForm="ngForm" (ngSubmit)="signIn(userForm)">
-                        <div class="form-group"> 
-                            <input type="text" name="username" #username="ngModel" [(ngModel)]="authService.selectedUser.username" class="form-control" placeholder="Username" required autofocus>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" name="password" #password="ngModel" [(ngModel)]="authService.selectedUser.password" class="form-control" placeholder="Password" required>
-                        </div>
-                        <button class="btn btn-primary btn-block">SignIn</button>
-                        <button class="btn btn-primary btn-block" routerLink="/init">Back</button>
-                    </form>                  
-                </div>
+<div class="row" style="display: flexbox">
+    <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">signIn</span>
+          <form #userForm="ngForm" (ngSubmit)="signIn(userForm)">
+            <div class="form-group"> 
+                <input type="text" name="username" #username="ngModel" [(ngModel)]="authService.selectedUser.username" class="form-control" placeholder="Username" required autofocus>
             </div>
+            <div class="form-group">
+                <input type="password" name="password" #password="ngModel" [(ngModel)]="authService.selectedUser.password" class="form-control" placeholder="Password" required>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
+            <button  class="waves-effect waves-light btn-small" style="margin-left: 20px;" routerLink="/init">Back</button>
+        </form> 
         </div>
+      </div>
     </div>
 </div>

@@ -3,7 +3,10 @@
         <div class="bloqueMin">
             <div class="bloqueMin2">
 
-                <div></div>
+                <div>
+                    <div class="Arriba-Izquierda1"></div>
+                    <div class="Arriba-Izquierda2"></div>
+                </div>
                 <div class="Arriba">
                     <ul *ngFor="let incise of showAround.Above">
                         <li class="Arriba" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
@@ -26,10 +29,13 @@
                 <div>
                     <div class="container" >
                         <div *ngFor="let hashtag of showAround.Hashtags">
-                            <div id="HT" style="cursor: pointer" (click)="deleteHashtag(hashtag)">#{{ hashtag }} </div>
+                            <div class="chip" (click)="deleteHashtag(hashtag)">#{{ hashtag }} 
+                            </div>
                         </div>
                     </div>
-                    <div id="E" (keydown)="editIncise($event)"></div>
+                    <div id="E"  (keydown)="editIncise($event)">
+                        <app-text-editor></app-text-editor>
+                    </div>
                 </div>
                 <div class="Derecha">
                     <ul *ngFor="let incise of showAround.Right">
@@ -37,14 +43,18 @@
                     </ul>
                 </div>
 
-                <div></div>
+                <div>
+                    <app-text-editor></app-text-editor>
+                </div>
                 <div class="Abajo">
                     <ul *ngFor="let incise of showAround.Below">
                         <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
                     </ul>
                 </div>
                 <div>
-                    <button class="btn btn-primary" (click)="zoomMax()" > {{ Expand }} </button>
+                    <button class="btn btn-primary" (click)="zoomMax()" >
+                        <i class="material-icons">fullscreen</i>
+                    </button>
                 </div> 
 
             </div>
@@ -80,7 +90,8 @@
                 <div>
                     <div class="container" >
                         <div *ngFor="let hashtag of showAround.Hashtags">
-                            <div id="HT" style="cursor: pointer" (click)="deleteHashtag(hashtag)">#{{ hashtag }} </div>
+                            <div class="chip" (click)="deleteHashtag(hashtag)">#{{ hashtag }} 
+                            </div>
                         </div>
                     </div>
                     <div id="E" (keydown)="editIncise($event)"></div>
@@ -90,15 +101,19 @@
                         <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
                     </ul>
                 </div>
-
-                <div></div>
+                
+                <div>
+                    <app-text-editor></app-text-editor>
+                </div>
                 <div class="Abajo">
                     <ul *ngFor="let incise of showAround.Below">
                         <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
                     </ul>
                 </div>
                 <div>
-                    <button class="btn btn-primary" (click)="zoomMin()" > {{Contract}} </button>
+                    <button class="btn btn-primary"(click)="zoomMin()">
+                        <i class="material-icons" >fullscreen_exit</i>
+                    </button>
                 </div>
 
             </div>

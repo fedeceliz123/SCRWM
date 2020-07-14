@@ -2,20 +2,45 @@
     display: flex;
 }
 
+.left{
+    margin-left: 10px;
+}
+
 .right{
-    width: 500px;
-}
-
-.above{
-    height: 180px;
-    overflow-y: scroll;
-}
-
-.below{
-    height: 280px;
-    overflow-y: scroll;
+    display: inline-flexbox;
+    overflow-y: auto;
+    max-height: 530px;
 }
 
 ::-webkit-scrollbar {
     display: none;
+}
+
+.material-icons:hover {
+    background-color:gray;
+}
+
+.title{
+    font-weight: bolder;
+}
+.title:hover{
+    color: rgba(143, 174, 195, 0.7);
+}
+
+.name{
+    font-weight: bolder;  
+}
+
+.material-icons{
+    color: rgba(143, 174, 195, 0.7);
+}
+
+.circle{
+    height: 40px;
+    padding: 0px;
+}
+
+.mat-expansion-panel-header{
+    background-color: rgb(224, 232, 251);
+     
 }

@@ -25,6 +25,7 @@ export class NewscrwmComponent implements OnInit {
     A.creator = userId;
     A.title = form.value.title;
     A.subtitle = form.value.subtitle;
+    form.reset();
     this.scrwmService.postScrwm(A)
     .subscribe(res => {
       this.signinComponent.getScrwm(userId);

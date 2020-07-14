@@ -6,11 +6,14 @@ import { InciseService } from 'src/app/services/incise.service';
 
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
 import { KeyListenerComponent } from 'src/app/components/incises/key-listener/key-listener.component'
+import {TextEditorComponent} from 'src/app/components/incises/text-editor/text-editor.component';
 
 import { Incise } from 'src/app/models/incise';
 import { Scrwm } from 'src/app/models/scrwm';
 
 import { HighlightDirective } from 'src/app/directives/highlight.directive'
+
+declare var M: any;
 
 @Component({
   selector: 'app-incises',
@@ -26,6 +29,7 @@ export class IncisesComponent {
                 public keyListener: KeyListenerComponent,
                 public highLight: HighlightDirective,
                 public router: Router,
+                public textEditorComponent: TextEditorComponent,
                 ){ }
 
   editIncise(event: any){
@@ -40,7 +44,7 @@ export class IncisesComponent {
         this.showAround.DirLast = "Down";
         this.keyListener.editedIncise();
       } else if(event.keyCode === 39){
-        alert("Please select what you want to comment after pressing Ctrl key")
+        M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
       } else if(event.keyCode === 40){
         this.showAround.DirLast = "Up";
         this.keyListener.editedIncise();

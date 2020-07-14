@@ -5,8 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { InciseService } from 'src/app/services/incise.service';
 
 import { Scrwm } from 'src/app/models/scrwm';
-import { User } from 'src/app/models/user'
-import { Incise } from 'src/app/models/incise';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-init',
@@ -22,8 +21,8 @@ export class InitComponent implements OnInit {
               ){}
 
   ngOnInit(): void {
-    this.getUsers();
     this.getScrwms();
+    this.getUsers();
   }
 
   getScrwms(){
@@ -46,31 +45,6 @@ export class InitComponent implements OnInit {
       this.authService.users = res as User[];
       for(var i in this.authService.users){
         this.authService.deleteUser(this.authService.users[i]._id)
-        .subscribe(res => {
-        });
-      }
-    });
-  }
-
-  deleteScrwms(){
-    this.scrwmService.getScrwms()
-    .subscribe(res => {
-      this.scrwmService.scrwms = res as Scrwm[];
-      for(var i in this.scrwmService.scrwms){
-        this.scrwmService.deleteScrwm(this.scrwmService.scrwms[i]._id)
-        .subscribe(res => {
-          this.scrwmService.selectedScrwm = new Scrwm();
-        });
-      }
-    });  
-  }
-
-  deleteIncises(){
-    this.inciseService.getIncises()
-    .subscribe(res => {
-      this.inciseService.incises = res as Incise[];
-      for(var i in this.inciseService.incises){
-        this.inciseService.deleteIncise(this.inciseService.incises[i]._id)
         .subscribe(res => {
         });
       }
