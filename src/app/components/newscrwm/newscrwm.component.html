@@ -1,19 +1,19 @@
+<h1 mat-dialog-title>New Scrwm</h1>
 <mat-dialog-content class="mat-typography">
-  <span class="card-title">New Scrwm</span>
   <form #scrwmForm="ngForm" (ngSubmit)="newScrwm(scrwmForm)">
     <div>
       <mat-form-field appearance="fill" style="width: 800px;">
-        <input type="text" name="title" #title="ngModel" [ngModel]="scrwmService.selectedScrwm.title" class="form-control" placeholder="Title" required autofocus>
+        <input matInput type="text" name="title" #title="ngModel" [ngModel]="scrwmService.selectedScrwm.title" class="form-control" placeholder="Title" required  cdkFocusInitial>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field appearance="fill" style="width: 800px;">
-        <input type="text" name="subtitle" #subtitle="ngModel" [ngModel]="scrwmService.selectedScrwm.subtitle" class="form-control" placeholder="Subtitle" required>
+        <input matInput type="text" name="subtitle" #subtitle="ngModel" [ngModel]="scrwmService.selectedScrwm.subtitle" class="form-control" placeholder="Subtitle" required>
       </mat-form-field>
     </div>
     <div>
       <button mat-button mat-dialog-close type="submit" name="action">Send</button>
-      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Back</button>
+      <button mat-button [mat-dialog-close]="true">Back</button>
     </div>
   </form>
 </mat-dialog-content>
