@@ -17,7 +17,7 @@ export class NewscrwmComponent implements OnInit {
               public signinComponent: SigninComponent) { }
 
   ngOnInit(): void {
-  }
+  } 
 
   newScrwm(form: NgForm){
     const A = this.scrwmService.selectedScrwm = new Scrwm;

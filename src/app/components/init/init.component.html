@@ -3,8 +3,8 @@
     <a class="brand-logo" style="margin-left: 20px;">labyrinth</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <ng-container *ngIf="!authService.loggedIn(); else loggedIn, scrwmsList">
-          <button mat-button (click)="Register()">Register </button>
-          <button mat-button (click)="Login()">Login</button> 
+          <li><button mat-button (click)="Register()">Register </button></li>
+          <li><button mat-button (click)="Login()">Login</button> </li>
       </ng-container>
       <ng-template #loggedIn style="margin-right: 20px;">
         <li>
@@ -19,8 +19,8 @@
           </div>
         </nav>
         </li>
-        <li><a class="nav-link" style="cursor: pointer; margin-left: 10px;" routerLink="/newscrwm">New Scrwm</a></li>
-        <li><a class="nav-link" style="cursor: pointer; margin-left: 10px;" (click)="deleteUsers()">(Delete All Users)</a></li>
+        <li><button mat-button (click)="newScrwm()" style="margin-left: 10px;">New Scrwm</button></li>
+        <li><a class="nav-link" style="cursor: pointer; margin-left: 10px; margin-right: 10px;" (click)="deleteUsers()">(Delete All Users)</a></li>
         <li>
           <nav>
           <div class="nav-wrapper #64b5f6 blue lighten-2">

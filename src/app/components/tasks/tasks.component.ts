@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
 import { ScrwmService } from '../../services/scrwm.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { InciseService } from 'src/app/services/incise.service';
+
 import { IncisesComponent } from 'src/app/components/incises/incises.component';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
 
 import { Scrwm } from 'src/app/models/scrwm';
 import { Incise } from 'src/app/models/incise';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-tasks',
@@ -14,7 +17,7 @@ import { Incise } from 'src/app/models/incise';
   styleUrls: ['./tasks.component.css'],
 })
 
-export class TasksComponent {
+export class TasksComponent implements OnInit {
 
   panelOpenState = false;
 
@@ -26,6 +29,26 @@ export class TasksComponent {
               ) { }
 
   selectedUser = sessionStorage.getItem('currentUserId');
+
+  ngOnInit(): void {
+    this.getScrwms();
+    this.getUsers();
+  }
+
+  getScrwms(){
+    this.scrwmService.getScrwms()
+    .subscribe(res => {
+      this.scrwmService.scrwms = res as Scrwm[];
+    });
+  }
+
+  getUsers(){
+    this.authService.getUsers()
+    .subscribe(res => {
+      this.authService.users = res as User[];
+    });
+  }
+
 
   deleteScrwm(scrwm: Scrwm){
     this.scrwmService.getScrwms()
@@ -59,13 +82,6 @@ export class TasksComponent {
             this.getScrwms();
           });     
         }
-      });
-    }
-
-    getScrwms(){
-      this.scrwmService.getScrwms()
-      .subscribe(res => {
-        this.scrwmService.scrwms = res as Scrwm[];
       });
     }
 
