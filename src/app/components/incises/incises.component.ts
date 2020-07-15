@@ -29,8 +29,7 @@ export class IncisesComponent {
                 public keyListener: KeyListenerComponent,
                 public highLight: HighlightDirective,
                 public router: Router,
-                public textEditorComponent: TextEditorComponent,
-                ){ }
+                public textEditorComponent: TextEditorComponent                ){ }
 
   editIncise(event: any){
     if(event.keyCode === 13){
@@ -52,12 +51,15 @@ export class IncisesComponent {
     }
   }
 
-  @HostListener('mouseup', ['$event']) mouseUp(event: any) {
+  selection(event:any){
     if(event.ctrlKey){
       const selectedText = window.getSelection().toString().trim();
       if (selectedText){
+        document.designMode = "on";
+        document.execCommand("forecolor", true, "red");
         this.showAround.DirLast = "Left";
         this.keyListener.editedIncise();  
+        document.designMode = "off";
       }
     }
   }

@@ -27,6 +27,8 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  hide = true;
+
   signIn(form: NgForm){
     this.authService.signIn(form.value)
     .subscribe(res => {

@@ -10,6 +10,8 @@
     display: inline-flexbox;
     overflow-y: auto;
     max-height: 530px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 ::-webkit-scrollbar {

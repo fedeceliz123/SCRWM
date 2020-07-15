@@ -33,9 +33,9 @@
                             </div>
                         </div>
                     </div>
-                    <div id="E"  (keydown)="editIncise($event)">
-                        <app-text-editor></app-text-editor>
-                    </div>
+                        <div id="E"  (keydown)="editIncise($event)" (mouseup)="selection($event)"></div>
+                            <app-text-editor></app-text-editor>
+                        
                 </div>
                 <div class="Derecha">
                     <ul *ngFor="let incise of showAround.Right">

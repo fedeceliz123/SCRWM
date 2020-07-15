@@ -12,6 +12,8 @@ import { NewscrwmComponent } from './components/newscrwm/newscrwm.component';
 import { InitComponent } from './components/init/init.component';
 
 const routes: Routes = [
+  { path: 'detail/:key', loadChildren: './detail/detail.module#DetailPageModule' 
+    },
   {
     path: '',
     redirectTo: '/tasks',

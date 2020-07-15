@@ -17,6 +17,8 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  hide = true;
+
   signUp(form: NgForm){
     this.authService.signUp(form.value)
     .subscribe(
