@@ -95,4 +95,31 @@ export class NewscrwmComponent implements OnInit {
     });
   }
 
+
+  deleteScrwms(){
+    this.scrwmService.getScrwms()
+    .subscribe(res => {
+      this.scrwmService.scrwms = res as Scrwm[];
+      for(var i in this.scrwmService.scrwms){
+        this.scrwmService.deleteScrwm(this.scrwmService.scrwms[i]._id)
+        .subscribe(res => {
+        });
+      }
+    });
+    this.deleteIncises();
+  }
+
+
+deleteIncises(){
+  this.inciseService.getIncises()
+  .subscribe(res => {
+    this.inciseService.incises = res as Incise[];
+    for(var i in this.inciseService.incises){
+      this.inciseService.deleteIncise(this.inciseService.incises[i]._id)
+      .subscribe(res => {
+      });
+    }
+  });
+}
+
 }

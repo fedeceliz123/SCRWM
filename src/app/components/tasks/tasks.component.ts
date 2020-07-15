@@ -11,6 +11,9 @@ import { Scrwm } from 'src/app/models/scrwm';
 import { Incise } from 'src/app/models/incise';
 import { User } from 'src/app/models/user';
 
+import {MatDialog} from '@angular/material/dialog';
+
+
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -26,6 +29,7 @@ export class TasksComponent implements OnInit {
               public authService: AuthService,
               public inciseService: InciseService,
               public showAround: ShowAroundComponent,
+              public dialog: MatDialog,
               ) { }
 
   selectedUser = sessionStorage.getItem('currentUserId');
@@ -84,9 +88,14 @@ export class TasksComponent implements OnInit {
         }
       });
     }
-
     editScrwm(scrwm: Scrwm){
+    }
 
+    editUser() {
+      const dialogRef = this.dialog.open(IncisesComponent);
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
     }
 
 }

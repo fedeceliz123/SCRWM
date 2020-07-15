@@ -37,6 +37,7 @@ export class InitComponent implements OnInit {
         });
       }
     });
+    this.newScrwmComponent.deleteScrwms();
   }
 
   Register() {

@@ -2,13 +2,15 @@
 <mat-dialog-content class="mat-typography">
   <form #scrwmForm="ngForm" (ngSubmit)="newScrwm(scrwmForm)">
     <div>
-      <mat-form-field appearance="fill" style="width: 800px;">
-        <input matInput type="text" name="title" #title="ngModel" [ngModel]="scrwmService.selectedScrwm.title" class="form-control" placeholder="Title" required  cdkFocusInitial>
+      <mat-form-field appearance="fill"  style="width: 600px;">
+        <mat-label>Title</mat-label>
+        <textarea matInput name="title" #title="ngModel" [ngModel]="scrwmService.selectedScrwm.title" class="form-control" required  cdkFocusInitial></textarea>
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field appearance="fill" style="width: 800px;">
-        <input matInput type="text" name="subtitle" #subtitle="ngModel" [ngModel]="scrwmService.selectedScrwm.subtitle" class="form-control" placeholder="Subtitle" required>
+      <mat-form-field appearance="fill"  style="width: 600px;">
+        <mat-label>Sibtitle</mat-label>
+        <textarea matInput name="subtitle" #subtitle="ngModel" [ngModel]="scrwmService.selectedScrwm.subtitle" class="form-control" required></textarea>
       </mat-form-field>
     </div>
     <div>

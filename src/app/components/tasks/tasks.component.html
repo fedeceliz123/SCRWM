@@ -6,16 +6,19 @@
             <div *ngIf="user._id === selectedUser">  
                 <ul *ngFor="let scrwm of scrwmService.scrwms">
                     <div *ngIf="scrwm.creator === selectedUser">
-                        <mat-accordion color="white">
+                        <mat-accordion>
                             <mat-expansion-panel hideToggle>
                             <mat-expansion-panel-header >
-                                <mat-panel-title>
-                                    <img src="assets/perfil.jpg" class="circle">
+                                <mat-panel-title style="margin-top: 5px;">
+                                    <img src="assets/perfil.jpg" class="circle" style="height: 40px">
                                 </mat-panel-title>
-                                <mat-panel-description style="color: blue">
-                                    {{ scrwm.title }}
+                                <mat-panel-description style="color: blue;">
+                                    <p style="height: 35px; overflow: hidden; margin-top: 5px;">{{ scrwm.title }}</p>
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
+                            <p style="font-size: 10px; max-height: 40px; color: gray;">
+                               {{ scrwm.updatedAt }} -- {{ scrwm.createdAt }}
+                            </p>
                             <p class="subtitle" (click)="showAround.getByScrwm(scrwm)" style="color: lightblue; cursor:pointer">
                                 {{ scrwm.subtitle }}</p>
                                 <i class="material-icons" style="font-size: 18px; float: right; cursor: pointer;" (click)="editScrwm(scrwm)">edit</i>
@@ -48,10 +51,10 @@
                 </ul>         
             </div>
         </ng-container>
+        <div style="text-align: right; margin-right: 50px; position: absolute; bottom: 40px; right: 10px;" (click)="editUser()">
+            <img src="assets/perfil.jpg" class="circle" style="width: 60px; border: brown; border-style: outset">
+        </div>
     </div>
 </div>
-
-
-
 
 
