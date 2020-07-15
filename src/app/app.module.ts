@@ -15,12 +15,11 @@ import { NewscrwmComponent } from './components/newscrwm/newscrwm.component';
 import { InitComponent } from './components/init/init.component';
 import { ShowAroundComponent } from './components/incises/show-around/show-around.component';
 import { KeyListenerComponent } from './components/incises/key-listener/key-listener.component';
+
 import { HighlightDirective } from './directives/highlight.directive';
 import { TextEditorComponent } from './components/incises/text-editor/text-editor.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
 
 @NgModule({
   declarations: [
@@ -43,8 +42,6 @@ import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    CKEditorModule,
-    RichTextEditorModule,
   ],
   providers: [
     AuthGuard,
@@ -58,7 +55,6 @@ import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
     TextEditorComponent,
     SignupComponent,
     SigninComponent,
-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

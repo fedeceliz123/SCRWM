@@ -239,10 +239,12 @@ export class IncisesComponent {
     const A = this.inciseService.selectedIncise;
     for(var i in A.hashtag){
       if(A.hashtag[i] === hashtag){
-        delete(A.hashtag[i]);
+        const index = A.hashtag.indexOf(i)+1;
+        A.hashtag.splice(index, 1);
+        A.content = document.getElementById('E').textContent;
         this.showAround.toCenter(A);
       }
-    }
+    }i
   }
 
 }
