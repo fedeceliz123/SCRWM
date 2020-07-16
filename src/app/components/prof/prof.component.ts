@@ -49,4 +49,26 @@ export class ProfComponent implements OnInit {
     .subscribe(res => console.log(res), err => console.log(err));
   }
 
+editName(){
+  console.log("Entró...");
+  document.getElementById('Name').contentEditable = "true";
+  console.log(document.getElementById('Name').contentEditable);
+  document.getElementById("Name").focus();
+  document.getElementById("State").contentEditable = "false";
+  document.getElementById("Description").contentEditable = "false";
+}
+
+editState(){
+  document.getElementById("State").contentEditable = "true";
+  document.getElementById("State").focus();
+  document.getElementById("Name").contentEditable = "false";
+  document.getElementById("Description").contentEditable = "false";
+}
+
+editDescription(){
+  document.getElementById("Description").contentEditable = "true";
+  document.getElementById("Description").focus();
+  document.getElementById("State").contentEditable = "false";
+  document.getElementById("Name").contentEditable = "false";
+}
 }

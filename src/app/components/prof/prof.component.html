@@ -1,17 +1,18 @@
+<mat-dialog-content>
 <div class="container">
   <div class="info">
     <h2>Personal info</h2>
     <div class="name">
-      <mat-icon class="icon">edit</mat-icon>
-      <p>Name:</p><p contenteditable="true" id="Name"></p>
+      <mat-icon class="icon" (click)="editName()" style="cursor:pointer">edit</mat-icon>
+      <p style="font-weight: bold;">Name:</p><p id="Name" contenteditable="false" style="margin-left: 5px;">Name you want to show...</p>
     </div>
     <div class="state">
-      <mat-icon class="icon">edit</mat-icon>
-      <p>State:</p><p contenteditable="false" id="State"></p>
+      <mat-icon class="icon" (click)="editState()" style="cursor:pointer">edit</mat-icon>
+      <p style="font-weight: bold;">State:</p><p id="State" contenteditable="false" style="margin-left: 5px;">How are you today?</p>
     </div>
     <div class="description">
-      <mat-icon class="icon">edit</mat-icon>
-      <p>description:</p><p contenteditable="false" id="Description"></p>
+      <mat-icon class="icon" (click)="editDescription()" style="cursor:pointer">edit</mat-icon>
+      <p style="font-weight: bold;">description:</p><p id="Description" contenteditable="false" style="margin-left: 5px;">Describe yourself...</p>
    </div>
   </div>
     <div >
@@ -23,6 +24,7 @@
       </div>
     </div>
 </div>
+</mat-dialog-content>
 
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Close</button>
