@@ -7,7 +7,8 @@ import { ScrwmService } from '../../services/scrwm.service';
 import { User } from '../../models/user';
 import { Scrwm } from 'src/app/models/scrwm';
 
-import {NewscrwmComponent} from 'src/app/components/newscrwm/newscrwm.component'
+import { NewscrwmComponent } from 'src/app/components/newscrwm/newscrwm.component';
+import { ProfComponent } from 'src/app/components/prof/prof.component'
 
 @Component({
   selector: 'app-signin',
@@ -16,17 +17,18 @@ import {NewscrwmComponent} from 'src/app/components/newscrwm/newscrwm.component'
 })
 export class SigninComponent implements OnInit {
 
+  hide = true;
+
   constructor(
     public authService: AuthService,
     public scrwmService: ScrwmService,
     public newScrwmComponent: NewscrwmComponent,
+    public profComponent: ProfComponent,
   ) { }
 
   ngOnInit(): void {
   }
-
-  hide = true;
-
+  
   signIn(form: NgForm){
     this.authService.signIn(form.value)
     .subscribe(res => {
@@ -38,39 +40,36 @@ export class SigninComponent implements OnInit {
   }
  
   findUser(form: NgForm){
-    this.authService.getUsers()
-    .subscribe(res => {
-      const A = this.authService.users = res as User[];
-      for(var i in A){
-        if (A[i].username === form.value.username){
-          if (A[i].password === form.value.password){
-            form.reset();
-            sessionStorage.setItem('currentUserId', A[i]._id);
-            this.findScrwm(A[i]._id);
-          }
+    const A = this.authService.users;
+    for(var i in A){
+      if (A[i].username === form.value.username){
+        if (A[i].password === form.value.password){
+          form.reset();
+          sessionStorage.setItem('currentUserId', A[i]._id);
+          this.findScrwm(A[i]._id);
         }
       }
-    });
+    }    
   }
 
-  findScrwm(userId: any){
-    this.scrwmService.getScrwms()
-    .subscribe(res => {
-      const B = this.scrwmService.scrwms = res as Scrwm[];
+  findScrwm(userId: string){
+    console.log("1");
+      const B = this.scrwmService.scrwms;
       for(var i in B){
         if(B[i].creator === userId){
           return;
         }
       }
+      console.log("2");
       this.firstScrwm(userId);
-    }); 
+      this.profComponent.newProf(userId);
   }
 
-  firstScrwm(userId: any){
+  firstScrwm(userId: string){
     const C = this.scrwmService.selectedScrwm = new Scrwm;
     C.creator = userId;
-    C.title = "Title Scrwm...";
-    C.subtitle = "Subtitle...";
+    C.title = "Title...";
+    C.subtitle = "Additional info...";
     this.scrwmService.postScrwm(C)
     .subscribe(res => {
       this.newScrwmComponent.getScrwm(userId);

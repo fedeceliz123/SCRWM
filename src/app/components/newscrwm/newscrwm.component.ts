@@ -47,6 +47,8 @@ export class NewscrwmComponent implements OnInit {
           if(!D[i].inciseInit){
             sessionStorage.setItem('currentScrwmId', D[i]._id);
             this.newIncise(userId, D[i]);
+          } else {
+            return;
           }
         }
       }
@@ -74,27 +76,11 @@ export class NewscrwmComponent implements OnInit {
             this.scrwmService.putScrwm(scrwm)
             .subscribe(res => {
             });
-            this.cleanScrwms();
-            this.router.navigate(['/tasks']);
           }
         }
       }
     });
   }
-
-  cleanScrwms(){
-    this.scrwmService.getScrwms()
-    .subscribe(res => {
-      for(var i in this.scrwmService.scrwms){
-        if(!this.scrwmService.scrwms[i].creator){
-          this.scrwmService.deleteScrwm(this.scrwmService.scrwms[i]._id)
-          .subscribe(res => {
-          });
-        }
-      }
-    });
-  }
-
 
   deleteScrwms(){
     this.scrwmService.getScrwms()
@@ -109,17 +95,16 @@ export class NewscrwmComponent implements OnInit {
     this.deleteIncises();
   }
 
-
-deleteIncises(){
-  this.inciseService.getIncises()
-  .subscribe(res => {
-    this.inciseService.incises = res as Incise[];
-    for(var i in this.inciseService.incises){
-      this.inciseService.deleteIncise(this.inciseService.incises[i]._id)
-      .subscribe(res => {
-      });
-    }
-  });
-}
+  deleteIncises(){
+    this.inciseService.getIncises()
+    .subscribe(res => {
+      this.inciseService.incises = res as Incise[];
+      for(var i in this.inciseService.incises){
+        this.inciseService.deleteIncise(this.inciseService.incises[i]._id)
+        .subscribe(res => {
+        });
+      }
+    });
+  }
 
 }

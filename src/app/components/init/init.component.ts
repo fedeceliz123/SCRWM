@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
+import { ScrwmService } from 'src/app/services/scrwm.service';
 
+import { Scrwm } from 'src/app/models/scrwm';
 import { User } from 'src/app/models/user';
 
 import {MatDialog} from '@angular/material/dialog';
@@ -25,9 +27,26 @@ export class InitComponent implements OnInit {
               public signinComponent: SigninComponent,
               public newScrwmComponent: NewscrwmComponent,
               public profComponent: ProfComponent,
+              public scrwmService: ScrwmService,
               ){}
 
   ngOnInit(): void {
+    this.getScrwms();
+    this.getUsers();
+  }
+
+  getScrwms(){
+    this.scrwmService.getScrwms()
+    .subscribe(res => {
+      this.scrwmService.scrwms = res as Scrwm[];
+    });
+  }
+
+  getUsers(){
+    this.authService.getUsers()
+    .subscribe(res => {
+      this.authService.users = res as User[];
+    });
   }
 
   deleteUsers(){
@@ -41,29 +60,30 @@ export class InitComponent implements OnInit {
       }
     });
     this.newScrwmComponent.deleteScrwms();
+    this.profComponent.deleteProfs();
+    sessionStorage.setItem("currentUserId", "*");
+    sessionStorage.setItem("currentscrwmId", "*");
+
   }
 
   Register() {
     const dialogRef = this.dialog.open(SignupComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   Login() {
     const dialogRef = this.dialog.open(SigninComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
   newScrwm() {
     const dialogRef = this.dialog.open(NewscrwmComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
-
+ 
   editUser() {
     const dialogRef = this.dialog.open(ProfComponent);
     dialogRef.afterClosed().subscribe(result => {

@@ -33,24 +33,7 @@ export class TasksComponent implements OnInit {
   selectedUser = sessionStorage.getItem('currentUserId');
 
   ngOnInit(): void {
-    this.getScrwms();
-    this.getUsers();
   }
-
-  getScrwms(){
-    this.scrwmService.getScrwms()
-    .subscribe(res => {
-      this.scrwmService.scrwms = res as Scrwm[];
-    });
-  }
-
-  getUsers(){
-    this.authService.getUsers()
-    .subscribe(res => {
-      this.authService.users = res as User[];
-    });
-  }
-
 
   deleteScrwm(scrwm: Scrwm){
     this.scrwmService.getScrwms()
@@ -78,15 +61,24 @@ export class TasksComponent implements OnInit {
     .subscribe(res => {
       const B = this.inciseService.incises = res as Incise[];
       for(var i in B){
-        if(B[i].scrwm === scrwm._id)
+        if(B[i].scrwm === scrwm._id){
           this.inciseService.deleteIncise(B[i]._id)
           .subscribe(res => {
             this.getScrwms();
           });     
         }
-      });
-    }
-    editScrwm(scrwm: Scrwm){
-    }
+      }
+    });
+  }
+
+  editScrwm(scrwm: Scrwm){
+  }
+
+  getScrwms(){
+    this.scrwmService.getScrwms()
+    .subscribe(res => {
+      this.scrwmService.scrwms = res as Scrwm[];
+    });
+  }
 
 }

@@ -20,18 +20,18 @@ profs: Prof[];
     return this.http.get(this.URL_API);
   }
 
-  postProf(prof: Prof, photo: File) {
+  postProf(prof: Prof) {
+    return this.http.post(this.URL_API, prof);
+  }
+
+  putProf(prof: Prof, photo: File) {
     const fd = new FormData();
     fd.append("nickname", prof.nickname);
     fd.append("state", prof.state);
     fd.append("description", prof.description);
     fd.append("userId", prof.userId);
     fd.append("image", photo);
-    return this.http.post(this.URL_API, fd);
-  }
-
-  putProf(prof: Prof) {
-    return this.http.put(this.URL_API + `/${prof._id}`, prof);
+    return this.http.put(this.URL_API + `/${prof._id}`, fd);
   }
 
   deleteProf(_id: string) {
