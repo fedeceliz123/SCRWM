@@ -2,13 +2,13 @@
 <mat-dialog-content class="mat-typography">
   <form #userForm="ngForm" (ngSubmit)="signIn(userForm)">
     <div>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" style="width: 300px;">
         <mat-label>Username</mat-label>
-        <input matInput name="title" name="username" #username="ngModel" [(ngModel)]="authService.selectedUser.username" class="form-control" required cdkFocusInitial>
+        <input matInput name="username" #username="ngModel" [(ngModel)]="authService.selectedUser.username" class="form-control" required cdkFocusInitial>
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" style="width: 300px;">
         <mat-label>Password</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'" name="password" #password="ngModel" [(ngModel)]="authService.selectedUser.password" class="form-control" required>
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">

@@ -2,10 +2,6 @@
     display: flex;
 }
 
-.left{
-    margin-left: 10px;
-}
-
 .right{
     display: inline-flexbox;
     overflow-y: auto;

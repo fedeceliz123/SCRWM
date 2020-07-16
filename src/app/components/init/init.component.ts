@@ -8,6 +8,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {SignupComponent} from 'src/app/components/signup/signup.component';
 import {SigninComponent} from 'src/app/components/signin/signin.component';
 import {NewscrwmComponent} from 'src/app/components/newscrwm/newscrwm.component';
+import { ProfComponent } from '../prof/prof.component';
+
 
 @Component({
   selector: 'app-init',
@@ -22,6 +24,7 @@ export class InitComponent implements OnInit {
               public signupComponent: SignupComponent,
               public signinComponent: SigninComponent,
               public newScrwmComponent: NewscrwmComponent,
+              public profComponent: ProfComponent,
               ){}
 
   ngOnInit(): void {
@@ -56,6 +59,13 @@ export class InitComponent implements OnInit {
 
   newScrwm() {
     const dialogRef = this.dialog.open(NewscrwmComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  editUser() {
+    const dialogRef = this.dialog.open(ProfComponent);
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

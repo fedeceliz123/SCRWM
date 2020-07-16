@@ -7,9 +7,6 @@ import { ScrwmService } from '../../services/scrwm.service';
 import { User } from '../../models/user';
 import { Scrwm } from 'src/app/models/scrwm';
 
-import {MatIconModule} from '@angular/material/icon';
-
-
 import {NewscrwmComponent} from 'src/app/components/newscrwm/newscrwm.component'
 
 @Component({
@@ -23,7 +20,6 @@ export class SigninComponent implements OnInit {
     public authService: AuthService,
     public scrwmService: ScrwmService,
     public newScrwmComponent: NewscrwmComponent,
-    public MatIconModule:MatIconModule,
   ) { }
 
   ngOnInit(): void {

@@ -16,9 +16,10 @@
                                     <p style="height: 35px; overflow: hidden; margin-top: 5px;">{{ scrwm.title }}</p>
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
-                            <p style="font-size: 10px; max-height: 40px; color: gray;">
-                               {{ scrwm.updatedAt }} -- {{ scrwm.createdAt }}
-                            </p>
+                            <div style="font-size: 10px; max-height: 40px; color: gray;">
+                                <p ng-bind="date | date:'MM/dd/yyyy'"></p>
+                                {{ scrwm.updatedAt }} -- {{ scrwm.createdAt }}
+                            </div>
                             <p class="subtitle" (click)="showAround.getByScrwm(scrwm)" style="color: lightblue; cursor:pointer">
                                 {{ scrwm.subtitle }}</p>
                                 <i class="material-icons" style="font-size: 18px; float: right; cursor: pointer;" (click)="editScrwm(scrwm)">edit</i>
@@ -41,6 +42,10 @@
                                     {{ scrwm.title }}
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
+                            <div style="font-size: 10px; max-height: 40px; color: gray;">
+                                <p ng-bind="date | date:'MM/dd/yyyy'"></p>
+                                {{ scrwm.updatedAt }} -- {{ scrwm.createdAt }}
+                            </div>
                             <p (click)="showAround.getByScrwm(scrwm)" style="color: lightblue; cursor:pointer">{{ scrwm.subtitle }}
                                 <i class="material-icons" style="font-size: 18px; float: right; cursor: pointer;" (click)="editScrwm(scrwm)">edit</i>
                                 <i class="material-icons" style="font-size: 18px; float: right; cursor: pointer;" (click)="deleteScrwm(scrwm)">delete</i>
@@ -51,9 +56,6 @@
                 </ul>         
             </div>
         </ng-container>
-        <div style="text-align: right; margin-right: 50px; position: absolute; bottom: 40px; right: 10px;" (click)="editUser()">
-            <img src="assets/perfil.jpg" class="circle" style="width: 60px; border: brown; border-style: outset">
-        </div>
     </div>
 </div>
 
