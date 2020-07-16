@@ -17,21 +17,33 @@ export class ProfComponent implements OnInit {
   file: File;
   photoSelected: string | ArrayBuffer;
 
-  constructor(private profService: ProfService) { }
+  constructor(public profService: ProfService) { }
 
   ngOnInit(): void {
+    this.getProf();
+  }
+
+  getProf(){
+    this.profService.getProfs()
+    .subscribe(res => {
+      const P = this.profService.profs = res as Prof[];
+      for(var i in P){
+        if(P[i].userId === sessionStorage.getItem('currentUserId')){
+          this.profService.selectedProf = P[i];
+        }
+      }
+    });
   }
 
   newProf(userId: string){
     const prof = this.profService.selectedProf;
-    console.log(prof);
     prof.userId = userId;
     prof.nickname = "(Your current name)";
     prof.state = "(Your actual state)";
     prof.description = "(About yourself)";
-    console.log(prof);
     this.profService.postProf(prof)
     .subscribe(res => {
+      this.getProf();
     });
   }
 
@@ -44,24 +56,19 @@ export class ProfComponent implements OnInit {
     }
   }
 
-  getProf(){
-    console.log("getProfs");
-    console.log(sessionStorage.getItem('currentUserId'));
+  getProf2(){
     this.profService.getProfs()
     .subscribe(res => {
       const P = this.profService.profs = res as Prof[];
       for(var i in P){
         if(P[i].userId === sessionStorage.getItem('currentUserId')){
-          console.log("encontró su usuario")
-          this.uploadPhoto(P[i])
+          this.uploadPhoto2(P[i])
         }
       }
     });
-
   }
 
-  uploadPhoto(prof: Prof){
-    console.log("uploadPhoto")
+  uploadPhoto2(prof: Prof){
     if(document.getElementById("Name").contentEditable){
       prof.nickname = document.getElementById("Name").textContent;
     }
@@ -75,13 +82,13 @@ export class ProfComponent implements OnInit {
     }
     document.getElementById("Description").contentEditable = "false";
     prof.userId = sessionStorage.getItem('currentUserId');
-    console.log(prof._id);
     this.profService.putProf(prof, this.file)
-    .subscribe(res => console.log(res), err => console.log(err));
+    .subscribe(res => {
+      this.getProf();
+    });
   }
 
   editName(){
-    this.newProf(sessionStorage.getItem("currentUserId"));
     document.getElementById('Name').contentEditable = "true";
     document.getElementById("Name").focus();
     document.getElementById("State").contentEditable = "false";

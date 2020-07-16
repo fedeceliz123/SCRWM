@@ -4,23 +4,27 @@
     <h2>Personal info</h2>
     <div class="name">
       <mat-icon class="icon" (click)="editName()" style="cursor:pointer">edit</mat-icon>
-      <p style="font-weight: bold;">Name:</p><p id="Name" contenteditable="false" style="margin-left: 5px;">Name you want to show...</p>
+      <p style="font-weight: bold;">Name:</p><p id="Name" contenteditable="false" style="margin-left: 5px;">{{ profService.selectedProf.nickname }}</p>
     </div>
     <div class="state">
       <mat-icon class="icon" (click)="editState()" style="cursor:pointer">edit</mat-icon>
-      <p style="font-weight: bold;">State:</p><p id="State" contenteditable="false" style="margin-left: 5px;">How are you today?</p>
+      <p style="font-weight: bold;">State:</p><p id="State" contenteditable="false" style="margin-left: 5px;">{{ profService.selectedProf.state }}</p>
     </div>
     <div class="description">
       <mat-icon class="icon" (click)="editDescription()" style="cursor:pointer">edit</mat-icon>
-      <p style="font-weight: bold;">description:</p><p id="Description" contenteditable="false" style="margin-left: 5px;">Describe yourself...</p>
+      <p style="font-weight: bold;">description:</p><p id="Description" contenteditable="false" style="margin-left: 5px;">{{ profService.selectedProf.description }}</p>
    </div>
+
   </div>
     <div >
       <div>
-        <label for="file-input">
-          <img class="image" id="image" [src]="photoSelected || 'assets/no-image.png' " (click)="photoInput.click()"/>
-        </label>
-        <input type="file" style="display:none" (change)="onPhotoSelected($event)" #photoInput />
+          <label for="file-input">
+            <img  class="image"  (click)="photoInput.click()" *ngIf="profService.selectedProf.imagePath, else uploadPhoto" [src]="photoSelected || 'http://localhost:3000/' + profService.selectedProf.imagePath">
+            <ng-template #uploadPhoto>
+              <img class="image" id="image" [src]="photoSelected || 'assets/no-image.png' " (click)="photoInput.click()"/>
+            </ng-template>
+          </label>
+          <input type="file" style="display:none" (change)="onPhotoSelected($event)" #photoInput/>
       </div>
     </div>
 </div>
@@ -28,5 +32,5 @@
 
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Close</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="getProf()">Save</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="getProf2()">Save</button>
 </mat-dialog-actions>
