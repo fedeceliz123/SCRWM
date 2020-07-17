@@ -14,37 +14,55 @@
     display: none;
 }
 
-.material-icons:hover {
-    background-color:gray;
-}
-
-.title{
-    font-weight: bolder;
-}
-.title:hover{
-    color: rgba(143, 174, 195, 0.7);
-}
-
-.name{
-    font-weight: bolder;  
-}
-
 .material-icons{
     color: rgba(143, 174, 195, 0.7);
+    font-size: 18px; 
+    float: right; 
+    cursor: pointer;
+}
+
+.material-icons:hover {
+    background-color:gray;
 }
 
 .mat-expansion-panel-header{
     background-color: rgb(224, 232, 251);
 }
 
+.title{
+    color: blue;
+    height: 35px; 
+    overflow: scroll; 
+    margin-top: 5px;
+    margin-left: 15px;
+    margin-right: -10px;
+}
+
+.subtitle{
+    color: rgba(143, 174, 195, 0.7); 
+    cursor:pointer;
+    max-height: 150px; 
+    overflow: scroll; 
+}
+
+.name{
+    font-weight: bolder;  
+}
+
 .circle{
     width: 40px;
     height: 40px;
+    margin-top: 5px;
+    margin-left: -20px;
+}
+
+.date{
+    font-size: 10px; 
+    color: gray;
 }
 
 .tooltip {
     position: absolute;
-    display: inline-block;
   }
   
   .tooltip .tooltiptext {
@@ -57,7 +75,7 @@
     padding: 5px 0;
     
     /* Position the tooltip */
-    position: absolute;
+    position: fixed;
     z-index: 1;
   }
   
