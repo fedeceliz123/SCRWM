@@ -43,6 +43,7 @@
     cursor:pointer;
     max-height: 150px; 
     overflow: scroll; 
+    margin-bottom: -5px;
 }
 
 .name{
@@ -59,6 +60,7 @@
 .date{
     font-size: 10px; 
     color: gray;
+    margin-top: -5px;
 }
 
 .tooltip {
