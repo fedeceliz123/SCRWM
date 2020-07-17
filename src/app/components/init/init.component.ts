@@ -80,15 +80,20 @@ export class InitComponent implements OnInit {
     });
   }
 
-  newScrwm() {
-    const dialogRef = this.dialog.open(NewscrwmComponent);
-    dialogRef.afterClosed().subscribe(result => {
-    });
+  newScrwm(){
+    this.scrwmService.selectedScrwm = new Scrwm;
+    this.customScrwm();
   }
  
   editScrwm(scrwm: Scrwm){
     this.scrwmService.selectedScrwm = scrwm;
-    this.newScrwm();
+    this.customScrwm();
+  }
+
+  customScrwm() {
+    const dialogRef = this.dialog.open(NewscrwmComponent);
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
   editUser() {

@@ -40,29 +40,33 @@ export class SigninComponent implements OnInit {
   }
  
   findUser(form: NgForm){
-    const A = this.authService.users;
-    for(var i in A){
-      if (A[i].username === form.value.username){
-        if (A[i].password === form.value.password){
-          form.reset();
-          sessionStorage.setItem('currentUserId', A[i]._id);
-          this.findScrwm(A[i]._id);
+    this.authService.getUsers()
+    .subscribe(res => {
+      const A = this.authService.users = res as User[];
+      for(var i in A){
+        if (A[i].username === form.value.username){
+          if (A[i].password === form.value.password){
+            form.reset();
+            sessionStorage.setItem('currentUserId', A[i]._id);
+            this.findScrwm(A[i]._id);
+          }
         }
       }
-    }    
+    });   
   }
 
   findScrwm(userId: string){
-    console.log("1");
-      const B = this.scrwmService.scrwms;
+    this.scrwmService.getScrwms()
+    .subscribe(res => {
+      const B = this.scrwmService.scrwms = res as Scrwm[];
       for(var i in B){
         if(B[i].creator === userId){
           return;
         }
       }
-      console.log("2");
       this.firstScrwm(userId);
       this.profComponent.newProf(userId);
+    });
   }
 
   firstScrwm(userId: string){
