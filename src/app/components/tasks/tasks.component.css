@@ -25,6 +25,10 @@
     background-color:gray;
 }
 
+.mat-expansion-panel{
+    margin-top: 5px;
+}
+
 .mat-expansion-panel-header{
     background-color: rgb(224, 232, 251);
 }
