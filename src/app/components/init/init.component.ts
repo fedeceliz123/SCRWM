@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { ScrwmService } from 'src/app/services/scrwm.service';
+import { ProfService } from 'src/app/services/prof.service'
 
 import { Scrwm } from 'src/app/models/scrwm';
 import { User } from 'src/app/models/user';
@@ -28,6 +29,7 @@ export class InitComponent implements OnInit {
               public newScrwmComponent: NewscrwmComponent,
               public profComponent: ProfComponent,
               public scrwmService: ScrwmService,
+              public profService: ProfService,
               ){}
 
   ngOnInit(): void {
@@ -62,8 +64,7 @@ export class InitComponent implements OnInit {
     this.newScrwmComponent.deleteScrwms();
     this.profComponent.deleteProfs();
     sessionStorage.setItem("currentUserId", "*");
-    sessionStorage.setItem("currentscrwmId", "*");
-
+    sessionStorage.setItem("currentScrwmId", "*");
   }
 
   Register() {

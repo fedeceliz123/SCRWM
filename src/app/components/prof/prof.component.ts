@@ -7,6 +7,8 @@ interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
 }
 
+declare var M: any;
+
 @Component({
   selector: 'app-prof',
   templateUrl: './prof.component.html',
@@ -57,15 +59,21 @@ export class ProfComponent implements OnInit {
   }
 
   getProf2(){
-    this.profService.getProfs()
-    .subscribe(res => {
-      const P = this.profService.profs = res as Prof[];
-      for(var i in P){
-        if(P[i].userId === sessionStorage.getItem('currentUserId')){
-          this.uploadPhoto2(P[i])
+    if(this.photoSelected){
+      this.profService.getProfs()
+      .subscribe(res => {
+        const P = this.profService.profs = res as Prof[];
+        for(var i in P){
+          if(P[i].userId === sessionStorage.getItem('currentUserId')){
+            this.uploadPhoto2(P[i])
+          }
         }
-      }
-    });
+      });
+    } else {
+      console.log("Toast...");
+      M.toast({html: "No changes (no photo was loaded)"});
+    }
+
   }
 
   uploadPhoto2(prof: Prof){

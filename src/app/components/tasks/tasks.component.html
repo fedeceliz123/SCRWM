@@ -2,15 +2,18 @@
 <div class="body">  
     <app-incises></app-incises>
     <div class="right">
-        <ng-container *ngFor="let user of authService.users">
-            <div *ngIf="user._id === selectedUser">  
+        <ng-container *ngFor="let prof of profService.profs">
+            <div *ngIf="prof.userId === currentUserId">  
                 <ul *ngFor="let scrwm of scrwmService.scrwms">
-                    <div *ngIf="scrwm.creator === selectedUser">
+                    <div *ngIf="scrwm.creator === prof.userId">
                         <mat-accordion>
-                            <mat-expansion-panel hideToggle>
-                            <mat-expansion-panel-header >
+                            <mat-expansion-panel>
+                            <mat-expansion-panel-header>
                                 <mat-panel-title style="margin-top: 5px;">
-                                    <img src="assets/perfil.jpg" class="circle" style="height: 40px">
+                                    <img class="circle" *ngIf="profService.selectedProf.imagePath, else defaultImage" [src]="'http://localhost:3000/' + profService.selectedProf.imagePath">
+                                    <ng-template #defaultImage>
+                                        <img class="circle" src="assets/no-image.png" alt="">
+                                      </ng-template>        
                                 </mat-panel-title>
                                 <mat-panel-description style="color: blue;">
                                     <p style="height: 35px; overflow: hidden; margin-top: 5px;">{{ scrwm.title }}</p>
@@ -29,15 +32,19 @@
                     </div>
                 </ul>
             </div>
-            <div *ngIf="user._id != selectedUser"> 
+        </ng-container>
+        <ng-container *ngFor="let prof of profService.profs">
+            <div *ngIf="prof.userId != currentUserId">  
                 <ul *ngFor="let scrwm of scrwmService.scrwms">
-                    <div *ngIf="scrwm.creator === user._id">
+                    <div *ngIf="scrwm.creator === prof.userId">
                         <mat-accordion>
-                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="user._id != selectedUser">
+                            <mat-expansion-panel>
                             <mat-expansion-panel-header>
                                 <mat-panel-title style="width: 100px;">
-                                    {{ user.username }}
-                                </mat-panel-title>
+                                    <img class="circle" *ngIf="prof.imagePath, else defaultImage" [src]="'http://localhost:3000/' + prof.imagePath">
+                                    <ng-template #defaultImage>
+                                        <img class="circle" src="assets/no-image.png" alt="">
+                                      </ng-template>                                  </mat-panel-title>
                                 <mat-panel-description style="color: blue">
                                     {{ scrwm.title }}
                                 </mat-panel-description>

@@ -3,15 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { ScrwmService } from '../../services/scrwm.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { InciseService } from 'src/app/services/incise.service';
+import { ProfService } from 'src/app/services/prof.service';
 
 import { IncisesComponent } from 'src/app/components/incises/incises.component';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
 
 import { Scrwm } from 'src/app/models/scrwm';
 import { Incise } from 'src/app/models/incise';
-import { User } from 'src/app/models/user';
-
-
+import { Prof } from 'src/app/models/prof';
 
 @Component({
   selector: 'app-tasks',
@@ -27,12 +26,24 @@ export class TasksComponent implements OnInit {
               public incisesComponent: IncisesComponent,
               public authService: AuthService,
               public inciseService: InciseService,
+              public profService: ProfService,
               public showAround: ShowAroundComponent,
               ) { }
 
-  selectedUser = sessionStorage.getItem('currentUserId');
+  currentUserId = sessionStorage.getItem('currentUserId');
 
   ngOnInit(): void {
+    this.profService.getProfs()
+    .subscribe(res => {
+      const P = this.profService.profs = res as Prof[];
+      for(var i in P){
+        if(P[i].userId === sessionStorage.getItem('currentUserId')){
+          this.profService.selectedProf = (P[i]);
+        }
+      }      this.scrwmService.getScrwms()
+      .subscribe(res => {
+      });
+    });
   }
 
   deleteScrwm(scrwm: Scrwm){

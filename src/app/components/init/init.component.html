@@ -2,7 +2,7 @@
   <div class="nav-wrapper">
     <a class="brand-logo" style="margin-left: 20px;">labyrinth</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <ng-container *ngIf="!authService.loggedIn(); else loggedIn, scrwmsList">
+      <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
           <li><button mat-button (click)="Register()">Register </button></li>
           <li><button mat-button (click)="Login()">Login</button> </li>
       </ng-container>
@@ -39,6 +39,9 @@
   </div>
 </nav>  
 
-<button mat-button style="position: absolute; bottom: 30px; right: 20px; z-index: 0;" (click)="editUser()">
-  <img src="assets/perfil.jpg" class="circle" style="width: 60px; border: brown; border-style: outset">
+<button mat-button style="position: absolute; bottom: 30px; right: 20px; z-index: 1;" (click)="editUser()">
+  <img class="circle" *ngIf="profService.selectedProf.imagePath, else defaultImage" [src]="'http://localhost:3000/' + profService.selectedProf.imagePath">
+  <ng-template #defaultImage>
+    <img class="circle" src="assets/no-image.png" alt="">
+  </ng-template>
 </button>
