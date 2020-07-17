@@ -1,9 +1,9 @@
 .body{
     display: flex;
+    position: absolute;
 }
 
 .right{
-    display: inline-flexbox;
     overflow-y: auto;
     max-height: 530px;
     margin-left: 5px;
@@ -43,7 +43,7 @@
 }
 
 .subtitle{
-    color: rgba(143, 174, 195, 0.7); 
+    color: #a1887f; 
     cursor:pointer;
     max-height: 150px; 
     overflow: scroll; 

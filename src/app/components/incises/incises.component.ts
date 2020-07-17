@@ -32,34 +32,34 @@ export class IncisesComponent {
                 public textEditorComponent: TextEditorComponent                
                 ){ }
 
-  editIncise(event: any){
-    if(event.keyCode === 13){
+@HostListener("window:keydown", ['$event']) spaceEvent(event: any){
+  if(event.keyCode === 13){
+    this.showAround.DirLast = "Up";
+    this.keyListener.editedIncise();
+  } else if(event.ctrlKey){
+    if(event.keyCode === 37){
+      this.showAround.DirLast = "Right";
+      this.keyListener.editedIncise();
+    } else if(event.keyCode === 38){
+      this.showAround.DirLast = "Down";
+      this.keyListener.editedIncise();
+    } else if(event.keyCode === 39){
+      M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
+    } else if(event.keyCode === 40){
       this.showAround.DirLast = "Up";
       this.keyListener.editedIncise();
-    } else if(event.ctrlKey){
-      if(event.keyCode === 37){
-        this.showAround.DirLast = "Right";
-        this.keyListener.editedIncise();
-      } else if(event.keyCode === 38){
-        this.showAround.DirLast = "Down";
-        this.keyListener.editedIncise();
-      } else if(event.keyCode === 39){
-        M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
-      } else if(event.keyCode === 40){
-        this.showAround.DirLast = "Up";
-        this.keyListener.editedIncise();
-      }  
-    }
+    }  
   }
+}
 
-  selection(event:any){
+  onSelected(event:any){
     if(event.ctrlKey){
       const selectedText = window.getSelection().toString().trim();
       if (selectedText){
         document.designMode = "on";
-        document.execCommand("forecolor", true, "red");
-        this.showAround.DirLast = "Left";
-        this.keyListener.editedIncise();  
+        document.execCommand("forecolor", true, "grey");
+        //this.showAround.DirLast = "Left";
+        //this.keyListener.editedIncise();  
         document.designMode = "off";
       }
     }
@@ -80,13 +80,22 @@ export class IncisesComponent {
         this.showAround.DirLast = "Right";
         break;  
     }
-    this.linkStereo1(incise);
+    this.checkContent(incise);
   }  
 
-  linkStereo1(incise: Incise){ 
+  checkContent(incise: Incise){ 
     if (document.getElementById('E').textContent === ""){
-      document.getElementById('E').textContent = "...2...";
-    };
+      this.inciseService.deleteIncise(this.inciseService.selectedIncise._id)
+      .subscribe(res => {
+        this.inciseService.selectedIncise = incise
+        this.showAround.toCenter(incise);
+      });
+    } else {
+      this.linkStereo1(incise)
+    }
+  }
+
+  linkStereo1(incise: Incise){
     const A = this.inciseService.selectedIncise;
     A.content = document.getElementById('E').textContent;
     switch (this.showAround.DirLast){
@@ -245,7 +254,7 @@ export class IncisesComponent {
         A.content = document.getElementById('E').textContent;
         this.showAround.toCenter(A);
       }
-    }i
+    }
   }
 
 }

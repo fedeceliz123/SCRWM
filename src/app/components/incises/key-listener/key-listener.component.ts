@@ -26,19 +26,20 @@ export class KeyListenerComponent implements OnInit {
   editedIncise(){
     const C = document.getElementById('E');
     if (C.textContent === ""){
-      C.textContent = "...1... ";
+      return;
+    } else {
+      C.contentEditable = "true";
+      const incise = this.inciseService.selectedIncise;
+      this.showAround.IdLast = incise._id;
+      incise.content = C.textContent;
+      this.getCurrentScrwm(incise);
+      this.inciseService.putIncise(incise)
+      .subscribe(res => {
+          this.inciseService.selectedIncise = new Incise();
+          C.textContent = "";
+          this.linkMono(this.inciseService.selectedIncise);
+      });
     }
-    C.contentEditable = "true";
-    const incise = this.inciseService.selectedIncise;
-    this.showAround.IdLast = incise._id;
-    incise.content = C.textContent;
-    this.getCurrentScrwm(incise);
-    this.inciseService.putIncise(incise)
-    .subscribe(res => {
-        this.inciseService.selectedIncise = new Incise();
-        C.textContent = "";
-        this.linkMono(this.inciseService.selectedIncise);
-    });
   }
 
   linkMono(incise: Incise){  

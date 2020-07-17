@@ -26,15 +26,15 @@
                         <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
                     </ul>
                 </div>
-                <div>
-                    <div class="container" >
+                <div class="center1">
+                    <div class="hashtags" >
                         <div *ngFor="let hashtag of showAround.Hashtags">
                             <mat-chip-list>
                                 <mat-chip  (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
                             </mat-chip-list>
                        </div>
                     </div>
-                    <div id="E" (keydown)="editIncise($event)"></div>
+                    <div id="E" (mouseup)="onSelected($event)"></div>
                 </div>
                 <div class="Derecha">
                     <ul *ngFor="let incise of showAround.Right">
@@ -87,15 +87,15 @@
                         <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
                     </ul>
                 </div>
-                <div>
-                    <div class="container" >
+                <div class="center2">
+                    <div class="hashtags" >
                         <div *ngFor="let hashtag of showAround.Hashtags">
                             <mat-chip-list>
                                 <mat-chip  (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
                             </mat-chip-list>
                        </div>
                     </div>   
-                    <div id="E" (keydown)="editIncise($event)"></div>
+                    <div id="E" (mouseup)="onSelected($event)"></div>
                 </div>
                 <div class="Derecha">
                     <ul *ngFor="let incise of showAround.Right">
@@ -111,7 +111,7 @@
                         <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
                     </ul>
                 </div>
-                <div>
+                <div class="tooltip">
                     <button class="btn btn-primary"(click)="zoomMin()">
                         <i class="material-icons" >fullscreen_exit</i>
                     </button>

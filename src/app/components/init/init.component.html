@@ -7,6 +7,28 @@
           <li><button mat-button (click)="Login()">Login</button> </li>
       </ng-container>
       <ng-template #loggedIn style="margin-right: 20px;">
+        <li style="margin-right:15px ;">
+          <i class="material-icons">notifications</i>        
+        </li>
+        <li style="margin-right:15px ;">
+          <i class="material-icons">attach_file</i>        
+        </li>
+        <li style="margin-right:15px ;">
+          <i class="material-icons">person_add</i>        
+        </li>
+        <li style="margin-right:15px ;">
+          <i class="material-icons">keyboard_voice</i>        
+        </li>
+
+        <li style="margin-right:15px ;">
+          <i class="material-icons">send</i>        
+        </li>
+        <li style="margin-right:15px ;">
+          <i class="material-icons">share</i>        
+        </li>
+        <li style="margin-right:15px ;">
+          <i class="material-icons">videocam</i>        
+        </li>
         <li>
           <nav style="flex: left;">
           <div class="nav-wrapper #64b5f6 blue lighten-2">
@@ -25,7 +47,7 @@
           <nav>
           <div class="nav-wrapper #64b5f6 blue lighten-2">
             <form>
-              <div class="input-field" >
+              <div class="input-field">
                 <input  id="search" type="search" required>
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
               </div>
@@ -33,7 +55,9 @@
           </div>
         </nav>
         </li>
-        <li style="margin-right: 20px;"><a class="nav-link" style="cursor: pointer; margin-left: 10px;" (click)="authService.logOut()">Logut</a></li>
+        <li><button mat-button (click)="authService.logOut()" style="margin-left: 10px;">
+          <i class="material-icons">exit_to_app</i>        
+        </button></li>
       </ng-template>
     </ul>
   </div>
