@@ -11,6 +11,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {SignupComponent} from 'src/app/components/signup/signup.component';
 import {SigninComponent} from 'src/app/components/signin/signin.component';
 import {NewscrwmComponent} from 'src/app/components/newscrwm/newscrwm.component';
+
 import { ProfComponent } from '../prof/prof.component';
 
 
@@ -85,6 +86,11 @@ export class InitComponent implements OnInit {
     });
   }
  
+  editScrwm(scrwm: Scrwm){
+    this.scrwmService.selectedScrwm = scrwm;
+    this.newScrwm();
+  }
+
   editUser() {
     const dialogRef = this.dialog.open(ProfComponent);
     dialogRef.afterClosed().subscribe(result => {

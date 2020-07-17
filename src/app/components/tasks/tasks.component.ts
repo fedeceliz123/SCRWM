@@ -7,6 +7,8 @@ import { ProfService } from 'src/app/services/prof.service';
 
 import { IncisesComponent } from 'src/app/components/incises/incises.component';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
+import { InitComponent } from 'src/app/components/init/init.component'
+
 
 import { Scrwm } from 'src/app/models/scrwm';
 import { Incise } from 'src/app/models/incise';
@@ -28,6 +30,7 @@ export class TasksComponent implements OnInit {
               public inciseService: InciseService,
               public profService: ProfService,
               public showAround: ShowAroundComponent,
+              public initComponent: InitComponent,
               ) { }
 
   currentUserId = sessionStorage.getItem('currentUserId');
@@ -80,9 +83,6 @@ export class TasksComponent implements OnInit {
         }
       }
     });
-  }
-
-  editScrwm(scrwm: Scrwm){
   }
 
   getScrwms(){

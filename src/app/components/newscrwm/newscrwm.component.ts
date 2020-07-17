@@ -25,6 +25,28 @@ export class NewscrwmComponent implements OnInit {
 
   hide: true;
 
+  customScrwm(form: NgForm){
+    if(this.scrwmService.selectedScrwm._id){
+      this.editScrwm(form);
+    } else {
+      this.newScrwm(form);
+    }
+  }
+
+  editScrwm(form: NgForm){
+    const A = this.scrwmService.selectedScrwm;
+    A.title = form.value.title;
+    A.subtitle = form.value.subtitle;
+    form.reset();
+    this.scrwmService.putScrwm(A)
+    .subscribe(res => {
+      this.scrwmService.getScrwms()
+      .subscribe(res => {
+        const D = this.scrwmService.scrwms = res as Scrwm[];
+      });
+    });
+  }
+
   newScrwm(form: NgForm){
     const A = this.scrwmService.selectedScrwm = new Scrwm;
     const userId = sessionStorage.getItem('currentUserId');

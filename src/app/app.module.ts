@@ -58,6 +58,7 @@ import { MaterialModule } from './material.module';
     SignupComponent,
     SigninComponent,
     ProfComponent,
+    InitComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
