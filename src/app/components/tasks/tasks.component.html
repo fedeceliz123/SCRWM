@@ -64,7 +64,7 @@
                                     <p class="title">{{ scrwm.title }}</p>
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
-                            <div>
+                            <div class="date">
                                 <p ng-bind="date | date:'MM/dd/yyyy'"></p>
                                 {{ scrwm.updatedAt }} -- {{ scrwm.createdAt }}
                                 <i class="material-icons" (click)="initComponent.editScrwm(scrwm)">edit</i>

@@ -69,9 +69,17 @@
 
 .tooltip {
     position: absolute;
+    display: inline-block;
+}
+
+.tooltiptext{ 
+    position: fixed;
+    z-index: 1;
+    top: 30%;
+    left: 35%;
   }
   
-  .tooltip .tooltiptext {
+.tooltip .tooltiptext {
     visibility: hidden;
     width: 300px;
     background-color: black;
@@ -79,12 +87,8 @@
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
-    
-    /* Position the tooltip */
-    position: fixed;
-    z-index: 1;
-  }
-  
+}
+
   .tooltip:hover .tooltiptext {
     visibility: visible;
   }
