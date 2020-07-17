@@ -6,7 +6,7 @@ import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
 
 import { IncisesComponent } from 'src/app/components/incises/incises.component';
-import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
+import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
 
 import { Scrwm } from 'src/app/models/scrwm';
 import { Incise } from 'src/app/models/incise';

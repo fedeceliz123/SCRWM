@@ -40,9 +40,9 @@ export class ProfComponent implements OnInit {
   newProf(userId: string){
     const prof = this.profService.selectedProf;
     prof.userId = userId;
-    prof.nickname = "(Your current name)";
-    prof.state = "(Your actual state)";
-    prof.description = "(About yourself)";
+    prof.nickname = "(Name)";
+    prof.state = "(State)";
+    prof.description = "(Description)";
     this.profService.postProf(prof)
     .subscribe(res => {
       this.getProf();
