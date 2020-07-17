@@ -29,7 +29,8 @@ export class IncisesComponent {
                 public keyListener: KeyListenerComponent,
                 public highLight: HighlightDirective,
                 public router: Router,
-                public textEditorComponent: TextEditorComponent                ){ }
+                public textEditorComponent: TextEditorComponent                
+                ){ }
 
   editIncise(event: any){
     if(event.keyCode === 13){

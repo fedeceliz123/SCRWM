@@ -14,11 +14,14 @@ import { Scrwm } from 'src/app/models/scrwm';
 import { Incise } from 'src/app/models/incise';
 import { Prof } from 'src/app/models/prof';
 
+declare var M: any;
+
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.css'],
 })
+
 
 export class TasksComponent implements OnInit {
 
@@ -56,7 +59,7 @@ export class TasksComponent implements OnInit {
       for(var i in A){
         if(A[i]._id === scrwm._id){
           if(this.inciseService.selectedIncise.scrwm === scrwm._id){
-            alert("The scrwm is being edited");
+            M.toast({html: "The scrwm is being edited"});
           } else {
             this.deleteIncises(A[i])
             this.scrwmService.deleteScrwm(A[i]._id)
