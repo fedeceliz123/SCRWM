@@ -61,8 +61,10 @@ export class TasksComponent implements OnInit {
             this.deleteIncises(A[i])
             this.scrwmService.deleteScrwm(A[i]._id)
             .subscribe(res => {
-              console.log("Scrwm Deleted: " + A[i]._id);
-              this.scrwmService.selectedScrwm = new Scrwm();
+              this.scrwmService.getScrwms()
+              .subscribe(res => {
+                this.scrwmService.scrwms = res as Scrwm[];
+              });
             });
           }  
         }

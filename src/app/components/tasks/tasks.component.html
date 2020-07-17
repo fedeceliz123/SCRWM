@@ -67,8 +67,6 @@
                             <div class="date">
                                 <p ng-bind="date | date:'MM/dd/yyyy'"></p>
                                 {{ scrwm.updatedAt }} -- {{ scrwm.createdAt }}
-                                <i class="material-icons" (click)="initComponent.editScrwm(scrwm)">edit</i>
-                                <i class="material-icons" (click)="deleteScrwm(scrwm)">delete</i>
                             </div>
                             <p class="subtitle" (click)="showAround.getByScrwm(scrwm)">
                                 {{ scrwm.subtitle }}</p>

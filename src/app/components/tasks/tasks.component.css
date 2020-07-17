@@ -77,6 +77,8 @@
     z-index: 1;
     top: 30%;
     left: 35%;
+    opacity: 0;
+    transition: opacity 1s;
   }
   
 .tooltip .tooltiptext {
@@ -91,4 +93,5 @@
 
   .tooltip:hover .tooltiptext {
     visibility: visible;
+    opacity: 0.6;
   }

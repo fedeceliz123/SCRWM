@@ -69,8 +69,6 @@ export class NewscrwmComponent implements OnInit {
           if(!D[i].inciseInit){
             sessionStorage.setItem('currentScrwmId', D[i]._id);
             this.newIncise(userId, D[i]);
-          } else {
-            return;
           }
         }
       }
