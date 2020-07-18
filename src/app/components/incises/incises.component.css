@@ -30,7 +30,7 @@
     color: rgb(93, 186, 248);
     display: grid;
     grid-template-columns: 700px 700px 700px;
-    grid-template-rows:400px 400px 40px;
+    grid-template-rows:400px 400px 400px;
     grid-gap: 8px;  
     grid-gap: 8px;  
     transform: translate(-400px, -300px);
@@ -44,6 +44,18 @@
     overflow: scroll;
     cursor: pointer;
     line-height : 20px;
+}
+
+.aroundIncises{
+    margin: 2px;
+    border-radius: 6px;
+}
+
+.aroundIncises:hover{
+    background-color: #a1887f;
+    opacity: 0.6;
+    transition: opacity 1s;
+    padding: 6px;
 }
 
 .Arriba-Izquierda1{
@@ -95,6 +107,10 @@
     flex-direction: row;
 }
 
+.hashtag{
+    cursor: pointer;
+}
+
 .chip, .btn{
     color: white;
     background-color: rgba(143, 174, 195, 0.7);
@@ -132,6 +148,8 @@ align-items: flex-end;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
+  opacity: 0;
+  transition: opacity 1s;
   
   /* Position the tooltip */
   position: absolute;
@@ -142,4 +160,6 @@ align-items: flex-end;
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+  opacity: 0.6;
 }
+

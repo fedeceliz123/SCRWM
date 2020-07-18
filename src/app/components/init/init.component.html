@@ -63,9 +63,9 @@
   </div>
 </nav>  
 
-<button mat-button style="position: absolute; bottom: 30px; right: 20px; z-index: 1;" (click)="editUser()">
+<a style="position: absolute; bottom: 30px; right: 20px; z-index: 1;" (click)="editUser()">
   <img class="circle" *ngIf="profService.selectedProf.imagePath, else defaultImage" [src]="'http://localhost:3000/' + profService.selectedProf.imagePath">
   <ng-template #defaultImage>
     <img class="circle" src="assets/no-image.png" alt="">
   </ng-template>
-</button>
+</a>

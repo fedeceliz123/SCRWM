@@ -7,4 +7,10 @@
     height: 60px;
     border: brown; 
     border-style: outset;
+    opacity: 0.2;
+    transition: opacity 0.5s;
+}
+
+.circle:hover{
+    opacity: 1;
 }

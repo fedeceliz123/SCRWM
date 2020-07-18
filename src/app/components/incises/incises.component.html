@@ -9,7 +9,9 @@
                 </div>
                 <div class="Arriba">
                     <ul *ngFor="let incise of showAround.Above">
-                        <li class="Arriba" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
+                        <div class="aroundIncises">
+                            <li class="Arriba" (click)="editAround(incise, 'Up')"> {{ incise.content }}</li>
+                        </div>
                     </ul>
                 </div>
                 <div class="Arriba">
@@ -23,22 +25,26 @@
 
                 <div class="Izquierda">
                     <ul *ngFor="let incise of showAround.Left">
-                        <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
+                        <div class="aroundIncises">
+                            <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
+                        </div>
                     </ul>
                 </div>
                 <div class="center1">
                     <div class="hashtags" >
                         <div *ngFor="let hashtag of showAround.Hashtags">
                             <mat-chip-list>
-                                <mat-chip  (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
+                                <mat-chip class="hashtag" (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
                             </mat-chip-list>
                        </div>
                     </div>
-                    <div id="E" (mouseup)="onSelected($event)"></div>
+                    <div id="E" #E (mouseup)="onSelected($event)"></div>
                 </div>
                 <div class="Derecha">
                     <ul *ngFor="let incise of showAround.Right">
-                        <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
+                        <div class="aroundIncises">
+                            <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
+                        </div>
                     </ul>
                 </div>
 
@@ -47,7 +53,9 @@
                 </div>
                 <div class="Abajo">
                     <ul *ngFor="let incise of showAround.Below">
-                        <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
+                        <div class="aroundIncises">
+                            <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
+                        </div>
                     </ul>
                 </div>
                 <div class="tooltip">
@@ -67,10 +75,15 @@
         <div class="bloqueMax">
             <div class="bloqueMax2">
 
-                <div></div>
+                <div>
+                    <div class="Arriba-Izquierda1"></div>
+                    <div class="Arriba-Izquierda2"></div>
+                </div>
                 <div class="Arriba">
                     <ul *ngFor="let incise of showAround.Above">
-                        <li class="Arriba" (click)="editAround(incise, 'Up')">{{ incise.content }}</li>
+                        <div class="aroundIncises">
+                            <li class="Arriba" (click)="editAround(incise, 'Up')"> {{ incise.content }}</li>
+                        </div>
                     </ul>
                 </div>
                 <div class="Arriba">
@@ -84,39 +97,45 @@
 
                 <div class="Izquierda">
                     <ul *ngFor="let incise of showAround.Left">
-                        <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
+                        <div class="aroundIncises">
+                            <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
+                        </div>
                     </ul>
                 </div>
-                <div class="center2">
+                <div class="center1">
                     <div class="hashtags" >
                         <div *ngFor="let hashtag of showAround.Hashtags">
                             <mat-chip-list>
-                                <mat-chip  (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
+                                <mat-chip class="hashtag" (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
                             </mat-chip-list>
                        </div>
-                    </div>   
-                    <div id="E" (mouseup)="onSelected($event)"></div>
+                    </div>
+                    <div id="E" #E (mouseup)="onSelected($event)"></div>
                 </div>
                 <div class="Derecha">
                     <ul *ngFor="let incise of showAround.Right">
-                        <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
+                        <div class="aroundIncises">
+                            <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
+                        </div>
                     </ul>
                 </div>
-                
+
                 <div>
                     <app-text-editor></app-text-editor>
                 </div>
                 <div class="Abajo">
                     <ul *ngFor="let incise of showAround.Below">
-                        <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
+                        <div class="aroundIncises">
+                            <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
+                        </div>
                     </ul>
                 </div>
                 <div class="tooltip">
-                    <button class="btn btn-primary"(click)="zoomMin()">
-                        <i class="material-icons" >fullscreen_exit</i>
+                    <button class="btn btn-primary" (click)="zoomMin()" >
+                        <i class="material-icons">fullscreen_exit</i>
                     </button>
-                </div>
-
+                    <span class="tooltiptext">exit fullscreen</span>
+                </div> 
             </div>
         </div>    
     </span>

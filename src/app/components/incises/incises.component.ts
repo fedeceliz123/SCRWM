@@ -32,37 +32,31 @@ export class IncisesComponent {
                 public textEditorComponent: TextEditorComponent                
                 ){ }
 
-@HostListener("window:keydown", ['$event']) spaceEvent(event: any){
-  if(event.keyCode === 13){
-    this.showAround.DirLast = "Up";
-    this.keyListener.editedIncise();
-  } else if(event.ctrlKey){
-    if(event.keyCode === 37){
-      this.showAround.DirLast = "Right";
-      this.keyListener.editedIncise();
-    } else if(event.keyCode === 38){
-      this.showAround.DirLast = "Down";
-      this.keyListener.editedIncise();
-    } else if(event.keyCode === 39){
-      M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
-    } else if(event.keyCode === 40){
+  @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
+    if(event.keyCode === 13){
       this.showAround.DirLast = "Up";
       this.keyListener.editedIncise();
-    }  
+    } else if(event.ctrlKey){
+      if(event.keyCode === 37){
+        this.showAround.DirLast = "Right";
+        this.keyListener.editedIncise();
+      } else if(event.keyCode === 38){
+        this.showAround.DirLast = "Down";
+        this.keyListener.editedIncise();
+      } else if(event.keyCode === 39){
+        M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
+      } else if(event.keyCode === 40){
+        this.showAround.DirLast = "Up";
+        this.keyListener.editedIncise();
+      }  
+    }
   }
-}
 
-  onSelected(event:any){
-    if(event.ctrlKey){
-      const selectedText = window.getSelection().toString().trim();
-      if (selectedText){
-        document.designMode = "on";
-        document.execCommand("forecolor", true, "grey");
+  onSelected(event: any){
+      document.execCommand("forecolor", true, "green");
         //this.showAround.DirLast = "Left";
         //this.keyListener.editedIncise();  
-        document.designMode = "off";
-      }
-    }
+      const selectedText = window.getSelection().toString().trim();
   }
 
   editAround(incise: Incise, direction: any){
@@ -205,15 +199,16 @@ export class IncisesComponent {
     });
   }
 
-  Expand = "< <  > >"
-  Contract = "> >  < <"
-
   zoomMin(){
+    this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
     this.router.navigate(['/tasks']);
+    this.showAround.toCenter(this.inciseService.selectedIncise);
     this.actualizeScrwm();
   }
 
   zoomMax(){
+    this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
+    this.showAround.toCenter(this.inciseService.selectedIncise);
     this.router.navigate(['/incises']);
     this.actualizeScrwm();
   }
@@ -233,7 +228,12 @@ export class IncisesComponent {
   addHashtag:boolean = false;
 
   HT(){
-    this.addHashtag = true;
+    if(document.getElementById('E').isContentEditable){
+      this.addHashtag = true;
+    } else {
+      M.toast({html: "Not allowed to add a hashtag in this incise"});
+
+    }
   }
 
   HT2(event: any, HTInput: any){
@@ -246,13 +246,15 @@ export class IncisesComponent {
   }
 
   deleteHashtag(hashtag: string){
-    const A = this.inciseService.selectedIncise;
-    for(var i in A.hashtag){
-      if(A.hashtag[i] === hashtag){
-        const index = A.hashtag.indexOf(i)+1;
-        A.hashtag.splice(index, 1);
-        A.content = document.getElementById('E').textContent;
-        this.showAround.toCenter(A);
+    if(document.getElementById('E').isContentEditable){
+      const A = this.inciseService.selectedIncise;
+      for(var i in A.hashtag){
+        if(A.hashtag[i] === hashtag){
+          const index = A.hashtag.indexOf(i)+1;
+          A.hashtag.splice(index, 1);
+          A.content = document.getElementById('E').textContent;
+          this.showAround.toCenter(A);
+        }
       }
     }
   }

@@ -14,12 +14,14 @@ import {NewscrwmComponent} from 'src/app/components/newscrwm/newscrwm.component'
 
 import { ProfComponent } from '../prof/prof.component';
 
+declare var M: any;
 
 @Component({
   selector: 'app-init',
   templateUrl: './init.component.html',
   styleUrls: ['./init.component.css']
 })
+
 export class InitComponent implements OnInit {
 
   constructor(
@@ -104,3 +106,11 @@ export class InitComponent implements OnInit {
   }
 
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.fixed-action-btn');
+  var instances = M.FloatingActionButton.init(elems, {
+    direction: 'left'
+  });
+});
+
