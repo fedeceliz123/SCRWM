@@ -13,7 +13,7 @@ import { Scrwm } from 'src/app/models/scrwm';
 
 import { HighlightDirective } from 'src/app/directives/highlight.directive'
 
-declare var M: any;
+declare var M: any; 
 
 @Component({
   selector: 'app-incises',

@@ -31,13 +31,16 @@
                     </ul>
                 </div>
                 <div class="center1">
-                    <div class="hashtags" >
+                    <div class="hashtags">
+                        <img class="diamond" src="assets/diamond.png">
+                        <p style="color: rgb(206, 205, 205); font-size: 12px;">32</p>
                         <div *ngFor="let hashtag of showAround.Hashtags">
                             <mat-chip-list>
                                 <mat-chip class="hashtag" (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
                             </mat-chip-list>
                        </div>
                     </div>
+
                     <div id="E" #E (mouseup)="onSelected($event)"></div>
                 </div>
                 <div class="Derecha">
@@ -102,7 +105,7 @@
                         </div>
                     </ul>
                 </div>
-                <div class="center1">
+                <div class="center2">
                     <div class="hashtags" >
                         <div *ngFor="let hashtag of showAround.Hashtags">
                             <mat-chip-list>

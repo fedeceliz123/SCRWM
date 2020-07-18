@@ -8,6 +8,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatBadgeModule} from '@angular/material/badge';
+
 
 @NgModule({
     imports:[
@@ -19,6 +21,7 @@ import {MatChipsModule} from '@angular/material/chips';
         MatToolbarModule,
         MatInputModule,
         MatChipsModule,
+        MatBadgeModule
     ],
     exports:[
         MatExpansionModule,
@@ -29,6 +32,7 @@ import {MatChipsModule} from '@angular/material/chips';
         MatToolbarModule,
         MatInputModule,
         MatChipsModule,
+        MatBadgeModule
     ]
 })
 

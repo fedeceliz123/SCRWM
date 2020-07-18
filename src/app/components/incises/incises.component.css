@@ -52,10 +52,12 @@
 }
 
 .aroundIncises:hover{
-    background-color: #a1887f;
-    opacity: 0.6;
+    background-color: rgba(143, 174, 195, 0.7);
+    opacity: 0.5;
+    color: black;
     transition: opacity 1s;
     padding: 6px;
+    z-index: -1;
 }
 
 .Arriba-Izquierda1{
@@ -70,13 +72,31 @@
 
 .center1{
     max-height: 530px;
-    overflow: scroll;
+    max-width: 500px;
 }    
 
 .center2{
-    max-height: 600px;
-    overflow: scroll;
-}    
+    max-height: 600px;  
+}
+
+.center1, .center2{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-attachment: fixed;
+}
+
+.diamond{
+    height: 25px;
+    cursor: pointer;
+    opacity: 0.2;
+    transition: opacity 0.5s;
+}
+
+.diamond:hover{
+    opacity: 1;
+}
+
+  
 
 #E{
     font-size: 18px;
@@ -88,7 +108,7 @@
 
 .Arriba, .Abajo{
     display: flex;
-    min-width: 300px;
+    max-width: 300px;
 }
 
 
