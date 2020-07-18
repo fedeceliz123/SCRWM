@@ -44,7 +44,9 @@ export class IncisesComponent {
         this.showAround.DirLast = "Down";
         this.keyListener.editedIncise();
       } else if(event.keyCode === 39){
-        M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
+        this.showAround.DirLast = "Left";
+        this.keyListener.editedIncise();  
+        //M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
       } else if(event.keyCode === 40){
         this.showAround.DirLast = "Up";
         this.keyListener.editedIncise();
@@ -239,9 +241,11 @@ export class IncisesComponent {
   HT2(event: any, HTInput: any){
     if(event.keyCode === 32){
       this.addHashtag = false;
-      this.inciseService.selectedIncise.hashtag.push(HTInput.value);
-      this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
-      this.showAround.toCenter(this.inciseService.selectedIncise);
+      if(HTInput.value){
+        this.inciseService.selectedIncise.hashtag.push(HTInput.value);
+        this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
+        this.showAround.toCenter(this.inciseService.selectedIncise);
+      }
     }
   }
 

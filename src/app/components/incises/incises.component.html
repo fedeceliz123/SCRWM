@@ -3,17 +3,21 @@
         <div class="bloqueMin">
             <div class="bloqueMin2">
 
-                <div>
-                    <div class="Arriba-Izquierda1"></div>
-                    <div class="Arriba-Izquierda2"></div>
-                </div>
+                <div></div>
+
                 <div class="Arriba">
-                    <ul *ngFor="let incise of showAround.Above">
-                        <div class="aroundIncises">
-                            <li class="Arriba" (click)="editAround(incise, 'Up')"> {{ incise.content }}</li>
-                        </div>
-                    </ul>
+                    <div *ngFor="let incise of showAround.Above">
+                        <div class="ttpArr">
+                            <div class="ArribaInc" (click)="editAround(incise, 'Up')"> {{ incise.content }}</div>
+                            <div *ngIf="incise.hashtag[0]">
+                                <span  class="ttpTextArr">
+                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
+                                </span> 
+                            </div>                               
+                        </div>    
+                    </div>
                 </div>
+
                 <div class="Arriba">
                     <ng-template #HTBtn>
                         <button class="btn btn-primary" (click)="HT()" > # </button>
@@ -24,48 +28,67 @@
                 </div>
 
                 <div class="Izquierda">
-                    <ul *ngFor="let incise of showAround.Left">
-                        <div class="aroundIncises">
-                            <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
-                        </div>
-                    </ul>
+                    <div *ngFor="let incise of showAround.Left">
+                        <div class="ttpIzq">
+                            <div  class="IzquierdaInc" (click)="editAround(incise, 'Left')"> {{ incise.content }}</div>
+                            <div *ngIf="incise.hashtag[0]">
+                                <span  class="ttpTextIzq">
+                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
+                                </span> 
+                            </div>                               
+                        </div>    
+                    </div>
                 </div>
-                <div class="center1">
-                    <div class="hashtags">
+
+
+                <div class="center">
+                    <div class="cab">
                         <img class="diamond" src="assets/diamond.png">
                         <p style="color: rgb(206, 205, 205); font-size: 12px;">32</p>
-                        <div *ngFor="let hashtag of showAround.Hashtags">
-                            <mat-chip-list>
-                                <mat-chip class="hashtag" (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
-                            </mat-chip-list>
-                       </div>
+                        <div class="hashtags">
+                            <div *ngFor="let hashtag of showAround.Hashtags">
+                                <mat-chip-list>
+                                    <mat-chip (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
+                                </mat-chip-list>
+                           </div>    
+                        </div>
                     </div>
-
                     <div id="E" #E (mouseup)="onSelected($event)"></div>
                 </div>
+
                 <div class="Derecha">
-                    <ul *ngFor="let incise of showAround.Right">
-                        <div class="aroundIncises">
-                            <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
-                        </div>
-                    </ul>
+                    <div *ngFor="let incise of showAround.Right">
+                        <div class="ttpDer">
+                            <div class="DerechaInc" (click)="editAround(incise, 'Right')"> {{ incise.content }}</div>
+                            <div *ngIf="incise.hashtag[0]">
+                                <span  class="ttpTextDer">
+                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
+                                </span> 
+                            </div>                               
+                        </div>    
+                    </div>
                 </div>
 
-                <div>
-                    <app-text-editor></app-text-editor>
-                </div>
+                <div></div>
+
                 <div class="Abajo">
-                    <ul *ngFor="let incise of showAround.Below">
-                        <div class="aroundIncises">
-                            <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
-                        </div>
-                    </ul>
+                    <div *ngFor="let incise of showAround.Below">
+                        <div class="ttpAbj">
+                            <div class="AbajoInc" (click)="editAround(incise, 'Down')"> {{ incise.content }}</div>
+                            <div *ngIf="incise.hashtag[0]">
+                                <span  class="ttpTextAbj">
+                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
+                                </span> 
+                            </div>                               
+                        </div>    
+                    </div>
                 </div>
-                <div class="tooltip">
+
+                <div class="ttpBtn">
                     <button class="btn btn-primary" (click)="zoomMax()" >
                         <i class="material-icons">fullscreen</i>
                     </button>
-                    <span class="tooltiptext">fullscreen</span>
+                    <span class="ttpTextBtn">fullscreen</span>
                 </div> 
 
             </div>
@@ -78,17 +101,21 @@
         <div class="bloqueMax">
             <div class="bloqueMax2">
 
-                <div>
-                    <div class="Arriba-Izquierda1"></div>
-                    <div class="Arriba-Izquierda2"></div>
-                </div>
+                <div></div>
+
                 <div class="Arriba">
-                    <ul *ngFor="let incise of showAround.Above">
-                        <div class="aroundIncises">
-                            <li class="Arriba" (click)="editAround(incise, 'Up')"> {{ incise.content }}</li>
-                        </div>
-                    </ul>
+                    <div *ngFor="let incise of showAround.Above">
+                        <div class="ttpArr">
+                            <div class="ArribaInc" (click)="editAround(incise, 'Up')"> {{ incise.content }}</div>
+                            <div *ngIf="incise.hashtag[0]">
+                                <span  class="ttpTextArr">
+                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
+                                </span> 
+                            </div>                               
+                        </div>    
+                    </div>
                 </div>
+
                 <div class="Arriba">
                     <ng-template #HTBtn>
                         <button class="btn btn-primary" (click)="HT()" > # </button>
@@ -99,46 +126,69 @@
                 </div>
 
                 <div class="Izquierda">
-                    <ul *ngFor="let incise of showAround.Left">
-                        <div class="aroundIncises">
-                            <li (click)="editAround(incise, 'Left')">{{ incise.content }}</li>
-                        </div>
-                    </ul>
+                    <div *ngFor="let incise of showAround.Left">
+                        <div class="ttpIzq">
+                            <div  class="IzquierdaInc" (click)="editAround(incise, 'Left')"> {{ incise.content }}</div>
+                            <div *ngIf="incise.hashtag[0]">
+                                <span  class="ttpTextIzq">
+                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
+                                </span> 
+                            </div>                               
+                        </div>    
+                    </div>
                 </div>
-                <div class="center2">
-                    <div class="hashtags" >
-                        <div *ngFor="let hashtag of showAround.Hashtags">
-                            <mat-chip-list>
-                                <mat-chip class="hashtag" (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
-                            </mat-chip-list>
-                       </div>
+
+
+                <div class="center">
+                    <div class="cab">
+                        <img class="diamond" src="assets/diamond.png">
+                        <p style="color: rgb(206, 205, 205); font-size: 12px;">32</p>
+                        <div class="hashtags">
+                            <div *ngFor="let hashtag of showAround.Hashtags">
+                                <mat-chip-list>
+                                    <mat-chip (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
+                                </mat-chip-list>
+                           </div>    
+                        </div>
                     </div>
                     <div id="E" #E (mouseup)="onSelected($event)"></div>
                 </div>
+
                 <div class="Derecha">
-                    <ul *ngFor="let incise of showAround.Right">
-                        <div class="aroundIncises">
-                            <li class="Derecha" (click)="editAround(incise, 'Right')">{{ incise.content }}</li>
-                        </div>
-                    </ul>
+                    <div *ngFor="let incise of showAround.Right">
+                        <div class="ttpDer">
+                            <div class="DerechaInc" (click)="editAround(incise, 'Right')"> {{ incise.content }}</div>
+                            <div *ngIf="incise.hashtag[0]">
+                                <span  class="ttpTextDer">
+                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
+                                </span> 
+                            </div>                               
+                        </div>    
+                    </div>
                 </div>
 
-                <div>
-                    <app-text-editor></app-text-editor>
-                </div>
+                <div></div>
+
                 <div class="Abajo">
-                    <ul *ngFor="let incise of showAround.Below">
-                        <div class="aroundIncises">
-                            <li class="Abajo" (click)="editAround(incise, 'Down')">{{ incise.content }}</li>
-                        </div>
-                    </ul>
+                    <div *ngFor="let incise of showAround.Below">
+                        <div class="ttpAbj">
+                            <div class="AbajoInc" (click)="editAround(incise, 'Down')"> {{ incise.content }}</div>
+                            <div *ngIf="incise.hashtag[0]">
+                                <span  class="ttpTextAbj">
+                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
+                                </span> 
+                            </div>                               
+                        </div>    
+                    </div>
                 </div>
-                <div class="tooltip">
-                    <button class="btn btn-primary" (click)="zoomMin()" >
-                        <i class="material-icons">fullscreen_exit</i>
+
+                <div class="ttpBtn">
+                    <button class="btn btn-primary" (click)="zoomMin()">
+                        <i class="material-icons">fullscreen</i>
                     </button>
-                    <span class="tooltiptext">exit fullscreen</span>
+                    <span class="ttpTextBtn">exit fullscreen</span>
                 </div> 
+                
             </div>
         </div>    
     </span>
