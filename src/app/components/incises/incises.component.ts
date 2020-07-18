@@ -13,6 +13,9 @@ import { Scrwm } from 'src/app/models/scrwm';
 
 import { HighlightDirective } from 'src/app/directives/highlight.directive'
 
+import {MatDialog} from '@angular/material/dialog';
+
+
 declare var M: any; 
 
 @Component({
@@ -21,7 +24,7 @@ declare var M: any;
   styleUrls: ['./incises.component.css'],
 })
 
-export class IncisesComponent {
+export class IncisesComponent {   
 
     constructor(public inciseService: InciseService, 
                 public scrwmService: ScrwmService,
@@ -29,7 +32,8 @@ export class IncisesComponent {
                 public keyListener: KeyListenerComponent,
                 public highLight: HighlightDirective,
                 public router: Router,
-                public textEditorComponent: TextEditorComponent                
+                public textEditorComponent: TextEditorComponent,
+                public dialog: MatDialog              
                 ){ }
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
@@ -231,6 +235,7 @@ export class IncisesComponent {
 
   HT(){
     if(document.getElementById('E').isContentEditable){
+      document.getElementById('E').contentEditable = "false";
       this.addHashtag = true;
     } else {
       M.toast({html: "Not allowed to add a hashtag in this incise"});
@@ -241,6 +246,7 @@ export class IncisesComponent {
   HT2(event: any, HTInput: any){
     if(event.keyCode === 32){
       this.addHashtag = false;
+      document.getElementById('E').contentEditable = "true";
       if(HTInput.value){
         this.inciseService.selectedIncise.hashtag.push(HTInput.value);
         this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
@@ -249,18 +255,41 @@ export class IncisesComponent {
     }
   }
 
-  deleteHashtag(hashtag: string){
+  openDialogDelHashtag(hashtag: string) {
     if(document.getElementById('E').isContentEditable){
-      const A = this.inciseService.selectedIncise;
-      for(var i in A.hashtag){
-        if(A.hashtag[i] === hashtag){
-          const index = A.hashtag.indexOf(i)+1;
-          A.hashtag.splice(index, 1);
-          A.content = document.getElementById('E').textContent;
-          this.showAround.toCenter(A);
-        }
+      localStorage.setItem("HTag", hashtag);
+      const dialogRef = this.dialog.open(DialogContent);
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+  }
+
+
+}
+
+@Component({
+  selector: 'dialog-content',
+  templateUrl: 'dialog-content.html',
+})
+export class DialogContent {
+
+  constructor(public inciseService: InciseService, 
+              public showAround: ShowAroundComponent,
+  ){ }
+
+  deleteHashtag(){
+    const hashtag = localStorage.getItem("HTag");
+    const A = this.inciseService.selectedIncise;
+    for(var i in A.hashtag){
+      if(A.hashtag[i] === hashtag){
+        const index = A.hashtag.indexOf(i)+1;
+        A.hashtag.splice(index, 1);
+        A.content = document.getElementById('E').textContent;
+        this.showAround.toCenter(A);
       }
     }
   }
+
 
 }

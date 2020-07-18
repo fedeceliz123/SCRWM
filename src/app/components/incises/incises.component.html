@@ -48,7 +48,7 @@
                         <div class="hashtags">
                             <div *ngFor="let hashtag of showAround.Hashtags">
                                 <mat-chip-list>
-                                    <mat-chip (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
+                                    <mat-chip (click)="openDialogDelHashtag(hashtag)">#{{ hashtag }}</mat-chip>
                                 </mat-chip-list>
                            </div>    
                         </div>
@@ -146,7 +146,7 @@
                         <div class="hashtags">
                             <div *ngFor="let hashtag of showAround.Hashtags">
                                 <mat-chip-list>
-                                    <mat-chip (click)="deleteHashtag(hashtag)">#{{ hashtag }}</mat-chip>
+                                    <mat-chip (click)="openDialogDelHashtag(hashtag)">#{{ hashtag }}</mat-chip>
                                 </mat-chip-list>
                            </div>    
                         </div>

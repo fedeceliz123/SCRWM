@@ -2,12 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule  } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 
-import { IncisesComponent } from './components/incises/incises.component';
+import { IncisesComponent, DialogContent } from './components/incises/incises.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { TasksComponent } from './components/tasks/tasks.component';
@@ -19,13 +21,13 @@ import { ProfComponent } from './components/prof/prof.component'
 
 import { HighlightDirective } from './directives/highlight.directive';
 import { TextEditorComponent } from './components/incises/text-editor/text-editor.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     IncisesComponent,
+    DialogContent,
     SignupComponent,
     SigninComponent,
     TasksComponent,
