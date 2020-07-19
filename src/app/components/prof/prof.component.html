@@ -19,7 +19,7 @@
     <div >
       <div>
           <label for="file-input">
-            <img  class="image"  (click)="photoInput.click()" *ngIf="profService.selectedProf.imagePath, else uploadPhoto" [src]="photoSelected || 'http://localhost:3000/' + profService.selectedProf.imagePath">
+            <img  class="image"  (click)="photoInput.click()" *ngIf="imageService.selectedImage.imagePath, else uploadPhoto" [src]="photoSelected || 'http://localhost:3000/' + imageService.selectedImage.imagePath">
             <ng-template #uploadPhoto>
               <img class="image" id="image" [src]="photoSelected || 'assets/no-image.png' " (click)="photoInput.click()"/>
             </ng-template>

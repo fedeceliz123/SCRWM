@@ -7,35 +7,39 @@
                 <div *ngIf="prof.userId === currentUserId">  
                     <div *ngFor="let scrwm of scrwmService.scrwms">
                         <div *ngIf="scrwm.creator === prof.userId">
-                            <mat-expansion-panel>
-                                <mat-expansion-panel-header>
-                                    <mat-panel-title >
-                                        <div class="tooltip">
-                                            <img class="circle" *ngIf="prof.imagePath, else defaultImage" [src]="'http://localhost:3000/' + prof.imagePath">
-                                            <ng-template #defaultImage>
+                            <div *ngFor="let image of imageService.images">
+                                <div *ngIf="image.userId === prof.userId">
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title >
                                                 <div class="tooltip">
-                                                    <img class="circle" src="assets/no-image.png">
-                                                </div>
-                                            </ng-template>
-                                            <span class="tooltiptext">
-                                                <p>{{prof.nickname}} ({{prof.state}})</p>
-                                                <p>{{prof.description}}</p>
-                                            </span>
-                                        </div>       
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                        <p class="title">{{ scrwm.title }}</p>
-                                    </mat-panel-description>
-                                </mat-expansion-panel-header>
-                                <div class="date">
-                                    <p ng-bind="date | date:'MM/dd/yyyy'"></p>
-                                    {{ scrwm.updatedAt }} -- {{ scrwm.createdAt }}
-                                    <i class="material-icons" (click)="initComponent.editScrwm(scrwm)">edit</i>
-                                    <i class="material-icons" (click)="deleteScrwm(scrwm)">delete</i>
+                                                    <img class="circle" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <ng-template #defaultImage>
+                                                        <div class="tooltip">
+                                                            <img class="circle" src="assets/no-image.png">
+                                                        </div>
+                                                    </ng-template>
+                                                    <span class="tooltiptext">
+                                                        <p>{{prof.nickname}} ({{prof.state}})</p>
+                                                        <p>{{prof.description}}</p>
+                                                    </span>
+                                                </div>       
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                <p class="title">{{ scrwm.title }}</p>
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <div class="date">
+                                            <p ng-bind="date | date:'MM/dd/yyyy'"></p>
+                                            {{ scrwm.updatedAt }} -- {{ scrwm.createdAt }}
+                                            <i class="material-icons" (click)="initComponent.editScrwm(scrwm)">edit</i>
+                                            <i class="material-icons" (click)="deleteScrwm(scrwm)">delete</i>
+                                        </div>
+                                        <p class="subtitle" (click)="showAround.getByScrwm(scrwm)">
+                                            {{ scrwm.subtitle }}</p>
+                                    </mat-expansion-panel>  
                                 </div>
-                                <p class="subtitle" (click)="showAround.getByScrwm(scrwm)">
-                                    {{ scrwm.subtitle }}</p>
-                            </mat-expansion-panel>     
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -44,33 +48,37 @@
                 <div *ngIf="prof.userId != currentUserId">  
                     <div *ngFor="let scrwm of scrwmService.scrwms">
                         <div *ngIf="scrwm.creator === prof.userId">
-                            <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    <div class="tooltip">
-                                        <img class="circle" *ngIf="prof.imagePath, else defaultImage" [src]="'http://localhost:3000/' + prof.imagePath">
-                                        <ng-template #defaultImage>
+                            <div *ngFor="let image of imageService.images">
+                                <div *ngIf="image.userId === prof.userId">
+                                    <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
                                             <div class="tooltip">
-                                                <img class="circle" src="assets/no-image.png">
-                                            </div>
-                                        </ng-template>
-                                        <span class="tooltiptext">
-                                            <p>{{prof.nickname}} ({{prof.state}})</p>
-                                            <p>{{prof.description}}</p>
-                                        </span>                                    
-                                    </div>       
-                                </mat-panel-title>
-                                <mat-panel-description>
-                                    <p class="title">{{ scrwm.title }}</p>
-                                </mat-panel-description>
-                            </mat-expansion-panel-header>
-                            <div class="date">
-                                <p ng-bind="date | date:'MM/dd/yyyy'"></p>
-                                {{ scrwm.updatedAt }} -- {{ scrwm.createdAt }}
+                                                <img class="circle" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                <ng-template #defaultImage>
+                                                    <div class="tooltip">
+                                                        <img class="circle" src="assets/no-image.png">
+                                                    </div>
+                                                </ng-template>
+                                                <span class="tooltiptext">
+                                                    <p>{{prof.nickname}} ({{prof.state}})</p>
+                                                    <p>{{prof.description}}</p>
+                                                </span>                                    
+                                            </div>       
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                            <p class="title">{{ scrwm.title }}</p>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <div class="date">
+                                        <p ng-bind="date | date:'MM/dd/yyyy'"></p>
+                                        {{ scrwm.updatedAt }} -- {{ scrwm.createdAt }}
+                                    </div>
+                                    <p class="subtitle" (click)="showAround.getByScrwm(scrwm)">
+                                        {{ scrwm.subtitle }}</p>
+                                    </mat-expansion-panel>
+                                </div>
                             </div>
-                            <p class="subtitle" (click)="showAround.getByScrwm(scrwm)">
-                                {{ scrwm.subtitle }}</p>
-                            </mat-expansion-panel>
                         </div>
                     </div>         
                 </div>

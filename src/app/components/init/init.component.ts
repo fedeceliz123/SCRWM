@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { ScrwmService } from 'src/app/services/scrwm.service';
-import { ProfService } from 'src/app/services/prof.service'
+import { ProfService } from 'src/app/services/prof.service';
+import { ImageService } from 'src/app/services/image.service';
+
 
 import { Scrwm } from 'src/app/models/scrwm';
 import { User } from 'src/app/models/user';
@@ -33,6 +35,7 @@ export class InitComponent implements OnInit {
               public profComponent: ProfComponent,
               public scrwmService: ScrwmService,
               public profService: ProfService,
+              public imageService: ImageService,
               ){}
 
   ngOnInit(): void {

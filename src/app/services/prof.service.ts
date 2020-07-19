@@ -24,14 +24,8 @@ profs: Prof[];
     return this.http.post(this.URL_API, prof);
   }
 
-  putProf(prof: Prof, photo: File) {
-    const fd = new FormData();
-    fd.append("nickname", prof.nickname);
-    fd.append("state", prof.state);
-    fd.append("description", prof.description);
-    fd.append("userId", prof.userId);
-    fd.append("image", photo);
-    return this.http.put(this.URL_API + `/${prof._id}`, fd);
+  putProf(prof: Prof) {
+    return this.http.put(this.URL_API + `/${prof._id}`, prof);
   }
 
   deleteProf(_id: string) {

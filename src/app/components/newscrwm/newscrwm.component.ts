@@ -79,6 +79,7 @@ export class NewscrwmComponent implements OnInit {
     const E = this.inciseService.selectedIncise = new Incise;
     E.user = userId;
     E.scrwm = scrwm._id;
+    E.content = "Type here...";
     this.inciseService.postIncise(E)
     .subscribe(res => {
       this.getIncise(userId, scrwm);

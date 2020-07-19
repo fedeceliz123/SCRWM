@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ProfService } from 'src/app/services/prof.service';
-import { Prof } from 'src/app/models/prof'
+import { ImageService } from 'src/app/services/image.service';
+
+import { Prof } from 'src/app/models/prof';
+import { Image } from 'src/app/models/image';
+
 
 interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
@@ -16,13 +20,13 @@ declare var M: any;
 })
 export class ProfComponent implements OnInit {
 
-  file: File;
-  photoSelected: string | ArrayBuffer;
-
-  constructor(public profService: ProfService) { }
+  constructor(public profService: ProfService,
+              public imageService: ImageService,
+  ) { }
 
   ngOnInit(): void {
     this.getProf();
+    this.getImage();
   }
 
   getProf(){
@@ -32,10 +36,25 @@ export class ProfComponent implements OnInit {
       for(var i in P){
         if(P[i].userId === sessionStorage.getItem('currentUserId')){
           this.profService.selectedProf = P[i];
+          return
         }
       }
     });
   }
+
+  getImage(){
+    this.imageService.getImages()
+    .subscribe(res => {
+      const A = this.imageService.images = res as Image[];
+      for(var i in A){
+        if(A[i].userId === sessionStorage.getItem('currentUserId')){
+          this.imageService.selectedImage = A[i];
+          return
+        }
+      }
+    });
+  }
+
 
   newProf(userId: string){
     const prof = this.profService.selectedProf;
@@ -49,6 +68,10 @@ export class ProfComponent implements OnInit {
     });
   }
 
+  
+  file: File;
+  photoSelected: string | ArrayBuffer;
+
   onPhotoSelected(event: HTMLInputEvent): void {
     if(event.target.files && event.target.files[0]){    // confirma si existe un archivo subido
       this.file = <File>event.target.files[0];          // guarda el archivo en file
@@ -59,24 +82,26 @@ export class ProfComponent implements OnInit {
   }
 
   getProf2(){
-    if(this.photoSelected){
-      this.profService.getProfs()
-      .subscribe(res => {
-        const P = this.profService.profs = res as Prof[];
-        for(var i in P){
-          if(P[i].userId === sessionStorage.getItem('currentUserId')){
-            this.uploadPhoto2(P[i])
+    this.profService.getProfs()
+    .subscribe(res => {
+      const P = this.profService.profs = res as Prof[];
+      for(var i in P){
+        if(P[i].userId === sessionStorage.getItem('currentUserId')){
+          this.updateProf(P[i]);
+          if(this.photoSelected){
+            this.imageService.selectedImage.userId = sessionStorage.getItem('currentUserId');
+            this.imageService.postImage(this.imageService.selectedImage, this.file)
+            .subscribe(res => {
+              this.imageService.selectedImage = res as Image;
+              this.getImage();
+            });
           }
         }
-      });
-    } else {
-      console.log("Toast...");
-      M.toast({html: "No changes (no photo was loaded)"});
-    }
-
+      }
+    });
   }
 
-  uploadPhoto2(prof: Prof){
+  updateProf(prof: Prof){
     if(document.getElementById("Name").contentEditable){
       prof.nickname = document.getElementById("Name").textContent;
     }
@@ -89,9 +114,9 @@ export class ProfComponent implements OnInit {
       prof.description = document.getElementById("Description").textContent;
     }
     document.getElementById("Description").contentEditable = "false";
-    prof.userId = sessionStorage.getItem('currentUserId');
-    this.profService.putProf(prof, this.file)
+    this.profService.putProf(prof)
     .subscribe(res => {
+      this.profService.selectedProf = res as Prof;
       this.getProf();
     });
   }

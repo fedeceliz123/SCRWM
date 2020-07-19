@@ -5,14 +5,14 @@ export class Scrwm {
     subtitle: string;
     creator: string;
     inciseInit: string;
-    followers: string;
+    followers: string[];
 
-constructor(_id="", title="", subtitle="", creator="", inciseInit="", followers=""){
-    this._id = _id;
-    this.title = title;
-    this.subtitle = subtitle;
-    this.creator = creator;
-    this.inciseInit = inciseInit;
-    this.followers = followers;
-}
+    constructor(_id="", title="", subtitle="", creator="", inciseInit=""){
+        this._id = _id;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.creator = creator;
+        this.inciseInit = inciseInit;
+        this.followers = [];
+    }
 }

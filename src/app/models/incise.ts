@@ -1,9 +1,10 @@
 export class Incise {
 
-        _id: string;                // se agrega el "_id" porque los datos vienen de Mongodb
+        _id: string;
         scrwm: string;
         user: string;
         content: string;
+        subcontent: string[];
         up: string[];
         down: string[];
         left: string[];
@@ -12,12 +13,14 @@ export class Incise {
         modified: string;
         record: string[] ;
         hashtag: string[];
+        diamond: number;
         
-    constructor(_id="", scrwm="", user="", content="", date="", modified=""){
+    constructor(_id="", scrwm="", user="", content="", subcontent="", date="", modified="", diamond=""){
         this._id = _id;
         this.scrwm = scrwm;
         this.user = user;
         this.content = content;
+        this.subcontent = [];
         this.up = [];
         this.down = [];
         this.left = [];
@@ -26,6 +29,6 @@ export class Incise {
         this.modified = modified;
         this.record = [];
         this.hashtag = [];
-
+        this.diamond = 0;
     }
 }

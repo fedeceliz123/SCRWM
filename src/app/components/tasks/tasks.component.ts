@@ -4,6 +4,7 @@ import { ScrwmService } from '../../services/scrwm.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
+import { ImageService } from 'src/app/services/image.service';
 
 import { IncisesComponent } from 'src/app/components/incises/incises.component';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
@@ -12,6 +13,7 @@ import { InitComponent } from 'src/app/components/init/init.component'
 import { Scrwm } from 'src/app/models/scrwm';
 import { Incise } from 'src/app/models/incise';
 import { Prof } from 'src/app/models/prof';
+import { Image } from 'src/app/models/image';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -34,6 +36,7 @@ export class TasksComponent implements OnInit {
               public authService: AuthService,
               public inciseService: InciseService,
               public profService: ProfService,
+              public imageService: ImageService,
               public showAround: ShowAroundComponent,
               public initComponent: InitComponent,
               public dialog: MatDialog,
@@ -42,12 +45,30 @@ export class TasksComponent implements OnInit {
   currentUserId = sessionStorage.getItem('currentUserId');
 
   ngOnInit(): void {
+    this.getProfs();
+    this.getImages();
+  }
+
+  getProfs(){
     this.profService.getProfs()
     .subscribe(res => {
       const P = this.profService.profs = res as Prof[];
       for(var i in P){
         if(P[i].userId === sessionStorage.getItem('currentUserId')){
           this.profService.selectedProf = (P[i]);
+        }
+      }      
+      this.getScrwms();
+    });
+  }
+
+  getImages(){
+    this.imageService.getImages()
+    .subscribe(res => {
+      const A = this.imageService.images = res as Image[];
+      for(var i in A){
+        if(A[i].userId === sessionStorage.getItem('currentUserId')){
+          this.imageService.selectedImage = (A[i]);
         }
       }      
       this.getScrwms();
