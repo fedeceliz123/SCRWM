@@ -3,10 +3,13 @@ import { Router } from '@angular/router';
 
 import { ScrwmService } from 'src/app/services/scrwm.service';
 import { InciseService } from 'src/app/services/incise.service';
+import { ProfService } from 'src/app/services/prof.service';
 
-import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit-around.component'
-import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
-import { KeyListenerComponent } from 'src/app/components/incises/key-listener/key-listener.component'
+
+import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit-around.component';
+import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
+import { KeyListenerComponent } from 'src/app/components/incises/key-listener/key-listener.component';
+
 
 import { Scrwm } from 'src/app/models/scrwm';
 
@@ -25,6 +28,7 @@ export class IncisesComponent {
 
     constructor(public inciseService: InciseService, 
                 public scrwmService: ScrwmService,
+                public profService: ProfService,
                 public editAroundComponent: EditAroundComponent,
                 public showAround: ShowAroundComponent,
                 public keyListener: KeyListenerComponent,
@@ -55,10 +59,12 @@ export class IncisesComponent {
   }
 
   onSelected(event: any){
+    if(event.keyCode === 39){
       document.execCommand("forecolor", true, "green");
         //this.showAround.DirLast = "Left";
         //this.keyListener.editedIncise();  
       const selectedText = window.getSelection().toString().trim();
+    }
   }
 
   zoomMin(){
@@ -116,13 +122,29 @@ export class IncisesComponent {
       localStorage.setItem("HTag", hashtag);
       const dialogRef = this.dialog.open(DialogContent);
       dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
       });
     }
   }
 
   diamondSelected(event: any){
-    document.getElementById('diamond').style.opacity = "1";
+    if(!document.getElementById('E').isContentEditable){
+      const I = this.inciseService.selectedIncise
+      if(I._id){
+        const F = this.profService.selectedProf.favIncises;
+        for(var i in F){
+          if(F[i] === I._id){
+            const index = F.indexOf(i)+1;
+            F.splice(index, 1);
+            I.diamond --;
+            document.getElementById('diamond').style.opacity = "0.1";
+            return;
+          }
+        }
+        F.push(I._id);
+        I.diamond ++;
+        document.getElementById('diamond').style.opacity = "1";
+      }
+    }
   }
 
 

@@ -44,7 +44,7 @@
                 <div class="center">
                     <div class="cab">
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected($event)">
-                        <p class="followers">32</p>
+                        <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>
                         <div class="hashtags">
                             <div *ngFor="let hashtag of showAround.Hashtags">
                                 <mat-chip-list>
@@ -53,7 +53,9 @@
                            </div>    
                         </div>
                     </div>
-                    <div id="E" #E (mouseup)="onSelected($event)"></div>
+                    <div class="CeditableMin">
+                        <div id="E" (mouseup)="onSelected($event)"></div>
+                    </div>
                 </div>
 
                 <div class="Derecha">
@@ -138,11 +140,10 @@
                     </div>
                 </div>
 
-
                 <div class="center">
                     <div class="cab">
                         <img class="diamond"  id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected($event)">
-                        <p class="followers">32</p>
+                        <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>
                         <div class="hashtags">
                             <div *ngFor="let hashtag of showAround.Hashtags">
                                 <mat-chip-list>
@@ -151,7 +152,9 @@
                            </div>    
                         </div>
                     </div>
-                    <div id="E" #E (mouseup)="onSelected($event)"></div>
+                    <div class="CeditableMax">
+                        <div id="E" (mouseup)="onSelected($event)"></div>
+                    </div>
                 </div>
 
                 <div class="Derecha">

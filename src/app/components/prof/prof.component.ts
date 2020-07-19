@@ -89,15 +89,33 @@ export class ProfComponent implements OnInit {
         if(P[i].userId === sessionStorage.getItem('currentUserId')){
           this.updateProf(P[i]);
           if(this.photoSelected){
-            this.imageService.selectedImage.userId = sessionStorage.getItem('currentUserId');
-            this.imageService.postImage(this.imageService.selectedImage, this.file)
-            .subscribe(res => {
-              this.imageService.selectedImage = res as Image;
-              this.getImage();
-            });
+            this.updateImage();
           }
         }
       }
+    });
+  }
+
+  updateImage(){
+    this.imageService.getImages()
+    .subscribe(res => {
+      const A = this.imageService.images = res as Image[];
+      for(var i in A){
+        if(A[i].userId === sessionStorage.getItem('currentUserId')){
+          console.log(A[i]);
+          this.imageService.deleteImage(A[i]._id);
+        }
+      }
+      this.chargeNewImage();
+    });
+  }  
+
+  chargeNewImage(){
+    this.imageService.selectedImage.userId = sessionStorage.getItem('currentUserId');
+    this.imageService.postImage(this.imageService.selectedImage, this.file)
+    .subscribe(res => {
+      this.imageService.selectedImage = res as Image;
+      this.getImage();
     });
   }
 

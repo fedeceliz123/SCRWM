@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { InciseService } from 'src/app/services/incise.service';
+import { ProfService } from 'src/app/services/prof.service';
 
 import { Incise } from 'src/app/models/incise';
 import { Scrwm } from 'src/app/models/scrwm';
@@ -20,7 +22,9 @@ export class ShowAroundComponent implements OnInit {
   DirLast: any = "";
   IdLast: any = "";
 
-  constructor( public inciseService: InciseService ){ }
+  constructor( public inciseService: InciseService,
+               public profService: ProfService
+  ){ }
 
   ngOnInit(): void {
   }
@@ -32,8 +36,11 @@ export class ShowAroundComponent implements OnInit {
       const I = this.inciseService.incises = res as Incise[];
       for(var i in I){
         if(I[i]._id === scrwm.inciseInit){
+          this.inciseService.putIncise(this.inciseService.selectedIncise)
+          .subscribe(res =>{
+          });
           this.inciseService.selectedIncise = I[i];
-          this.toCenter(this.inciseService.selectedIncise);
+          this.toCenter(this.inciseService.selectedIncise); 
         }
       }
     });
@@ -51,6 +58,7 @@ export class ShowAroundComponent implements OnInit {
     this.showHashtag(incise);
     this.showAround(incise);
     this.isEditable(incise);
+    this.setDiamond(incise);
   }
 
   showHashtag(incise: Incise){
@@ -96,5 +104,17 @@ export class ShowAroundComponent implements OnInit {
       document.getElementById('E').contentEditable = "false";
     }
   }
+
+  setDiamond(incise: Incise){
+    const F = this.profService.selectedProf.favIncises;
+    for(var i in F){
+      if(F[i] === incise._id){
+        document.getElementById('diamond').style.opacity = "1";
+        return
+      }
+    }
+    document.getElementById('diamond').style.opacity = "0.1";  
+  }  
+
 
 }

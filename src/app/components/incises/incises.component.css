@@ -39,20 +39,16 @@
     display: none;
 }
 
-.center{
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
 .cab{
     display: flex;
     flex-direction: row;
+    height: 30px;
 }
 
 .diamond{
-    height: 25px;
+    height: 22px;
     cursor: pointer;
-    opacity: 0.2;
+    opacity: 0.1;
     transition: opacity 0.5s;
 }
 
@@ -78,18 +74,33 @@
 }
 
 .mat-chip{
-    color: black;
+    color: gray;
     background-color: white;
     cursor: pointer;
+}
+
+.CeditableMin, .CeditableMax{
+    align-self: stretch;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.CeditableMin{
+    height: 320px;
+}
+
+.CeditableMax{
+    height: 370px;
 }
 
 #E{
     font-size: 18px;
     color: darkblue;
     outline: none;
-    line-height : 40px;
+    line-height : 36px;
     font-style: serif;
     text-align: left;
+    z-index: -1;
 }
 
 .Arriba{
