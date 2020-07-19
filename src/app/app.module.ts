@@ -16,11 +16,11 @@ import { TasksComponent, AlertDelScrwm } from './components/tasks/tasks.componen
 import { NewscrwmComponent } from './components/newscrwm/newscrwm.component';
 import { InitComponent } from './components/init/init.component';
 import { ShowAroundComponent } from './components/incises/show-around/show-around.component';
+import { EditAroundComponent } from './components/incises/edit-around/edit-around.component';
+
 import { KeyListenerComponent } from './components/incises/key-listener/key-listener.component';
 import { ProfComponent } from './components/prof/prof.component'
 
-import { HighlightDirective } from './directives/highlight.directive';
-import { TextEditorComponent } from './components/incises/text-editor/text-editor.component';
 import { MaterialModule } from './material.module';
 
 @NgModule({
@@ -36,8 +36,6 @@ import { MaterialModule } from './material.module';
     InitComponent,
     ShowAroundComponent,
     KeyListenerComponent,
-    HighlightDirective,
-    TextEditorComponent,
     ProfComponent,
   ],
   imports: [
@@ -55,9 +53,8 @@ import { MaterialModule } from './material.module';
     IncisesComponent,
     SigninComponent,
     ShowAroundComponent,
+    EditAroundComponent,
     KeyListenerComponent,
-    HighlightDirective,
-    TextEditorComponent,
     SignupComponent,
     SigninComponent,
     ProfComponent,

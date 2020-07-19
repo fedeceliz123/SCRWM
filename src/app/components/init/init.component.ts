@@ -5,18 +5,23 @@ import { ScrwmService } from 'src/app/services/scrwm.service';
 import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
 
-
 import { Scrwm } from 'src/app/models/scrwm';
 import { User } from 'src/app/models/user';
 
-import {MatDialog} from '@angular/material/dialog';
-import {SignupComponent} from 'src/app/components/signup/signup.component';
-import {SigninComponent} from 'src/app/components/signin/signin.component';
-import {NewscrwmComponent} from 'src/app/components/newscrwm/newscrwm.component';
-
+import { SignupComponent } from 'src/app/components/signup/signup.component';
+import { SigninComponent } from 'src/app/components/signin/signin.component';
+import { NewscrwmComponent } from 'src/app/components/newscrwm/newscrwm.component';
 import { ProfComponent } from '../prof/prof.component';
 
+import {MatDialog} from '@angular/material/dialog';
+
 declare var M: any;
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.tooltipped');
+  var instances = M.Tooltip.init(elems);
+});
+
 
 @Component({
   selector: 'app-init',

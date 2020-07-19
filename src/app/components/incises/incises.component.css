@@ -60,6 +60,15 @@
     opacity: 1;
 }
 
+.diamond:active{
+    opacity: 0;
+}
+
+.followers{
+    color: rgb(206, 205, 205);
+    font-size: 12px;
+}
+
 .hashtags{
     display: flex;
     flex-direction: row;
@@ -69,7 +78,7 @@
 }
 
 .mat-chip{
-    color: orangered;
+    color: black;
     background-color: white;
     cursor: pointer;
 }

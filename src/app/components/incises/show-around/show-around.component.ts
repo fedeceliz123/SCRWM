@@ -20,8 +20,7 @@ export class ShowAroundComponent implements OnInit {
   DirLast: any = "";
   IdLast: any = "";
 
-  constructor(public inciseService: InciseService, 
-              ){ }
+  constructor( public inciseService: InciseService ){ }
 
   ngOnInit(): void {
   }

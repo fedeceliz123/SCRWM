@@ -7,27 +7,19 @@
           <li><button mat-button (click)="Login()">Login</button> </li>
       </ng-container>
       <ng-template #loggedIn style="margin-right: 20px;">
-        <li style="margin-right:15px ;">
-          <i class="material-icons">notifications</i>        
-        </li>
-        <li style="margin-right:15px ;">
+        <li><button mat-button>
           <i class="material-icons">attach_file</i>        
-        </li>
-        <li style="margin-right:15px ;">
-          <i class="material-icons">person_add</i>        
-        </li>
-        <li style="margin-right:15px ;">
+        </button></li>
+        <li><button mat-button>
           <i class="material-icons">keyboard_voice</i>        
-        </li>
-
-        <li style="margin-right:15px ;">
-          <i class="material-icons">send</i>        
-        </li>
-        <li style="margin-right:15px ;">
+        </button></li>
+        <li><button mat-button>
           <i class="material-icons">share</i>        
-        </li>
-        <li style="margin-right:15px ;">
-          <i class="material-icons">videocam</i>        
+        </button></li>
+        <li>
+          <a class="btn tooltipped" data-position="bottom" data-tooltip="Upload image" (click)="newScrwm()">
+            <i class="material-icons">image</i>
+          </a>
         </li>
         <li>
           <nav style="flex: left;">
@@ -41,8 +33,16 @@
           </div>
         </nav>
         </li>
-        <li><button mat-button (click)="newScrwm()" style="margin-left: 10px;">New Scrwm</button></li>
-        <li><a class="nav-link" style="cursor: pointer; margin-left: 10px; margin-right: 10px;" (click)="deleteUsers()">(Delete All)</a></li>
+
+        <li>
+          <a class="btn tooltipped" data-position="bottom" data-tooltip="New Scrwm" (click)="newScrwm()">
+            <i class="material-icons">create_new_folder</i>
+          </a>
+        </li>
+
+        <li><button mat-button>
+          <i class="material-icons">notifications</i>        
+        </button></li>
         <li>
           <nav>
           <div class="nav-wrapper #64b5f6 blue lighten-2">
