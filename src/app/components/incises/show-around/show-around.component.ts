@@ -6,7 +6,6 @@ import { ProfService } from 'src/app/services/prof.service';
 import { Incise } from 'src/app/models/incise';
 import { Scrwm } from 'src/app/models/scrwm';
 
-
 @Component({
   selector: 'app-show-around',
   templateUrl: './show-around.component.html',
@@ -83,7 +82,7 @@ export class ShowAroundComponent implements OnInit {
           }
         }
         for(var l in incise.left){
-          if(incise.left[l] === D[i]._id){
+          if(incise.left[l].IdComm === D[i]._id){
             this.Left.push(D[i]);
           }
         }

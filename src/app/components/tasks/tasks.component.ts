@@ -75,6 +75,23 @@ export class TasksComponent implements OnInit {
     });
   }
 
+  getList(){
+    for(var i in this.profService.profs){
+      if(this.profService.profs[i].userId === this.currentUserId){
+        for(var j in this.scrwmService.scrwms){
+          if(this.scrwmService.scrwms[j].creator === this.profService.profs[i].userId){
+            for(var k in this.imageService.images){
+              if(this.imageService.images[k].userId === this.profService.profs[i].userId){
+
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+
   deleteScrwm(scrwm: Scrwm){
     this.scrwmService.getScrwms()
     .subscribe(res => {

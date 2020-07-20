@@ -10,8 +10,8 @@ import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
 import { KeyListenerComponent } from 'src/app/components/incises/key-listener/key-listener.component';
 
-
 import { Scrwm } from 'src/app/models/scrwm';
+import { Comm } from 'src/app/models/comm';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -48,22 +48,26 @@ export class IncisesComponent {
         this.showAround.DirLast = "Down";
         this.keyListener.editedIncise();
       } else if(event.keyCode === 39){
-        this.showAround.DirLast = "Left";
-        this.keyListener.editedIncise();  
-        //M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
+        M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
       } else if(event.keyCode === 40){
         this.showAround.DirLast = "Up";
         this.keyListener.editedIncise();
-      }  
+      }
     }
   }
 
-  onSelected(event: any){
-    if(event.keyCode === 39){
-      document.execCommand("forecolor", true, "green");
-        //this.showAround.DirLast = "Left";
-        //this.keyListener.editedIncise();  
-      const selectedText = window.getSelection().toString().trim();
+  ToLeft(event: any){
+    if(event.ctrlKey){
+      this.showAround.DirLast = "Left";
+      const comm = new Comm;
+      comm.initial = "3";
+      comm.final = "6";
+      comm.IdComm = this.inciseService.selectedIncise._id;
+
+      //const selectedText = window.getSelection().toString().trim();  
+      //document.execCommand("forecolor", true, "green");
+
+      this.keyListener.editedIncise(comm);
     }
   }
 
@@ -99,9 +103,6 @@ export class IncisesComponent {
     if(document.getElementById('E').isContentEditable){
       document.getElementById('E').contentEditable = "false";
       this.addHashtag = true;
-    } else {
-      M.toast({html: "Not allowed to add a hashtag in this incise"});
-
     }
   }
 
@@ -126,7 +127,7 @@ export class IncisesComponent {
     }
   }
 
-  diamondSelected(event: any){
+  diamondSelected(){
     if(!document.getElementById('E').isContentEditable){
       const I = this.inciseService.selectedIncise
       if(I._id){
@@ -147,6 +148,8 @@ export class IncisesComponent {
     }
   }
 
+  anchorSelected(){
+  }
 
 }
 

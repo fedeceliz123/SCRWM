@@ -60,6 +60,22 @@
     opacity: 0;
 }
 
+.anchor{
+    height: 22px;
+    cursor: pointer;
+    opacity: 0.1;
+    transition: opacity 0.5s;
+}
+
+.anchor:hover{
+    opacity: 1;
+}
+
+.anchor:active{
+    opacity: 0;
+}
+
+
 .followers{
     color: rgb(206, 205, 205);
     font-size: 12px;
@@ -100,7 +116,6 @@
     line-height : 36px;
     font-style: serif;
     text-align: left;
-    z-index: -1;
 }
 
 .Arriba{

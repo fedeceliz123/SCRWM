@@ -5,6 +5,7 @@ import { ShowAroundComponent } from 'src/app/components/incises/show-around/show
 import { KeyListenerComponent } from 'src/app/components/incises/key-listener/key-listener.component'
 
 import { Incise } from 'src/app/models/incise';
+import { Comm } from 'src/app/models/comm';
 
 @Component({
   selector: 'app-edit-around',
@@ -54,6 +55,7 @@ export class EditAroundComponent implements OnInit {
 
   linkStereo1(incise: Incise){
     const A = this.inciseService.selectedIncise;
+    console.log(A);
     A.content = document.getElementById('E').textContent;
     switch (this.showAround.DirLast){
       case "Up":
@@ -76,12 +78,14 @@ export class EditAroundComponent implements OnInit {
         break;
       case "Left":
         for(var i in A.left){
-          if(A.left[i] === incise._id){
+          if(A.left[i].IdComm === incise._id){
             this.linkStereo2(incise, A);
             return;
           }
         }
-        A.left.push(incise._id);
+        const comm = new Comm;
+        comm.IdComm = incise._id;
+        A.left.push(comm);
         break;
       case "Right":
         for(var i in A.right){
@@ -138,13 +142,15 @@ export class EditAroundComponent implements OnInit {
         break;
       case "Right":
         for(var i in incise.left){
-          if(incise.left[i] === A._id){
+          if(incise.left[i].IdComm === A._id){
             this.linkStereo4(A, incise);
             return;
           }
         }
-        incise.left.push(A._id);
-        break;
+        const comm = new Comm;
+          comm.IdComm = A._id;
+          incise.left.push(comm);
+          break;
     }
     this.linkStereo4(A, incise);
   }

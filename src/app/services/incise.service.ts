@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';       // para comunicar el frontend al servidor (en lugar de Postman)
 import { Incise } from '../models/incise'
+import { Comm } from '../models/comm';
 
 @Injectable({
   providedIn: 'root'

@@ -1,51 +1,31 @@
 <nav>
   <div class="nav-wrapper">
-    <a class="brand-logo" style="margin-left: 20px;">labyrinth</a>
+    <a class="brand-logo">labyrinth</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
           <li><button mat-button (click)="Register()">Register </button></li>
           <li><button mat-button (click)="Login()">Login</button> </li>
       </ng-container>
       <ng-template #loggedIn style="margin-right: 20px;">
-        <li><button mat-button>
-          <i class="material-icons">attach_file</i>        
-        </button></li>
-        <li><button mat-button>
-          <i class="material-icons">keyboard_voice</i>        
-        </button></li>
-        <li><button mat-button>
-          <i class="material-icons">share</i>        
-        </button></li>
+        <li><a class="nav-link" style="cursor: pointer; margin-left: 10px; margin-right: 10px;" (click)="deleteUsers()">(Delete All)</a></li>
         <li>
-          <a class="btn tooltipped" data-position="bottom" data-tooltip="Upload image" (click)="newScrwm()">
+          <a class="btn tooltipped #006064 cyan darken-1" data-position="bottom" data-tooltip="Upload image">
+            <i class="material-icons">share</i>
+          </a>
+        </li>
+        <li>
+          <a class="btn tooltipped #006064 cyan darken-1" data-position="bottom" data-tooltip="Upload image" (click)="newScrwm()">
             <i class="material-icons">image</i>
           </a>
         </li>
         <li>
-          <nav style="flex: left;">
-          <div class="nav-wrapper #64b5f6 blue lighten-2">
-            <form>
-              <div class="input-field" >
-                <input  id="search" type="search" required>
-                <label class="label-icon" for="search"><i>#</i></label>
-              </div>
-            </form>
-          </div>
-        </nav>
-        </li>
-
-        <li>
-          <a class="btn tooltipped" data-position="bottom" data-tooltip="New Scrwm" (click)="newScrwm()">
+          <a class="btn tooltipped #006064 cyan darken-1" data-position="bottom" data-tooltip="New Scrwm" (click)="newScrwm()" style="margin-right: 120px;">
             <i class="material-icons">create_new_folder</i>
           </a>
         </li>
-
-        <li><button mat-button>
-          <i class="material-icons">notifications</i>        
-        </button></li>
         <li>
           <nav>
-          <div class="nav-wrapper #64b5f6 blue lighten-2">
+          <div class="nav-wrapper">
             <form>
               <div class="input-field">
                 <input  id="search" type="search" required>
@@ -55,7 +35,15 @@
           </div>
         </nav>
         </li>
-        <li><button mat-button (click)="authService.logOut()" style="margin-left: 10px;">
+        <li>
+          <a (click)="editUser()">
+            <img class="circle" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
+            <ng-template #defaultImage>
+              <img class="circle" src="assets/no-image.png" alt="">
+            </ng-template>
+          </a>
+        </li>
+        <li><button mat-button (click)="authService.logOut()">
           <i class="material-icons">exit_to_app</i>        
         </button></li>
       </ng-template>
@@ -63,9 +51,3 @@
   </div>
 </nav>  
 
-<a style="position: absolute; bottom: 30px; right: 20px; z-index: 1;" (click)="editUser()">
-  <img class="circle" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
-  <ng-template #defaultImage>
-    <img class="circle" src="assets/no-image.png" alt="">
-  </ng-template>
-</a>
