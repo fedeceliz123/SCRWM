@@ -9,6 +9,7 @@ import { IncisesComponent } from 'src/app/components/incises/incises.component';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
 
 import { Incise } from 'src/app/models/incise';
+import { Image } from 'src/app/models/image';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -40,19 +41,33 @@ export class TasksComponent implements OnInit {
     this.getList();
   }
 
-  inciseList: any = [];
+  inciseList: object[] = [{
+    "prof" : {},
+    "image" : {}
+  }];
 
   getList(){
     this.inciseList = [];
     this.inciseService.getIncises()
     .subscribe(res => {
       const A = this.inciseService.incises = res as Incise[]; 
-      for(var i in A){
-        if(A[i].title){
-          this.inciseList.push(A[i]);
+      this.imageService.getImages()
+      .subscribe(res => {
+        const I = this.imageService.images = res as Image[];
+        for(var i in A){
+          if(A[i].title){
+            let image = {};
+            for(var j in I){
+              if (I[j].userId === A[i].prof){
+                image = I[j];
+              }
+            }
+          this.inciseList.push({"prof" : A[i], image});
+          }
         }
-      }
+      });
     });
+    console.log(this.inciseList)
   }
 
   openDialogHeader(){

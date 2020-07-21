@@ -7,27 +7,22 @@
                 <mat-expansion-panel hideToggle>
                     <mat-expansion-panel-header>
                         <mat-panel-title >
-                            <div *ngFor="let image of imageService.images">
-                                <div *ngIf="image.userId === incise.prof">
-                                    <div class="tooltip">
-                                        <img class="circle" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
-                                        <ng-template #defaultImage>
-                                                <img class="circle" src="assets/no-image.png">
-                                        </ng-template>
-                                    <span class="tooltiptext"></span>
-                                    </div>  
-                                </div>
-                            </div>
+                            <div class="tooltip">
+                                <img class="circle" *ngIf="incise.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + incise.image.imagePath">
+                                <ng-template #defaultImage>
+                                        <img class="circle" src="assets/no-image.png">
+                                </ng-template>
+                            </div>  
                         </mat-panel-title>
                         <mat-panel-description>
-                            <p class="title" (click)="showAround.toCenter(incise)">{{ incise.title }}  </p>
+                            <p class="title" (click)="showAround.toCenter(incise)">{{ incise.prof.title }}  </p>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <div class="date">
                         <p ng-bind="date | date:'MM/dd/yyyy'"></p>
-                            {{ incise.updatedAt }} -- {{ incise.createdAt }}
+                            {{ incise.prof.updatedAt }} -- {{ incise.prof.createdAt }}
                     </div>
-                    <p class="subtitle"> {{ incise.subtitle }}
+                    <p class="subtitle"> {{ incise.prof.subtitle }}
                         </p>
                 </mat-expansion-panel>       
             </div>
