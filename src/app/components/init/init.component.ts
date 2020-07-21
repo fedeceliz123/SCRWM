@@ -43,6 +43,8 @@ export class InitComponent implements OnInit {
     this.profComponent.getImage();
   }
 
+  userId: string = sessionStorage.getItem('currentUserId');
+
   deleteUsers(){
     this.authService.getUsers()
     .subscribe(res => {
@@ -74,7 +76,7 @@ export class InitComponent implements OnInit {
     .subscribe(res => {
       const prof = this.profService.profs = res as Prof[];
       for(var i in prof){
-        if(prof[i].userId === sessionStorage.getItem('currentUserId')){
+        if(prof[i].userId === this.userId){
           this.profService.selectedProf = prof[i];
           const dialogRef = this.dialog.open(ProfComponent);
           dialogRef.afterClosed().subscribe(result => {

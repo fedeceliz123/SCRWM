@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
+import { ImageService } from 'src/app/services/image.service';
+
 
 import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit-around.component';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
@@ -26,6 +28,7 @@ export class IncisesComponent {
 
     constructor(public inciseService: InciseService, 
                 public profService: ProfService,
+                public imageService: ImageService,
                 public editAroundComponent: EditAroundComponent,
                 public showAround: ShowAroundComponent,
                 public keyListener: KeyListenerComponent,

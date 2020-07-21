@@ -21,6 +21,7 @@ import { KeyListenerComponent } from './components/incises/key-listener/key-list
 import { ProfComponent } from './components/prof/prof.component'
 
 import { MaterialModule } from './material.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MaterialModule } from './material.module';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,

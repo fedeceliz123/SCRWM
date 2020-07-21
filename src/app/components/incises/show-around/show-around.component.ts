@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
+import { ImageService } from 'src/app/services/image.service';
 
 import { Incise } from 'src/app/models/incise';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-show-around',
@@ -21,7 +23,8 @@ export class ShowAroundComponent implements OnInit {
   IdLast: any = "";
   
   constructor( public inciseService: InciseService,
-               public profService: ProfService
+               public profService: ProfService,
+               public imageService: ImageService,
   ){ }
 
   ngOnInit(): void {
@@ -35,6 +38,7 @@ export class ShowAroundComponent implements OnInit {
     this.showAround(incise);
     this.isEditable(incise);
     this.setDiamond(incise);
+    this.setImage(incise);
   }
 
   resetConstants(){
@@ -102,5 +106,12 @@ export class ShowAroundComponent implements OnInit {
     document.getElementById('diamond').style.opacity = "0.1";  
   }  
 
-
+  setImage(incise: Incise){
+    const I = this.imageService.images;
+    for(var i in I){
+      if(I[i].userId === this.inciseService.selectedIncise.prof){
+        this.imageService.selectedImage = I[i];
+      }
+    }
+  }
 }

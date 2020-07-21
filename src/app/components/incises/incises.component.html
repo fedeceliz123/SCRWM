@@ -40,12 +40,22 @@
                     </div>
                 </div>
 
-
                 <div class="center">
                     <div class="cab">
-                        <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
-                        <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>
+                        <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
+                        <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
+                        <div class="ttpName">
+                            <img class="circle" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
+                            <ng-template #defaultImage>
+                              <img class="circle" src="assets/no-image.png" alt="">
+                            </ng-template>
+                            <div *ngFor="let prof of profService.profs">
+                                <div *ngIf="prof.userId === inciseService.selectedIncise.prof">
+                                    <span class="ttpTextName"> {{ prof.nickname }} </span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="hashtags">
                             <div *ngFor="let hashtag of showAround.Hashtags">
                                 <mat-chip-list>
@@ -143,9 +153,20 @@
 
                 <div class="center">
                     <div class="cab">
-                        <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
-                        <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>
+                        <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
+                        <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
+                        <div class="ttpName">
+                            <img class="circle" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
+                            <ng-template #defaultImage>
+                              <img class="circle" src="assets/no-image.png" alt="">
+                            </ng-template>
+                            <div *ngFor="let prof of profService.profs">
+                                <div *ngIf="prof.userId === inciseService.selectedIncise.prof">
+                                    <span class="ttpTextName"> {{ prof.nickname }} </span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="hashtags">
                             <div *ngFor="let hashtag of showAround.Hashtags">
                                 <mat-chip-list>
@@ -154,11 +175,11 @@
                            </div>    
                         </div>
                     </div>
-                    <div class="CeditableMax">
+                    <div class="CeditableMin">
                         <div id="E" (mouseup)="ToLeft($event)"></div>
                     </div>
                 </div>
-
+                
                 <div class="Derecha">
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">

@@ -34,6 +34,8 @@ export class ProfComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  userId: string = sessionStorage.getItem('currentUserId');
+
   findProf(userId: string){
     this.profService.getProfs()
     .subscribe(res => {
