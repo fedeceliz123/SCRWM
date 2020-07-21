@@ -114,9 +114,7 @@ export class ProfComponent implements OnInit {
           this.profService.profs = res as Prof[];
           this.taskComponent.getList();
       });
-    });
-    return; 
-     
+    });     
   }
 
   updateImage(prof: Prof){

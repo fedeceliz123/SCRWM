@@ -3,11 +3,13 @@ import { NgForm } from '@angular/forms';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ImageService } from 'src/app/services/image.service';
+import { ProfService } from 'src/app/services/prof.service';
 
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
 
 import { Incise } from 'src/app/models/incise';
 import { Image } from 'src/app/models/image';
+import { Prof } from 'src/app/models/prof';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -27,6 +29,7 @@ export class TasksComponent implements OnInit {
 
   constructor(public inciseService: InciseService,
               public imageService: ImageService,
+              public profService: ProfService,
               public showAround: ShowAroundComponent,
               public dialog: MatDialog,
               ) { }
@@ -39,7 +42,8 @@ export class TasksComponent implements OnInit {
 
   inciseList: object[] = [{
     "incise" : {},
-    "image" : {}
+    "image" : {},
+    "prof" : {},
   }];
 
   getList(){
@@ -50,17 +54,25 @@ export class TasksComponent implements OnInit {
       this.imageService.getImages()
       .subscribe(res => {
         const I = this.imageService.images = res as Image[];
-        for(var i in A){
-          if(A[i].title){
-            let image = {};
-            for(var j in I){
-              if (I[j].userId === A[i].prof){
-                image = I[j];
+        this.profService.getProfs()
+        .subscribe(res => {
+          const P = this.profService.profs = res as Prof[];
+          for(var i in A){
+            if(A[i].title){
+              let image = {};
+              for(var j in I){
+                if (I[j].userId === A[i].prof){
+                  image = I[j];
+                }
+              }
+              for(var k in P){
+                if(P[k].userId === A[i].prof){
+                  this.inciseList.push({"incise" : A[i], image, prof : P[k]});
+                }
               }
             }
-          this.inciseList.push({"incise" : A[i], image});
           }
-        }
+        });
       });
     });
   }
