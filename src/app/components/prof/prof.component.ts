@@ -99,29 +99,24 @@ export class ProfComponent implements OnInit {
   }
 
   updateProf(form: NgForm){
-    this.profService.getProfs()
+    const prof = this.profService.selectedProf;
+    prof.nickname = form.value.nickname;
+    prof.state = form.value.state;
+    prof.description = form.value.description;
+    if(this.photoSelected){
+      this.updateImage(prof);
+    }
+    console.log(prof)
+    this.profService.putProf(prof)
     .subscribe(res => {
-      const prof = this.profService.profs = res as Prof[];
-      for(var i in prof){
-        if(prof[i].userId === sessionStorage.getItem('currentUserId')){
-          prof[i].nickname = form.value.nickname;
-          prof[i].state = form.value.state;
-          prof[i].description = form.value.description;
-          if(this.photoSelected){
-            this.updateImage(prof[i]);
-          }
-          this.profService.putProf(form.value)
-          .subscribe(res => {
-            this.profService.getProfs()
-              .subscribe(res => {
-                this.profService.profs = res as Prof[];
-                this.taskComponent.getList();
-            });
-          });
-          return; 
-        }
-      }
+      this.profService.getProfs()
+        .subscribe(res => {
+          this.profService.profs = res as Prof[];
+          this.taskComponent.getList();
+      });
     });
+    return; 
+     
   }
 
   updateImage(prof: Prof){

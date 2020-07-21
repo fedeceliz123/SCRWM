@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { ImageService } from 'src/app/services/image.service';
-
+import { ProfService } from 'src/app/services/prof.service';
 
 import { User } from 'src/app/models/user';
+import { Prof } from 'src/app/models/prof';
 
 import { SignupComponent } from 'src/app/components/signup/signup.component';
 import { SigninComponent } from 'src/app/components/signin/signin.component';
@@ -30,6 +31,7 @@ export class InitComponent implements OnInit {
 
   constructor(public imageService: ImageService,
               public authService: AuthService,
+              public profService: ProfService,
               public dialog: MatDialog,
               public signupComponent: SignupComponent,
               public signinComponent: SigninComponent,
@@ -68,11 +70,20 @@ export class InitComponent implements OnInit {
   }
 
   editProf() {
-    const dialogRef = this.dialog.open(ProfComponent);
-    dialogRef.afterClosed().subscribe(result => {
+    this.profService.getProfs()
+    .subscribe(res => {
+      const prof = this.profService.profs = res as Prof[];
+      for(var i in prof){
+        if(prof[i].userId === sessionStorage.getItem('currentUserId')){
+          this.profService.selectedProf = prof[i];
+          const dialogRef = this.dialog.open(ProfComponent);
+          dialogRef.afterClosed().subscribe(result => {
+          });
+          return; 
+        }
+      }
     });
   }
-
 }
 
 document.addEventListener('DOMContentLoaded', function() {
