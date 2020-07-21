@@ -106,7 +106,6 @@ export class ProfComponent implements OnInit {
     if(this.photoSelected){
       this.updateImage(prof);
     }
-    console.log(prof)
     this.profService.putProf(prof)
     .subscribe(res => {
       this.profService.getProfs()

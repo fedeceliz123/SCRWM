@@ -28,7 +28,6 @@ export class ShowAroundComponent implements OnInit {
   }
 
   toCenter(incise: Incise){ 
-    this.checkContenteditable(incise);
     this.inciseService.selectedIncise = incise;
     document.getElementById('E').textContent = incise.content;
     this.resetConstants();
@@ -46,20 +45,6 @@ export class ShowAroundComponent implements OnInit {
     this.Hashtags = [];
     this.DirLast = "";
     this.IdLast = "";
-  }
-
-  checkContenteditable(incise: Incise){
-    if(incise.prof === localStorage.getItem('currentUserId')){
-      document.getElementById('E').contentEditable = "true";
-    } else {
-      document.getElementById('E').contentEditable = "false";  
-    }
-  }
-
-  showHashtag(incise: Incise){
-    for(var i in incise.hashtag){
-      this.Hashtags.push(incise.hashtag[i]);
-    }
   }
 
   showAround(incise: Incise){
@@ -97,6 +82,12 @@ export class ShowAroundComponent implements OnInit {
       document.getElementById('E').focus();
     } else {
       document.getElementById('E').contentEditable = "false";
+    }
+  }
+
+  showHashtag(incise: Incise){
+    for(var i in incise.hashtag){
+      this.Hashtags.push(incise.hashtag[i]);
     }
   }
 
