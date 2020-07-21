@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
+import { InciseService } from 'src/app/services/incise.service';
 
 import { Prof } from 'src/app/models/prof';
 import { Image } from 'src/app/models/image';
-
+import { Incise } from 'src/app/models/incise';
 
 interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
@@ -18,27 +20,37 @@ declare var M: any;
   templateUrl: './prof.component.html',
   styleUrls: ['./prof.component.css']
 })
+
 export class ProfComponent implements OnInit {
 
   constructor(public profService: ProfService,
               public imageService: ImageService,
+              public inciseService: InciseService,
   ) { }
 
   ngOnInit(): void {
-    this.getProf();
-    this.getImage();
   }
 
-  getProf(){
+  findProf(userId: string){
     this.profService.getProfs()
     .subscribe(res => {
       const P = this.profService.profs = res as Prof[];
       for(var i in P){
-        if(P[i].userId === sessionStorage.getItem('currentUserId')){
+        if(P[i].userId === userId){
           this.profService.selectedProf = P[i];
           return
         }
       }
+      this.newProf(userId);
+    });
+  }
+
+  newProf(userId: string){
+    const prof = this.profService.selectedProf;
+    prof.userId = userId;
+    this.profService.postProf(prof)
+    .subscribe(res => {
+      this.firstIncise();
     });
   }
 
@@ -55,20 +67,20 @@ export class ProfComponent implements OnInit {
     });
   }
 
-
-  newProf(userId: string){
-    const prof = this.profService.selectedProf;
-    prof.userId = userId;
-    prof.nickname = "(Name)";
-    prof.state = "(State)";
-    prof.description = "(Description)";
-    this.profService.postProf(prof)
+  firstIncise(){
+    const I = this.inciseService.selectedIncise = new Incise;
+    I.prof = sessionStorage.getItem('currentUserId');
+    I.title = "My firs Scrwm";
+    this.inciseService.postIncise(I)
     .subscribe(res => {
-      this.getProf();
+      this.inciseService.getIncises()
+      .subscribe(res => {
+        this.inciseService.incises = res as Incise[];
+      });
     });
   }
 
-  
+
   file: File;
   photoSelected: string | ArrayBuffer;
 
@@ -81,84 +93,52 @@ export class ProfComponent implements OnInit {
     }
   }
 
-  getProf2(){
+  updateProf(form: NgForm){
     this.profService.getProfs()
     .subscribe(res => {
-      const P = this.profService.profs = res as Prof[];
-      for(var i in P){
-        if(P[i].userId === sessionStorage.getItem('currentUserId')){
-          this.updateProf(P[i]);
+      const prof = this.profService.profs = res as Prof[];
+      for(var i in prof){
+        if(prof[i].userId === sessionStorage.getItem('currentUserId')){
+          prof[i].nickname = form.value.nickname;
+          prof[i].state = form.value.state;
+          prof[i].description = form.value.description;
           if(this.photoSelected){
-            this.updateImage();
+            this.updateImage(prof[i]);
           }
+          this.profService.putProf(form.value)
+          .subscribe(res => {
+          });
+          return; 
         }
       }
     });
   }
 
-  updateImage(){
+  updateImage(prof: Prof){
     this.imageService.getImages()
     .subscribe(res => {
       const A = this.imageService.images = res as Image[];
       for(var i in A){
-        if(A[i].userId === sessionStorage.getItem('currentUserId')){
+        if(A[i].userId === prof.userId){
           console.log(A[i]);
+          console.log(prof);
+          console.log(this.profService.selectedProf);
           this.imageService.deleteImage(A[i]._id);
         }
       }
-      this.chargeNewImage();
+      this.chargeNewImage(prof);
     });
   }  
 
-  chargeNewImage(){
-    this.imageService.selectedImage.userId = sessionStorage.getItem('currentUserId');
-    this.imageService.postImage(this.imageService.selectedImage, this.file)
+  chargeNewImage(prof: Prof){
+    const A = this.imageService.selectedImage = new Image;
+    A.userId = prof.userId;
+    this.imageService.postImage(A, this.file)
     .subscribe(res => {
-      this.imageService.selectedImage = res as Image;
       this.getImage();
     });
   }
 
-  updateProf(prof: Prof){
-    if(document.getElementById("Name").contentEditable){
-      prof.nickname = document.getElementById("Name").textContent;
-    }
-    document.getElementById("Name").contentEditable = "false";
-    if(document.getElementById("State").textContent){
-      prof.state = document.getElementById("State").textContent;
-    }
-    document.getElementById("State").contentEditable = "false";
-    if(document.getElementById("Description").textContent){
-      prof.description = document.getElementById("Description").textContent;
-    }
-    document.getElementById("Description").contentEditable = "false";
-    this.profService.putProf(prof)
-    .subscribe(res => {
-      this.profService.selectedProf = res as Prof;
-      this.getProf();
-    });
-  }
-
-  editName(){
-    document.getElementById('Name').contentEditable = "true";
-    document.getElementById("Name").focus();
-    document.getElementById("State").contentEditable = "false";
-    document.getElementById("Description").contentEditable = "false";
-  }
-  
-  editState(){
-    document.getElementById("State").contentEditable = "true";
-    document.getElementById("State").focus();
-    document.getElementById("Name").contentEditable = "false";
-    document.getElementById("Description").contentEditable = "false";
-  }
-  
-  editDescription(){
-    document.getElementById("Description").contentEditable = "true";
-    document.getElementById("Description").focus();
-    document.getElementById("State").contentEditable = "false";
-    document.getElementById("Name").contentEditable = "false";
-  }
   
   deleteProfs(){
     this.profService.getProfs()
@@ -166,6 +146,32 @@ export class ProfComponent implements OnInit {
       this.profService.profs = res as Prof[];
       for(var i in this.profService.profs){
         this.profService.deleteProf(this.profService.profs[i]._id)
+        .subscribe(res => {
+          this.deleteIncises();
+          this.deleteImages();
+        });
+      }
+    });
+  }
+
+  deleteIncises(){
+    this.inciseService.getIncises()
+    .subscribe(res => {
+      this.inciseService.incises = res as Incise[];
+      for(var i in this.inciseService.incises){
+        this.inciseService.deleteIncise(this.inciseService.incises[i]._id)
+        .subscribe(res => {
+        });
+      }
+    });
+  }
+
+  deleteImages(){
+    this.imageService.getImages()
+    .subscribe(res => {
+      this.imageService.images = res as Image[];
+      for(var i in this.imageService.images){
+        this.imageService.deleteImage(this.imageService.images[i]._id)
         .subscribe(res => {
         });
       }

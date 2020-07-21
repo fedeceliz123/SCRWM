@@ -3,9 +3,10 @@ import { Comm } from './comm'
 export class Incise {
 
         _id: string;
-        scrwm: string;
-        user: string;
+        prof: string;
         content: string;
+        title: string;
+        subtitle: string;
 
         up: string[];
         down: string[];
@@ -19,11 +20,13 @@ export class Incise {
         record: string[] ;
 
         
-    constructor(_id="", scrwm="", user="", content="", date="", modified=""){
+    constructor(_id="", prof="", content="", title="", subtitle="", date="", modified=""){
+        
         this._id = _id;
-        this.scrwm = scrwm;
-        this.user = user;
+        this.prof = prof;
         this.content = content;
+        this.title = title;
+        this.subtitle = subtitle;
 
         this.up = [];
         this.down = [];

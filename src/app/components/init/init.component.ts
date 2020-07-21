@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
-import { ScrwmService } from 'src/app/services/scrwm.service';
 import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
 
-import { Scrwm } from 'src/app/models/scrwm';
 import { User } from 'src/app/models/user';
 
 import { SignupComponent } from 'src/app/components/signup/signup.component';
 import { SigninComponent } from 'src/app/components/signin/signin.component';
-import { NewscrwmComponent } from 'src/app/components/newscrwm/newscrwm.component';
+import { TasksComponent} from 'src/app/components/tasks/tasks.component'
 import { ProfComponent } from '../prof/prof.component';
 
 import {MatDialog} from '@angular/material/dialog';
@@ -21,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.tooltipped');
   var instances = M.Tooltip.init(elems);
 });
-
 
 @Component({
   selector: 'app-init',
@@ -36,30 +33,14 @@ export class InitComponent implements OnInit {
               public dialog: MatDialog,
               public signupComponent: SignupComponent,
               public signinComponent: SigninComponent,
-              public newScrwmComponent: NewscrwmComponent,
               public profComponent: ProfComponent,
-              public scrwmService: ScrwmService,
               public profService: ProfService,
               public imageService: ImageService,
+              public taskComponent: TasksComponent
               ){}
 
   ngOnInit(): void {
-    this.getScrwms();
-    this.getUsers();
-  }
-
-  getScrwms(){
-    this.scrwmService.getScrwms()
-    .subscribe(res => {
-      this.scrwmService.scrwms = res as Scrwm[];
-    });
-  }
-
-  getUsers(){
-    this.authService.getUsers()
-    .subscribe(res => {
-      this.authService.users = res as User[];
-    });
+    this.profComponent.getImage();
   }
 
   deleteUsers(){
@@ -72,10 +53,8 @@ export class InitComponent implements OnInit {
         });
       }
     });
-    this.newScrwmComponent.deleteScrwms();
     this.profComponent.deleteProfs();
     sessionStorage.setItem("currentUserId", "*");
-    sessionStorage.setItem("currentScrwmId", "*");
   }
 
   Register() {
@@ -90,23 +69,7 @@ export class InitComponent implements OnInit {
     });
   }
 
-  newScrwm(){
-    this.scrwmService.selectedScrwm = new Scrwm;
-    this.customScrwm();
-  }
- 
-  editScrwm(scrwm: Scrwm){
-    this.scrwmService.selectedScrwm = scrwm;
-    this.customScrwm();
-  }
-
-  customScrwm() {
-    const dialogRef = this.dialog.open(NewscrwmComponent);
-    dialogRef.afterClosed().subscribe(result => {
-    });
-  }
-
-  editUser() {
+  editProf() {
     const dialogRef = this.dialog.open(ProfComponent);
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

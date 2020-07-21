@@ -1,16 +1,16 @@
-<h1 mat-dialog-title>Fill Scrwm heads</h1>
+<h2 mat-dialog-title>Start Scrwm</h2>
 <mat-dialog-content class="mat-typography">
-  <form #scrwmForm="ngForm" (ngSubmit)="customScrwm(scrwmForm)">
+  <form #newScrwmForm="ngForm" (ngSubmit)="newIncise(newScrwmForm)">
     <div>
       <mat-form-field appearance="fill"  style="width: 600px;">
         <mat-label>Title</mat-label>
-        <textarea matInput name="title" #title="ngModel" [ngModel]="scrwmService.selectedScrwm.title" class="form-control" required  cdkFocusInitial></textarea>
+        <textarea matInput name="title" #title="ngModel" [ngModel]="inciseService.selectedIncise.title" class="form-control" required  cdkFocusInitial></textarea>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field appearance="fill"  style="width: 600px;">
         <mat-label>Sibtitle</mat-label>
-        <textarea matInput name="subtitle" #subtitle="ngModel" [ngModel]="scrwmService.selectedScrwm.subtitle" class="form-control" required></textarea>
+        <textarea matInput name="subtitle" #subtitle="ngModel" [ngModel]="inciseService.selectedIncise.subtitle" class="form-control"></textarea>
       </mat-form-field>
     </div>
     <div>
@@ -19,4 +19,3 @@
     </div>
   </form>
 </mat-dialog-content>
-

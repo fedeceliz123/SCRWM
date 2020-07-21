@@ -6,21 +6,26 @@
           <li><button mat-button (click)="Register()">Register </button></li>
           <li><button mat-button (click)="Login()">Login</button> </li>
       </ng-container>
-      <ng-template #loggedIn style="margin-right: 20px;">
-        <li><a class="nav-link" style="cursor: pointer; margin-left: 10px; margin-right: 10px;" (click)="deleteUsers()">(Delete All)</a></li>
+      <ng-template #loggedIn>
+        <li><a class="nav-link" style="cursor: pointer; margin-left: 10px; margin-right: 10px;" (click)="profComponent.deleteProfs()">(Delete All)</a></li>
         <li>
-          <a class="btn tooltipped #006064 cyan darken-1" data-position="bottom" data-tooltip="Upload image">
+          <a class="btn tooltipped #006064 cyan darken-1" data-position="bottom" data-tooltip="Share">
             <i class="material-icons">share</i>
           </a>
         </li>
         <li>
-          <a class="btn tooltipped #006064 cyan darken-1" data-position="bottom" data-tooltip="Upload image" (click)="newScrwm()">
+          <a class="btn tooltipped #006064 cyan darken-1" data-position="bottom" data-tooltip="Upload image">
             <i class="material-icons">image</i>
           </a>
         </li>
         <li>
-          <a class="btn tooltipped #006064 cyan darken-1" data-position="bottom" data-tooltip="New Scrwm" (click)="newScrwm()" style="margin-right: 120px;">
+          <a class="btn tooltipped #006064 cyan darken-1" (click)="taskComponent.openDialogNewScrwm()" data-position="bottom" data-tooltip="New Scrwm">
             <i class="material-icons">create_new_folder</i>
+          </a>
+        </li>
+        <li>
+          <a class="btn tooltipped #006064 cyan darken-1" data-position="bottom" data-tooltip="Set Header" style="margin-right: 40px;">
+            <img (click)="taskComponent.openDialogHeader()" style="height: 30px; color: white; padding-top: 8px;" src="assets/header.png">
           </a>
         </li>
         <li>
@@ -36,16 +41,17 @@
         </nav>
         </li>
         <li>
-          <a (click)="editUser()">
+          <button mat-button (click)="editProf()">
             <img class="circle" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
             <ng-template #defaultImage>
               <img class="circle" src="assets/no-image.png" alt="">
             </ng-template>
-          </a>
+          </button>
         </li>
         <li><button mat-button (click)="authService.logOut()">
           <i class="material-icons">exit_to_app</i>        
-        </button></li>
+          </button>
+        </li>
       </ng-template>
     </ul>
   </div>

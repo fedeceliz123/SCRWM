@@ -7,7 +7,7 @@
     overflow-y: auto;
     max-height: 530px;
     margin-left: 5px;
-    margin-right: 5px;
+    margin-top: 5px;
 }
 
 ::-webkit-scrollbar {
@@ -79,7 +79,7 @@
     left: 35%;
     opacity: 0;
     transition: opacity 1s;
-  }
+}
   
 .tooltip .tooltiptext {
     visibility: hidden;
@@ -91,22 +91,26 @@
     padding: 5px 0;
 }
 
-  .tooltip:hover .tooltiptext {
+.tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 0.6;
-  }
+}
 
-  .extra-right{
+.extra-right{
     background-color: rgb(224, 232, 251);
     max-width: 60px;
     margin: 5px;
     border-radius: 6px;
     padding-top: 5px;
-  }
+    justify-content: flex-end;
+}
 
-  .anchor, .diamond, .material-icons{
+.anchor, .diamond, .image, .material-icons{
       width: 30px;
       margin-top: 10px;
       margin-bottom: 10px;
-
   }
+
+.anchor{
+    color: red;
+}

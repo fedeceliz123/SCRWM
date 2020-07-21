@@ -161,7 +161,6 @@ export class EditAroundComponent implements OnInit {
       this.inciseService.getIncises()
       .subscribe(res => {
         this.inciseService.incises = res as Incise[];
-        this.keyListener.getCurrentScrwm(incise);
         this.inciseService.selectedIncise = incise;
         this.showAround.toCenter(this.inciseService.selectedIncise);
       });

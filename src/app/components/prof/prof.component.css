@@ -1,27 +1,15 @@
 .container{
-    display: flex;
-    width: 750px;
+    display: inline-flex;
+    width: 850px;
 }
 
-.info{
-    width: 400px;
+.mat-form-field{
+    min-width: 480px;
 }
 
 .image{
-    height: 300px;
-    width: 300px;
-}
-
-.name, .state, .description{
-    display: flex;
-    align-items: center;
-}
-
-.icon{
-    margin: 15px;
-}
-
-.icon-right{
-    justify-self: right;
+    height: 350px;
+    width: 350px;
+    margin-left: 20px;
 }
 

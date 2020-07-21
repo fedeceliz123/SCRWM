@@ -12,8 +12,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { IncisesComponent, DialogContent } from './components/incises/incises.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
-import { TasksComponent, AlertDelScrwm } from './components/tasks/tasks.component';
-import { NewscrwmComponent } from './components/newscrwm/newscrwm.component';
+import { TasksComponent, DialogHeader, DialogNewScrwm } from './components/tasks/tasks.component';
 import { InitComponent } from './components/init/init.component';
 import { ShowAroundComponent } from './components/incises/show-around/show-around.component';
 import { EditAroundComponent } from './components/incises/edit-around/edit-around.component';
@@ -31,8 +30,8 @@ import { MaterialModule } from './material.module';
     SignupComponent,
     SigninComponent,
     TasksComponent,
-    AlertDelScrwm,
-    NewscrwmComponent,
+    DialogHeader,
+    DialogNewScrwm,
     InitComponent,
     ShowAroundComponent,
     KeyListenerComponent,
@@ -49,7 +48,8 @@ import { MaterialModule } from './material.module';
   providers: [
     AuthGuard,
     TasksComponent,
-    NewscrwmComponent,
+    DialogHeader,
+    DialogNewScrwm,
     IncisesComponent,
     SigninComponent,
     ShowAroundComponent,

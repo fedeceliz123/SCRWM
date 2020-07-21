@@ -4,7 +4,6 @@ import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
 
 import { Incise } from 'src/app/models/incise';
-import { Scrwm } from 'src/app/models/scrwm';
 
 @Component({
   selector: 'app-show-around',
@@ -20,7 +19,7 @@ export class ShowAroundComponent implements OnInit {
   Hashtags: any = [];
   DirLast: any = "";
   IdLast: any = "";
-
+  
   constructor( public inciseService: InciseService,
                public profService: ProfService
   ){ }
@@ -28,25 +27,18 @@ export class ShowAroundComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getByScrwm(scrwm: Scrwm){
-    sessionStorage.setItem('currentScrwmId', scrwm._id);
-    this.inciseService.getIncises()
-    .subscribe(res =>{
-      const I = this.inciseService.incises = res as Incise[];
-      for(var i in I){
-        if(I[i]._id === scrwm.inciseInit){
-          this.inciseService.putIncise(this.inciseService.selectedIncise)
-          .subscribe(res =>{
-          });
-          this.inciseService.selectedIncise = I[i];
-          this.toCenter(this.inciseService.selectedIncise); 
-        }
-      }
-    });
+  toCenter(incise: Incise){  
+    this.checkContenteditable(incise);
+    this.inciseService.selectedIncise = incise;
+    document.getElementById('E').textContent = incise.content;
+    this.resetConstants();
+    this.showHashtag(incise);
+    this.showAround(incise);
+    this.isEditable(incise);
+    this.setDiamond(incise);
   }
 
-  toCenter(incise: Incise){  
-    document.getElementById('E').textContent = incise.content;
+  resetConstants(){
     this.Above = [];
     this.Below = [];
     this.Left = [];
@@ -54,10 +46,14 @@ export class ShowAroundComponent implements OnInit {
     this.Hashtags = [];
     this.DirLast = "";
     this.IdLast = "";
-    this.showHashtag(incise);
-    this.showAround(incise);
-    this.isEditable(incise);
-    this.setDiamond(incise);
+  }
+
+  checkContenteditable(incise: Incise){
+    if(incise.prof === localStorage.getItem('currentUserId')){
+      document.getElementById('E').contentEditable = "true";
+    } else {
+      document.getElementById('E').contentEditable = "false";  
+    }
   }
 
   showHashtag(incise: Incise){
@@ -96,7 +92,7 @@ export class ShowAroundComponent implements OnInit {
   }
 
   isEditable(incise: Incise){
-    if(incise.user === sessionStorage.getItem('currentUserId')){
+    if(incise.prof === sessionStorage.getItem('currentUserId')){
       document.getElementById('E').contentEditable = "true";
       document.getElementById('E').focus();
     } else {

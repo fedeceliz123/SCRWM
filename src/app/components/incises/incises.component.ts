@@ -1,7 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ScrwmService } from 'src/app/services/scrwm.service';
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
 
@@ -10,7 +9,6 @@ import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
 import { KeyListenerComponent } from 'src/app/components/incises/key-listener/key-listener.component';
 
-import { Scrwm } from 'src/app/models/scrwm';
 import { Comm } from 'src/app/models/comm';
 
 import {MatDialog} from '@angular/material/dialog';
@@ -27,7 +25,6 @@ declare var M: any;
 export class IncisesComponent {   
 
     constructor(public inciseService: InciseService, 
-                public scrwmService: ScrwmService,
                 public profService: ProfService,
                 public editAroundComponent: EditAroundComponent,
                 public showAround: ShowAroundComponent,
@@ -75,26 +72,12 @@ export class IncisesComponent {
     this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
     this.router.navigate(['/tasks']);
     this.showAround.toCenter(this.inciseService.selectedIncise);
-    this.actualizeScrwm();
   }
 
   zoomMax(){
     this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
     this.showAround.toCenter(this.inciseService.selectedIncise);
     this.router.navigate(['/incises']);
-    this.actualizeScrwm();
-  }
-
-  actualizeScrwm(){
-    this.scrwmService.getScrwms()
-    .subscribe(res =>{
-      const A = this.scrwmService.scrwms = res as Scrwm [];
-      for(var i in A){
-        if(A[i]._id === sessionStorage.getItem('currentScrwmId')){
-          this.showAround.getByScrwm(A[i]);
-        }
-      }
-    });
   }
 
   addHashtag:boolean = false;
