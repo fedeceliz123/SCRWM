@@ -15,14 +15,14 @@
                             </div>  
                         </mat-panel-title>
                         <mat-panel-description>
-                            <p class="title" (click)="showAround.toCenter(incise)">{{ incise.prof.title }}  </p>
+                            <p class="title" (click)="showAround.toCenter(incise.incise)">{{ incise.incise.title }}  </p>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <div class="date">
                         <p ng-bind="date | date:'MM/dd/yyyy'"></p>
-                            {{ incise.prof.updatedAt }} -- {{ incise.prof.createdAt }}
+                            {{ incise.incise.updatedAt }} -- {{ incise.incise.createdAt }}
                     </div>
-                    <p class="subtitle"> {{ incise.prof.subtitle }}
+                    <p class="subtitle"> {{ incise.incise.subtitle }}
                         </p>
                 </mat-expansion-panel>       
             </div>

@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
 
-
 import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit-around.component';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
 import { KeyListenerComponent } from 'src/app/components/incises/key-listener/key-listener.component';
+import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 
 import { Comm } from 'src/app/models/comm';
 
@@ -29,6 +29,7 @@ export class IncisesComponent {
                 public editAroundComponent: EditAroundComponent,
                 public showAround: ShowAroundComponent,
                 public keyListener: KeyListenerComponent,
+                public taskComponent: TasksComponent,
                 public router: Router,
                 public dialog: MatDialog              
     ){ }
@@ -70,8 +71,9 @@ export class IncisesComponent {
 
   zoomMin(){
     this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
-    this.router.navigate(['/tasks']);
     this.showAround.toCenter(this.inciseService.selectedIncise);
+    this.taskComponent.getList();
+    this.router.navigate(['/tasks']);
   }
 
   zoomMax(){

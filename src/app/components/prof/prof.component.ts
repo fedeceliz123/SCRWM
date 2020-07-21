@@ -5,6 +5,8 @@ import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
 import { InciseService } from 'src/app/services/incise.service';
 
+import { TasksComponent } from 'src/app/components/tasks/tasks.component';
+
 import { Prof } from 'src/app/models/prof';
 import { Image } from 'src/app/models/image';
 import { Incise } from 'src/app/models/incise';
@@ -26,6 +28,7 @@ export class ProfComponent implements OnInit {
   constructor(public profService: ProfService,
               public imageService: ImageService,
               public inciseService: InciseService,
+              public taskComponent: TasksComponent,
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +41,7 @@ export class ProfComponent implements OnInit {
       for(var i in P){
         if(P[i].userId === userId){
           this.profService.selectedProf = P[i];
+          this.taskComponent.getList();
           return
         }
       }
@@ -76,6 +80,7 @@ export class ProfComponent implements OnInit {
       this.inciseService.getIncises()
       .subscribe(res => {
         this.inciseService.incises = res as Incise[];
+        this.taskComponent.getList();
       });
     });
   }
@@ -107,6 +112,11 @@ export class ProfComponent implements OnInit {
           }
           this.profService.putProf(form.value)
           .subscribe(res => {
+            this.profService.getProfs()
+              .subscribe(res => {
+                this.profService.profs = res as Prof[];
+                this.taskComponent.getList();
+            });
           });
           return; 
         }

@@ -27,7 +27,7 @@ export class ShowAroundComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toCenter(incise: Incise){  
+  toCenter(incise: Incise){ 
     this.checkContenteditable(incise);
     this.inciseService.selectedIncise = incise;
     document.getElementById('E').textContent = incise.content;

@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { InciseService } from 'src/app/services/incise.service';
-import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
 
-import { IncisesComponent } from 'src/app/components/incises/incises.component';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
 
 import { Incise } from 'src/app/models/incise';
@@ -27,9 +25,7 @@ export class TasksComponent implements OnInit {
 
   panelOpenState = false;
 
-  constructor(public incisesComponent: IncisesComponent,
-              public inciseService: InciseService,
-              public profService: ProfService,
+  constructor(public inciseService: InciseService,
               public imageService: ImageService,
               public showAround: ShowAroundComponent,
               public dialog: MatDialog,
@@ -42,7 +38,7 @@ export class TasksComponent implements OnInit {
   }
 
   inciseList: object[] = [{
-    "prof" : {},
+    "incise" : {},
     "image" : {}
   }];
 
@@ -62,12 +58,11 @@ export class TasksComponent implements OnInit {
                 image = I[j];
               }
             }
-          this.inciseList.push({"prof" : A[i], image});
+          this.inciseList.push({"incise" : A[i], image});
           }
         }
       });
     });
-    console.log(this.inciseList)
   }
 
   openDialogHeader(){

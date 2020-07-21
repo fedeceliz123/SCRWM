@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
-import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
+
 
 import { User } from 'src/app/models/user';
 
 import { SignupComponent } from 'src/app/components/signup/signup.component';
 import { SigninComponent } from 'src/app/components/signin/signin.component';
-import { TasksComponent} from 'src/app/components/tasks/tasks.component'
 import { ProfComponent } from '../prof/prof.component';
+import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -28,15 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 export class InitComponent implements OnInit {
 
-  constructor(
+  constructor(public imageService: ImageService,
               public authService: AuthService,
               public dialog: MatDialog,
               public signupComponent: SignupComponent,
               public signinComponent: SigninComponent,
               public profComponent: ProfComponent,
-              public profService: ProfService,
-              public imageService: ImageService,
-              public taskComponent: TasksComponent
+              public taskComponent: TasksComponent,
               ){}
 
   ngOnInit(): void {
@@ -72,7 +70,6 @@ export class InitComponent implements OnInit {
   editProf() {
     const dialogRef = this.dialog.open(ProfComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
