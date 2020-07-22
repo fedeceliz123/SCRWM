@@ -36,7 +36,7 @@ export class TasksComponent implements OnInit {
 
   currentUserId = sessionStorage.getItem('currentUserId');
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.getList();
   }
 

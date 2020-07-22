@@ -40,10 +40,19 @@ export class InitComponent implements OnInit {
               ){}
 
   ngOnInit(): void {
-    this.profComponent.getImage();
+    this.setUserImage();
   }
 
+  imagePath: string;
   userId: string = sessionStorage.getItem('currentUserId');
+
+  setUserImage(){
+    for(var i in this.imageService.images){
+      if(this.imageService.images[i].userId === this.userId){
+        this.imagePath = this.imageService.images[i].imagePath;
+      } 
+    }
+  }
 
   deleteUsers(){
     this.authService.getUsers()
