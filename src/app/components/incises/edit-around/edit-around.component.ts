@@ -53,7 +53,6 @@ export class EditAroundComponent implements OnInit {
 
   linkStereo1(incise: Incise){
     const A = this.inciseService.selectedIncise;
-    console.log(A);
     A.content = document.getElementById('E').textContent;
     switch (this.showAround.DirLast){
       case "Up":

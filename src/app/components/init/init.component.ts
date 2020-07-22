@@ -81,19 +81,10 @@ export class InitComponent implements OnInit {
   }
 
   editProf() {
-    this.profService.getProfs()
-    .subscribe(res => {
-      const prof = this.profService.profs = res as Prof[];
-      for(var i in prof){
-        if(prof[i].userId === this.userId){
-          this.profService.selectedProf = prof[i];
-          const dialogRef = this.dialog.open(ProfComponent);
-          dialogRef.afterClosed().subscribe(result => {
-          });
-          return; 
-        }
-      }
+    const dialogRef = this.dialog.open(ProfComponent);
+    dialogRef.afterClosed().subscribe(result => {
     });
+    return; 
   }
 }
 

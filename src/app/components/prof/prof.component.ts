@@ -42,7 +42,7 @@ export class ProfComponent implements OnInit {
       const P = this.profService.profs = res as Prof[];
       for(var i in P){
         if(P[i].userId === userId){
-          this.profService.selectedProf = P[i];
+          this.profService.userProf = P[i];
           this.taskComponent.getList();
           return
         }
@@ -52,10 +52,11 @@ export class ProfComponent implements OnInit {
   }
 
   newProf(userId: string){
-    const prof = this.profService.selectedProf;
+    const prof = this.profService.userProf = new Prof;
     prof.userId = userId;
     this.profService.postProf(prof)
     .subscribe(res => {
+      this.findProf(userId);
       this.firstIncise();
     });
   }
@@ -101,7 +102,7 @@ export class ProfComponent implements OnInit {
   }
 
   updateProf(form: NgForm){
-    const prof = this.profService.selectedProf;
+    const prof = this.profService.userProf;
     prof.nickname = form.value.nickname;
     prof.state = form.value.state;
     prof.description = form.value.description;
@@ -124,9 +125,6 @@ export class ProfComponent implements OnInit {
       const A = this.imageService.images = res as Image[];
       for(var i in A){
         if(A[i].userId === prof.userId){
-          console.log(A[i]);
-          console.log(prof);
-          console.log(this.profService.selectedProf);
           this.imageService.deleteImage(A[i]._id);
         }
       }

@@ -11,6 +11,7 @@ import { KeyListenerComponent } from 'src/app/components/incises/key-listener/ke
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 
 import { Comm } from 'src/app/models/comm';
+import { Prof } from 'src/app/models/prof';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -36,11 +37,10 @@ export class IncisesComponent {
     ){ }
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
-    console.log(event.keyCode);
-    if(event.keyCode === 13){
+   if(event.keyCode === 13){
       this.showAround.DirLast = "Up";
       this.keyListener.editedIncise();
-    } else if(event.ctrlKey){
+    } else if(event.altKey){
       if(event.keyCode === 37){
         this.showAround.DirLast = "Right";
         this.keyListener.editedIncise();
@@ -113,31 +113,42 @@ export class IncisesComponent {
 
   diamondSelected(){
     if(!document.getElementById('E').isContentEditable){
-      const I = this.inciseService.selectedIncise
+      const I = this.inciseService.selectedIncise;
       if(I._id){
-        const F = this.profService.selectedProf.favIncises;
-        for(var i in F){
-          if(F[i] === I._id){
-            const index = F.indexOf(i)+1;
-            F.splice(index, 1);
+        const P = this.profService.userProf;
+        for(var i in P.favIncises){
+          if(P.favIncises[i] === I._id){
+            const index = P.favIncises.indexOf(i)+1;
+            P.favIncises.splice(index, 1);
             I.diamond --;
             document.getElementById('diamond').style.opacity = "0.1";
             return;
           }
         }
-        F.push(I._id);
+        P.favIncises.push(I._id);
         I.diamond ++;
         document.getElementById('diamond').style.opacity = "1";
-      }
+      }  
     }
   }
 
   anchorSelected(){
+    const I = this.inciseService.selectedIncise;
+    if(I._id){
+      const P = this.profService.userProf;
+      for(var i in P.anchors){
+        if(P.anchors[i] === I._id){
+          const index = P.anchors.indexOf(i)+1;
+          P.anchors.splice(index, 1);
+          document.getElementById('anchor').style.opacity = "0.1";
+          return;
+        }
+      }
+      P.anchors.push(I._id);
+      document.getElementById('anchor').style.opacity = "1";
+    }  
   }
-
 }
-
-
 
 @Component({
   selector: 'dialog-content',
