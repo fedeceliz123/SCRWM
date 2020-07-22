@@ -1,6 +1,7 @@
 .body{
     display: flex;
     position: absolute;
+    width: 100%;
 }
 
 .right{
@@ -8,6 +9,15 @@
     max-height: 530px;
     margin-left: 5px;
     margin-top: 5px;
+    width: 1200px;
+}
+
+.extra-right{
+    background-color: rgb(224, 232, 251);
+    max-width: 60px;
+    margin: 5px;
+    border-radius: 6px;
+    padding-top: 5px;
 }
 
 ::-webkit-scrollbar {
@@ -94,15 +104,6 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 0.6;
-}
-
-.extra-right{
-    background-color: rgb(224, 232, 251);
-    max-width: 60px;
-    margin: 5px;
-    border-radius: 6px;
-    padding-top: 5px;
-    justify-content: flex-end;
 }
 
 .anchor, .diamond, .image, .material-icons{
