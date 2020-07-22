@@ -135,7 +135,7 @@ export class DialogNewScrwm {
   ){ }
 
   newIncise(form: NgForm){
-    const incise = this.inciseService.selectedIncise;
+    const incise = this.inciseService.selectedIncise = new Incise;
     incise.title = form.value.title;
     incise.subtitle = form.value.subtitle;
     incise.prof = sessionStorage.getItem('currentUserId');
