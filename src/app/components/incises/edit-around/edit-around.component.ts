@@ -46,10 +46,9 @@ export class EditAroundComponent implements OnInit {
 
   checkContent(incise: Incise){ 
     if (document.getElementById('E').textContent === ""){
-      M.toast({html: "Incise whithout content"});
-    } else {
-      this.linkStereo1(incise)
+      document.getElementById('E').textContent = "(Blank)";
     }
+    this.linkStereo1(incise)
   }
 
   linkStereo1(incise: Incise){

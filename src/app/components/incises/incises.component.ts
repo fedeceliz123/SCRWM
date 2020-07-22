@@ -11,7 +11,6 @@ import { KeyListenerComponent } from 'src/app/components/incises/key-listener/ke
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 
 import { Comm } from 'src/app/models/comm';
-import { Incise } from 'src/app/models/incise';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -37,6 +36,7 @@ export class IncisesComponent {
     ){ }
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
+    console.log(event.keyCode);
     if(event.keyCode === 13){
       this.showAround.DirLast = "Up";
       this.keyListener.editedIncise();
@@ -56,10 +56,10 @@ export class IncisesComponent {
     }
   }
 
-  ToLeft(event: any){
-    if(event.ctrlKey){
+  ToComment(event: any){
+    if(event.altKey){
       const comm = new Comm;
-      comm.substring = window.getSelection().toString().trim();
+      comm.commt = window.getSelection().toString().trim();
       comm.final = window.getSelection().getRangeAt(0).startOffset;
       comm.final = window.getSelection().getRangeAt(0).endOffset;
       comm.IdComm = this.inciseService.selectedIncise._id;
@@ -72,37 +72,15 @@ export class IncisesComponent {
     this.router.navigate(['/tasks']);
     this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
     this.showAround.toCenter(this.inciseService.selectedIncise);
-    this.taskComponent.getList();
   }
 
-  zoomMax(incise: Incise){
-    incise.content = document.getElementById('E').textContent;
-    this.showAround.toCenter(incise);
+  zoomMax (){
     this.router.navigate(['/incises']);
-
+    this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
+    this.showAround.toCenter(this.inciseService.selectedIncise);
   }
 
-  /*
-  getByScrwm(scrwm: Scrwm){
-    sessionStorage.setItem('currentScrwmId', scrwm._id);
-    this.inciseService.getIncises()
-    .subscribe(res =>{
-      const I = this.inciseService.incises = res as Incise[];
-      for(var i in I){
-        if(I[i]._id === scrwm.inciseInit){
-          this.inciseService.putIncise(this.inciseService.selectedIncise)
-          .subscribe(res =>{
-          });
-          this.inciseService.selectedIncise = I[i];
-          this.toCenter(this.inciseService.selectedIncise); 
-        }
-      }
-    });*/
-
-
-
-
-
+  
   addHashtag:boolean = false;
 
   HT(){

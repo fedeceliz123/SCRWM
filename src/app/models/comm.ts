@@ -4,13 +4,13 @@ export class Comm {
     IdComm: string;
     initial: number;
     final: number;
-    substring: string;
+    commt: string;
     
-    constructor(IdComm="", substring=""){
+    constructor(IdComm="", commt=""){
         this.IdComm = IdComm;
         this.initial = 0;
         this.final = 0;
-        this.substring = substring;
+        this.commt = commt;
     }
 
 }

@@ -41,16 +41,21 @@
         </nav>
         </li>
         <li>
-          <div *ngFor="let image of imageService.images">
+
+          <ng-template *ngFor="let image of imageService.images">
             <div *ngIf="image.userId === userId">
               <button mat-button (click)="editProf()">
-              <img class="circle" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
-              <ng-template #defaultImage>
-                <img class="circle" src="assets/no-image.png" alt="">
-              </ng-template>
-            </button>
+                <img #userImage class="circle" [src]="'http://localhost:3000/' + image.imagePath">
+              </button>
             </div>
+          </ng-template>
+
+          <div>
+            <button mat-button (click)="editProf()">
+              <img class="circle" src="assets/no-image.png">
+            </button>
           </div>
+
         </li>
         <li><button mat-button (click)="authService.logOut()">
           <i class="material-icons" style="color:rgb(127, 115, 165)">exit_to_app</i>        

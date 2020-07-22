@@ -45,7 +45,9 @@
                 <div class="center">
                     <div class="cab">
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
-                        <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
+                        <div *ngIf="inciseService.selectedIncise.diamond > 0">
+                            <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
+                        </div>
                         <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                         <div class="ttpName">
                             <img class="circle" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
@@ -67,7 +69,7 @@
                         </div>
                     </div>
                     <div class="CeditableMin">
-                        <div id="E" (mouseup)="ToLeft($event)"></div>
+                        <div id="E" (mouseup)="ToComment($event)"></div>
                     </div>
                 </div>
 
@@ -100,7 +102,7 @@
                 </div>
 
                 <div class="ttpBtn">
-                    <button class="btn btn-primary" (click)="zoomMax(inciseService.selectedIncise)" >
+                    <button class="btn btn-primary" (click)="zoomMax()" >
                         <i class="material-icons">fullscreen</i>
                     </button>
                     <span class="ttpTextBtn">fullscreen</span>
@@ -158,7 +160,9 @@
                 <div class="center">
                     <div class="cab">
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
-                        <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
+                        <div *ngIf="inciseService.selectedIncise.diamond > 0">
+                            <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
+                        </div>
                         <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                         <div class="ttpName">
                             <img class="circle" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
@@ -180,7 +184,7 @@
                         </div>
                     </div>
                     <div class="CeditableMin">
-                        <div id="E" (mouseup)="ToLeft($event)"></div>
+                        <div id="E" (mouseup)="ToComment($event)"></div>
                     </div>
                 </div>
                 

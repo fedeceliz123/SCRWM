@@ -151,10 +151,10 @@ export class ProfComponent implements OnInit {
       for(var i in this.profService.profs){
         this.profService.deleteProf(this.profService.profs[i]._id)
         .subscribe(res => {
-          this.deleteIncises();
-          this.deleteImages();
         });
       }
+      this.deleteIncises();
+      this.deleteImages();
     });
   }
 
