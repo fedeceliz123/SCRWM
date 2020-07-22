@@ -103,7 +103,7 @@
 .ttpName .ttpTextName {
     position: absolute;
     visibility: hidden;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     color: #fff;
     text-align: center;
     border-radius: 6px;

@@ -2,14 +2,15 @@ import { CommonModule } from '@angular/common';
 
 export class Comm {
     IdComm: string;
-    initial: string;
-    final: string;
-
+    initial: number;
+    final: number;
+    substring: string;
     
-    constructor(IdComm="", initial="", final=""){
+    constructor(IdComm="", substring=""){
         this.IdComm = IdComm;
-        this.initial = initial;
-        this.final = final;
+        this.initial = 0;
+        this.final = 0;
+        this.substring = substring;
     }
 
 }

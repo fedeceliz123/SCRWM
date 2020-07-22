@@ -5,7 +5,8 @@ import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
 
 import { Incise } from 'src/app/models/incise';
-import { ThrowStmt } from '@angular/compiler';
+import { Comm } from 'src/app/models/comm';
+
 
 @Component({
   selector: 'app-show-around',
@@ -22,16 +23,18 @@ export class ShowAroundComponent implements OnInit {
   DirLast: any = "";
   IdLast: any = "";
   
-  constructor( public inciseService: InciseService,
-               public profService: ProfService,
-               public imageService: ImageService,
+  constructor(public inciseService: InciseService,
+              public profService: ProfService,
+              public imageService: ImageService,
   ){ }
 
   ngOnInit(): void {
   }
 
   toCenter(incise: Incise){ 
+    console.log(incise);
     this.inciseService.selectedIncise = incise;
+    console.log(incise.content);
     document.getElementById('E').textContent = incise.content;
     this.resetConstants();
     this.showHashtag(incise);
@@ -55,9 +58,28 @@ export class ShowAroundComponent implements OnInit {
     this.inciseService.getIncises()
     .subscribe(res =>{
       const D = this.inciseService.incises = res as Incise[];
+      var q = 0;
+      let color = "";
       for (var i in D){
         for(var j in incise.right){
           if(incise.right[j] === D[i]._id){
+
+            let C = document.getElementById('E').innerHTML; 
+            //let A = C.substring(D[i].left[0].initial, D[i].left[0].final);
+            let rep = C.replace(D[i].left[0].substring, (x) => {
+              if(q === 0){
+                color = x.fontcolor("red")
+              } else if(q === 1){
+                color = x.fontcolor("yellow")
+              } else if (q === 2){
+                color = x.fontcolor("green")
+              } else if (q === 3){
+                color = x.fontcolor("black")
+              } else { x.fontcolor("gray")};
+              q ++;
+              return color});              
+            document.getElementById('E').innerHTML = rep;
+
             this.Right.push(D[i]);
           }
         }
@@ -68,7 +90,7 @@ export class ShowAroundComponent implements OnInit {
         }
         for(var l in incise.left){
           if(incise.left[l].IdComm === D[i]._id){
-            this.Left.push(D[i]);
+            this.highLight2(incise.left[l], D[i]);
           }
         }
         for(var m in incise.up){
@@ -79,6 +101,16 @@ export class ShowAroundComponent implements OnInit {
       }
     });
   }
+
+  highLight2(comm: Comm, incise: Incise){
+  /*  var html = incise.content;
+    html = html.substring(0, comm.initial) + '<span style="background-color: rgb(231, 201, 219)">' + html.substring(comm.initial, comm.final) + '</span>' + html.substring(comm.final);
+    incise.content = html
+    console.log(incise);*/
+    this.Left.push(incise);
+
+  }
+
 
   isEditable(incise: Incise){
     if(incise.prof === sessionStorage.getItem('currentUserId')){

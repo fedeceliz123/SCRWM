@@ -30,10 +30,12 @@
                 <div class="Izquierda">
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
-                            <div  class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}</div>
+                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}</div>
                             <div *ngIf="incise.hashtag[0]">
                                 <span  class="ttpTextIzq">
-                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
+                                    <div *ngFor="let a of incise.hashtag">
+                                        <div> #{{ a }} </div>
+                                    </div>
                                 </span> 
                             </div>                               
                         </div>    
@@ -98,7 +100,7 @@
                 </div>
 
                 <div class="ttpBtn">
-                    <button class="btn btn-primary" (click)="zoomMax()" >
+                    <button class="btn btn-primary" (click)="zoomMax(inciseService.selectedIncise)" >
                         <i class="material-icons">fullscreen</i>
                     </button>
                     <span class="ttpTextBtn">fullscreen</span>
@@ -144,7 +146,9 @@
                             <div  class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}</div>
                             <div *ngIf="incise.hashtag[0]">
                                 <span  class="ttpTextIzq">
-                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
+                                    <div id="D" *ngFor="let a of incise.hashtag">
+                                        <div id="D"> #{{ a }} </div>
+                                    </div>
                                 </span> 
                             </div>                               
                         </div>    

@@ -7,11 +7,14 @@ import { KeyListenerComponent } from 'src/app/components/incises/key-listener/ke
 import { Incise } from 'src/app/models/incise';
 import { Comm } from 'src/app/models/comm';
 
+declare var M: any; 
+
 @Component({
   selector: 'app-edit-around',
   templateUrl: './edit-around.component.html',
   styleUrls: ['./edit-around.component.css']
 })
+
 
 export class EditAroundComponent implements OnInit {
 
@@ -43,11 +46,7 @@ export class EditAroundComponent implements OnInit {
 
   checkContent(incise: Incise){ 
     if (document.getElementById('E').textContent === ""){
-      this.inciseService.deleteIncise(this.inciseService.selectedIncise._id)
-      .subscribe(res => {
-        this.inciseService.selectedIncise = incise
-        this.showAround.toCenter(incise);
-      });
+      M.toast({html: "Incise whithout content"});
     } else {
       this.linkStereo1(incise)
     }
