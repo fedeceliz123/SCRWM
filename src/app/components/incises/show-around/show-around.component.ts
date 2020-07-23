@@ -7,6 +7,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { Incise } from 'src/app/models/incise';
 import { Image } from 'src/app/models/image';
 import { Prof } from 'src/app/models/prof';
+import { Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-show-around',
@@ -33,30 +34,32 @@ export class ShowAroundComponent implements OnInit {
 
   saveIncise(incise: Incise) {
     if(this.inciseService.selectedIncise._id){
-      this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
-      this.inciseService.putIncise(this.inciseService.selectedIncise)
-        .subscribe(res => {});  
+      if(this.inciseService.selectedIncise != incise){
+        this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
+        this.inciseService.putIncise(this.inciseService.selectedIncise)
+        .subscribe( err => alert(err));  
+        this.inciseService.getIncises()
+        .subscribe(res => {
+          this.inciseService.incises = res as Incise[];
+        }); 
+      } 
     }
     this.saveProf(incise);
   }
 
   saveProf(incise: Incise){
-    this.profService.putProf(this.profService.userProf)
-    .subscribe(res => {
-      this.profService.getProfs()
-      .subscribe(res => {
-        const P = this.profService.profs = res as Prof[];
-        for(var i in P){
-          if(P[i].userId === sessionStorage.getItem('currentUserId')){
-            this.profService.userProf = P[i];
-            this.toCenter(incise);
-          }
-        }
-      });
-    });
+    console.log("(saveProf)");
+    console.log(this.profService.selectedProf)
+    this.profService.putProf(this.profService.selectedProf)
+    .subscribe( res => {
+      this.profService.selectedProf = res as Prof;
+    }, err => console.log(err));  
+    this.toCenter(incise);
   }
 
   toCenter(incise: Incise) {
+    console.log("(toCenter)");
+
     this.inciseService.selectedIncise = incise;
     this.resetConstants();
     this.showAround(incise);
@@ -68,6 +71,8 @@ export class ShowAroundComponent implements OnInit {
   }
 
   resetConstants() {
+    console.log("(resetConstants)");
+
     this.Above = [];
     this.Below = [];
     this.Left = [];
@@ -78,53 +83,55 @@ export class ShowAroundComponent implements OnInit {
   }
 
   showAround(incise: Incise) {
+    console.log("(showAround)");
+
     this.inciseService.getIncises()
-      .subscribe(res => {
-        const D = this.inciseService.incises = res as Incise[];
-        var q = 0;
-        let color = "";
-        document.getElementById('E').textContent = incise.content;
-        for (var i in D) {
-          for (var j in incise.right) {
-            if (incise.right[j] === D[i]._id) {
-              if (D[i].left[0]) {
-                let C = document.getElementById('E').innerHTML;
-                //let A = C.substring(D[i].left[0].initial, D[i].left[0].final);
-                let rep = C.replace(D[i].left[0].commt, (x) => {
-                  if (q === 0) {
-                    color = x.bold()
-                  } else if (q === 1) {
-                    color = x.fontcolor("bluish")
-                  } else if (q === 2) {
-                    color = x.fontcolor("black")
-                  } else if (q === 3) {
-                    color = x.fontcolor("gray")
-                  } else { x.fontcolor("yellow") };
-                  q++;
-                  return color
-                });
-                document.getElementById('E').innerHTML = rep;
-              }
-              this.Right.push(D[i]);
+    .subscribe(res => {
+      const D = this.inciseService.incises = res as Incise[];
+      var q = 0;
+      let color = "";
+      document.getElementById('E').textContent = incise.content;
+      for (var i in D) {
+        for (var j in incise.right) {
+          if (incise.right[j] === D[i]._id) {
+            if (D[i].left[0]) {
+              let C = document.getElementById('E').innerHTML;
+              //let A = C.substring(D[i].left[0].initial, D[i].left[0].final);
+              let rep = C.replace(D[i].left[0].commt, (x) => {
+                if (q === 0) {
+                  color = x.bold()
+                } else if (q === 1) {
+                  color = x.fontcolor("bluish")
+                } else if (q === 2) {
+                  color = x.fontcolor("black")
+                } else if (q === 3) {
+                  color = x.fontcolor("gray")
+                } else { x.fontcolor("yellow") };
+                q++;
+                return color
+              });
+              document.getElementById('E').innerHTML = rep;
             }
-          }
-          for (var k in incise.down) {
-            if (incise.down[k] === D[i]._id) {
-              this.Below.push(D[i]);
-            }
-          }
-          for (var l in incise.left) {
-            if (incise.left[l].IdComm === D[i]._id) {
-              this.Left.push(D[i]);
-            }
-          }
-          for (var m in incise.up) {
-            if (incise.up[m] === D[i]._id) {
-              this.Above.push(D[i]);
-            }
+            this.Right.push(D[i]);
           }
         }
-      });
+        for (var k in incise.down) {
+          if (incise.down[k] === D[i]._id) {
+            this.Below.push(D[i]);
+          }
+        }
+        for (var l in incise.left) {
+          if (incise.left[l].IdComm === D[i]._id) {
+            this.Left.push(D[i]);
+          }
+        }
+        for (var m in incise.up) {
+          if (incise.up[m] === D[i]._id) {
+            this.Above.push(D[i]);
+          }
+        }
+      }
+    });
   }
 
   isEditable(incise: Incise) {
@@ -137,7 +144,7 @@ export class ShowAroundComponent implements OnInit {
   }
 
   setDiamond(incise: Incise){
-    const P = this.profService.userProf
+    const P = this.profService.selectedProf
     for(var i in P.favIncises){
       if(P.favIncises[i] === incise._id){
         document.getElementById('diamond').style.opacity = "1";
@@ -148,7 +155,7 @@ export class ShowAroundComponent implements OnInit {
   }  
 
   setAnchor(incise: Incise){
-    const P = this.profService.userProf
+    const P = this.profService.selectedProf
     for(var i in P.anchors){
       if(P.anchors[i] === incise._id){
         document.getElementById('anchor').style.opacity = "1";

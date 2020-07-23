@@ -8,14 +8,12 @@ import { Prof } from '../models/prof'
 export class ProfService {
 
 selectedProf: Prof;
-userProf: Prof;
 profs: Prof[];
 
   readonly URL_API = 'http://localhost:3000/api/scrwm/profs';
 
   constructor(private http: HttpClient) { 
     this.selectedProf = new Prof();
-    this.userProf = new Prof();
   }
 
   getProfs() {

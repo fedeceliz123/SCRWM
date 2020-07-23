@@ -23,8 +23,9 @@ export class KeyListenerComponent implements OnInit {
   }
   
   editedIncise(comm?: Comm){
-    const C = document.getElementById('E');
-    const incise = this.inciseService.selectedIncise;
+    if(document.getElementById('E').textContent){
+      const C = document.getElementById('E');
+      const incise = this.inciseService.selectedIncise;
       this.showAround.IdLast = incise._id;
       incise.content = C.textContent;
       C.textContent = "";
@@ -32,7 +33,7 @@ export class KeyListenerComponent implements OnInit {
       .subscribe(res => {
           this.linkMono(comm);
       });
-      
+    }
   }
 
   linkMono(comm?: Comm){  
@@ -52,10 +53,10 @@ export class KeyListenerComponent implements OnInit {
         break;
       }  
     incise.prof = sessionStorage.getItem('currentUserId');
-    this.saveIncise(incise);
+    this.savingIncise(incise);
   }
 
-  saveIncise(incise: Incise){
+  savingIncise(incise: Incise){
     this.inciseService.postIncise(incise)
     .subscribe(res => {
       incise = res as Incise;

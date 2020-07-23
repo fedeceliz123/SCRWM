@@ -6,6 +6,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { InciseService } from 'src/app/services/incise.service';
 
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
+import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
 
 import { Prof } from 'src/app/models/prof';
 import { Image } from 'src/app/models/image';
@@ -29,6 +30,7 @@ export class ProfComponent implements OnInit {
               public imageService: ImageService,
               public inciseService: InciseService,
               public taskComponent: TasksComponent,
+              public showAround: ShowAroundComponent,
   ) { }
 
   ngOnInit(): void {
@@ -37,13 +39,13 @@ export class ProfComponent implements OnInit {
   userId: string = sessionStorage.getItem('currentUserId');
 
   findProf(userId: string){
+    console.log("(findProf)");
     this.profService.getProfs()
     .subscribe(res => {
       const P = this.profService.profs = res as Prof[];
       for(var i in P){
         if(P[i].userId === userId){
-          this.profService.userProf = P[i];
-          this.taskComponent.getList();
+          this.profService.selectedProf = P[i];
           return
         }
       }
@@ -52,7 +54,8 @@ export class ProfComponent implements OnInit {
   }
 
   newProf(userId: string){
-    const prof = this.profService.userProf = new Prof;
+    console.log("(newProf)");
+    const prof = this.profService.selectedProf = new Prof;
     prof.userId = userId;
     this.profService.postProf(prof)
     .subscribe(res => {
@@ -75,15 +78,21 @@ export class ProfComponent implements OnInit {
   }
 
   firstIncise(){
+    console.log("(firstIncise)");
     const I = this.inciseService.selectedIncise = new Incise;
     I.prof = sessionStorage.getItem('currentUserId');
-    I.title = "My firs Scrwm";
+    I.title = "My first Scrwm";
     this.inciseService.postIncise(I)
     .subscribe(res => {
       this.inciseService.getIncises()
       .subscribe(res => {
-        this.inciseService.incises = res as Incise[];
-        this.taskComponent.getList();
+        const A = this.inciseService.incises = res as Incise[];
+        for(var i in A){
+          if(A[i].prof === this.profService.selectedProf.userId){
+            this.inciseService.selectedIncise = A[i];
+            this.showAround.toCenter(A[i])
+          }
+        }
       });
     });
   }
@@ -102,7 +111,7 @@ export class ProfComponent implements OnInit {
   }
 
   updateProf(form: NgForm){
-    const prof = this.profService.userProf;
+    const prof = this.profService.selectedProf;
     prof.nickname = form.value.nickname;
     prof.state = form.value.state;
     prof.description = form.value.description;
@@ -114,7 +123,6 @@ export class ProfComponent implements OnInit {
       this.profService.getProfs()
         .subscribe(res => {
           this.profService.profs = res as Prof[];
-          this.taskComponent.getList();
       });
     });     
   }

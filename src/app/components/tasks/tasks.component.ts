@@ -40,14 +40,14 @@ export class TasksComponent implements OnInit {
     this.getList();
   }
 
-  inciseList: object[] = [{
-    "incise" : {},
-    "image" : {},
-    "prof" : {},
+  taskList: object[] = [{
+    "incise": Object,
+    "image": Object,
+    "prof": Object,
   }];
 
   getList(){
-    this.inciseList = [];
+    this.taskList = [];
     this.inciseService.getIncises()
     .subscribe(res => {
       const A = this.inciseService.incises = res as Incise[]; 
@@ -67,7 +67,7 @@ export class TasksComponent implements OnInit {
               }
               for(var k in P){
                 if(P[k].userId === A[i].prof){
-                  this.inciseList.push({"incise" : A[i], image, prof : P[k]});
+                  this.taskList.push({"incise" : A[i], image, prof : P[k]});
                 }
               }
             }
@@ -116,7 +116,6 @@ export class DialogHeader {
       this.inciseService.getIncises()
       .subscribe(res => {
         this.inciseService.incises = res as Incise[];
-        this.taskComponent.getList();
       });
     });
   }
@@ -145,7 +144,6 @@ export class DialogNewScrwm {
       this.inciseService.getIncises()
       .subscribe(res => {
         this.inciseService.incises = res as Incise[];
-        this.taskComponent.getList();
       });
     });
   }

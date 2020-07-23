@@ -43,6 +43,8 @@ export class AuthService {
   }
 
   logOut(){
+    sessionStorage.setItem('currentUserId', '*')
+    document.getElementById('E').contentEditable = "false";
     localStorage.removeItem('token');
     this.router.navigate(['/tasks'])
   }

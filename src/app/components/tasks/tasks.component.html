@@ -3,30 +3,30 @@
     <app-incises></app-incises>
     <div class="right">
         <mat-accordion>
-            <div *ngFor="let incise of inciseList">
+            <div *ngFor="let task of taskList">
                 <mat-expansion-panel hideToggle>
                     <mat-expansion-panel-header>
                         <mat-panel-title >
                             <div class="tooltip">
-                                <img class="circle" *ngIf="incise.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + incise.image.imagePath">
+                                <img class="circle" *ngIf="task.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + task.image.imagePath">
                                 <ng-template #defaultImage>
                                         <img class="circle" src="assets/no-image.png">
                                 </ng-template>
                                 <span class="tooltiptext">
-                                    <p>{{ incise.prof.nickname }}  ({{incise.prof.state }})</p>
-                                    <p>{{ incise.prof.description }}</p> 
+                                    <p>{{ task.prof.nickname }}  ({{task.prof.state }})</p>
+                                    <p>{{ task.prof.description }}</p> 
                                 </span>
                             </div>  
                         </mat-panel-title>
                         <mat-panel-description>
-                            <p class="title" (click)="showAround.saveIncise(incise.incise)">{{ incise.incise.title }}  </p>
+                            <p class="title" (click)="showAround.toCenter(task.incise)">{{ task.incise.title }}  </p>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <div class="date">
                         <p ng-bind="date | date:'MM/dd/yyyy'"></p>
-                            {{ incise.incise.updatedAt }} -- {{ incise.incise.createdAt }}
+                            {{ task.incise.updatedAt }} -- {{ task.incise.createdAt }}
                     </div>
-                    <p class="subtitle"> {{ incise.incise.subtitle }} </p>      
+                    <p class="subtitle"> {{ task.incise.subtitle }} </p>      
                 </mat-expansion-panel>       
             </div>
         </mat-accordion>    

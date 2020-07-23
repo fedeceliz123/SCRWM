@@ -5,7 +5,6 @@ import { ImageService } from 'src/app/services/image.service';
 import { ProfService } from 'src/app/services/prof.service';
 
 import { User } from 'src/app/models/user';
-import { Prof } from 'src/app/models/prof';
 
 import { SignupComponent } from 'src/app/components/signup/signup.component';
 import { SigninComponent } from 'src/app/components/signin/signin.component';

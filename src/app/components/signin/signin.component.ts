@@ -24,16 +24,18 @@ export class SigninComponent implements OnInit {
   }
   
   signIn(form: NgForm){
+    console.log("(signIn)")
     this.authService.signIn(form.value)
     .subscribe(res => {
         localStorage.setItem('token', res.token);
         this.findUser(form);
       },
-      err => console.log(err)
-    )
+      err => alert(err)
+    );
   }
  
   findUser(form: NgForm){
+    console.log("(findUser)")
     this.authService.getUsers()
     .subscribe(res => {
       const A = this.authService.users = res as User[];

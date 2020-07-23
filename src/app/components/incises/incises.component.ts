@@ -11,7 +11,6 @@ import { KeyListenerComponent } from 'src/app/components/incises/key-listener/ke
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 
 import { Comm } from 'src/app/models/comm';
-import { Prof } from 'src/app/models/prof';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -38,6 +37,8 @@ export class IncisesComponent {
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
    if(event.keyCode === 13){
+    console.log(this.profService.selectedProf);
+
       this.showAround.DirLast = "Up";
       this.keyListener.editedIncise();
     } else if(event.altKey){
@@ -69,12 +70,14 @@ export class IncisesComponent {
   }
 
   zoomMin(){
+    console.log("(zoomMin)");
     this.router.navigate(['/tasks']);
     this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
     this.showAround.toCenter(this.inciseService.selectedIncise);
   }
 
-  zoomMax (){
+  zoomMax(){
+    console.log("(zoomMax)");
     this.router.navigate(['/incises']);
     this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
     this.showAround.toCenter(this.inciseService.selectedIncise);
@@ -112,10 +115,12 @@ export class IncisesComponent {
   }
 
   diamondSelected(){
-    if(!document.getElementById('E').isContentEditable){
+    if(document.getElementById('E').isContentEditable){
+      document.getElementById('diamond').style.opacity = "0.1";
+    } else {
       const I = this.inciseService.selectedIncise;
       if(I._id){
-        const P = this.profService.userProf;
+        const P = this.profService.selectedProf;
         for(var i in P.favIncises){
           if(P.favIncises[i] === I._id){
             const index = P.favIncises.indexOf(i)+1;
@@ -135,7 +140,7 @@ export class IncisesComponent {
   anchorSelected(){
     const I = this.inciseService.selectedIncise;
     if(I._id){
-      const P = this.profService.userProf;
+      const P = this.profService.selectedProf;
       for(var i in P.anchors){
         if(P.anchors[i] === I._id){
           const index = P.anchors.indexOf(i)+1;
