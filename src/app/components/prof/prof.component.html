@@ -27,9 +27,9 @@
   </form>
 
   <label for="file-input">
-    <img  class="image"  (click)="photoInput.click()" *ngIf="imageService.selectedImage.imagePath, else uploadPhoto" [src]="photoSelected || 'http://localhost:3000/' + imageService.selectedImage.imagePath">
+    <img  class="image"  (click)="photoInput.click()" *ngIf="imageService.selectedImage.imagePath, else uploadPhoto" [src]="photoSel || 'http://localhost:3000/' + imageService.selectedImage.imagePath">
     <ng-template #uploadPhoto>
-      <img class="image" id="image" [src]="photoSelected || 'assets/no-image.png' " (click)="photoInput.click()"/>
+      <img class="image" id="image" [src]="photoSel || 'assets/no-image.png' " (click)="photoInput.click()"/>
     </ng-template>
   </label>
   <input type="file" style="display:none" (change)="onPhotoSelected($event)" #photoInput/>

@@ -13,7 +13,6 @@ import { Prof } from 'src/app/models/prof';
 
 import {MatDialog} from '@angular/material/dialog';
 
-
 declare var M: any;
 
 @Component({
@@ -40,6 +39,40 @@ export class TasksComponent implements OnInit {
     this.getList();
   }
 
+  Diamond: boolean = false;
+  Anchor: boolean = false;
+  Contact: boolean = false;
+
+  filterByDiamonds(){
+    this.Diamond = !this.Diamond;
+    if(this.Diamond){
+      document.getElementById('diamondBtn').style.backgroundColor = '#006064';
+    } else {
+      document.getElementById('diamondBtn').style.backgroundColor = 'rgb(224, 232, 251)';
+    }
+    this.getList();
+  }
+
+  filterByAnchors(){
+    this.Anchor = !this.Anchor;
+    if(this.Anchor){
+      document.getElementById('anchorBtn').style.backgroundColor = '#006064';
+    } else {
+      document.getElementById('anchorBtn').style.backgroundColor = 'rgb(224, 232, 251)';
+    }
+    this.getList();
+  }
+
+  filterByContacts(){
+    this.Contact = !this.Contact;
+    if(this.Contact){
+      document.getElementById('contactBtn').style.backgroundColor = '#006064';
+    } else {
+      document.getElementById('contactBtn').style.backgroundColor = 'rgb(224, 232, 251)';
+    }
+    this.getList();
+  }
+
   taskList: object[] = [{
     "incise": Object,
     "image": Object,
@@ -47,7 +80,6 @@ export class TasksComponent implements OnInit {
   }];
 
   getList(){
-    this.taskList = [];
     this.inciseService.getIncises()
     .subscribe(res => {
       const A = this.inciseService.incises = res as Incise[]; 
@@ -57,25 +89,62 @@ export class TasksComponent implements OnInit {
         this.profService.getProfs()
         .subscribe(res => {
           const P = this.profService.profs = res as Prof[];
-          for(var i in A){
-            if(A[i].title){
-              let image = {};
-              for(var j in I){
-                if (I[j].userId === A[i].prof){
-                  image = I[j];
-                }
-              }
-              for(var k in P){
-                if(P[k].userId === A[i].prof){
-                  this.taskList.push({"incise" : A[i], image, prof : P[k]});
-                }
-              }
-            }
-          }
+          this.getAll(A, I, P);
         });
       });
     });
   }
+
+  getAll(A: Incise[], I: Image[], P: Prof[]){
+    this.taskList = [];
+    let unfilterList = [];
+    for(var i in A){
+      if(A[i].title){
+        let image = {};
+        for(var j in I){
+          if (I[j].userId === A[i].prof){
+            image = I[j];
+          }
+        }
+        for(var k in P){
+          if(P[k].userId === A[i].prof){
+            unfilterList.push({"incise" : A[i], image, prof : P[k]});
+          }
+        }
+      }
+    }
+    this.filterAnchors(unfilterList)
+  }
+
+  filterAnchors(unfilterList: any[]){
+    let filterOne = [];
+    if(this.Anchor){
+      filterOne = unfilterList.filter(unfiltered => {
+        for(var i in this.profService.selectedProf.anchors){
+          if(unfiltered.incise._id === this.profService.selectedProf.anchors[i]){
+            return this.profService.selectedProf.anchors[i];
+          }
+        }
+        
+        unfiltered.incise._id === this.profService.selectedProf.anchors[i];
+      })
+    } else {
+      filterOne = unfilterList;
+    }
+    this.filterDiamonds(filterOne)
+  }
+
+  filterDiamonds(filterOne: any[]){
+    if(this.Diamond){
+      this.taskList = filterOne.filter(unfiltered => unfiltered.incise._id === this.profService.selectedProf.favIncises[0]);
+    } else {
+      this.taskList = filterOne;
+    }
+  }
+
+
+
+
 
   openDialogHeader(){
     const incise = this.inciseService.selectedIncise;
@@ -83,7 +152,11 @@ export class TasksComponent implements OnInit {
       M.toast({html: "No incise selected"});
     } else {
       const dialogRef = this.dialog.open(DialogHeader);
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe(res => {
+        this.inciseService.getIncises()
+        .subscribe(res => {
+          this.inciseService.incises = res as Incise[];
+        });
       });
     }
   }
@@ -91,7 +164,8 @@ export class TasksComponent implements OnInit {
   openDialogNewScrwm(){
     this.inciseService.selectedIncise = new Incise;
     const dialogRef = this.dialog.open(DialogNewScrwm);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(res => {
+      this.getList();
     });
   }
 }
@@ -113,6 +187,7 @@ export class DialogHeader {
     incise.subtitle = form.value.subtitle;
     this.inciseService.putIncise(incise)
     .subscribe(res => {
+      this.inciseService.selectedIncise = res as Incise;
     });
   }
 }

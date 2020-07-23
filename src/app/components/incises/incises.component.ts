@@ -9,9 +9,11 @@ import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
 import { KeyListenerComponent } from 'src/app/components/incises/key-listener/key-listener.component';
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
+import { TestingComponent } from 'src/app/components/testing/testing.component';
+
 
 import { Comm } from 'src/app/models/comm';
-import { Incise } from 'src/app/models/incise';
+import { Prof } from 'src/app/models/prof';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -32,6 +34,7 @@ export class IncisesComponent {
                 public showAround: ShowAroundComponent,
                 public keyListener: KeyListenerComponent,
                 public taskComponent: TasksComponent,
+                public testing: TestingComponent,
                 public router: Router,
                 public dialog: MatDialog,
     ){ }
@@ -59,6 +62,9 @@ export class IncisesComponent {
   }
 
   ToComment(event: any){
+
+  console.log(this.profService.selectedProf)
+
     if(event.shiftKey){
       if(window.getSelection().toString() ){
         const comm = new Comm;
@@ -123,6 +129,7 @@ export class IncisesComponent {
     } else {
       const I = this.inciseService.selectedIncise;
       if(I._id){
+        this.testing.checkProf("incises 132");
         const P = this.profService.selectedProf;
         for(var i in P.favIncises){
           if(P.favIncises[i] === I._id){
@@ -130,12 +137,14 @@ export class IncisesComponent {
             P.favIncises.splice(index, 1);
             I.diamond --;
             document.getElementById('diamond').style.opacity = "0.1";
+            this.updateProf();
             return;
           }
         }
         P.favIncises.push(I._id);
         I.diamond ++;
         document.getElementById('diamond').style.opacity = "1";
+        this.updateProf();
       }  
     }
   }
@@ -143,21 +152,30 @@ export class IncisesComponent {
   anchorSelected(){
     const I = this.inciseService.selectedIncise;
     if(I._id){
+      this.testing.checkProf("incises 153");
       const P = this.profService.selectedProf;
       for(var i in P.anchors){
         if(P.anchors[i] === I._id){
           const index = P.anchors.indexOf(i)+1;
           P.anchors.splice(index, 1);
           document.getElementById('anchor').style.opacity = "0.1";
+          this.updateProf();
           return;
         }
       }
       P.anchors.push(I._id);
       document.getElementById('anchor').style.opacity = "1";
+      this.updateProf();
     }  
   }
-}
 
+  updateProf(){
+    this.profService.putProf(this.profService.selectedProf)
+    .subscribe (res => {
+    });
+  }
+
+}
 @Component({
   selector: 'dialog-content',
   templateUrl: 'dialog-content.html',

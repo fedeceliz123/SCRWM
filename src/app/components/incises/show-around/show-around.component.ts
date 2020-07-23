@@ -8,6 +8,8 @@ import { Incise } from 'src/app/models/incise';
 import { Image } from 'src/app/models/image';
 import { Prof } from 'src/app/models/prof';
 
+import { TestingComponent } from 'src/app/components/testing/testing.component';
+
 @Component({
   selector: 'app-show-around',
   templateUrl: './show-around.component.html',
@@ -26,6 +28,7 @@ export class ShowAroundComponent implements OnInit {
   constructor(public inciseService: InciseService,
     public profService: ProfService,
     public imageService: ImageService,
+    public testing: TestingComponent,
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +47,7 @@ export class ShowAroundComponent implements OnInit {
 
   saveProf(incise: Incise){
     console.log("(saveProf)");
+    this.testing.checkProf("show-around 50");
     this.profService.putProf(this.profService.selectedProf)
     .subscribe( res => {
       this.profService.selectedProf = res as Prof;
@@ -137,6 +141,7 @@ export class ShowAroundComponent implements OnInit {
   }
 
   setDiamond(incise: Incise){
+    this.testing.checkProf("show-around 144");
     const P = this.profService.selectedProf
     for(var i in P.favIncises){
       if(P.favIncises[i] === incise._id){
@@ -148,6 +153,7 @@ export class ShowAroundComponent implements OnInit {
   }  
 
   setAnchor(incise: Incise){
+    this.testing.checkProf("show-around 156");
     const P = this.profService.selectedProf
     for(var i in P.anchors){
       if(P.anchors[i] === incise._id){

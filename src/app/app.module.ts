@@ -22,6 +22,7 @@ import { ProfComponent } from './components/prof/prof.component'
 
 import { MaterialModule } from './material.module';
 import { CommonModule } from '@angular/common';
+import { TestingComponent } from './components/testing/testing.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { CommonModule } from '@angular/common';
     SigninComponent,
     ProfComponent,
     InitComponent,
+    TestingComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

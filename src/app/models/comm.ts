@@ -1,5 +1,3 @@
-import { CommonModule } from '@angular/common';
-
 export class Comm {
     IdComm: string;
     initial: number;
@@ -12,5 +10,4 @@ export class Comm {
         this.final = 0;
         this.commt = commt;
     }
-
 }

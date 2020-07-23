@@ -40,6 +40,7 @@
           </div>
         </nav>
         </li>
+
         <li>
           <button mat-button (click)="editProf()" *ngIf="imagePath, else defaultImage">
             <img class="circle" [src]="'http://localhost:3000/' + imagePath">
@@ -50,6 +51,7 @@
             </button>
           </ng-template>
         </li>
+        
         <li>
           <button mat-button (click)="authService.logOut()">
             <i class="material-icons" style="color:rgb(127, 115, 165)">exit_to_app</i>        

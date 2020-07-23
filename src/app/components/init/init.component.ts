@@ -5,6 +5,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { ProfService } from 'src/app/services/prof.service';
 
 import { User } from 'src/app/models/user';
+import { Image } from 'src/app/models/image';
 
 import { SignupComponent } from 'src/app/components/signup/signup.component';
 import { SigninComponent } from 'src/app/components/signin/signin.component';
@@ -46,11 +47,15 @@ export class InitComponent implements OnInit {
   userId: string = sessionStorage.getItem('currentUserId');
 
   setUserImage(){
-    for(var i in this.imageService.images){
-      if(this.imageService.images[i].userId === this.userId){
-        this.imagePath = this.imageService.images[i].imagePath;
-      } 
-    }
+    this.imageService.getImages()
+    .subscribe(res=>{
+      const I = this.imageService.images = res as Image[]
+      for(var i in I){
+        if(I[i].userId === this.userId){
+          this.imagePath = I[i].imagePath;
+        }
+      }
+    })
   }
 
   deleteUsers(){

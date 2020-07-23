@@ -32,14 +32,14 @@
         </mat-accordion>    
     </div>
     <div class="extra-right">
-        <button mat-button>
-            <img class="diamond" src="assets/diamond.png">
+        <button mat-button id="contactBtn" (click)="filterByContacts()">
+            <img id="BigContact" src="assets/no-image.png">
         </button>
-        <button mat-button>
-            <img class="image" src="assets/no-image.png">
+        <button mat-button id="diamondBtn" (click)="filterByDiamonds()">
+            <img id="BigDiamond" src="assets/diamond.png">
         </button>
-        <button mat-button>
-            <img class="anchor" src="assets/anchor.png">
+        <button mat-button id="anchorBtn" (click)="filterByAnchors()">
+            <img id="BigAnchor" src="assets/anchor.png">
         </button>
     </div>
 </div>

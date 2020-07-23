@@ -14,6 +14,20 @@ profs: Prof[];
 
   constructor(private http: HttpClient) { 
     this.selectedProf = new Prof();
+    this.findProf()
+  }
+
+  findProf(){
+    this.getProfs()
+    .subscribe(res => {
+      const A = this.profs = res as Prof[];
+      for (var i in A){
+        if(A[i].userId === sessionStorage.getItem('currentUserId')){
+          this.selectedProf = A[i];
+          return; 
+        }
+      }
+    })
   }
 
   getProfs() {
