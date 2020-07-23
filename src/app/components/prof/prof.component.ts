@@ -59,6 +59,7 @@ export class ProfComponent implements OnInit {
     prof.userId = userId;
     this.profService.postProf(prof)
     .subscribe(res => {
+      this.profService.selectedProf = res as Prof;
       this.findProf(userId);
       this.firstIncise();
     });
@@ -84,16 +85,7 @@ export class ProfComponent implements OnInit {
     I.title = "My first Scrwm";
     this.inciseService.postIncise(I)
     .subscribe(res => {
-      this.inciseService.getIncises()
-      .subscribe(res => {
-        const A = this.inciseService.incises = res as Incise[];
-        for(var i in A){
-          if(A[i].prof === this.profService.selectedProf.userId){
-            this.inciseService.selectedIncise = A[i];
-            this.showAround.toCenter(A[i])
-          }
-        }
-      });
+      this.inciseService.selectedIncise = res as Incise;
     });
   }
 
@@ -120,10 +112,7 @@ export class ProfComponent implements OnInit {
     }
     this.profService.putProf(prof)
     .subscribe(res => {
-      this.profService.getProfs()
-        .subscribe(res => {
-          this.profService.profs = res as Prof[];
-      });
+      this.profService.selectedProf = res as Prof;
     });     
   }
 
@@ -149,7 +138,6 @@ export class ProfComponent implements OnInit {
     });
   }
 
-  
   deleteProfs(){
     this.profService.getProfs()
     .subscribe(res => {

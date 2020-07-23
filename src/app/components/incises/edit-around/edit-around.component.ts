@@ -100,12 +100,8 @@ export class EditAroundComponent implements OnInit {
   linkStereo2(incise: Incise, A: Incise){
     this.inciseService.putIncise(A)
     .subscribe(res => {
-      this.inciseService.getIncises()
-      .subscribe(res => {
-        this.inciseService.incises = res as Incise[];
-        this.linkStereo3(incise, A);
+      this.linkStereo3(incise, A);
       });
-    });
   }
 
   linkStereo3(incise: Incise, A: Incise){
@@ -113,7 +109,7 @@ export class EditAroundComponent implements OnInit {
       case "Up":
         for(var i in incise.down){
           if(incise.down[i] === A._id){
-            this.linkStereo4(A, incise);
+            this.linkStereo4(incise);
             return;
           }
         }
@@ -122,7 +118,7 @@ export class EditAroundComponent implements OnInit {
       case "Down":
         for(var i in incise.up){
           if(incise.up[i] === A._id){
-            this.linkStereo4(A, incise);
+            this.linkStereo4(incise);
             return;
           }
         }
@@ -131,7 +127,7 @@ export class EditAroundComponent implements OnInit {
       case "Left":
         for(var i in incise.right){
           if(incise.right[i] === A._id){
-            this.linkStereo4(A, incise);
+            this.linkStereo4(incise);
             return;
           }
         }
@@ -140,7 +136,7 @@ export class EditAroundComponent implements OnInit {
       case "Right":
         for(var i in incise.left){
           if(incise.left[i].IdComm === A._id){
-            this.linkStereo4(A, incise);
+            this.linkStereo4(incise);
             return;
           }
         }
@@ -149,19 +145,15 @@ export class EditAroundComponent implements OnInit {
           incise.left.push(comm);
           break;
     }
-    this.linkStereo4(A, incise);
+    this.linkStereo4(incise);
   }
 
-  linkStereo4(A: Incise, incise: Incise){
+  linkStereo4(incise: Incise){
     this.inciseService.putIncise(incise)
     .subscribe(res => {
-      this.inciseService.getIncises()
-      .subscribe(res => {
-        this.inciseService.incises = res as Incise[];
         this.inciseService.selectedIncise = incise;
         this.showAround.toCenter(this.inciseService.selectedIncise);
       });
-    });
   }
 
 }

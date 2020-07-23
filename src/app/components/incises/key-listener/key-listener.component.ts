@@ -59,8 +59,7 @@ export class KeyListenerComponent implements OnInit {
   savingIncise(incise: Incise){
     this.inciseService.postIncise(incise)
     .subscribe(res => {
-      incise = res as Incise;
-      this.inciseService.selectedIncise = incise;
+      this.inciseService.selectedIncise = incise = res as Incise;
       this.showAround.toCenter(this.inciseService.selectedIncise);
     });
   }

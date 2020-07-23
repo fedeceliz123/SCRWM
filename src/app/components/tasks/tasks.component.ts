@@ -113,10 +113,6 @@ export class DialogHeader {
     incise.subtitle = form.value.subtitle;
     this.inciseService.putIncise(incise)
     .subscribe(res => {
-      this.inciseService.getIncises()
-      .subscribe(res => {
-        this.inciseService.incises = res as Incise[];
-      });
     });
   }
 }
@@ -141,10 +137,6 @@ export class DialogNewScrwm {
     this.showAround.toCenter(incise);
     this.inciseService.postIncise(incise)
     .subscribe(res => {
-      this.inciseService.getIncises()
-      .subscribe(res => {
-        this.inciseService.incises = res as Incise[];
-      });
     });
   }
 }

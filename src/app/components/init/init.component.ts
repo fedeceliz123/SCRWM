@@ -56,9 +56,9 @@ export class InitComponent implements OnInit {
   deleteUsers(){
     this.authService.getUsers()
     .subscribe(res => {
-      this.authService.users = res as User[];
-      for(var i in this.authService.users){
-        this.authService.deleteUser(this.authService.users[i]._id)
+      const U = this.authService.users = res as User[];
+      for(var i in U){
+        this.authService.deleteUser(U[i]._id)
         .subscribe(res => {
         });
       }

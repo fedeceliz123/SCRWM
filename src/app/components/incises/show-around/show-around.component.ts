@@ -7,7 +7,6 @@ import { ImageService } from 'src/app/services/image.service';
 import { Incise } from 'src/app/models/incise';
 import { Image } from 'src/app/models/image';
 import { Prof } from 'src/app/models/prof';
-import { Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-show-around',
@@ -38,10 +37,6 @@ export class ShowAroundComponent implements OnInit {
         this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
         this.inciseService.putIncise(this.inciseService.selectedIncise)
         .subscribe( err => alert(err));  
-        this.inciseService.getIncises()
-        .subscribe(res => {
-          this.inciseService.incises = res as Incise[];
-        }); 
       } 
     }
     this.saveProf(incise);
@@ -49,17 +44,15 @@ export class ShowAroundComponent implements OnInit {
 
   saveProf(incise: Incise){
     console.log("(saveProf)");
-    console.log(this.profService.selectedProf)
     this.profService.putProf(this.profService.selectedProf)
     .subscribe( res => {
       this.profService.selectedProf = res as Prof;
-    }, err => console.log(err));  
+    }, err => alert(err));  
     this.toCenter(incise);
   }
 
   toCenter(incise: Incise) {
     console.log("(toCenter)");
-
     this.inciseService.selectedIncise = incise;
     this.resetConstants();
     this.showAround(incise);

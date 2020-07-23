@@ -11,6 +11,7 @@ import { KeyListenerComponent } from 'src/app/components/incises/key-listener/ke
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 
 import { Comm } from 'src/app/models/comm';
+import { Incise } from 'src/app/models/incise';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -41,7 +42,7 @@ export class IncisesComponent {
 
       this.showAround.DirLast = "Up";
       this.keyListener.editedIncise();
-    } else if(event.altKey){
+    } else if(event.shiftKey){
       if(event.keyCode === 37){
         this.showAround.DirLast = "Right";
         this.keyListener.editedIncise();
@@ -58,14 +59,16 @@ export class IncisesComponent {
   }
 
   ToComment(event: any){
-    if(event.altKey){
-      const comm = new Comm;
-      comm.commt = window.getSelection().toString().trim();
-      comm.final = window.getSelection().getRangeAt(0).startOffset;
-      comm.final = window.getSelection().getRangeAt(0).endOffset;
-      comm.IdComm = this.inciseService.selectedIncise._id;
-      this.showAround.DirLast = "Left";
-      this.keyListener.editedIncise(comm);
+    if(event.shiftKey){
+      if(window.getSelection().toString() ){
+        const comm = new Comm;
+        comm.commt = window.getSelection().toString().trim();
+        comm.initial = window.getSelection().getRangeAt(0).startOffset;
+        comm.final = window.getSelection().getRangeAt(0).endOffset;
+        comm.IdComm = this.inciseService.selectedIncise._id;
+        this.showAround.DirLast = "Left";
+        this.keyListener.editedIncise(comm);  
+      }
     }
   }
 
@@ -96,12 +99,12 @@ export class IncisesComponent {
   HT2(event: any, HTInput: any){
     if(event.keyCode === 32){
       this.addHashtag = false;
-      document.getElementById('E').contentEditable = "true";
       if(HTInput.value){
         this.inciseService.selectedIncise.hashtag.push(HTInput.value);
         this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
         this.showAround.toCenter(this.inciseService.selectedIncise);
       }
+      document.getElementById('E').contentEditable = "true";
     }
   }
 
