@@ -82,15 +82,15 @@
     font-size: 12px;
 }
 
-.circle{
+.circulo{
     width: 20px;
     height: 20px;
     transition: height 0.2s;
     transition: width 0.2s;
-
+    border-radius: 5px;
 }
 
-.circle:hover{
+.circulo:hover{
     height: 22px;
     width: 22px;
 }

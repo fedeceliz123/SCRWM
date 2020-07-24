@@ -16,9 +16,9 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div class="flexbox" *ngIf="image.userId === incise.prof">
                                                 <div class="flex">
-                                                    <img class="circle" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
                                                     <ng-template #defaultImage>
-                                                      <img class="circle" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                                                     </ng-template>    
                                                 </div>
                                                 <div class="flex" style="color: white;"> {{ prof.nickname }} </div>  
@@ -67,9 +67,9 @@
                         </div>
                         <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                         <div class="ttpName">
-                            <img class="circle" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
+                            <img class="circulo" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
                             <ng-template #defaultImage>
-                              <img class="circle" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                              <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                             </ng-template>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === inciseService.selectedIncise.prof && prof.nickname">
@@ -182,9 +182,9 @@
                         </div>
                         <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                         <div class="ttpName">
-                            <img class="circle" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
+                            <img class="circulo" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
                             <ng-template #defaultImage>
-                              <img class="circle" src="assets/no-image.png" alt="">
+                              <img class="circulo" src="assets/no-image.png" alt="">
                             </ng-template>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === inciseService.selectedIncise.prof">
