@@ -170,7 +170,7 @@ export class DialogPublicProf {
     const prof = this.profService.selectedProf;
     prof.nickname = form.value.nickname;
     prof.state = form.value.state;
-    prof.description = form.value.description;
+    prof.miniBio = form.value.miniBio;
     if(this.photoSel){
       this.deleteOldImages();
     }

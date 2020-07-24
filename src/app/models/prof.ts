@@ -4,20 +4,22 @@ export class Prof {
         userId: string;
         nickname: string;
         state: string;
-        description: string;
+        miniBio: string;
         favIncises: string[];
         anchors: string[];
-        followers: string[];
+        following: string[];
+        followers: number;
     
-    constructor(_id="", userId="", nickname="", state="", description=""){
+    constructor(_id="", userId="", nickname="", state="", miniBio=""){
         this._id = _id;
         this.userId = userId;
         this.nickname = nickname;
         this.state = state;
-        this.description = description;
+        this.miniBio = miniBio;
         this.favIncises = [];
         this.anchors = [];
-        this.followers = [];
+        this.following = [];
+        this.followers = 0;
     }
 
 }
