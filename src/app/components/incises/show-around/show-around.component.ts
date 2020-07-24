@@ -123,7 +123,7 @@ export class ShowAroundComponent implements OnInit {
 
   setDiamond(incise: Incise){
     this.testing.checkProf("show-around 144");
-    const P = this.profService.selectedProf
+    const P = this.profService.userProf
     for(var i in P.favIncises){
       if(P.favIncises[i] === incise._id){
         document.getElementById('diamond').style.opacity = "1";
@@ -135,7 +135,7 @@ export class ShowAroundComponent implements OnInit {
 
   setAnchor(incise: Incise){
     this.testing.checkProf("show-around 156");
-    const P = this.profService.selectedProf
+    const P = this.profService.userProf
     for(var i in P.anchors){
       if(P.anchors[i] === incise._id){
         document.getElementById('anchor').style.opacity = "1";

@@ -5,19 +5,19 @@
     <div class="data">
       <mat-form-field appearance="fill" style="width: 300px;">
         <mat-label>Name</mat-label>
-        <input matInput name="nickname" #nickname="ngModel" [(ngModel)]="profService.selectedProf.nickname" class="form-control" cdkFocusInitial>
+        <input matInput name="nickname" #nickname="ngModel" [(ngModel)]="profService.userProf.nickname" class="form-control" cdkFocusInitial>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field appearance="fill" style="width: 300px;">
         <mat-label>State</mat-label>
-        <input matInput name="state" #state="ngModel" [(ngModel)]="profService.selectedProf.state" class="form-control">
+        <input matInput name="state" #state="ngModel" [(ngModel)]="profService.userProf.state" class="form-control">
       </mat-form-field>
     </div>
     <div>
       <mat-form-field appearance="fill" style="width: 300px;">
         <mat-label>MiniBio</mat-label>
-        <input matInput name="miniBio" #miniBio="ngModel" [(ngModel)]="profService.selectedProf.miniBio" class="form-control">
+        <input matInput name="miniBio" #miniBio="ngModel" [(ngModel)]="profService.userProf.miniBio" class="form-control">
       </mat-form-field>
     </div>
     <div>

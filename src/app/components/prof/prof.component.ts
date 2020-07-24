@@ -47,7 +47,7 @@ export class ProfComponent implements OnInit {
       const P = this.profService.profs = res as Prof[];
       for(var i in P){
         if(P[i].userId === userId){
-          this.profService.selectedProf = P[i];
+          this.profService.userProf = P[i];
           this.testing.checkProf("prof 51");
           return
         }
@@ -58,11 +58,11 @@ export class ProfComponent implements OnInit {
 
   newProf(userId: string){
     console.log("(newProf)");
-    const prof = this.profService.selectedProf = new Prof;
+    const prof = this.profService.userProf = new Prof;
     prof.userId = userId;
     this.profService.postProf(prof)
     .subscribe(res => {
-      this.profService.selectedProf = res as Prof;
+      this.profService.userProf = res as Prof;
       this.testing.checkProf("prof 66");
       this.findProf(userId);
       this.firstIncise();
@@ -167,7 +167,7 @@ export class DialogPublicProf {
 
   updateProf(form: NgForm){
     this.testing.checkProf("prof 125");
-    const prof = this.profService.selectedProf;
+    const prof = this.profService.userProf;
     prof.nickname = form.value.nickname;
     prof.state = form.value.state;
     prof.miniBio = form.value.miniBio;

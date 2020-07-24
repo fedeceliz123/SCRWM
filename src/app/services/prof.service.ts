@@ -7,13 +7,13 @@ import { Prof } from '../models/prof'
 })
 export class ProfService {
 
-selectedProf: Prof;
+userProf: Prof;
 profs: Prof[];
 
   readonly URL_API = 'http://localhost:3000/api/scrwm/profs';
 
   constructor(private http: HttpClient) { 
-    this.selectedProf = new Prof();
+    this.userProf = new Prof();
     this.findProf()
   }
 
@@ -23,7 +23,7 @@ profs: Prof[];
       const A = this.profs = res as Prof[];
       for (var i in A){
         if(A[i].userId === sessionStorage.getItem('currentUserId')){
-          this.selectedProf = A[i];
+          this.userProf = A[i];
           return; 
         }
       }

@@ -1,7 +1,7 @@
-<mat-card class="example-card">
+<div class="container">
+  <div>
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-title>{{ profService.userProf.nickname }}</mat-card-title>
       <mat-card-subtitle>Dog Breed</mat-card-subtitle>
     </mat-card-header>
     <div *ngFor="let task of taskComponent.taskList">
@@ -10,6 +10,8 @@
           <img class="image" src="assets/no-image.png">
       </ng-template>
     </div>
+  </div>
+  <div>
     <mat-card-content>
       <p>
         The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
@@ -21,4 +23,6 @@
       <button mat-button mat-dialog-close  (click)="editProf()">Edit</button>
       <button mat-button [mat-dialog-close]="true">Close</button>
     </mat-card-actions>
-  </mat-card>
+  </div>
+  
+</div>

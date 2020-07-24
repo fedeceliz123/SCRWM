@@ -18,8 +18,8 @@ export class TestingComponent implements OnInit {
   }
 
   checkProf(ubicación: string){
-    if(!this.profService.selectedProf._id){
-      alert("SelectedProf se perdió en " + ubicación);
+    if(!this.profService.userProf._id){
+      alert("userProf se perdió en " + ubicación);
       this.findProf();
     }
   }
@@ -30,7 +30,7 @@ export class TestingComponent implements OnInit {
       const A = this.profService.profs = res as Prof[];
       for (var i in A){
         if(A[i].userId === sessionStorage.getItem('currentUserId')){
-          this.profService.selectedProf = A[i];
+          this.profService.userProf = A[i];
         }
       }
     })

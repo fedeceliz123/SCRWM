@@ -125,7 +125,7 @@ export class IncisesComponent {
       const I = this.inciseService.selectedIncise;
       if(I._id){
         this.testing.checkProf("incises 132");
-        const P = this.profService.selectedProf;
+        const P = this.profService.userProf;
         for(var i in P.favIncises){
           if(P.favIncises[i] === I._id){
             const index = P.favIncises.indexOf(i)+1;
@@ -148,7 +148,7 @@ export class IncisesComponent {
     const I = this.inciseService.selectedIncise;
     if(I._id){
       this.testing.checkProf("incises 153");
-      const P = this.profService.selectedProf;
+      const P = this.profService.userProf;
       for(var i in P.anchors){
         if(P.anchors[i] === I._id){
           const index = P.anchors.indexOf(i)+1;
@@ -165,7 +165,7 @@ export class IncisesComponent {
   }
 
   updateProf(){
-    this.profService.putProf(this.profService.selectedProf)
+    this.profService.putProf(this.profService.userProf)
     .subscribe (res => {
     });
   }

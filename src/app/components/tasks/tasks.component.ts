@@ -120,9 +120,9 @@ export class TasksComponent implements OnInit {
     let filterOne = [];
     if(this.Anchor){
       filterOne = unfilteredList.filter(unfiltered => {
-        for(var i in this.profService.selectedProf.anchors){
-          if(unfiltered.incise._id === this.profService.selectedProf.anchors[i]){
-            return this.profService.selectedProf.anchors[i];
+        for(var i in this.profService.userProf.anchors){
+          if(unfiltered.incise._id === this.profService.userProf.anchors[i]){
+            return this.profService.userProf.anchors[i];
           }
         }    
       })
@@ -136,9 +136,9 @@ export class TasksComponent implements OnInit {
     let filterTwo = [];
     if(this.Diamond){
       this.taskList = filterOne.filter(unfiltered => {
-        for(var j in this.profService.selectedProf.favIncises){
-          if(unfiltered.incise._id === this.profService.selectedProf.favIncises[j]){
-            return this.profService.selectedProf.favIncises[j];
+        for(var j in this.profService.userProf.favIncises){
+          if(unfiltered.incise._id === this.profService.userProf.favIncises[j]){
+            return this.profService.userProf.favIncises[j];
           }
         }    
       });

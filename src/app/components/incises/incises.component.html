@@ -9,26 +9,24 @@
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
                             <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}</div>
-                            <div *ngIf="incise.hashtag[0]">
-                                <div *ngFor="let prof of profService.profs">
-                                    <div *ngIf="prof.userId === inciseService.selectedIncise.prof && prof.nickname">
-                                        <span  class="ttpTextArr">
-                                            <div style="color: white;">
-                                                <img class="circle" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
-                                                <ng-template #defaultImage>
-                                                  <img class="circle" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
-                                                </ng-template>
-                                                {{ prof.nickname }}
-                                            </div>
-                                            <div *ngFor="let a of incise.hashtag">
-                                                #{{ a }}
-                                            </div>
-                                        </span> 
-                                    </div>
+
+                            <div *ngFor="let prof of profService.profs">
+                                <div *ngIf="prof.userId === inciseService.selectedIncise.prof && prof.nickname">
+                                    <span  class="ttpTextArr">
+                                        <div style="color: white;">
+                                            <img class="circle" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
+                                            <ng-template #defaultImage>
+                                              <img class="circle" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                            </ng-template>
+                                            {{ prof.nickname }}
+                                        </div>
+                                        <div *ngIf="incise.hashtag[0]">
+                                            <div *ngFor="let a of incise.hashtag"> #{{ a }} </div>
+                                        </div>                               
+                                    </span> 
                                 </div>
+                            </div>
 
-
-                            </div>                               
                         </div>    
                     </div>
                 </div>

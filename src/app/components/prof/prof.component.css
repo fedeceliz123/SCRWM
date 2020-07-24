@@ -6,6 +6,7 @@
 
 .mat-card{
     max-height: 500px;
+    min-width: 900px;
 }
 
 ::-webkit-scrollbar {
