@@ -42,11 +42,11 @@
         </li>
 
         <li>
-          <button mat-button (click)="seeProf()" *ngIf="imagePath, else defaultImage">
+          <button mat-button (click)="profComponent.seeProf()" *ngIf="imagePath, else defaultImage">
             <img class="circle" [src]="'http://localhost:3000/' + imagePath">
           </button>
           <ng-template #defaultImage>
-            <button mat-button (click)="seeProf()">
+            <button mat-button (click)="profComponent.seeProf()">
               <img class="circle" src="assets/no-image.png">
             </button>
           </ng-template>

@@ -1,10 +1,19 @@
+
 .container{
     display: inline-flex;
     width: 850px;
 }
 
+.mat-card{
+    max-height: 500px;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 .mat-form-field{
-    min-width: 480px;
+    min-width: 500px;
 }
 
 .image{
@@ -13,3 +22,12 @@
     margin-left: 20px;
 }
 
+
+.example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }

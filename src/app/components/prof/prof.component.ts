@@ -12,6 +12,8 @@ import { Prof } from 'src/app/models/prof';
 import { Image } from 'src/app/models/image';
 import { Incise } from 'src/app/models/incise';
 
+import {MatDialog} from '@angular/material/dialog';
+
 interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
 }
@@ -31,6 +33,7 @@ export class ProfComponent implements OnInit {
               public inciseService: InciseService,
               public taskComponent: TasksComponent,
               public testing: TestingComponent,
+              public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -116,12 +119,29 @@ export class ProfComponent implements OnInit {
     });
   }
 
+  
+  seeProf() {
+    const dialogRef = this.dialog.open(ProfComponent);
+    dialogRef.afterClosed().subscribe(result => {
+    });
+    return; 
+  }
+
+  editProf() {
+    const dialogRef = this.dialog.open(DialogPublicProf);
+    dialogRef.afterClosed().subscribe(result => {
+    });
+    return; 
+  }
+  
+
 }
 
 
 @Component({
   selector: 'dialog-public-prof',
   templateUrl: 'dialog-public-prof.html',
+  styleUrls: ['./prof.component.css']
 })
 export class DialogPublicProf {
 
@@ -169,10 +189,10 @@ export class DialogPublicProf {
         if(A[i].userId === this.userId){
           this.imageService.deleteImage(A[i]._id)
           .subscribe(res=>{
-            this.chargeNewImage();
           });
         }
       }
+      this.chargeNewImage();
     });
   }
 

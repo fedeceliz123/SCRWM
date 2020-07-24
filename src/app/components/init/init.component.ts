@@ -84,18 +84,6 @@ export class InitComponent implements OnInit {
     });
   }
 
-  seeProf() {
-    const dialogRef = this.dialog.open(ProfComponent);
-    dialogRef.afterClosed().subscribe(result => {
-    });
-    return; 
-  }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.fixed-action-btn');
-  var instances = M.FloatingActionButton.init(elems, {
-    direction: 'left'
-  });
-});
 

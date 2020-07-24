@@ -12,10 +12,12 @@
                                 <ng-template #defaultImage>
                                         <img class="circle" src="assets/no-image.png">
                                 </ng-template>
-                                <span class="tooltiptext">
-                                    <p>{{ task.prof.nickname }}  ({{task.prof.state }})</p>
-                                    <p>{{ task.prof.description }}</p> 
-                                </span>
+                                <div *ngIf="task.prof.nickname">
+                                    <span class="tooltiptext">
+                                        <p>{{ task.prof.nickname }}  {{task.prof.state }}</p>
+                                        <p>{{ task.prof.description }}</p> 
+                                    </span>    
+                                </div>
                             </div>  
                         </mat-panel-title>
                         <mat-panel-description>
@@ -33,7 +35,7 @@
     </div>
     <div class="extra-right">
         <button mat-button id="contactBtn" (click)="filterByContacts()">
-            <img id="BigContact" src="assets/no-image.png">
+            <img id="BigContact" src="assets/follow.png">
         </button>
         <button mat-button id="diamondBtn" (click)="filterByDiamonds()">
             <img id="BigDiamond" src="assets/diamond.png">

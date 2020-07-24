@@ -174,7 +174,9 @@ export class TasksComponent implements OnInit {
       this.getList();
     });
   }
+
 }
+
 
 
 @Component({

@@ -10,10 +10,9 @@ import { ShowAroundComponent } from 'src/app/components/incises/show-around/show
 import { KeyListenerComponent } from 'src/app/components/incises/key-listener/key-listener.component';
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 import { TestingComponent } from 'src/app/components/testing/testing.component';
-
+import { ProfComponent } from 'src/app/components/prof/prof.component';
 
 import { Comm } from 'src/app/models/comm';
-import { Prof } from 'src/app/models/prof';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -35,6 +34,7 @@ export class IncisesComponent {
                 public keyListener: KeyListenerComponent,
                 public taskComponent: TasksComponent,
                 public testing: TestingComponent,
+                public profComponent: ProfComponent,
                 public router: Router,
                 public dialog: MatDialog,
     ){ }
