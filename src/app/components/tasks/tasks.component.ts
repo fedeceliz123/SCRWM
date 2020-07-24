@@ -80,6 +80,7 @@ export class TasksComponent implements OnInit {
   }];
 
   getList(){
+    this.taskList = [];
     this.inciseService.getIncises()
     .subscribe(res => {
       const A = this.inciseService.incises = res as Incise[]; 
@@ -96,8 +97,7 @@ export class TasksComponent implements OnInit {
   }
 
   getAll(A: Incise[], I: Image[], P: Prof[]){
-    this.taskList = [];
-    let unfilterList = [];
+    let unfilteredList = [];
     for(var i in A){
       if(A[i].title){
         let image = {};
@@ -108,38 +108,48 @@ export class TasksComponent implements OnInit {
         }
         for(var k in P){
           if(P[k].userId === A[i].prof){
-            unfilterList.push({"incise" : A[i], image, prof : P[k]});
+            unfilteredList.push({"incise" : A[i], image, prof : P[k]});
           }
         }
       }
     }
-    this.filterAnchors(unfilterList)
+    this.filterAnchors(unfilteredList);
   }
 
-  filterAnchors(unfilterList: any[]){
+  filterAnchors(unfilteredList: any[]){
     let filterOne = [];
     if(this.Anchor){
-      filterOne = unfilterList.filter(unfiltered => {
+      filterOne = unfilteredList.filter(unfiltered => {
         for(var i in this.profService.selectedProf.anchors){
           if(unfiltered.incise._id === this.profService.selectedProf.anchors[i]){
             return this.profService.selectedProf.anchors[i];
           }
-        }
-        
-        unfiltered.incise._id === this.profService.selectedProf.anchors[i];
+        }    
       })
     } else {
-      filterOne = unfilterList;
+      filterOne = unfilteredList;
     }
     this.filterDiamonds(filterOne)
   }
 
   filterDiamonds(filterOne: any[]){
+    let filterTwo = [];
     if(this.Diamond){
-      this.taskList = filterOne.filter(unfiltered => unfiltered.incise._id === this.profService.selectedProf.favIncises[0]);
+      this.taskList = filterOne.filter(unfiltered => {
+        for(var j in this.profService.selectedProf.favIncises){
+          if(unfiltered.incise._id === this.profService.selectedProf.favIncises[j]){
+            return this.profService.selectedProf.favIncises[j];
+          }
+        }    
+      });
     } else {
       this.taskList = filterOne;
     }
+    //this.filterContacts(filterTwo)
+  }
+
+  filterContacts(filterTwo: any){
+    
   }
 
   openDialogHeader(){
@@ -189,7 +199,6 @@ export class DialogHeader {
     }
     this.inciseService.putIncise(incise)
     .subscribe(res => {
-      //this.inciseService.selectedIncise = res as Incise;
     });
   }
 }
@@ -212,6 +221,11 @@ export class DialogNewScrwm {
     incise.subtitle = form.value.subtitle;
     incise.prof = sessionStorage.getItem('currentUserId');
     this.showAround.toCenter(incise);
+    if(form.value.publicity === true){
+      incise.publicity = true;
+    } else if(form.value.publicity === false) {
+      incise.publicity = false;
+    }
     this.inciseService.postIncise(incise)
     .subscribe(res => {
     });

@@ -84,7 +84,7 @@ export class InitComponent implements OnInit {
     });
   }
 
-  editProf() {
+  seeProf() {
     const dialogRef = this.dialog.open(ProfComponent);
     dialogRef.afterClosed().subscribe(result => {
     });

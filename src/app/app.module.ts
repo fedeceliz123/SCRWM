@@ -18,7 +18,7 @@ import { ShowAroundComponent } from './components/incises/show-around/show-aroun
 import { EditAroundComponent } from './components/incises/edit-around/edit-around.component';
 
 import { KeyListenerComponent } from './components/incises/key-listener/key-listener.component';
-import { ProfComponent } from './components/prof/prof.component'
+import { ProfComponent, DialogPublicProf } from './components/prof/prof.component'
 
 import { MaterialModule } from './material.module';
 import { CommonModule } from '@angular/common';
@@ -38,6 +38,7 @@ import { TestingComponent } from './components/testing/testing.component';
     ShowAroundComponent,
     KeyListenerComponent,
     ProfComponent,
+    DialogPublicProf,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +62,7 @@ import { TestingComponent } from './components/testing/testing.component';
     SignupComponent,
     SigninComponent,
     ProfComponent,
+    DialogPublicProf,
     InitComponent,
     TestingComponent,
     {

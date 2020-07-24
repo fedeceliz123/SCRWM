@@ -13,9 +13,17 @@
         <textarea matInput name="subtitle" #subtitle="ngModel" [ngModel]="inciseService.selectedIncise.subtitle" class="form-control"></textarea>
       </mat-form-field>
     </div>
-    <div>
-      <button mat-button mat-dialog-close type="submit" name="action">Send</button>
+    <div class="switch">
+      <label>
+        Private
+        <input type="checkbox" name="publicity" #publicity="ngModel" [ngModel]="inciseService.selectedIncise.publicity" class="form-control">
+        <span class="lever"></span>
+        Public
+      </label>
+    </div>
+    <div style="text-align: end;">
       <button mat-button [mat-dialog-close]="true">Back</button>
+      <button mat-button mat-dialog-close type="submit" name="action">Send</button>
     </div>
   </form>
 </mat-dialog-content>

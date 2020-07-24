@@ -6,7 +6,6 @@ import { ImageService } from 'src/app/services/image.service';
 import { InciseService } from 'src/app/services/incise.service';
 
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
-import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
 import { TestingComponent } from 'src/app/components/testing/testing.component';
 
 import { Prof } from 'src/app/models/prof';
@@ -31,14 +30,12 @@ export class ProfComponent implements OnInit {
               public imageService: ImageService,
               public inciseService: InciseService,
               public taskComponent: TasksComponent,
-              public showAround: ShowAroundComponent,
               public testing: TestingComponent,
   ) { }
 
   ngOnInit(): void {
   }
 
-  userId: string = sessionStorage.getItem('currentUserId');
 
   findProf(userId: string){
     console.log("(findProf)");
@@ -69,19 +66,6 @@ export class ProfComponent implements OnInit {
     });
   }
 
-  getImage(){
-    this.imageService.getImages()
-    .subscribe(res => {
-      const A = this.imageService.images = res as Image[];
-      for(var i in A){
-        if(A[i].userId === sessionStorage.getItem('currentUserId')){
-          this.imageService.selectedImage = A[i];
-          return
-        }
-      }
-    });
-  }
-
   firstIncise(){
     console.log("(firstIncise)");
     const I = this.inciseService.selectedIncise = new Incise;
@@ -94,9 +78,63 @@ export class ProfComponent implements OnInit {
     });
   }
 
+  deleteProfs(){
+    this.profService.getProfs()
+    .subscribe(res => {
+      this.profService.profs = res as Prof[];
+      for(var i in this.profService.profs){
+        this.profService.deleteProf(this.profService.profs[i]._id)
+        .subscribe(res => {
+        });
+      }
+      this.deleteIncises();
+      this.deleteImages();
+    });
+  }
+
+  deleteIncises(){
+    this.inciseService.getIncises()
+    .subscribe(res => {
+      this.inciseService.incises = res as Incise[];
+      for(var i in this.inciseService.incises){
+        this.inciseService.deleteIncise(this.inciseService.incises[i]._id)
+        .subscribe(res => {
+        });
+      }
+    });
+  }
+
+  deleteImages(){
+    this.imageService.getImages()
+    .subscribe(res => {
+      this.imageService.images = res as Image[];
+      for(var i in this.imageService.images){
+        this.imageService.deleteImage(this.imageService.images[i]._id)
+        .subscribe(res => {
+        });
+      }
+    });
+  }
+
+}
+
+
+@Component({
+  selector: 'dialog-public-prof',
+  templateUrl: 'dialog-public-prof.html',
+})
+export class DialogPublicProf {
+
+  constructor(public profComponent: ProfComponent,
+              public profService: ProfService,
+              public imageService: ImageService,
+              public taskComponent: TasksComponent,
+              public testing: TestingComponent,
+        ){}
 
   file: File;
   photoSel: string | ArrayBuffer;
+  userId: string = sessionStorage.getItem('currentUserId');
 
   onPhotoSelected(event: HTMLInputEvent): void {
     if(event.target.files && event.target.files[0]){    // confirma si existe un archivo subido
@@ -147,42 +185,16 @@ export class ProfComponent implements OnInit {
     });
   }
 
-  deleteProfs(){
-    this.profService.getProfs()
-    .subscribe(res => {
-      this.profService.profs = res as Prof[];
-      for(var i in this.profService.profs){
-        this.profService.deleteProf(this.profService.profs[i]._id)
-        .subscribe(res => {
-        });
-      }
-      this.deleteIncises();
-      this.deleteImages();
-    });
-  }
-
-  deleteIncises(){
-    this.inciseService.getIncises()
-    .subscribe(res => {
-      this.inciseService.incises = res as Incise[];
-      for(var i in this.inciseService.incises){
-        this.inciseService.deleteIncise(this.inciseService.incises[i]._id)
-        .subscribe(res => {
-        });
-      }
-    });
-  }
-
-  deleteImages(){
+  getImage(){
     this.imageService.getImages()
     .subscribe(res => {
-      this.imageService.images = res as Image[];
-      for(var i in this.imageService.images){
-        this.imageService.deleteImage(this.imageService.images[i]._id)
-        .subscribe(res => {
-        });
+      const A = this.imageService.images = res as Image[];
+      for(var i in A){
+        if(A[i].userId === sessionStorage.getItem('currentUserId')){
+          this.imageService.selectedImage = A[i];
+          return
+        }
       }
     });
   }
-
 }
