@@ -17,7 +17,8 @@ export class Incise {
         diamond: number;
         date: string;
         modified: string;
-        record: string[] ;
+        record: string[];
+        publicity: boolean;
 
         
     constructor(_id="", prof="", content="", title="", subtitle="", date="", modified=""){
@@ -38,6 +39,7 @@ export class Incise {
         this.date = date;
         this.modified = modified;
         this.record = [];
+        this.publicity = false;
 
     }
 }

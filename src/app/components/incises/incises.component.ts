@@ -41,8 +41,6 @@ export class IncisesComponent {
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
    if(event.keyCode === 13){
-    console.log(this.profService.selectedProf);
-
       this.showAround.DirLast = "Up";
       this.keyListener.editedIncise();
     } else if(event.shiftKey){
@@ -62,9 +60,6 @@ export class IncisesComponent {
   }
 
   ToComment(event: any){
-
-  console.log(this.profService.selectedProf)
-
     if(event.shiftKey){
       if(window.getSelection().toString() ){
         const comm = new Comm;

@@ -14,9 +14,9 @@
       </mat-form-field>
     </div>
     <div class="switch">
-      <label name="publicity" #publicity="ngModel" [ngModel]="inciseService.selectedIncise.publicity" class="form-control">
+      <label>
         Private
-        <input type="checkbox">
+        <input type="checkbox" name="publicity" #publicity="ngModel" [ngModel]="inciseService.selectedIncise.publicity" class="form-control">
         <span class="lever"></span>
         Public
       </label>

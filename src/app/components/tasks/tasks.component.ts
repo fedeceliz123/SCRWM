@@ -142,10 +142,6 @@ export class TasksComponent implements OnInit {
     }
   }
 
-
-
-
-
   openDialogHeader(){
     const incise = this.inciseService.selectedIncise;
     if(!incise._id){
@@ -182,12 +178,18 @@ export class DialogHeader {
   ){}
 
   setHeader(form: NgForm){
+    console.log(form.value.publicity)
     const incise = this.inciseService.selectedIncise;
     incise.title = form.value.title;
     incise.subtitle = form.value.subtitle;
+    if(form.value.publicity === true){
+      incise.publicity = true;
+    } else if(form.value.publicity === false) {
+      incise.publicity = false;
+    }
     this.inciseService.putIncise(incise)
     .subscribe(res => {
-      this.inciseService.selectedIncise = res as Incise;
+      //this.inciseService.selectedIncise = res as Incise;
     });
   }
 }

@@ -34,29 +34,10 @@ export class ShowAroundComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  saveIncise(incise: Incise) {
-    if(this.inciseService.selectedIncise._id){
-      if(this.inciseService.selectedIncise != incise){
-        this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
-        this.inciseService.putIncise(this.inciseService.selectedIncise)
-        .subscribe( err => alert(err));  
-      } 
-    }
-    this.saveProf(incise);
-  }
-
-  saveProf(incise: Incise){
-    console.log("(saveProf)");
-    this.testing.checkProf("show-around 50");
-    this.profService.putProf(this.profService.selectedProf)
-    .subscribe( res => {
-      this.profService.selectedProf = res as Prof;
-    }, err => alert(err));  
-    this.toCenter(incise);
-  }
-
   toCenter(incise: Incise) {
     console.log("(toCenter)");
+    console.log(incise)
+    console.log(this.inciseService.selectedIncise)
     this.inciseService.selectedIncise = incise;
     this.resetConstants();
     this.showAround(incise);
