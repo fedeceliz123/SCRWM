@@ -1,38 +1,26 @@
-<h1 mat-dialog-title>Edit Profile</h1>
-<mat-dialog-content class="mat-typography">
 <div class="container">
-  <form #profForm="ngForm" (ngSubmit)="updateProf(profForm)">
-    <div class="data">
-      <mat-form-field appearance="fill" style="width: 300px;">
-        <mat-label>Name</mat-label>
-        <input matInput name="nickname" #nickname="ngModel" [(ngModel)]="profService.userProf.nickname" class="form-control" cdkFocusInitial>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field appearance="fill" style="width: 300px;">
-        <mat-label>State</mat-label>
-        <input matInput name="state" #state="ngModel" [(ngModel)]="profService.userProf.state" class="form-control">
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field appearance="fill" style="width: 300px;">
-        <mat-label>MiniBio</mat-label>
-        <input matInput name="miniBio" #miniBio="ngModel" [(ngModel)]="profService.userProf.miniBio" class="form-control">
-      </mat-form-field>
-    </div>
-    <div>
-      <button mat-button mat-dialog-close type="submit" name="action">Save</button>
+  <div>
+        {{ profComponent.scrwm.prof.nickname }}
+          <mat-card-header>
+            <mat-card-title>{{ profComponent.scrwm.prof.nickname }}</mat-card-title>
+          </mat-card-header>
+              <img class="image" *ngIf="profComponent.scrwm.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + profComponent.scrwm.image.imagePath">
+              <ng-template #defaultImage>
+                <img class="image" src="assets/no-image.png">
+              </ng-template>
+            <mat-card-subtitle>
+              <div>
+                AAA
+              </div>
+            </mat-card-subtitle>
+        </div>
+        <div>
+          <mat-card-content>
+           {{ profComponent.scrwm.prof.minBio }}
+          </mat-card-content>
+
+    <mat-card-actions>
       <button mat-button [mat-dialog-close]="true">Close</button>
-    </div>
-  </form>
-
-  <label for="file-input">
-    <img  class="image"  (click)="photoInput.click()" *ngIf="imageService.selectedImage.imagePath, else uploadPhoto" [src]="photoSel || 'http://localhost:3000/' + imageService.selectedImage.imagePath">
-    <ng-template #uploadPhoto>
-      <img class="image" id="image" [src]="photoSel || 'assets/no-image.png' " (click)="photoInput.click()"/>
-    </ng-template>
-  </label>
-  <input type="file" style="display:none" (change)="onPhotoSelected($event)" #photoInput/>
-
+    </mat-card-actions>
+  </div>
 </div>
-</mat-dialog-content>

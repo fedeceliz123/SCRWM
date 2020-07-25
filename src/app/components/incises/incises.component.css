@@ -55,10 +55,6 @@
     opacity: 1;
 }
 
-.diamond:active{
-    opacity: 0;
-}
-
 .anchor{
     height: 22px;
     cursor: pointer;
@@ -72,10 +68,11 @@
     opacity: 1;
 }
 
-.anchor:active{
-    opacity: 0;
+.z-axis{
+    height: 22px;
+    cursor: pointer;
+    margin-right: 3px;
 }
-
 
 .followers{
     color: rgb(206, 205, 205);
@@ -198,7 +195,7 @@
 
 .ttpArr:hover .ttpTextArr {
   visibility: visible;
-  opacity: 0.8;
+  opacity: 0.9;
   background-color: black;
   color: orange;
   padding-left: 5px;
@@ -239,13 +236,15 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s;
+  padding-top: 5px;
+  border-radius: 6px;
 }
 
 .ttpAbj:hover .ttpTextAbj {
   visibility: visible;
-  opacity: 0.8;
-  background-color: white;
-  color: red;
+  opacity: 0.9;
+  background-color: black;
+  color: orange;
   padding-left: 5px;
   padding-right: 5px;
   font-size: 16px;
@@ -279,13 +278,15 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s;
+  padding-top: 5px;
+  border-radius: 6px;
 }
 
 .ttpIzq:hover .ttpTextIzq {
   visibility: visible;
-  opacity: 1;
-  background-color: white;
-  color: red;
+  opacity: 0.9;
+  background-color: black;
+  color: orange;
   padding-left: 5px;
   padding-right: 5px;
   font-size: 16px;
@@ -320,13 +321,15 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s;
+  padding-top: 5px;
+  border-radius: 6px;
 }
 
 .ttpDer:hover .ttpTextDer {
   visibility: visible;
-  opacity: 1;
-  background-color: white;
-  color: red;
+  opacity: 0.9;
+  background-color: black;
+  color: orange;
   padding-left: 5px;
   padding-right: 5px;
   font-size: 16px;

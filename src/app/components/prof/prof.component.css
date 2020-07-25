@@ -20,7 +20,12 @@
 .image{
     height: 350px;
     width: 350px;
-    margin-left: 20px;
+    margin-left: 5px;
+    margin-right: 60px;
+    border-radius: 25px;
+    border: gba(143, 174, 195, 1); 
+    border-style: outset;
+    
 }
 
 

@@ -37,8 +37,88 @@ export class ProfComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.setUserImage();
   }
 
+  imagePath: string;
+  userId: string = sessionStorage.getItem('currentUserId');
+
+  setUserImage(){
+    this.imageService.getImages()
+    .subscribe(res=>{
+      const I = this.imageService.images = res as Image[]
+      for(var i in I){
+        if(I[i].userId === this.userId){
+          this.imagePath = I[i].imagePath;
+        }
+      }
+    })
+  }
+
+  file: File;
+  photoSel: string | ArrayBuffer;
+
+  onPhotoSelected(event: HTMLInputEvent): void {
+    if(event.target.files && event.target.files[0]){    // confirma si existe un archivo subido
+      this.file = <File>event.target.files[0];          // guarda el archivo en file
+      const reader = new FileReader();                   // para que se vea en pantalla
+      reader.onload = e => this.photoSel = reader.result;
+      reader.readAsDataURL(this.file);
+    }
+  }
+
+  updateProf(form: NgForm){
+    this.testing.checkProf("prof 125");
+    const prof = this.profService.userProf;
+    prof.nickname = form.value.nickname;
+    prof.state = form.value.state;
+    prof.miniBio = form.value.miniBio;
+    if(this.photoSel){
+      this.deleteOldImages();
+    }
+    this.profService.putProf(prof)
+    .subscribe(res => {
+      this.taskComponent.getList();
+      this.testing.checkProf("prof 137");
+    });
+  }
+
+  deleteOldImages(){
+    this.imageService.getImages()
+    .subscribe(res => {
+      const A = this.imageService.images = res as Image[];
+      for(var i in A){
+        if(A[i].userId === this.userId){
+          this.imageService.deleteImage(A[i]._id)
+          .subscribe(res=>{
+          });
+        }
+      }
+      this.chargeNewImage();
+    });
+  }
+
+  chargeNewImage(){
+    const A = this.imageService.selectedImage = new Image;
+    A.userId = this.userId;
+    this.imageService.postImage(A, this.file)
+    .subscribe(res => {
+      this.getImage();
+    });
+  }
+
+  getImage(){
+    this.imageService.getImages()
+    .subscribe(res => {
+      const A = this.imageService.images = res as Image[];
+      for(var i in A){
+        if(A[i].userId === sessionStorage.getItem('currentUserId')){
+          this.imageService.selectedImage = A[i];
+          return
+        }
+      }
+    });
+  }
 
   findProf(userId: string){
     console.log("(findProf)");
@@ -119,21 +199,30 @@ export class ProfComponent implements OnInit {
     });
   }
 
+  scrwm: any;
   
   seeProf() {
+    for(var i in this.taskComponent.taskList){
+      if(this.taskComponent.taskList[i].incise === this.inciseService.selectedIncise){
+        this.scrwm = this.taskComponent.taskList[i];
+        this.openDialog();
+      }
+    }
+  }
+
+  openDialog(){
+    const dialogRef = this.dialog.open(DialogPublicProf);
+    dialogRef.afterClosed().subscribe(result => {
+      });
+      return; 
+    } 
+
+  editProf() {
     const dialogRef = this.dialog.open(ProfComponent);
     dialogRef.afterClosed().subscribe(result => {
     });
     return; 
-  }
-
-  editProf() {
-    const dialogRef = this.dialog.open(DialogPublicProf);
-    dialogRef.afterClosed().subscribe(result => {
-    });
-    return; 
-  }
-  
+  }  
 
 }
 
@@ -143,78 +232,14 @@ export class ProfComponent implements OnInit {
   templateUrl: 'dialog-public-prof.html',
   styleUrls: ['./prof.component.css']
 })
-export class DialogPublicProf {
+export class DialogPublicProf{
 
-  constructor(public profComponent: ProfComponent,
-              public profService: ProfService,
-              public imageService: ImageService,
+  constructor(public inciseService: InciseService,
               public taskComponent: TasksComponent,
-              public testing: TestingComponent,
-        ){}
+              public profComponent: ProfComponent,
 
-  file: File;
-  photoSel: string | ArrayBuffer;
-  userId: string = sessionStorage.getItem('currentUserId');
+  ){}
 
-  onPhotoSelected(event: HTMLInputEvent): void {
-    if(event.target.files && event.target.files[0]){    // confirma si existe un archivo subido
-      this.file = <File>event.target.files[0];          // guarda el archivo en file
-      const reader = new FileReader();                   // para que se vea en pantalla
-      reader.onload = e => this.photoSel = reader.result;
-      reader.readAsDataURL(this.file);
-    }
-  }
-
-  updateProf(form: NgForm){
-    this.testing.checkProf("prof 125");
-    const prof = this.profService.userProf;
-    prof.nickname = form.value.nickname;
-    prof.state = form.value.state;
-    prof.miniBio = form.value.miniBio;
-    if(this.photoSel){
-      this.deleteOldImages();
-    }
-    this.profService.putProf(prof)
-    .subscribe(res => {
-      this.taskComponent.getList();
-      this.testing.checkProf("prof 137");
-    });
-  }
-
-  deleteOldImages(){
-    this.imageService.getImages()
-    .subscribe(res => {
-      const A = this.imageService.images = res as Image[];
-      for(var i in A){
-        if(A[i].userId === this.userId){
-          this.imageService.deleteImage(A[i]._id)
-          .subscribe(res=>{
-          });
-        }
-      }
-      this.chargeNewImage();
-    });
-  }
-
-  chargeNewImage(){
-    const A = this.imageService.selectedImage = new Image;
-    A.userId = this.userId;
-    this.imageService.postImage(A, this.file)
-    .subscribe(res => {
-      this.getImage();
-    });
-  }
-
-  getImage(){
-    this.imageService.getImages()
-    .subscribe(res => {
-      const A = this.imageService.images = res as Image[];
-      for(var i in A){
-        if(A[i].userId === sessionStorage.getItem('currentUserId')){
-          this.imageService.selectedImage = A[i];
-          return
-        }
-      }
-    });
-  }
 }
+
+

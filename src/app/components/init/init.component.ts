@@ -37,7 +37,7 @@ export class InitComponent implements OnInit {
               public signinComponent: SigninComponent,
               public profComponent: ProfComponent,
               public taskComponent: TasksComponent,
-              ){}
+  ){}
 
   ngOnInit(): void {
     this.setUserImage();

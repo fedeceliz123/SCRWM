@@ -9,19 +9,18 @@
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
                             <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}</div>
-
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
-                                    <span  class="ttpTextArr">
+                                    <span class="ttpTextArr">
                                         <div *ngFor="let image of imageService.images">
-                                            <div class="flexbox" *ngIf="image.userId === incise.prof">
-                                                <div class="flex">
+                                            <div *ngIf="image.userId === incise.prof">
+                                                <div style="color: white;">
                                                     <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
-                                                    </ng-template>    
+                                                    </ng-template>  
+                                                    {{ prof.nickname }}
                                                 </div>
-                                                <div class="flex" style="color: white;"> {{ prof.nickname }} </div>  
                                             </div>
                                         </div>
                                         <div *ngIf="incise.hashtag[0]">
@@ -30,7 +29,6 @@
                                     </span> 
                                 </div>
                             </div>
-
                         </div>    
                     </div>
                 </div>
@@ -48,19 +46,36 @@
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
                             <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}</div>
-                            <div *ngIf="incise.hashtag[0]">
-                                <span  class="ttpTextIzq">
-                                    <div *ngFor="let a of incise.hashtag">
-                                        <div> #{{ a }} </div>
-                                    </div>
-                                </span> 
-                            </div>                               
+                            <div *ngFor="let prof of profService.profs">
+                                <div *ngIf="prof.userId === incise.prof">
+                                    <span class="ttpTextIzq">
+                                        <div *ngFor="let image of imageService.images">
+                                            <div *ngIf="image.userId === incise.prof">
+                                                <div style="color: white;">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <ng-template #defaultImage>
+                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                    </ng-template>  
+                                                    {{ prof.nickname }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="incise.hashtag[0]">
+                                            <div *ngFor="let a of incise.hashtag"> #{{ a }} </div>
+                                        </div>                               
+                                    </span> 
+                                </div>
+                            </div>                                                         
                         </div>    
                     </div>
                 </div>
 
+             
+
                 <div class="center">
                     <div class="cab">
+                        <img class="z-axis" src="assets/undo.png" alt="">
+                        <img class="z-axis" src="assets/redo.png" alt="">
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
                         <div *ngIf="inciseService.selectedIncise.diamond > 0">
                             <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
@@ -94,11 +109,26 @@
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
                             <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> {{ incise.content }}</div>
-                            <div *ngIf="incise.hashtag[0]">
-                                <span  class="ttpTextDer">
-                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
-                                </span> 
-                            </div>                               
+                            <div *ngFor="let prof of profService.profs">
+                                <div *ngIf="prof.userId === incise.prof">
+                                    <span class="ttpTextDer">
+                                        <div *ngFor="let image of imageService.images">
+                                            <div *ngIf="image.userId === incise.prof">
+                                                <div style="color: white;">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <ng-template #defaultImage>
+                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                    </ng-template>  
+                                                    {{ prof.nickname }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="incise.hashtag[0]">
+                                            <div *ngFor="let a of incise.hashtag"> #{{ a }} </div>
+                                        </div>                               
+                                    </span> 
+                                </div>
+                            </div>                                                                                       
                         </div>    
                     </div>
                 </div>
@@ -109,11 +139,26 @@
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
                             <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}</div>
-                            <div *ngIf="incise.hashtag[0]">
-                                <span  class="ttpTextAbj">
-                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
-                                </span> 
-                            </div>                               
+                            <div *ngFor="let prof of profService.profs">
+                                <div *ngIf="prof.userId === incise.prof">
+                                    <span class="ttpTextAbj">
+                                        <div *ngFor="let image of imageService.images">
+                                            <div *ngIf="image.userId === incise.prof">
+                                                <div style="color: white;">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <ng-template #defaultImage>
+                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                    </ng-template>  
+                                                    {{ prof.nickname }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="incise.hashtag[0]">
+                                            <div *ngFor="let a of incise.hashtag"> #{{ a }} </div>
+                                        </div>                               
+                                    </span> 
+                                </div>
+                            </div>                                                                                       
                         </div>    
                     </div>
                 </div>
@@ -141,11 +186,26 @@
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
                             <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}</div>
-                            <div *ngIf="incise.hashtag[0]">
-                                <span  class="ttpTextArr">
-                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
-                                </span> 
-                            </div>                               
+                            <div *ngFor="let prof of profService.profs">
+                                <div *ngIf="prof.userId === incise.prof">
+                                    <span class="ttpTextArr">
+                                        <div *ngFor="let image of imageService.images">
+                                            <div *ngIf="image.userId === incise.prof">
+                                                <div style="color: white;">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <ng-template #defaultImage>
+                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                    </ng-template>  
+                                                    {{ prof.nickname }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="incise.hashtag[0]">
+                                            <div *ngFor="let a of incise.hashtag"> #{{ a }} </div>
+                                        </div>                               
+                                    </span> 
+                                </div>
+                            </div>
                         </div>    
                     </div>
                 </div>
@@ -162,32 +222,49 @@
                 <div class="Izquierda">
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
-                            <div  class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}</div>
-                            <div *ngIf="incise.hashtag[0]">
-                                <span  class="ttpTextIzq">
-                                    <div id="D" *ngFor="let a of incise.hashtag">
-                                        <div id="D"> #{{ a }} </div>
-                                    </div>
-                                </span> 
-                            </div>                               
+                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}</div>
+                            <div *ngFor="let prof of profService.profs">
+                                <div *ngIf="prof.userId === incise.prof">
+                                    <span class="ttpTextIzq">
+                                        <div *ngFor="let image of imageService.images">
+                                            <div *ngIf="image.userId === incise.prof">
+                                                <div style="color: white;">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <ng-template #defaultImage>
+                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                    </ng-template>  
+                                                    {{ prof.nickname }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="incise.hashtag[0]">
+                                            <div *ngFor="let a of incise.hashtag"> #{{ a }} </div>
+                                        </div>                               
+                                    </span> 
+                                </div>
+                            </div>                                                         
                         </div>    
                     </div>
                 </div>
 
+             
+
                 <div class="center">
                     <div class="cab">
+                        <img class="z-axis" src="assets/undo.png" alt="">
+                        <img class="z-axis" src="assets/redo.png" alt="">
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
                         <div *ngIf="inciseService.selectedIncise.diamond > 0">
                             <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
                         </div>
                         <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                         <div class="ttpName">
-                            <img class="circulo" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
+                            <img class="circulo" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
                             <ng-template #defaultImage>
-                              <img class="circulo" src="assets/no-image.png" alt="">
+                              <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                             </ng-template>
                             <div *ngFor="let prof of profService.profs">
-                                <div *ngIf="prof.userId === inciseService.selectedIncise.prof">
+                                <div *ngIf="prof.userId === inciseService.selectedIncise.prof && prof.nickname">
                                     <span class="ttpTextName"> {{ prof.nickname }} </span>
                                 </div>
                             </div>
@@ -204,16 +281,31 @@
                         <div id="E" (mouseup)="ToComment($event)"></div>
                     </div>
                 </div>
-                
+
                 <div class="Derecha">
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
                             <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> {{ incise.content }}</div>
-                            <div *ngIf="incise.hashtag[0]">
-                                <span  class="ttpTextDer">
-                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
-                                </span> 
-                            </div>                               
+                            <div *ngFor="let prof of profService.profs">
+                                <div *ngIf="prof.userId === incise.prof">
+                                    <span class="ttpTextDer">
+                                        <div *ngFor="let image of imageService.images">
+                                            <div *ngIf="image.userId === incise.prof">
+                                                <div style="color: white;">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <ng-template #defaultImage>
+                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                    </ng-template>  
+                                                    {{ prof.nickname }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="incise.hashtag[0]">
+                                            <div *ngFor="let a of incise.hashtag"> #{{ a }} </div>
+                                        </div>                               
+                                    </span> 
+                                </div>
+                            </div>                                                                                       
                         </div>    
                     </div>
                 </div>
@@ -224,11 +316,26 @@
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
                             <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}</div>
-                            <div *ngIf="incise.hashtag[0]">
-                                <span  class="ttpTextAbj">
-                                    <div *ngFor="let a of incise.hashtag">#{{ a }}</div>
-                                </span> 
-                            </div>                               
+                            <div *ngFor="let prof of profService.profs">
+                                <div *ngIf="prof.userId === incise.prof">
+                                    <span class="ttpTextAbj">
+                                        <div *ngFor="let image of imageService.images">
+                                            <div *ngIf="image.userId === incise.prof">
+                                                <div style="color: white;">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <ng-template #defaultImage>
+                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                    </ng-template>  
+                                                    {{ prof.nickname }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="incise.hashtag[0]">
+                                            <div *ngFor="let a of incise.hashtag"> #{{ a }} </div>
+                                        </div>                               
+                                    </span> 
+                                </div>
+                            </div>                                                                                       
                         </div>    
                     </div>
                 </div>
