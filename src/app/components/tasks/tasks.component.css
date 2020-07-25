@@ -112,8 +112,12 @@
     opacity: 0.6;
 }
 
-#BigAnchor, #BigDiamond, #BigContact{
+#BigAnchor, #BigDiamond, #BigContact, #BigHeader{
       width: 30px;
       margin-top: 10px;
       margin-bottom: 10px;
+  }
+
+  #BigHeader{
+      color: black;
   }
