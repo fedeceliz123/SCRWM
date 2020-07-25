@@ -39,9 +39,49 @@ export class TasksComponent implements OnInit {
     this.getList();
   }
 
-  Diamond: boolean = false;
-  Anchor: boolean = false;
+  Own: boolean = false;
   Contact: boolean = false;
+  Anchor: boolean = false;
+  Diamond: boolean = false;
+  Header: boolean = false;
+
+  filterByOwns(){
+    this.Own = !this.Own;
+    if(this.Own){
+      if(this.Contact){
+        this.Contact = !this.Contact;
+        document.getElementById('contactBtn').style.backgroundColor = 'rgb(224, 232, 251)';
+      }
+      document.getElementById('ownBtn').style.backgroundColor = '#006064';
+    } else {
+      document.getElementById('ownBtn').style.backgroundColor = 'rgb(224, 232, 251)';
+    }
+    this.getList();
+  }
+
+  filterByContacts(){
+    this.Contact = !this.Contact;
+    if(this.Contact){
+      if(this.Own){
+        this.Own = !this.Own;
+        document.getElementById('ownBtn').style.backgroundColor = 'rgb(224, 232, 251)';
+      }
+      document.getElementById('contactBtn').style.backgroundColor = '#006064';
+    } else {
+      document.getElementById('contactBtn').style.backgroundColor = 'rgb(224, 232, 251)';
+    }
+    this.getList();
+  }
+  
+  filterByAnchors(){
+    this.Anchor = !this.Anchor;
+    if(this.Anchor){
+      document.getElementById('anchorBtn').style.backgroundColor = '#006064';
+    } else {
+      document.getElementById('anchorBtn').style.backgroundColor = 'rgb(224, 232, 251)';
+    }
+    this.getList();
+  }
 
   filterByDiamonds(){
     this.Diamond = !this.Diamond;
@@ -53,26 +93,16 @@ export class TasksComponent implements OnInit {
     this.getList();
   }
 
-  filterByAnchors(){
-    this.Anchor = !this.Anchor;
-    if(this.Anchor){
-      document.getElementById('anchorBtn').style.backgroundColor = '#006064';
+  filterByHeader(){
+    this.Header = !this.Header;
+    if(this.Header){
+      document.getElementById('headerBtn').style.backgroundColor = '#006064';
     } else {
-      document.getElementById('anchorBtn').style.backgroundColor = 'rgb(224, 232, 251)';
+      document.getElementById('headerBtn').style.backgroundColor = 'rgb(224, 232, 251)';
     }
     this.getList();
   }
 
-  filterByContacts(){
-    this.Contact = !this.Contact;
-    if(this.Contact){
-      document.getElementById('contactBtn').style.backgroundColor = '#006064';
-    } else {
-      document.getElementById('contactBtn').style.backgroundColor = 'rgb(224, 232, 251)';
-    }
-    this.getList();
-  }
-  
   taskList: any[] = [{
     "incise": Object,
     "image": Object,
@@ -99,16 +129,23 @@ export class TasksComponent implements OnInit {
   getAll(A: Incise[], I: Image[], P: Prof[]){
     let unfilteredList = [];
     for(var i in A){
-      if(A[i].title){
-        let image = {};
-        for(var j in I){
-          if (I[j].userId === A[i].prof){
-            image = I[j];
-          }
-        }
-        for(var k in P){
-          if(P[k].userId === A[i].prof){
-            unfilteredList.push({"incise" : A[i], image, prof : P[k]});
+      for(var j in this.profService.userProf.favIncises){
+        for(var k in this.profService.userProf.following){
+          if(A[i].publicity === true 
+          || A[i].prof === this.currentUserId 
+          || A[i]._id === this.profService.userProf.favIncises[j]
+          || A[i]._id === this.profService.userProf.following[k]){
+            let image = {};
+            for(var l in I){
+              if (A[i].prof === I[l].userId){
+                image = I[l];
+              }
+            }
+            for(var m in P){
+              if(A[i].prof === P[m].userId){
+                unfilteredList.push({"incise" : A[i], image, prof : P[m]});
+              }
+            }
           }
         }
       }
@@ -153,17 +190,21 @@ export class TasksComponent implements OnInit {
   }
 
   openDialogHeader(){
-    const incise = this.inciseService.selectedIncise;
-    if(!incise._id){
-      M.toast({html: "No incise selected"});
+    if(this.inciseService.selectedIncise.prof != this.currentUserId){
+        M.toast({html: "You can only edit Header of your won incises"})
     } else {
-      const dialogRef = this.dialog.open(DialogHeader);
-      dialogRef.afterClosed().subscribe(res => {
-        this.inciseService.getIncises()
-        .subscribe(res => {
-          this.inciseService.incises = res as Incise[];
+      const incise = this.inciseService.selectedIncise;
+      if(!incise._id){
+        M.toast({html: "No incise selected"});
+      } else {
+        const dialogRef = this.dialog.open(DialogHeader);
+        dialogRef.afterClosed().subscribe(res => {
+          this.inciseService.getIncises()
+          .subscribe(res => {
+            this.inciseService.incises = res as Incise[];
+          });
         });
-      });
+      }  
     }
   }
 

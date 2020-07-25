@@ -4,38 +4,84 @@
     <div class="right">
         <mat-accordion>
             <div *ngFor="let task of taskList">
-                <mat-expansion-panel hideToggle>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title >
-                            <div class="tooltip">
-                                <img class="circulo" *ngIf="task.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + task.image.imagePath">
-                                <ng-template #defaultImage>
-                                        <img class="circulo" src="assets/no-image.png">
-                                </ng-template>
-                                <div *ngIf="task.prof.nickname">
-                                    <span class="tooltiptext">
-                                        <p>@{{ task.prof.nickname }}  {{task.prof.state }}</p>
-                                        <p>{{ task.prof.miniBio }}</p> 
-                                    </span>    
-                                </div>
-                            </div>  
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            <p class="title" (click)="showAround.toCenter(task.incise)">{{ task.incise.title }}  </p>
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <div class="date">
-                        <p ng-bind="date | date:'MM/dd/yyyy'"></p>
-                            {{ task.incise.updatedAt }} -- {{ task.incise.createdAt }} -- Public: {{ task.incise.publicity }}
-                    </div>
-                    <p class="subtitle"> {{ task.incise.subtitle }} </p>      
-                </mat-expansion-panel>       
+                <div *ngIf="task.incise.title, else noTitle">
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title >
+                                <div class="tooltip">
+                                    <img class="circulo" *ngIf="task.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + task.image.imagePath">
+                                    <ng-template #defaultImage>
+                                            <img class="circulo" src="assets/no-image.png">
+                                    </ng-template>
+                                    <div *ngIf="task.prof.nickname">
+                                        <span class="tooltiptext">
+                                            <p>@{{ task.prof.nickname }}  {{task.prof.state }}</p>
+                                            <p>{{ task.prof.miniBio }}</p> 
+                                        </span>    
+                                    </div>
+                                </div>  
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                <p class="title" (click)="showAround.toCenter(task.incise)">{{ task.incise.title }}  </p>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="date">
+                            <p ng-bind="date | date:'MM/dd/yyyy'"></p>
+                                {{ task.incise.updatedAt }} -- {{ task.incise.createdAt }} -- Public: {{ task.incise.publicity }}
+                        </div>
+                        <p class="subtitle"> {{ task.incise.subtitle }} </p>      
+                    </mat-expansion-panel>       
+                </div>
+
+                <ng-template #noTitle>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title >
+                                <div class="tooltip">
+                                    <img class="circulo" *ngIf="task.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + task.image.imagePath">
+                                    <ng-template #defaultImage>
+                                            <img class="circulo" src="assets/no-image.png">
+                                    </ng-template>
+                                    <div *ngIf="task.prof.nickname">
+                                        <span class="tooltiptext">
+                                            <p>@{{ task.prof.nickname }}  {{task.prof.state }}</p>
+                                            <p>{{ task.prof.miniBio }}</p> 
+                                        </span>    
+                                    </div>
+                                </div>  
+                            </mat-panel-title>
+                            <mat-panel-description>
+
+                                <p class="content" (click)="showAround.toCenter(task.incise)">{{ task.incise.content }}  </p>
+                                
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="date">
+                            <p ng-bind="date | date:'MM/dd/yyyy'"></p>
+                                {{ task.incise.updatedAt }} -- {{ task.incise.createdAt }} -- Public: {{ task.incise.publicity }}
+
+                        </div>
+                        <div class="cab">
+                            <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
+                            <img class="diamond" id="diamond" src="assets/diamond.png">
+                            <div class="hashtags">
+                                <div *ngFor="let hashtag of showAround.Hashtags">
+                                    <mat-chip-list>
+                                        <mat-chip>#{{ hashtag }}</mat-chip>
+                                    </mat-chip-list>
+                               </div>    
+                            </div>
+                        </div>                        
+                        
+                    </mat-expansion-panel>  
+                </ng-template>
+
             </div>
         </mat-accordion>    
     </div>
     <div class="extra-right">
-        <button mat-button id="anchorBtn" (click)="filterByAnchors()">
-            <img id="BigHeader" src="assets/edit.png">
+        <button mat-button id="ownBtn" (click)="filterByOwns()">
+            <img id="BigOwn" src="assets/edit.png">
         </button>
         <button mat-button id="contactBtn" (click)="filterByContacts()">
             <img id="BigContact" src="assets/follow.png">
@@ -46,7 +92,7 @@
         <button mat-button id="diamondBtn" (click)="filterByDiamonds()">
             <img id="BigDiamond" src="assets/diamond.png">
         </button>
-        <button mat-button id="anchorBtn" (click)="filterByAnchors()">
+        <button mat-button id="headerBtn" (click)="filterByHeader()">
             <img id="BigHeader" src="assets/BigHeader.png">
         </button>
     </div>

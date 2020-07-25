@@ -112,7 +112,7 @@
     opacity: 0.6;
 }
 
-#BigAnchor, #BigDiamond, #BigContact, #BigHeader{
+#BigAnchor, #BigDiamond, #BigContact, #BigHeader, #BigOwn{
       width: 30px;
       margin-top: 10px;
       margin-bottom: 10px;
@@ -121,3 +121,42 @@
   #BigHeader{
       color: black;
   }
+
+  .content{
+    color: darkslategray;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 35px; 
+    overflow: scroll; 
+    margin-top: 5px;
+    margin-left: 15px;
+    margin-right: -10px;
+}
+
+.cab{
+    display: flex;
+    flex-direction: row-reverse;
+    height: 30px;
+}
+
+.diamond{
+    height: 15px;
+}
+
+.followers{
+    color: rgb(206, 205, 205);
+    font-size: 12px;
+}
+
+.hashtags{
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin-left: 3px;
+}
+
+.mat-chip{
+    color: orange;
+    background-color: white;
+    cursor: pointer;
+}
