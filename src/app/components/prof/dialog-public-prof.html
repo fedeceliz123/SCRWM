@@ -1,26 +1,42 @@
-<div class="container">
-  <div>
-        {{ profComponent.scrwm.prof.nickname }}
-          <mat-card-header>
-            <mat-card-title>{{ profComponent.scrwm.prof.nickname }}</mat-card-title>
-          </mat-card-header>
-              <img class="image" *ngIf="profComponent.scrwm.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + profComponent.scrwm.image.imagePath">
-              <ng-template #defaultImage>
-                <img class="image" src="assets/no-image.png">
-              </ng-template>
-            <mat-card-subtitle>
-              <div>
-                AAA
-              </div>
-            </mat-card-subtitle>
-        </div>
-        <div>
-          <mat-card-content>
-           {{ profComponent.scrwm.prof.minBio }}
-          </mat-card-content>
-
-    <mat-card-actions>
-      <button mat-button [mat-dialog-close]="true">Close</button>
-    </mat-card-actions>
+<div class="mat-card">
+  <div class="container">
+    <div>
+      <mat-card-header>
+        <mat-card-title>
+          <div class="switch">
+            {{ profComponent.scrwm.prof.nickname }}
+            <label *ngIf="profComponent.scrwm.prof.userId != profService.userProf.userId">
+              <input type="checkbox" name="publicity" #publicity="ngModel" [ngModel]="inciseService.selectedIncise.publicity" class="form-control">
+              <span class="lever"></span>
+              Follow
+            </label>
+          </div>
+      </mat-card-title>
+      </mat-card-header>
+          <img class="image" *ngIf="profComponent.scrwm.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + profComponent.scrwm.image.imagePath">
+          <ng-template #defaultImage>
+            <img class="image" src="assets/no-image.png">
+          </ng-template>
+        <mat-card-subtitle>
+          <div>
+            <img class="followers" src="assets/glasses.png">
+           followers: {{ profComponent.scrwm.prof.followers }}
+            <img class="diamond" src="assets/diamond.png">
+           diamonds: {{ diamond }}
+          </div>
+          <div>
+  
+          </div>
+        </mat-card-subtitle>
+    </div>
+    <div>
+      <mat-card-content>
+       <p>MiniBio: {{ profComponent.scrwm.prof.miniBio }}</p>
+      </mat-card-content>  
+    </div>
+  </div>
+  <div style="text-align: end;">
+    <button mat-button >Public Scrwms</button>
+    <button mat-button [mat-dialog-close]="true">Close</button>
   </div>
 </div>

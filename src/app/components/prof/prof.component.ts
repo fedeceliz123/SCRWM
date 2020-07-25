@@ -232,13 +232,34 @@ export class ProfComponent implements OnInit {
   templateUrl: 'dialog-public-prof.html',
   styleUrls: ['./prof.component.css']
 })
-export class DialogPublicProf{
+export class DialogPublicProf implements OnInit{
 
   constructor(public inciseService: InciseService,
               public taskComponent: TasksComponent,
               public profComponent: ProfComponent,
-
+              public profService: ProfService,
   ){}
+
+  ngOnInit(): void {
+    this.setDiamods();
+  }
+
+  diamond: number;
+
+  setDiamods(){
+    let count = 0
+    
+    for(var i in this.taskComponent.taskList){
+      if(this.taskComponent.taskList[i].incise.prof === this.profService.userProf.userId){
+        if(this.taskComponent.taskList[i].incise.diamond){
+          console.log(this.taskComponent.taskList[i].incise.diamond)
+          count = count + this.taskComponent.taskList[i].incise.diamond;
+        }
+      }
+    }
+    this.diamond = count;
+    console.log(this.diamond)
+  }
 
 }
 

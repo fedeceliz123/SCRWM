@@ -1,4 +1,3 @@
-
 .container{
     display: inline-flex;
     width: 850px;
@@ -22,12 +21,20 @@
     width: 350px;
     margin-left: 5px;
     margin-right: 60px;
-    border-radius: 25px;
+    margin-top: 5px;
+    border-radius: 50px;
     border: gba(143, 174, 195, 1); 
     border-style: outset;
-    
 }
 
+.followers{
+    width: 40px;
+    height: auto;
+}
+
+.diamond{
+    height: 25px;
+}
 
 .example-card {
     max-width: 400px;
