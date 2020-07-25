@@ -28,10 +28,15 @@
 }
 
 .followers{
-    width: 40px;
+    width: 25px;
     height: auto;
 }
 
 .diamond{
     height: 25px;
+}
+
+.points{
+    display: flex;
+    justify-content: space-around;
 }

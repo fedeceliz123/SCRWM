@@ -245,27 +245,30 @@ export class DialogPublicProf implements OnInit{
   }
 
   diamond: number;
+  isFoll: boolean;
+  selProf = this.profComponent.scrwm.prof;
+  userProf = this.profService.userProf;
 
   setDiamods(){
     let count = 0
-    for(var i in this.taskComponent.taskList){
-      if(this.taskComponent.taskList[i].incise.prof === this.profService.userProf.userId){
-        if(this.taskComponent.taskList[i].incise.diamond){
-          console.log(this.taskComponent.taskList[i].incise.diamond)
-          count = count + this.taskComponent.taskList[i].incise.diamond;
+    this.inciseService.getIncises()
+    .subscribe(res=>{
+      const A = this.inciseService.incises = res as Incise[];
+      for(var i in A){
+        if(A[i].prof === this.selProf.userId){
+          if(A[i].diamond){
+            count = count + A[i].diamond;
+          }
         }
       }
-    }
-    this.diamond = count;
+      this.diamond = count;   
+     })
   }
 
-  isFoll: boolean;
-
   isFollowing(){
-    const selProf = this.profComponent.scrwm.prof;
     const F = this.profService.userProf.following;
     for(var i in F){
-      if(F[i] === selProf._id){
+      if(F[i] === this.selProf._id){
         this.isFoll = true;
         return this.isFoll;
       }
@@ -274,25 +277,23 @@ export class DialogPublicProf implements OnInit{
   }
 
   followness(form: NgForm){
-    const selProf = this.profComponent.scrwm.prof;
-    const userProf = this.profService.userProf;
     if(form.value.event === true){
-      for(var i in userProf.following){
-        if(userProf.following[i] === selProf._id){
+      for(var i in this.userProf.following){
+        if(this.userProf.following[i] === this.selProf._id){
           return
         }
       }
-      selProf.followers ++;
-      userProf.following.push(selProf._id);
-      this.saveProfs(selProf, userProf);
+      this.selProf.followers ++;
+      this.userProf.following.push(this.selProf._id);
+      this.saveProfs(this.selProf, this.userProf);
     }
     if(form.value.event === false){
-      for(var i in userProf.following){
-        if(userProf.following[i] === selProf._id){
-          selProf.followers --;
-          const index = userProf.following.indexOf(i)+1;
-          userProf.following.splice(index, 1);
-          this.saveProfs(selProf, userProf);
+      for(var i in this.userProf.following){
+        if(this.userProf.following[i] === this.selProf._id){
+          this.selProf.followers --;
+          const index = this.userProf.following.indexOf(i)+1;
+          this.userProf.following.splice(index, 1);
+          this.saveProfs(this.selProf, this.userProf);
         }
       }
     }

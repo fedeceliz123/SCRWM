@@ -72,7 +72,7 @@ export class TasksComponent implements OnInit {
     }
     this.getList();
   }
-
+  
   taskList: any[] = [{
     "incise": Object,
     "image": Object,
