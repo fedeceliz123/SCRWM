@@ -230,7 +230,7 @@ export class ProfComponent implements OnInit {
 @Component({
   selector: 'dialog-public-prof',
   templateUrl: 'dialog-public-prof.html',
-  styleUrls: ['./prof.component.css']
+  styleUrls: ['./dialog-public-prof.css']
 })
 export class DialogPublicProf implements OnInit{
 
@@ -248,7 +248,6 @@ export class DialogPublicProf implements OnInit{
 
   setDiamods(){
     let count = 0
-    
     for(var i in this.taskComponent.taskList){
       if(this.taskComponent.taskList[i].incise.prof === this.profService.userProf.userId){
         if(this.taskComponent.taskList[i].incise.diamond){
@@ -258,7 +257,53 @@ export class DialogPublicProf implements OnInit{
       }
     }
     this.diamond = count;
-    console.log(this.diamond)
+  }
+
+  isFoll: boolean;
+
+  isFollowing(){
+    const selProf = this.profComponent.scrwm.prof;
+    const F = this.profService.userProf.following;
+    for(var i in F){
+      if(F[i] === selProf._id){
+        this.isFoll = true;
+        return this.isFoll;
+      }
+    }
+    this.isFoll = false;
+  }
+
+  followness(form: NgForm){
+    const selProf = this.profComponent.scrwm.prof;
+    const userProf = this.profService.userProf;
+    if(form.value.event === true){
+      for(var i in userProf.following){
+        if(userProf.following[i] === selProf._id){
+          return
+        }
+      }
+      selProf.followers ++;
+      userProf.following.push(selProf._id);
+      this.saveProfs(selProf, userProf);
+    }
+    if(form.value.event === false){
+      for(var i in userProf.following){
+        if(userProf.following[i] === selProf._id){
+          selProf.followers --;
+          const index = userProf.following.indexOf(i)+1;
+          userProf.following.splice(index, 1);
+          this.saveProfs(selProf, userProf);
+        }
+      }
+    }
+  }
+
+  saveProfs(selProf: Prof, userProf: Prof){
+    console.log(selProf, userProf)
+    this.profService.putProf(selProf)
+    .subscribe(res=>{})
+    this.profService.putProf(userProf)
+    .subscribe(res=>{})
   }
 
 }

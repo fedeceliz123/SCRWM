@@ -77,9 +77,7 @@
                         <img class="z-axis" src="assets/undo.png" alt="">
                         <img class="z-axis" src="assets/redo.png" alt="">
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
-                        <div *ngIf="inciseService.selectedIncise.diamond > 0">
-                            <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
-                        </div>
+                        <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
                         <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                         <div class="ttpName">
                             <img class="circulo" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
@@ -254,9 +252,7 @@
                         <img class="z-axis" src="assets/undo.png" alt="">
                         <img class="z-axis" src="assets/redo.png" alt="">
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
-                        <div *ngIf="inciseService.selectedIncise.diamond > 0">
-                            <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
-                        </div>
+                        <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
                         <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                         <div class="ttpName">
                             <img class="circulo" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
