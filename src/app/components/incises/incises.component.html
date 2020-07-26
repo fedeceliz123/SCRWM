@@ -74,8 +74,12 @@
 
                 <div class="center">
                     <div class="cab">
-                        <img class="z-axis" src="assets/undo.png" alt="">
-                        <img class="z-axis" src="assets/redo.png" alt="">
+                        <div *ngIf="inciseService.selectedIncise.after[0]">
+                            <img class="z-axis" src="assets/undo.png" alt="">
+                        </div>
+                        <div *ngIf="inciseService.selectedIncise.after[0]">
+                            <img class="z-axis" src="assets/redo.png" alt="">
+                        </div>
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
                         <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
                         <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
@@ -245,12 +249,14 @@
                     </div>
                 </div>
 
-             
-
                 <div class="center">
                     <div class="cab">
-                        <img class="z-axis" src="assets/undo.png" alt="">
-                        <img class="z-axis" src="assets/redo.png" alt="">
+                        <div *ngIf="inciseService.selectedIncise.after[0]">
+                            <img class="z-axis" src="assets/undo.png" alt="">
+                        </div>
+                        <div *ngIf="inciseService.selectedIncise.after[0]">
+                            <img class="z-axis" src="assets/redo.png" alt="">
+                        </div>
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
                         <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
                         <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">

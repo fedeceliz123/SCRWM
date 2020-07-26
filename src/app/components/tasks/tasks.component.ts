@@ -210,8 +210,13 @@ export class TasksComponent implements OnInit {
   }];
 
   searcher(event: any){
-    console.log(this.searchList[0].incise.title)
-    this.taskList = this.searchList.filter(w => w.incise.title.toLowerCase().includes(event.toLowerCase()));
+    if(event.includes('@')){
+      this.taskList = this.searchList.filter(w => w.prof.nickname.toLowerCase().includes(event.toLowerCase().substring(1)));
+    } else {
+      this.taskList = this.searchList.filter(w => w.incise.title.toLowerCase().includes(event.toLowerCase())
+      || w.incise.subtitle.toLowerCase().includes(event.toLowerCase())
+      || w.incise.content.toLowerCase().includes(event.toLowerCase()));  
+    }
   }
 
   openDialogHeader(){

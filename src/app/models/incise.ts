@@ -12,12 +12,13 @@ export class Incise {
         down: string[];
         left: Comm[];
         right: string[];
+        before: string[];
+        after: string[];
 
         hashtag: string[];
         diamond: number;
         date: string;
         modified: string;
-        record: string[];
         publicity: boolean;
 
         
@@ -33,12 +34,13 @@ export class Incise {
         this.down = [];
         this.left = [];
         this.right = [];
+        this.before = [];
+        this.after = [];
 
         this.hashtag = [];
         this.diamond = 0;
         this.date = date;
         this.modified = modified;
-        this.record = [];
         this.publicity = false;
 
     }
