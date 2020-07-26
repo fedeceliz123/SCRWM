@@ -40,9 +40,13 @@ export class IncisesComponent {
     ){ }
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
-   if(event.keyCode === 13){
-      this.showAround.DirLast = "Up";
-      this.keyListener.editedIncise();
+    if(event.keyCode === 13){
+      if(window.getSelection().toString() != ""){
+        this.ToComment(window.getSelection());
+      } else {
+        this.showAround.DirLast = "Up";
+        this.keyListener.editedIncise();
+      }
     } else if(event.shiftKey){
       if(event.keyCode === 37){
         this.showAround.DirLast = "Right";
@@ -60,17 +64,13 @@ export class IncisesComponent {
   }
 
   ToComment(event: any){
-    if(event.shiftKey){
-      if(window.getSelection().toString() ){
-        const comm = new Comm;
-        comm.commt = window.getSelection().toString().trim();
-        comm.initial = window.getSelection().getRangeAt(0).startOffset;
-        comm.final = window.getSelection().getRangeAt(0).endOffset;
-        comm.IdComm = this.inciseService.selectedIncise._id;
-        this.showAround.DirLast = "Left";
-        this.keyListener.editedIncise(comm);  
-      }
-    }
+    const comm = new Comm;
+    comm.commt = event.toString().trim();
+    comm.initial = event.getRangeAt(0).startOffset;
+    comm.final = event.getRangeAt(0).endOffset;
+    comm.IdComm = this.inciseService.selectedIncise._id;
+    this.showAround.DirLast = "Left";
+    this.keyListener.editedIncise(comm);  
   }
 
   zoomMin(){
