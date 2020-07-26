@@ -83,16 +83,6 @@ export class TasksComponent implements OnInit {
     this.getList();
   }
 
-  filterByDiamonds(){
-    this.Diamond = !this.Diamond;
-    if(this.Diamond){
-      document.getElementById('diamondBtn').style.backgroundColor = '#006064';
-    } else {
-      document.getElementById('diamondBtn').style.backgroundColor = 'rgb(224, 232, 251)';
-    }
-    this.getList();
-  }
-
   filterByHeader(){
     this.Header = !this.Header;
     if(this.Header){
@@ -129,69 +119,93 @@ export class TasksComponent implements OnInit {
   getAll(A: Incise[], I: Image[], P: Prof[]){
     let unfilteredList = [];
     for(var i in A){
-      for(var j in this.profService.userProf.favIncises){
-        for(var k in this.profService.userProf.following){
-          if(A[i].publicity === true 
-          || A[i].prof === this.currentUserId 
-          || A[i]._id === this.profService.userProf.favIncises[j]
-          || A[i]._id === this.profService.userProf.following[k]){
-            let image = {};
-            for(var l in I){
-              if (A[i].prof === I[l].userId){
-                image = I[l];
-              }
+      if(A[i].publicity === true || A[i].prof === this.currentUserId){ 
+        let image = {};
+        for(var j in I){
+          if(A[i].prof === I[j].userId){
+            image = I[j];
+          }
+        }
+        for(var k in P){
+          if(A[i].prof === P[k].userId){
+            unfilteredList.push({"incise" : A[i], "image" : image, "prof" : P[k]});
+          }
+        }
+      }else for(var l in this.profService.userProf.following){
+        if(A[i]._id === this.profService.userProf.following[l]){
+          let image = {};
+          for(var j in I){
+            if(A[i].prof === I[j].userId){
+              image = I[j];
             }
-            for(var m in P){
-              if(A[i].prof === P[m].userId){
-                unfilteredList.push({"incise" : A[i], image, prof : P[m]});
-              }
+          }
+          for(var k in P){
+            if(A[i].prof === P[k].userId){
+              unfilteredList.push({"incise" : A[i], "image" : image, "prof" : P[k]});
             }
           }
         }
       }
     }
-    this.filterAnchors(unfilteredList);
+  this.filterOwns(unfilteredList);
   }
 
-  filterAnchors(unfilteredList: any[]){
-    let filterOne = [];
+  filterOwns(unfilteredList: any[]){
+    let filterOwn = [];
+    if(this.Own){
+      filterOwn = unfilteredList.filter( w =>  w.prof.userId === this.profService.userProf.userId);
+    } else {
+      filterOwn = unfilteredList;
+    }
+    this.filterContacts(filterOwn)
+  }
+
+  filterContacts(filterOwn: any){
+    let filterContact = [];
+    if(this.Contact){
+      filterContact = filterOwn.filter( w => {
+        for(var q in this.profService.userProf.following){
+          if(w.prof._id === this.profService.userProf.following[q]){
+            return this.profService.userProf.following[q];
+          };
+        }
+      });
+    } else {
+      filterContact = filterOwn;
+    }
+  this.filterAnchors(filterContact)
+  }
+
+  filterAnchors(filterContact: any[]){
+    let filterAnchor = [];
     if(this.Anchor){
-      filterOne = unfilteredList.filter(unfiltered => {
-        for(var i in this.profService.userProf.anchors){
-          if(unfiltered.incise._id === this.profService.userProf.anchors[i]){
-            return this.profService.userProf.anchors[i];
+      filterAnchor = filterContact.filter(w => {
+        for(var p in this.profService.userProf.anchors){
+          if(w.incise._id === this.profService.userProf.anchors[p]){
+            return this.profService.userProf.anchors[p];
           }
         }    
       })
     } else {
-      filterOne = unfilteredList;
+      filterAnchor = filterContact;
     }
-    this.filterDiamonds(filterOne)
+    this.filterHeaders(filterAnchor);
   }
 
-  filterDiamonds(filterOne: any[]){
-    let filterTwo = [];
-    if(this.Diamond){
-      this.taskList = filterOne.filter(unfiltered => {
-        for(var j in this.profService.userProf.favIncises){
-          if(unfiltered.incise._id === this.profService.userProf.favIncises[j]){
-            return this.profService.userProf.favIncises[j];
-          }
-        }    
-      });
+  filterHeaders(filterAnchor: any[]){
+    let filterHeader = [];
+    if(this.Header){
+      filterHeader = filterAnchor.filter(w => w.incise.title);
     } else {
-      this.taskList = filterOne;
+      filterHeader = filterAnchor;
     }
-    //this.filterContacts(filterTwo)
+    this.taskList = filterHeader;
   }
 
-  filterContacts(filterTwo: any){
-    
-  }
 
   openDialogHeader(){
     if(this.inciseService.selectedIncise.prof != this.currentUserId){
-        M.toast({html: "You can only edit Header of your won incises"})
+        M.toast({html: "You can only edit headers of your own incises"})
     } else {
       const incise = this.inciseService.selectedIncise;
       if(!incise._id){

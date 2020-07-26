@@ -36,8 +36,6 @@ export class ShowAroundComponent implements OnInit {
 
   toCenter(incise: Incise) {
     console.log("(toCenter)");
-    console.log(incise)
-    console.log(this.inciseService.selectedIncise)
     this.inciseService.selectedIncise = incise;
     this.resetConstants();
     this.showAround(incise);
