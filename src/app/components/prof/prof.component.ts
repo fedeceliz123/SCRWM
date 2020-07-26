@@ -277,22 +277,23 @@ export class DialogPublicProf implements OnInit{
   }
 
   followness(form: NgForm){
+    const F = this.userProf.following;
     if(form.value.event === true){
-      for(var i in this.userProf.following){
-        if(this.userProf.following[i] === this.selProf._id){
+      for(var i in F){
+        if(F[i] === this.selProf._id){
           return
         }
       }
       this.selProf.followers ++;
-      this.userProf.following.push(this.selProf._id);
+      F.push(this.selProf._id);
       this.saveProfs(this.selProf, this.userProf);
     }
     if(form.value.event === false){
-      for(var i in this.userProf.following){
-        if(this.userProf.following[i] === this.selProf._id){
+      for(var i in F){
+        if(F[i] === this.selProf._id){
           this.selProf.followers --;
-          const index = this.userProf.following.indexOf(i)+1;
-          this.userProf.following.splice(index, 1);
+          const index = F.indexOf(i)+1;
+          F.splice(index, 1);
           this.saveProfs(this.selProf, this.userProf);
         }
       }

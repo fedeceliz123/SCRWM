@@ -119,22 +119,21 @@ export class IncisesComponent {
   }
 
   diamondSelected(){
-    if(document.getElementById('E').isContentEditable){
-      document.getElementById('diamond').style.opacity = "0.1";
-    } else {
+    if(!document.getElementById('E').isContentEditable){
       const I = this.inciseService.selectedIncise;
       if(I._id){
         this.testing.checkProf("incises 132");
         const P = this.profService.userProf;
-        for(var i in P.favIncises){
-          if(P.favIncises[i] === I._id){
-            const index = P.favIncises.indexOf(i)+1;
+        let index = 0;
+        while(P.favIncises[index]){
+          if(P.favIncises[index] === I._id){
             P.favIncises.splice(index, 1);
             I.diamond --;
             document.getElementById('diamond').style.opacity = "0.1";
             this.updateProf();
             return;
           }
+          index++;
         }
         P.favIncises.push(I._id);
         I.diamond ++;
@@ -149,14 +148,15 @@ export class IncisesComponent {
     if(I._id){
       this.testing.checkProf("incises 153");
       const P = this.profService.userProf;
-      for(var i in P.anchors){
-        if(P.anchors[i] === I._id){
-          const index = P.anchors.indexOf(i)+1;
+      let index = 0;
+      while (P.anchors[index]){
+        if(P.anchors[index] === I._id){
           P.anchors.splice(index, 1);
           document.getElementById('anchor').style.opacity = "0.1";
           this.updateProf();
           return;
         }
+        index++;
       }
       P.anchors.push(I._id);
       document.getElementById('anchor').style.opacity = "1";
