@@ -15,8 +15,7 @@
                                     </ng-template>
                                     <div *ngIf="task.prof.nickname">
                                         <span class="tooltiptext">
-                                            <p>@{{ task.prof.nickname }}  {{task.prof.state }}</p>
-                                            <p>{{ task.prof.miniBio }}</p> 
+                                            @{{ task.prof.nickname }} <hr> {{task.prof.state }}
                                         </span>    
                                     </div>
                                 </div>  
@@ -44,8 +43,7 @@
                                     </ng-template>
                                     <div *ngIf="task.prof.nickname">
                                         <span class="tooltiptext">
-                                            <p>@{{ task.prof.nickname }}  {{task.prof.state }}</p>
-                                            <p>{{ task.prof.miniBio }}</p> 
+                                            @{{ task.prof.nickname }} <hr> {{task.prof.state }}
                                         </span>    
                                     </div>
                                 </div>  
@@ -80,17 +78,32 @@
         </mat-accordion>    
     </div>
     <div class="extra-right">
-        <button mat-button id="ownBtn" (click)="filterByOwns()">
-            <img id="BigOwn" src="assets/edit.png">
-        </button>
+        <div class="ttpBtn">
+            <button mat-button id="ownBtn" (click)="filterByOwns()">
+                    <img id="BigOwn" src="assets/edit.png">
+            </button>
+            <span class="ttpTextBtn">Own Scrwms</span>
+        </div>
+        <div class="ttpBtn">
+
         <button mat-button id="contactBtn" (click)="filterByContacts()">
             <img id="BigContact" src="assets/read.png">
         </button>
+        <span class="ttpTextBtn">Following</span>
+    </div>
+        <div class="ttpBtn">
+
         <button mat-button id="anchorBtn" (click)="filterByAnchors()">
             <img id="BigAnchor" src="assets/anchor.png">
         </button>
+        <span class="ttpTextBtn">Filter by Anchors</span>
+    </div>
+        <div class="ttpBtn">
+
         <button mat-button id="headerBtn" (click)="filterByHeader()">
             <img id="BigHeader" src="assets/BigHeader.png">
         </button>
+        <span class="ttpTextBtn">Only Headers</span>
+    </div>
     </div>
 </div>
