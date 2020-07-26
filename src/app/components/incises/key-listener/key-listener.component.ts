@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { InciseService } from 'src/app/services/incise.service';
 
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
+import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit-around.component';
 
 import { Incise } from 'src/app/models/incise';
 import { Comm } from 'src/app/models/comm';
@@ -17,6 +18,7 @@ export class KeyListenerComponent implements OnInit {
 
   constructor(public inciseService: InciseService, 
     public showAround: ShowAroundComponent,
+    public editAround: EditAroundComponent,
     ){ }
 
   ngOnInit(): void {
@@ -26,7 +28,7 @@ export class KeyListenerComponent implements OnInit {
     if(document.getElementById('E').textContent){
       const C = document.getElementById('E');
       const incise = this.inciseService.selectedIncise;
-      this.showAround.IdLast = incise._id;
+      this.editAround.newInc = incise;
       incise.content = C.textContent;
       C.textContent = "";
       this.inciseService.putIncise(incise)
@@ -40,16 +42,16 @@ export class KeyListenerComponent implements OnInit {
     const incise = this.inciseService.selectedIncise = new Incise();
     switch(this.showAround.DirLast){
       case "Up":
-          incise.up.push(this.showAround.IdLast);
+          incise.up.push(this.editAround.newInc._id);
         break;
       case "Down":
-          incise.down.push(this.showAround.IdLast);
+          incise.down.push(this.editAround.newInc._id);
         break;
       case "Left":
         incise.left.push(comm);
         break;
       case "Right":
-          incise.right.push(this.showAround.IdLast);
+          incise.right.push(this.editAround.newInc._id);
         break;
       }  
     incise.prof = sessionStorage.getItem('currentUserId');
@@ -60,8 +62,9 @@ export class KeyListenerComponent implements OnInit {
     this.inciseService.postIncise(incise)
     .subscribe(res => {
       this.inciseService.selectedIncise = incise = res as Incise;
+      //this.editAround.linkStereo3(incise, this.inciseService.selectedIncise);
       this.showAround.toCenter(this.inciseService.selectedIncise);
     });
   }
-
+m
 }

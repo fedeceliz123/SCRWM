@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
-import { KeyListenerComponent } from 'src/app/components/incises/key-listener/key-listener.component'
 
 import { Incise } from 'src/app/models/incise';
 import { Comm } from 'src/app/models/comm';
@@ -20,7 +19,6 @@ export class EditAroundComponent implements OnInit {
 
   constructor(public inciseService: InciseService, 
     public showAround: ShowAroundComponent,
-    public keyListener: KeyListenerComponent,            
     ){ }
 
   ngOnInit(): void {
@@ -41,117 +39,120 @@ export class EditAroundComponent implements OnInit {
         this.showAround.DirLast = "Right";
         break;  
     }
-    this.checkContent(incise);
-  }  
+    this.newInc = incise
+    this.checkContent();
+    this.linkStereo1();
+  }
 
-  checkContent(incise: Incise){ 
+  newInc: Incise;
+
+  checkContent(){ 
     if (document.getElementById('E').textContent === ""){
       document.getElementById('E').textContent = "(Blank)";
     }
-    this.linkStereo1(incise)
   }
 
-  linkStereo1(incise: Incise){
-    const A = this.inciseService.selectedIncise;
-    A.content = document.getElementById('E').textContent;
+  linkStereo1(){
+    const oldInc = this.inciseService.selectedIncise
+    oldInc.content = document.getElementById('E').textContent;
     switch (this.showAround.DirLast){
       case "Up":
-        for(var i in A.up){
-          if(A.up[i] === incise._id){
-            this.linkStereo2(incise, A);
+        for(var i in oldInc.up){
+          if(oldInc.up[i] === this.newInc._id){
+            this.linkStereo2(oldInc);
             return;
           }
         }
-        A.up.push(incise._id);
+        oldInc.up.push(this.newInc._id);
         break;
       case "Down":
-        for(var i in A.down){
-          if(A.down[i] === incise._id){
-            this.linkStereo2(incise, A);
+        for(var i in oldInc.down){
+          if(oldInc.down[i] === this.newInc._id){
+            this.linkStereo2(oldInc);
             return;
           }
         }
-        A.down.push(incise._id);
+        oldInc.down.push(this.newInc._id);
         break;
       case "Left":
-        for(var i in A.left){
-          if(A.left[i].IdComm === incise._id){
-            this.linkStereo2(incise, A);
+        for(var i in oldInc.left){
+          if(oldInc.left[i].IdComm === this.newInc._id){
+            this.linkStereo2(oldInc);
             return;
           }
         }
         const comm = new Comm;
-        comm.IdComm = incise._id;
-        A.left.push(comm);
+        comm.IdComm = this.newInc._id;
+        oldInc.left.push(comm);
         break;
       case "Right":
-        for(var i in A.right){
-          if(A.right[i] === incise._id){
-            this.linkStereo2(incise, A);
+        for(var i in oldInc.right){
+          if(oldInc.right[i] === this.newInc._id){
+            this.linkStereo2(oldInc);
             return;
           }
         }
-        A.right.push(incise._id);
+        oldInc.right.push(this.newInc._id);
         break;
     }
-    this.linkStereo2(incise, A)
+    this.linkStereo2(oldInc)
   }
 
-  linkStereo2(incise: Incise, A: Incise){
-    this.inciseService.putIncise(A)
+  linkStereo2(oldInc: Incise){
+    this.inciseService.putIncise(oldInc)
     .subscribe(res => {
-      this.linkStereo3(incise, A);
+      this.linkStereo3(oldInc);
       });
   }
 
-  linkStereo3(incise: Incise, A: Incise){
+  linkStereo3(oldInc: Incise){
     switch (this.showAround.DirLast){
       case "Up":
-        for(var i in incise.down){
-          if(incise.down[i] === A._id){
-            this.linkStereo4(incise);
+        for(var i in this.newInc.down){
+          if(this.newInc.down[i] === oldInc._id){
+            this.linkStereo4();
             return;
           }
         }
-        incise.down.push(A._id);
+        this.newInc.down.push(oldInc._id);
         break;
       case "Down":
-        for(var i in incise.up){
-          if(incise.up[i] === A._id){
-            this.linkStereo4(incise);
+        for(var i in this.newInc.up){
+          if(this.newInc.up[i] === oldInc._id){
+            this.linkStereo4();
             return;
           }
         }
-        incise.up.push(A._id);
+        this.newInc.up.push(oldInc._id);
         break;
       case "Left":
-        for(var i in incise.right){
-          if(incise.right[i] === A._id){
-            this.linkStereo4(incise);
+        for(var i in this.newInc.right){
+          if(this.newInc.right[i] === oldInc._id){
+            this.linkStereo4();
             return;
           }
         }
-        incise.right.push(A._id);
+        this.newInc.right.push(oldInc._id);
         break;
       case "Right":
-        for(var i in incise.left){
-          if(incise.left[i].IdComm === A._id){
-            this.linkStereo4(incise);
+        for(var i in this.newInc.left){
+          if(this.newInc.left[i].IdComm === oldInc._id){
+            this.linkStereo4();
             return;
           }
         }
         const comm = new Comm;
-          comm.IdComm = A._id;
-          incise.left.push(comm);
+          comm.IdComm = oldInc._id;
+          this.newInc.left.push(comm);
           break;
     }
-    this.linkStereo4(incise);
+    this.linkStereo4();
   }
 
-  linkStereo4(incise: Incise){
-    this.inciseService.putIncise(incise)
+  linkStereo4(){
+    this.inciseService.putIncise(this.newInc)
     .subscribe(res => {
-        this.inciseService.selectedIncise = incise;
+        this.inciseService.selectedIncise = this.newInc;
         this.showAround.toCenter(this.inciseService.selectedIncise);
       });
   }

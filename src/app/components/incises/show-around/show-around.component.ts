@@ -23,7 +23,6 @@ export class ShowAroundComponent implements OnInit {
   Right: any = [];
   Hashtags: any = [];
   DirLast: any = "";
-  IdLast: any = "";
 
   constructor(public inciseService: InciseService,
     public profService: ProfService,
@@ -48,14 +47,11 @@ export class ShowAroundComponent implements OnInit {
 
   resetConstants() {
     console.log("(resetConstants)");
-
     this.Above = [];
     this.Below = [];
     this.Left = [];
     this.Right = [];
     this.Hashtags = [];
-    this.DirLast = "";
-    this.IdLast = "";
   }
 
   showAround(incise: Incise) {

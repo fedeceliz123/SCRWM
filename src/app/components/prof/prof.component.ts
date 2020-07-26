@@ -154,6 +154,7 @@ export class ProfComponent implements OnInit {
     const I = this.inciseService.selectedIncise = new Incise;
     I.prof = sessionStorage.getItem('currentUserId');
     I.title = "My first Scrwm";
+    I.subtitle = "Click on Set Header in the navBar above to modify us"
     this.inciseService.postIncise(I)
     .subscribe(res => {
       this.inciseService.selectedIncise = res as Incise;

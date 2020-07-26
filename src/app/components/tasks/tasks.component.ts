@@ -43,7 +43,7 @@ export class TasksComponent implements OnInit {
   Contact: boolean = false;
   Anchor: boolean = false;
   Diamond: boolean = false;
-  Header: boolean = false;
+  Header: boolean = true;
 
   filterByOwns(){
     this.Own = !this.Own;
