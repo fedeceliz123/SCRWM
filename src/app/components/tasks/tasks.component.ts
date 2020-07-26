@@ -200,8 +200,19 @@ export class TasksComponent implements OnInit {
       filterHeader = filterAnchor;
     }
     this.taskList = filterHeader;
+    this.searchList = filterHeader;
   }
 
+  searchList: any[] = [{
+    "incise": Object,
+    "image": Object,
+    "prof": Object,
+  }];
+
+  searcher(event: any){
+    console.log(this.searchList[0].incise.title)
+    this.taskList = this.searchList.filter(w => w.incise.title.toLowerCase().includes(event.toLowerCase()));
+  }
 
   openDialogHeader(){
     if(this.inciseService.selectedIncise.prof != this.currentUserId){
