@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 
-import { IncisesComponent, DialogContent } from './components/incises/incises.component';
+import { IncisesComponent, DialogContent, DialogNewImageInc } from './components/incises/incises.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { TasksComponent, DialogHeader, DialogNewScrwm } from './components/tasks/tasks.component';
@@ -34,6 +34,7 @@ import { TestingComponent } from './components/testing/testing.component';
     TasksComponent,
     DialogHeader,
     DialogNewScrwm,
+    DialogNewImageInc,
     InitComponent,
     ShowAroundComponent,
     KeyListenerComponent,
@@ -54,6 +55,7 @@ import { TestingComponent } from './components/testing/testing.component';
     TasksComponent,
     DialogHeader,
     DialogNewScrwm,
+    DialogNewImageInc,
     IncisesComponent,
     SigninComponent,
     ShowAroundComponent,

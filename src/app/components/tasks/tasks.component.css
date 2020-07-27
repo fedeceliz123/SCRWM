@@ -185,3 +185,13 @@
     visibility: visible;
     opacity: 0.9;
   }
+
+
+  .imageInc{
+    height: 150px;
+    width: 150px;
+    margin-left: 10px;
+    margin-top: 5px;
+    border-radius: 50px;
+    border: gba(143, 174, 195, 1); 
+  }

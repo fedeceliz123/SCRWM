@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
+import { ImageIncService } from 'src/app/services/image-inc.service';
 import { InciseService } from 'src/app/services/incise.service';
 
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
@@ -10,6 +11,7 @@ import { TestingComponent } from 'src/app/components/testing/testing.component';
 
 import { Prof } from 'src/app/models/prof';
 import { Image } from 'src/app/models/image';
+import { ImageInc } from 'src/app/models/image-inc';
 import { Incise } from 'src/app/models/incise';
 
 import {MatDialog} from '@angular/material/dialog';
@@ -30,6 +32,7 @@ export class ProfComponent implements OnInit {
 
   constructor(public profService: ProfService,
               public imageService: ImageService,
+              public imageIncService: ImageIncService,
               public inciseService: InciseService,
               public taskComponent: TasksComponent,
               public testing: TestingComponent,
@@ -173,6 +176,8 @@ export class ProfComponent implements OnInit {
       }
       this.deleteIncises();
       this.deleteImages();
+      this.deleteImagesInc();
+
     });
   }
 
@@ -194,6 +199,18 @@ export class ProfComponent implements OnInit {
       this.imageService.images = res as Image[];
       for(var i in this.imageService.images){
         this.imageService.deleteImage(this.imageService.images[i]._id)
+        .subscribe(res => {
+        });
+      }
+    });
+  }
+
+  deleteImagesInc(){
+    this.imageIncService.getImages()
+    .subscribe(res => {
+      this.imageIncService.imagesInc = res as ImageInc[];
+      for(var i in this.imageIncService.imagesInc){
+        this.imageIncService.deleteImage(this.imageIncService.imagesInc[i]._id)
         .subscribe(res => {
         });
       }

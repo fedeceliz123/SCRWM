@@ -1,9 +1,10 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
+import { ImageIncService } from 'src/app/services/image-inc.service';
 
 import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit-around.component';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
@@ -13,10 +14,17 @@ import { TestingComponent } from 'src/app/components/testing/testing.component';
 import { ProfComponent } from 'src/app/components/prof/prof.component';
 
 import { Comm } from 'src/app/models/comm';
+import { ImageInc } from 'src/app/models/image-inc';
+
 
 import {MatDialog} from '@angular/material/dialog';
+import { Incise } from 'src/app/models/incise';
 
 declare var M: any; 
+
+interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
 
 @Component({
   selector: 'app-incises',
@@ -24,7 +32,7 @@ declare var M: any;
   styleUrls: ['./incises.component.css'],
 })
 
-export class IncisesComponent {   
+export class IncisesComponent implements OnInit{   
 
     constructor(public inciseService: InciseService, 
                 public profService: ProfService,
@@ -37,7 +45,12 @@ export class IncisesComponent {
                 public profComponent: ProfComponent,
                 public router: Router,
                 public dialog: MatDialog,
+                public newImageInc: DialogNewImageInc,
+                public imageIncService: ImageIncService,
     ){ }
+
+    ngOnInit(): void {
+    }
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
     if(event.keyCode === 13){
@@ -170,6 +183,17 @@ export class IncisesComponent {
     });
   }
 
+  openDialogNewImageInc(){
+    if(this.inciseService.selectedIncise._id){
+      const dialogRef = this.dialog.open(DialogNewImageInc);
+      dialogRef.afterClosed().subscribe(res => {
+      });  
+    } else {
+      M.toast({html: "No incise being edited"})
+
+    }
+  }
+
 }
 @Component({
   selector: 'dialog-content',
@@ -194,4 +218,80 @@ export class DialogContent {
     }
   }
 
+}
+
+
+@Component({
+  selector: 'dialog-new-image',
+  templateUrl: 'dialog-new-image.html',
+})
+export class DialogNewImageInc implements OnInit{
+
+  constructor(public inciseService: InciseService,
+              public imageIncService: ImageIncService,
+              public showAround: ShowAroundComponent,
+  ){ }
+
+
+  ngOnInit(): void {
+  }
+
+  imageIncPath: string = this.showAround.ImageIncPath;
+
+  file: File;
+  photoSel: string | ArrayBuffer;
+
+  onPhotoSelected(event: HTMLInputEvent): void {
+    if(event.target.files && event.target.files[0]){    // confirma si existe un archivo subido
+      this.file = <File>event.target.files[0];          // guarda el archivo en file
+      const reader = new FileReader();                   // para que se vea en pantalla
+      reader.onload = e => this.photoSel = reader.result;
+      reader.readAsDataURL(this.file);
+    }
+  }
+
+  insertImageInc(){
+    if(this.photoSel){
+      this.imageIncService.getImages()
+      .subscribe(res => {
+        const A = this.imageIncService.imagesInc = res as ImageInc[];
+        for(var i in A){
+          if(A[i].associatedIncId === this.inciseService.selectedIncise._id){
+            this.imageIncService.deleteImage(A[i]._id)
+            .subscribe(res=>{
+            });
+          }
+        }
+        this.chargeNewImageInc();
+      });  
+    }
+  }
+
+  chargeNewImageInc(){
+    const A = this.imageIncService.selectedImageInc = new ImageInc;
+    A.associatedIncId = this.inciseService.selectedIncise._id;
+    A.userId = sessionStorage.getItem('currentUserId');
+    this.inciseService.selectedIncise.media = A._id;
+    this.imageIncService.postImage(A, this.file)
+    .subscribe(res => {
+      this.getImage();
+      this.inciseService.putIncise(this.inciseService.selectedIncise)
+      .subscribe(res=>{
+        this.inciseService.selectedIncise = res as Incise;
+      })
+    });
+  }
+
+  getImage(){
+    this.imageIncService.getImages()
+    .subscribe(res => {
+      const A = this.imageIncService.imagesInc = res as ImageInc[];
+      for(var i in A){
+        if(A[i].associatedIncId = this.inciseService.selectedIncise._id){
+          this.imageIncService.selectedImageInc = A[i];
+          return
+        }
+      }
+    });
+  }
 }

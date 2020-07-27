@@ -249,7 +249,6 @@ export class TasksComponent implements OnInit {
 }
 
 
-
 @Component({
   selector: 'dialog-header',
   templateUrl: 'dialog-header.html',

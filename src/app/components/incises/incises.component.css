@@ -158,6 +158,11 @@
     text-align: left;
 }
 
+.media{
+    width: 500px;
+    border-radius: 20px;
+}
+
 .Arriba{
     display: flex;
     flex-direction: row;

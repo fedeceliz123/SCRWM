@@ -103,7 +103,10 @@
                         </div>
                     </div>
                     <div class="CeditableMin">
-                        <div id="E" (mouseup)="ToComment($event)"></div>
+                        <div id="E"></div>
+                        <ng-container *ngIf="showAround.ImageIncPath">
+                            <img class="media" [src]=" 'http://localhost:3000/' + showAround.ImageIncPath">
+                        </ng-container>    
                     </div>
                 </div>
 
@@ -280,8 +283,11 @@
                         </div>
                     </div>
                     <div class="CeditableMin">
-                        <div id="E" (mouseup)="ToComment($event)"></div>
-                    </div>
+                        <div id="E"></div>
+                        <ng-container *ngIf="showAround.ImageIncPath">
+                            <img class="media" [src]=" 'http://localhost:3000/' + showAround.ImageIncPath">
+                        </ng-container>                  
+                     </div>
                 </div>
 
                 <div class="Derecha">

@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
+import { ImageIncService } from 'src/app/services/image-inc.service';
 
 import { Incise } from 'src/app/models/incise';
 import { Image } from 'src/app/models/image';
 import { Prof } from 'src/app/models/prof';
+import { ImageInc } from 'src/app/models/image-inc';
 
 import { TestingComponent } from 'src/app/components/testing/testing.component';
 
@@ -23,10 +25,13 @@ export class ShowAroundComponent implements OnInit {
   Right: any = [];
   Hashtags: any = [];
   DirLast: any = "";
+  ImageIncPath: string = "";
 
   constructor(public inciseService: InciseService,
     public profService: ProfService,
     public imageService: ImageService,
+    public imageIncService: ImageIncService,
+
     public testing: TestingComponent,
   ) { }
 
@@ -37,6 +42,7 @@ export class ShowAroundComponent implements OnInit {
     console.log("(toCenter)");
     this.inciseService.selectedIncise = incise;
     this.resetConstants();
+    this.setImageInc(incise);
     this.showAround(incise);
     this.isEditable(incise);
     this.setDiamond(incise);
@@ -52,6 +58,21 @@ export class ShowAroundComponent implements OnInit {
     this.Left = [];
     this.Right = [];
     this.Hashtags = [];
+    this.ImageIncPath = "";
+  }
+
+  setImageInc(incise: Incise){
+    console.log("(setImageInc)");
+    this.imageIncService.getImages()
+    .subscribe(res=>{
+      const I = this.imageIncService.imagesInc = res as ImageInc[]
+      for(var i in I){
+        if(I[i].associatedIncId === incise._id){
+          this.ImageIncPath = I[i].imagePath;
+          console.log(this.ImageIncPath)
+        }
+      }
+    })
   }
 
   showAround(incise: Incise) {

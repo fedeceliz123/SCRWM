@@ -11,6 +11,7 @@ import { SignupComponent } from 'src/app/components/signup/signup.component';
 import { SigninComponent } from 'src/app/components/signin/signin.component';
 import { ProfComponent } from '../prof/prof.component';
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
+import { IncisesComponent } from 'src/app/components/incises/incises.component';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -37,6 +38,7 @@ export class InitComponent implements OnInit {
               public signinComponent: SigninComponent,
               public profComponent: ProfComponent,
               public taskComponent: TasksComponent,
+              public incisesComponent: IncisesComponent,
   ){}
 
   ngOnInit(): void {
