@@ -30,6 +30,7 @@ export class KeyListenerComponent implements OnInit {
       const incise = this.inciseService.selectedIncise;
       this.editAround.newInc = incise;
       incise.content = C.textContent;
+      incise.media = this.showAround.ImageIncPath;
       C.textContent = "";
       this.inciseService.putIncise(incise)
       .subscribe(res => {
@@ -53,7 +54,7 @@ export class KeyListenerComponent implements OnInit {
       case "Right":
           incise.right.push(this.editAround.newInc._id);
         break;
-      }  
+      }
     incise.prof = sessionStorage.getItem('currentUserId');
     this.savingIncise(incise);
   }
@@ -66,5 +67,4 @@ export class KeyListenerComponent implements OnInit {
       this.showAround.toCenter(this.inciseService.selectedIncise);
     });
   }
-m
 }

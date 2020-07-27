@@ -271,7 +271,6 @@ export class DialogNewImageInc implements OnInit{
     const A = this.imageIncService.selectedImageInc = new ImageInc;
     A.associatedIncId = this.inciseService.selectedIncise._id;
     A.userId = sessionStorage.getItem('currentUserId');
-    this.inciseService.selectedIncise.media = A._id;
     this.imageIncService.postImage(A, this.file)
     .subscribe(res => {
       this.getImage();

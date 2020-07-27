@@ -54,6 +54,7 @@ export class EditAroundComponent implements OnInit {
 
   linkStereo1(){
     const oldInc = this.inciseService.selectedIncise
+    oldInc.media = this.showAround.ImageIncPath;
     oldInc.content = document.getElementById('E').textContent;
     switch (this.showAround.DirLast){
       case "Up":

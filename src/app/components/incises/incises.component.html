@@ -8,7 +8,9 @@
                 <div class="Arriba">
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
-                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}</div>
+                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}
+                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                            </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
                                     <span class="ttpTextArr">
@@ -45,7 +47,9 @@
                 <div class="Izquierda">
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
-                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}</div>
+                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}
+                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                            </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
                                     <span class="ttpTextIzq">
@@ -113,7 +117,10 @@
                 <div class="Derecha">
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
-                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> {{ incise.content }}</div>
+                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> 
+                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                                {{ incise.content }}
+                            </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
                                     <span class="ttpTextDer">
@@ -143,7 +150,9 @@
                 <div class="Abajo">
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
-                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}</div>
+                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}
+                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                            </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
                                     <span class="ttpTextAbj">
@@ -190,7 +199,9 @@
                 <div class="Arriba">
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
-                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}</div>
+                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}
+                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                            </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
                                     <span class="ttpTextArr">
@@ -227,7 +238,9 @@
                 <div class="Izquierda">
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
-                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}</div>
+                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}
+                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                            </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
                                     <span class="ttpTextIzq">
@@ -251,6 +264,8 @@
                         </div>    
                     </div>
                 </div>
+
+             
 
                 <div class="center">
                     <div class="cab">
@@ -286,14 +301,17 @@
                         <div id="E"></div>
                         <ng-container *ngIf="showAround.ImageIncPath">
                             <img class="media" [src]=" 'http://localhost:3000/' + showAround.ImageIncPath">
-                        </ng-container>                  
-                     </div>
+                        </ng-container>    
+                    </div>
                 </div>
 
                 <div class="Derecha">
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
-                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> {{ incise.content }}</div>
+                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> 
+                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                                {{ incise.content }}
+                            </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
                                     <span class="ttpTextDer">
@@ -323,7 +341,9 @@
                 <div class="Abajo">
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
-                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}</div>
+                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}
+                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                            </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
                                     <span class="ttpTextAbj">
@@ -347,7 +367,6 @@
                         </div>    
                     </div>
                 </div>
-
                 <div class="ttpBtn">
                     <button class="btn btn-primary" (click)="zoomMin()">
                         <i class="material-icons">fullscreen</i>

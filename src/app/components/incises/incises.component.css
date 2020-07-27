@@ -160,7 +160,7 @@
 
 .media{
     width: 500px;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .Arriba{
@@ -343,6 +343,12 @@
   top: 45%;
   right: -15%;
 }
+
+.imageAround{
+    width: 50px;
+    border-radius: 5px;
+}
+
 
 .ttpBtn {
     position: relative;

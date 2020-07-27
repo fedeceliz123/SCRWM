@@ -99,9 +99,9 @@ export class ShowAroundComponent implements OnInit {
                   color = x.fontcolor("orange")
                 } else if (q === 3) {
                   color = x.fontcolor("green")
-                } else if (q === 3) {
+                } else if (q === 4) {
                   color = x.fontcolor("red")
-                } else { x.fontcolor("red")};
+                }
                 q++;
                 return color
               });
