@@ -5,6 +5,7 @@ import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ImageIncService } from 'src/app/services/image-inc.service';
 import { InciseService } from 'src/app/services/incise.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 import { TestingComponent } from 'src/app/components/testing/testing.component';
@@ -33,6 +34,7 @@ export class ProfComponent implements OnInit {
   constructor(public profService: ProfService,
               public imageService: ImageService,
               public imageIncService: ImageIncService,
+              public authService: AuthService,
               public inciseService: InciseService,
               public taskComponent: TasksComponent,
               public testing: TestingComponent,
@@ -139,10 +141,13 @@ export class ProfComponent implements OnInit {
     });
   }
 
+  username: string;
+
   newProf(userId: string){
     console.log("(newProf)");
     const prof = this.profService.userProf = new Prof;
     prof.userId = userId;
+    prof.nickname = this.username;
     this.profService.postProf(prof)
     .subscribe(res => {
       this.profService.userProf = res as Prof;

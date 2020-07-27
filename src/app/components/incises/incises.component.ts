@@ -275,10 +275,10 @@ export class DialogNewImageInc implements OnInit{
     this.imageIncService.postImage(A, this.file)
     .subscribe(res => {
       this.getImage();
-      this.inciseService.putIncise(this.inciseService.selectedIncise)
+      /*this.inciseService.putIncise(this.inciseService.selectedIncise)
       .subscribe(res=>{
         this.inciseService.selectedIncise = res as Incise;
-      })
+      })*/
     });
   }
 
@@ -289,6 +289,7 @@ export class DialogNewImageInc implements OnInit{
       for(var i in A){
         if(A[i].associatedIncId = this.inciseService.selectedIncise._id){
           this.imageIncService.selectedImageInc = A[i];
+          this.showAround.toCenter(this.inciseService.selectedIncise);
           return
         }
       }

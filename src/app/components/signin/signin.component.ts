@@ -42,6 +42,7 @@ export class SigninComponent implements OnInit {
       for(var i in A){
         if (A[i].username === form.value.username){
           if (A[i].password === form.value.password){
+            this.profComponent.username = A[i].username;
             sessionStorage.setItem('currentUserId', A[i]._id);
             form.reset();
             this.profComponent.findProf(A[i]._id);
