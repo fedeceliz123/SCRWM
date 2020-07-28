@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { InciseService } from 'src/app/services/incise.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ProfService } from 'src/app/services/prof.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
 
@@ -29,6 +30,7 @@ export class TasksComponent implements OnInit {
   constructor(public inciseService: InciseService,
               public imageService: ImageService,
               public profService: ProfService,
+              public authService: AuthService,
               public showAround: ShowAroundComponent,
               public dialog: MatDialog,
               ) { }

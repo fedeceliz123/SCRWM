@@ -5,6 +5,7 @@ import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ImageIncService } from 'src/app/services/image-inc.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit-around.component';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
@@ -18,7 +19,6 @@ import { ImageInc } from 'src/app/models/image-inc';
 
 
 import {MatDialog} from '@angular/material/dialog';
-import { Incise } from 'src/app/models/incise';
 
 declare var M: any; 
 
@@ -47,43 +47,48 @@ export class IncisesComponent implements OnInit{
                 public dialog: MatDialog,
                 public newImageInc: DialogNewImageInc,
                 public imageIncService: ImageIncService,
+                public authService: AuthService,
     ){ }
 
     ngOnInit(): void {
     }
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
-    if(event.keyCode === 13){
-      if(window.getSelection().toString() != ""){
-        this.ToComment(window.getSelection());
-      } else {
-        this.showAround.DirLast = "Up";
-        this.keyListener.editedIncise();
-      }
-    } else if(event.shiftKey){
-      if(event.keyCode === 37){
-        this.showAround.DirLast = "Right";
-        this.keyListener.editedIncise();
-      } else if(event.keyCode === 38){
-        this.showAround.DirLast = "Down";
-        this.keyListener.editedIncise();
-      } else if(event.keyCode === 39){
-        M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
-      } else if(event.keyCode === 40){
-        this.showAround.DirLast = "Up";
-        this.keyListener.editedIncise();
-      }
+    if(this.authService.loggedIn()){
+      if(event.keyCode === 13){   
+        if(window.getSelection().toString() != ""){
+          this.ToComment(window.getSelection());
+        } else {
+          this.showAround.DirLast = "Up";
+          this.keyListener.editedIncise();
+        }
+      } else if(event.shiftKey){
+        if(event.keyCode === 37){
+          this.showAround.DirLast = "Right";
+          this.keyListener.editedIncise();
+        } else if(event.keyCode === 38){
+          this.showAround.DirLast = "Down";
+          this.keyListener.editedIncise();
+        } else if(event.keyCode === 39){
+          M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
+        } else if(event.keyCode === 40){
+          this.showAround.DirLast = "Up";
+          this.keyListener.editedIncise();
+        }
+      }  
     }
   }
 
   ToComment(event: any){
-    const comm = new Comm;
-    comm.commt = event.toString().trim();
-    comm.initial = event.getRangeAt(0).startOffset;
-    comm.final = event.getRangeAt(0).endOffset;
-    comm.IdComm = this.inciseService.selectedIncise._id;
-    this.showAround.DirLast = "Left";
-    this.keyListener.editedIncise(comm);  
+    if(this.authService.loggedIn()){
+      const comm = new Comm;
+      comm.commt = event.toString().trim();
+      comm.initial = event.getRangeAt(0).startOffset;
+      comm.final = event.getRangeAt(0).endOffset;
+      comm.IdComm = this.inciseService.selectedIncise._id;
+      this.showAround.DirLast = "Left";
+      this.keyListener.editedIncise(comm);    
+    }
   }
 
   zoomMin(){
@@ -94,10 +99,12 @@ export class IncisesComponent implements OnInit{
   }
 
   zoomMax(){
-    console.log("(zoomMax)");
-    this.router.navigate(['/incises']);
-    this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
-    this.showAround.toCenter(this.inciseService.selectedIncise);
+    if(this.authService.loggedIn()){
+      console.log("(zoomMax)");
+      this.router.navigate(['/incises']);
+      this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
+      this.showAround.toCenter(this.inciseService.selectedIncise);  
+    }
   }
 
   
@@ -274,10 +281,6 @@ export class DialogNewImageInc implements OnInit{
     this.imageIncService.postImage(A, this.file)
     .subscribe(res => {
       this.getImage();
-      /*this.inciseService.putIncise(this.inciseService.selectedIncise)
-      .subscribe(res=>{
-        this.inciseService.selectedIncise = res as Incise;
-      })*/
     });
   }
 

@@ -8,6 +8,7 @@
     overflow-y: auto;
     max-height: 530px;
     margin-left: 5px;
+    margin-right: 5px;
     margin-top: 5px;
     width: 7000px;
 }
@@ -106,10 +107,9 @@
 .extra-right{
     background-color: rgb(224, 232, 251);
     border-radius: 5px;
-    max-width: 45px;
+    max-width: 50px;
     margin-top: 5px;
-    margin-left: 5px;
-
+    margin-right: 5px;
 }
 
 #BigAnchor, #BigContact, #BigHeader, #BigOwn{
