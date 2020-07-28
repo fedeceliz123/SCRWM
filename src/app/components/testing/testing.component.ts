@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ProfService} from 'src/app/services/prof.service'
-
 import { Prof } from 'src/app/models/prof'
 
 @Component({

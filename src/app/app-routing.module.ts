@@ -21,7 +21,7 @@ const routes: Routes = [
   {
     path: 'incises',            
     component: IncisesComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
 ];
 

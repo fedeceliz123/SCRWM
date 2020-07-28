@@ -71,10 +71,10 @@ export class InitComponent implements OnInit {
       }
     });
     this.profComponent.deleteProfs();
-    sessionStorage.setItem("currentUserId", "*");
+    sessionStorage.removeItem("currentUserId");
   }
 
-  Register() {
+  Register(){
     const dialogRef = this.dialog.open(SignupComponent);
     dialogRef.afterClosed().subscribe(result => {
     });
