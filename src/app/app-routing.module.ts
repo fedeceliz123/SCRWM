@@ -23,6 +23,10 @@ const routes: Routes = [
     component: IncisesComponent,
     //canActivate: [AuthGuard]
   },
+  {
+    path: 'incises/:_id',            
+    component: IncisesComponent,
+  },
 ];
 
 

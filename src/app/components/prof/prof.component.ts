@@ -266,7 +266,7 @@ export class DialogPublicProf implements OnInit{
     this.setDiamods();
   }
 
-  diamond: number;
+  DIAMONDS: number;
   isFoll: boolean;
   selProf = this.profComponent.scrwm.prof;
   userProf = this.profService.userProf;
@@ -283,7 +283,7 @@ export class DialogPublicProf implements OnInit{
           }
         }
       }
-      this.diamond = count;   
+      this.DIAMONDS = count;   
      })
   }
 

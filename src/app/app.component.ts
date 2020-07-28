@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { ShowAroundComponent} from 'src/app/components/incises/show-around/show-around.component'
 
 @Component({
   selector: 'app-root',
@@ -8,6 +11,13 @@ import { Component } from '@angular/core';
 
 export class AppComponent{
 
-  constructor(){}
+  constructor(public showAround: ShowAroundComponent,
+              private router: Router){}
   
+  changeOfRoutes(){
+    this.showAround.deepLink(this.router.url);
+  }
+
+
+
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
@@ -31,15 +32,57 @@ export class ShowAroundComponent implements OnInit {
     public profService: ProfService,
     public imageService: ImageService,
     public imageIncService: ImageIncService,
-
     public testing: TestingComponent,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
   }
 
+
+  deepLink(url: string){
+    if(url.slice(0,9) === "/incises/"){
+      console.log(url.slice(0,9))
+      this.inciseService.getIncises()
+      .subscribe(res=>{
+        const A = this.inciseService.incises = res as Incise[];
+        for(var i in A){
+          if(A[i]._id === url.slice(9)){
+            this.toCenter(A[i]);
+          }
+        }
+      })  
+    } else {
+      this.router.navigate(['/tasks'])
+    }
+  }
+
+  setByDefectInc(){
+    console.log("(setByDefectInc)");
+    if(!this.inciseService.selectedIncise._id){
+      this.inciseService.getIncises()
+      .subscribe(res=>{
+        const A = this.inciseService.incises = res as Incise[];
+        for(var i in A){
+          if(A[i]._id === localStorage.getItem('byDefectIncise')){
+            this.toCenter(A[i]);
+            return;
+          } 
+        }
+        for(var i in A){
+          if(Math.max(A[i].diamond)){
+            this.toCenter(A[i])
+            return;
+          }
+        }
+      })
+    }
+  }
+
   toCenter(incise: Incise) {
+    this.inciseService.getIncises()
     console.log("(toCenter)");
+    localStorage.setItem('byDefectIncise', incise._id);
     this.inciseService.selectedIncise = incise;
     this.resetConstants();
     this.setImageInc(incise);

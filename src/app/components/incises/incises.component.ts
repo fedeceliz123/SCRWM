@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, convertToParamMap, ParamMap } from '@angular/router';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
@@ -44,13 +44,28 @@ export class IncisesComponent implements OnInit{
                 public testing: TestingComponent,
                 public profComponent: ProfComponent,
                 public router: Router,
+                private route: ActivatedRoute,
                 public dialog: MatDialog,
                 public newImageInc: DialogNewImageInc,
                 public imageIncService: ImageIncService,
                 public authService: AuthService,
     ){ }
 
+    public inciseId;
+
     ngOnInit(): void {
+      this.showAround.setByDefectInc();
+
+      //let id = parseInt(this.route.snapshot.paramMap.get('id'));
+      //this.inciseId = id;
+
+      this.route.paramMap.subscribe((params: ParamMap)=>{
+        let id = parseInt(params.get('id'));
+        this.inciseId = id;
+        console.log(this.inciseId)
+      })
+
+
     }
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
