@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
@@ -8,7 +7,6 @@ import { ImageIncService } from 'src/app/services/image-inc.service';
 
 import { Incise } from 'src/app/models/incise';
 import { Image } from 'src/app/models/image';
-import { Prof } from 'src/app/models/prof';
 import { ImageInc } from 'src/app/models/image-inc';
 
 import { TestingComponent } from 'src/app/components/testing/testing.component';
@@ -33,7 +31,6 @@ export class ShowAroundComponent implements OnInit {
     public imageService: ImageService,
     public imageIncService: ImageIncService,
     public testing: TestingComponent,
-    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -52,8 +49,6 @@ export class ShowAroundComponent implements OnInit {
           }
         }
       })  
-    } else {
-      this.router.navigate(['/tasks'])
     }
   }
 

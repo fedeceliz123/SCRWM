@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, convertToParamMap, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
@@ -44,29 +44,14 @@ export class IncisesComponent implements OnInit{
                 public testing: TestingComponent,
                 public profComponent: ProfComponent,
                 public router: Router,
-                private route: ActivatedRoute,
                 public dialog: MatDialog,
                 public newImageInc: DialogNewImageInc,
                 public imageIncService: ImageIncService,
                 public authService: AuthService,
     ){ }
 
-    public inciseId;
-
     ngOnInit(): void {
-      this.showAround.setByDefectInc();
-
-      //let id = parseInt(this.route.snapshot.paramMap.get('id'));
-      //this.inciseId = id;
-
-      this.route.paramMap.subscribe((params: ParamMap)=>{
-        let id = parseInt(params.get('id'));
-        this.inciseId = id;
-        console.log(this.inciseId)
-      })
-
-
-    }
+      }
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
     if(this.authService.loggedIn()){
@@ -216,7 +201,18 @@ export class IncisesComponent implements OnInit{
     }
   }
 
+  onenDialogCopyUrl(){
+    if(this.inciseService.selectedIncise._id){
+      const dialogRef = this.dialog.open(DialogCopyUrl);
+      dialogRef.afterClosed().subscribe(res => {
+      });  
+    } else {
+      M.toast({html: "Please select a Scrwm from the lateral right panel"})
+    }
+  }
 }
+
+
 @Component({
   selector: 'dialog-content',
   templateUrl: 'dialog-content.html',
@@ -312,4 +308,31 @@ export class DialogNewImageInc implements OnInit{
       }
     });
   }
+}
+
+
+
+@Component({
+  selector: 'dialog-copy-url',
+  templateUrl: 'dialog-copy-url.html',
+})
+export class DialogCopyUrl {
+
+  constructor(public inciseService: InciseService, 
+              public showAround: ShowAroundComponent,
+  ){ }
+
+  deleteHashtag(){
+    const hashtag = localStorage.getItem("HTag");
+    const A = this.inciseService.selectedIncise;
+    for(var i in A.hashtag){
+      if(A.hashtag[i] === hashtag){
+        const index = A.hashtag.indexOf(i)+1;
+        A.hashtag.splice(index, 1);
+        A.content = document.getElementById('E').textContent;
+        this.showAround.toCenter(A);
+      }
+    }
+  }
+
 }

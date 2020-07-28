@@ -9,7 +9,7 @@
       <ng-template #loggedIn>
         <li><a class="nav-link" style="cursor: pointer; margin-left: 10px; margin-right: 10px;" (click)="deleteUsers()">(Delete All)</a></li>
         <li>
-          <a class="btn tooltipped #006064 cyan darken-1" data-position="bottom" data-tooltip="Share">
+          <a class="btn tooltipped #006064 cyan darken-1" (click)="incisesComponent.onenDialogCopyUrl()" data-position="bottom" data-tooltip="Share">
             <i class="material-icons">share</i>
           </a>
         </li>

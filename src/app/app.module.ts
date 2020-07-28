@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 
-import { IncisesComponent, DialogContent, DialogNewImageInc } from './components/incises/incises.component';
+import { IncisesComponent, DialogContent, DialogNewImageInc, DialogCopyUrl } from './components/incises/incises.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { TasksComponent, DialogHeader, DialogNewScrwm } from './components/tasks/tasks.component';
@@ -40,6 +40,7 @@ import { TestingComponent } from './components/testing/testing.component';
     KeyListenerComponent,
     ProfComponent,
     DialogPublicProf,
+    DialogCopyUrl,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +66,7 @@ import { TestingComponent } from './components/testing/testing.component';
     SigninComponent,
     ProfComponent,
     DialogPublicProf,
+    DialogCopyUrl,
     InitComponent,
     TestingComponent,
     {
