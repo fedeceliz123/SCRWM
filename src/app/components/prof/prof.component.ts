@@ -165,7 +165,6 @@ export class ProfComponent implements OnInit {
     I.subtitle = "Click on Set Header in the navBar above to modify us"
     this.inciseService.postIncise(I)
     .subscribe(res => {
-      this.inciseService.selectedIncise = res as Incise;
       this.taskComponent.getList();
     });
   }

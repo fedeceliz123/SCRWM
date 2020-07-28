@@ -18,7 +18,7 @@ export class TestingComponent implements OnInit {
   }
 
   checkProf(ubicación: string){
-    if(!this.profService.userProf._id){
+    if(!this.profService.userProf._id && !!localStorage.getItem('token')){
       alert("userProf se perdió en " + ubicación);
       this.findProf();
     }
