@@ -126,7 +126,6 @@ export class ProfComponent implements OnInit {
   }
 
   findProf(userId: string){
-    console.log("(findProf)");
     this.profService.getProfs()
     .subscribe(res => {
       const P = this.profService.profs = res as Prof[];
@@ -144,7 +143,6 @@ export class ProfComponent implements OnInit {
   username: string;
 
   newProf(userId: string){
-    console.log("(newProf)");
     const prof = this.profService.userProf = new Prof;
     prof.userId = userId;
     prof.nickname = this.username;
@@ -158,7 +156,6 @@ export class ProfComponent implements OnInit {
   }
 
   firstIncise(){
-    console.log("(firstIncise)");
     const I = this.inciseService.selectedIncise = new Incise;
     I.prof = sessionStorage.getItem('currentUserId');
     I.title = "My first Scrwm";
@@ -323,7 +320,6 @@ export class DialogPublicProf implements OnInit{
   }
 
   saveProfs(selProf: Prof, userProf: Prof){
-    console.log(selProf, userProf)
     this.profService.putProf(selProf)
     .subscribe(res=>{})
     this.profService.putProf(userProf)

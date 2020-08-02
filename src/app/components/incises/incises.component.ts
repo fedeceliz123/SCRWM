@@ -6,6 +6,7 @@ import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ImageIncService } from 'src/app/services/image-inc.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SocketService } from 'src/app/services/socket.service';
 
 import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit-around.component';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
@@ -13,6 +14,7 @@ import { KeyListenerComponent } from 'src/app/components/incises/key-listener/ke
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 import { TestingComponent } from 'src/app/components/testing/testing.component';
 import { ProfComponent } from 'src/app/components/prof/prof.component';
+import { ChatComponent } from 'src/app/components/chat/chat.component';
 
 import { Comm } from 'src/app/models/comm';
 import { ImageInc } from 'src/app/models/image-inc';
@@ -48,19 +50,26 @@ export class IncisesComponent implements OnInit{
                 public newImageInc: DialogNewImageInc,
                 public imageIncService: ImageIncService,
                 public authService: AuthService,
+                public socketService: SocketService,
+                public chatComponent: ChatComponent,
     ){ }
 
-    ngOnInit(): void {
-      }
+    ngOnInit(): void{
+    }
+  
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
+
+
     if(this.authService.loggedIn()){
       if(event.keyCode === 13){   
         if(window.getSelection().toString() != ""){
           this.ToComment(window.getSelection());
         } else {
-          this.showAround.DirLast = "Up";
-          this.keyListener.editedIncise();
+          if(this.chatComponent.partner != ''){
+            this.showAround.DirLast = "Up";
+            this.keyListener.editedIncise();
+          }
         }
       } else if(event.shiftKey){
         if(event.keyCode === 37){
@@ -75,7 +84,7 @@ export class IncisesComponent implements OnInit{
           this.showAround.DirLast = "Up";
           this.keyListener.editedIncise();
         }
-      }  
+      }
     }
   }
 
@@ -92,7 +101,6 @@ export class IncisesComponent implements OnInit{
   }
 
   zoomMin(){
-    console.log("(zoomMin)");
     this.router.navigate(['/tasks']);
     this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
     this.showAround.toCenter(this.inciseService.selectedIncise);
@@ -100,7 +108,6 @@ export class IncisesComponent implements OnInit{
 
   zoomMax(){
     if(this.authService.loggedIn()){
-      console.log("(zoomMax)");
       this.router.navigate(['/incises']);
       this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
       this.showAround.toCenter(this.inciseService.selectedIncise);  

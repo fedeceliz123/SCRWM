@@ -42,7 +42,7 @@
     font-family: Arial, Helvetica, sans-serif;
     height: 35px; 
     overflow: scroll; 
-    margin-top: 5px;
+    margin-top: 2px;
     margin-left: 15px;
     margin-right: -10px;
 }
@@ -53,7 +53,7 @@
     cursor:pointer;
     max-height: 150px; 
     overflow: scroll; 
-    margin-bottom: -5px;
+    margin-bottom: -10px;
 }
 
 .name{
@@ -69,9 +69,10 @@
 }
 
 .date{
-    font-size: 10px; 
+    font-size: 12px; 
+    font-weight: bold;
     color: gray;
-    margin-top: -5px;
+    margin-top: -2px;
 }
 
 .tooltip {
@@ -107,9 +108,10 @@
 .extra-right{
     background-color: rgb(224, 232, 251);
     border-radius: 5px;
+    height: 185px;
     max-width: 50px;
     margin-top: 5px;
-    margin-right: 5px;
+    margin-right: 2px;
 }
 
 #BigAnchor, #BigContact, #BigHeader, #BigOwn{

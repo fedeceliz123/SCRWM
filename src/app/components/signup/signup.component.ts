@@ -48,11 +48,9 @@ export class SignupComponent implements OnInit {
   }
 
   signUp1(form: NgForm){
-    console.log(form.value)
     this.authService.signUp(form.value)
     .subscribe(
       res => {
-        console.log(res)
         form.reset();
         this.dialog.closeAll();
         M.toast({html: "User successfully created"});

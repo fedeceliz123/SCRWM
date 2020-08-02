@@ -1,0 +1,48 @@
+<ng-container>
+    <div *ngIf="partner != ''">
+        <div class="mat-card">
+            <div class="mat-card-header" >
+                <div>Private chat with @{{ nick.nickname }} </div>
+                <button style="background-color: black;">
+                    <img class="back" src="assets/back.png" (click)="hideChat()">
+                </button>
+            </div>
+            <div id="chat" class="mat-card-body">
+                <div id="container"></div>
+            </div>
+            <form #chatForm="ngForm" (ngSubmit)="sendChat(chatForm)">
+                <div class="inputs">
+                    <input matInput style="color: white;" name="message" #message="ngModel" [(ngModel)]="mess" class="form-control" autocomplete="off" cdkFocusInitial>
+                    <button class="btn waves-effect waves-light" type="submit" name="action" style="width:60px;">
+                        <i class="material-icons" style="color: white">send</i>
+                    </button>
+                </div>
+            </form>
+        </div>    
+
+    </div>
+
+    <div class="onlineZone">
+        <div class="chatHistory">
+            <ul *ngFor="">
+                <li>
+                    
+                </li>
+            </ul>
+        </div>
+        Online
+        <ul *ngFor="let user of Online"> 
+            <li>
+                <button mat-button (click)="startChat(user)" *ngIf="user.image, else defaultImage">
+                    <img class="circulo"  [src]="'http://localhost:3000/' + user.image">
+                </button>
+                <ng-template #defaultImage>
+                    <button mat-button (click)="startChat(user)">
+                        <img class="circulo"  src="assets/no-image.png">
+                    </button>
+                </ng-template>
+            </li>
+        </ul>
+    </div>    
+</ng-container>
+

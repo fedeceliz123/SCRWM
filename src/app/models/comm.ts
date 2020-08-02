@@ -10,4 +10,4 @@ export class Comm {
         this.final = 0;
         this.commt = commt;
     }
-}
+} 

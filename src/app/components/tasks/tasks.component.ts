@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+//import * as moment from 'moment';
+
 import { InciseService } from 'src/app/services/incise.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ProfService } from 'src/app/services/prof.service';
@@ -39,6 +41,7 @@ export class TasksComponent implements OnInit {
 
   ngOnInit(): void { 
     this.getList();
+    this.showAround.setByDefectInc()
   }
 
   Own: boolean = false;
@@ -101,8 +104,17 @@ export class TasksComponent implements OnInit {
     "prof": Object,
   }];
 
+  lastEdited(updatedAt: string){
+    return updatedAt;
+    //return moment(updatedAt).startOf('hour').fromNow();
+  }
+
+  created(createdAt: string){
+    return createdAt
+    //return moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
+  }
+
   getList(){
-    this.taskList = [];
     this.inciseService.getIncises()
     .subscribe(res => {
       const A = this.inciseService.incises = res as Incise[]; 
@@ -262,7 +274,6 @@ export class DialogHeader {
   ){}
 
   setHeader(form: NgForm){
-    console.log(form.value.publicity)
     const incise = this.inciseService.selectedIncise;
     incise.title = form.value.title;
     incise.subtitle = form.value.subtitle;
@@ -290,11 +301,10 @@ export class DialogNewScrwm {
   ){ }
 
   newIncise(form: NgForm){
-    const incise = this.inciseService.selectedIncise = new Incise;
+    const incise = new Incise;
     incise.title = form.value.title;
     incise.subtitle = form.value.subtitle;
     incise.prof = sessionStorage.getItem('currentUserId');
-    this.showAround.toCenter(incise);
     if(form.value.publicity === true){
       incise.publicity = true;
     } else if(form.value.publicity === false) {

@@ -21,8 +21,9 @@ export class TestingComponent implements OnInit {
 
   checkProf(ubicación: string){
     if(!this.profService.userProf._id && !!localStorage.getItem('token')){
-      M.toast({html: "userProf se perdió en " + ubicación}); 
-      this.findProf();
+      this.authService.logOut();
+      M.toast({html: "Please log in again"}); 
+      //this.findProf();
     }
   }
 

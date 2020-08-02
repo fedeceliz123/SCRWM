@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Prof } from '../models/prof'
+import { Prof } from '../models/prof';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,13 @@ export class ProfService {
 userProf: Prof;
 profs: Prof[];
 
-  readonly URL_API = 'http://localhost:3000/api/scrwm/profs';
+  private URL_API = environment.apiUrl + 'api/scrwm/profs';
 
   constructor(private http: HttpClient) { 
     this.userProf = new Prof();
     this.findProf()
   }
-
+ 
   findProf(){
     this.getProfs()
     .subscribe(res => {

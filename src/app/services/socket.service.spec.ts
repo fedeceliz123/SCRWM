@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ScrwmService } from './scrwm.service';
+import { SocketService } from './socket.service';
 
-describe('ScrwmService', () => {
-  let service: ScrwmService;
+describe('SocketService', () => {
+  let service: SocketService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ScrwmService);
+    service = TestBed.inject(SocketService);
   });
 
   it('should be created', () => {

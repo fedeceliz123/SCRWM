@@ -39,7 +39,6 @@ export class ShowAroundComponent implements OnInit {
 
   deepLink(url: string){
     if(url.slice(0,9) === "/incises/"){
-      console.log(url.slice(0,9))
       this.inciseService.getIncises()
       .subscribe(res=>{
         const A = this.inciseService.incises = res as Incise[];
@@ -53,7 +52,6 @@ export class ShowAroundComponent implements OnInit {
   }
 
   setByDefectInc(){
-    console.log("(setByDefectInc)");
     if(!this.inciseService.selectedIncise._id){
       this.inciseService.getIncises()
       .subscribe(res=>{
@@ -74,9 +72,15 @@ export class ShowAroundComponent implements OnInit {
     }
   }
 
+  saveLast(incise: Incise){
+    if(this.inciseService.selectedIncise._id){
+      this.inciseService.postIncise(this.inciseService.selectedIncise);
+      this.profService.postProf(this.profService.userProf)
+    }
+    this.toCenter(incise)
+  }
+
   toCenter(incise: Incise) {
-    this.inciseService.getIncises()
-    console.log("(toCenter)");
     localStorage.setItem('byDefectIncise', incise._id);
     this.inciseService.selectedIncise = incise;
     this.resetConstants();
@@ -90,7 +94,6 @@ export class ShowAroundComponent implements OnInit {
   }
 
   resetConstants() {
-    console.log("(resetConstants)");
     this.Above = [];
     this.Below = [];
     this.Left = [];
@@ -100,22 +103,18 @@ export class ShowAroundComponent implements OnInit {
   }
 
   setImageInc(incise: Incise){
-    console.log("(setImageInc)");
     this.imageIncService.getImages()
     .subscribe(res=>{
       const I = this.imageIncService.imagesInc = res as ImageInc[]
       for(var i in I){
         if(I[i].associatedIncId === incise._id){
           this.ImageIncPath = I[i].imagePath;
-          console.log(this.ImageIncPath)
         }
       }
     })
   }
 
   showAround(incise: Incise) {
-    console.log("(showAround)");
-
     this.inciseService.getIncises()
     .subscribe(res => {
       const D = this.inciseService.incises = res as Incise[];

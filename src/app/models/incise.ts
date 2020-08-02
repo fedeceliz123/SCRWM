@@ -44,6 +44,5 @@ export class Incise {
         this.date = date;
         this.modified = modified;
         this.publicity = false;
-
     }
 }

@@ -14,7 +14,7 @@
             </div>
           </mat-card-title>
         </mat-card-header>
-          <img class="image" *ngIf="profComponent.scrwm.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + profComponent.scrwm.image.imagePath">
+          <img class="image" *ngIf="profComponent.scrwm.image.imagePath, else defaultImage" [src]="'/' + profComponent.scrwm.image.imagePath">
           <ng-template #defaultImage>
             <img class="image" src="assets/no-image.png">
           </ng-template>

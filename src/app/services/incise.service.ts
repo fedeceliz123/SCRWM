@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';       // para comunicar el frontend al servidor (en lugar de Postman)
 import { Incise } from '../models/incise'
-import { Comm } from '../models/comm';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,8 @@ export class InciseService {
   selectedIncise: Incise;
   incises: Incise[];
 
-  readonly URL_API = 'http://localhost:3000/api/scrwm/incises';
-
+  private URL_API = environment.apiUrl + 'api/scrwm/incises';
+  
   constructor(private http: HttpClient) {
     this.selectedIncise = new Incise();
   }
