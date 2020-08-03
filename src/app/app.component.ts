@@ -12,15 +12,16 @@ import { ShowAroundComponent} from 'src/app/components/incises/show-around/show-
 export class AppComponent{
 
   constructor(public showAround: ShowAroundComponent,
-              private router: Router){}
+              private router: Router){
+                let path = localStorage.getItem('path');
+                if(path) {
+                  //localStorage.removeItem('path');
+                  this.router.navigate([path]);
+                  this.showAround.deepLink(path);
+                }
+              }
   
   changeOfRoutes(){
-    let path = localStorage.getItem('path');
-    if(path) {
-      localStorage.removeItem('path');
-      this.router.navigate([path]);
-      this.showAround.deepLink(path);
-    }
     this.showAround.deepLink(this.router.url);
   }
 
