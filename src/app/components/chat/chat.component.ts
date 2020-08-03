@@ -20,7 +20,7 @@ export class ChatComponent implements OnInit {
 
   constructor(private socketService: SocketService,
               private imageService: ImageService,
-              private profService: ProfService,
+              public profService: ProfService,
   ) { }
 
   ngOnInit(): void {
