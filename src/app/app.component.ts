@@ -15,6 +15,12 @@ export class AppComponent{
               private router: Router){}
   
   changeOfRoutes(){
+    let path = localStorage.getItem('path');
+    if(path) {
+      localStorage.removeItem('path');
+      this.router.navigate([path]);
+      this.showAround.deepLink(path);
+    }
     this.showAround.deepLink(this.router.url);
   }
 
