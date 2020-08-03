@@ -24,6 +24,4 @@ export class AppComponent{
     this.showAround.deepLink(this.router.url);
   }
 
-
-
 }

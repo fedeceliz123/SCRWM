@@ -10,8 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatCardModule} from '@angular/material/card';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-
 
 @NgModule({
     imports:[
@@ -38,7 +36,6 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
         MatBadgeModule,
         MatCardModule
     ],
-    declarations: [NotFoundComponent]
 })
 
 export class MaterialModule{}
