@@ -44,7 +44,7 @@
         </li>
         <li>
           <button mat-button (click)="profComponent.editProf()" *ngIf="imagePath, else defaultImage">
-            <img class="circulo" [src]="'http://localhost:3000/' + imagePath">
+            <img class="circulo" [src]="authService.env + imagePath">
           </button>
           <ng-template #defaultImage>
             <button mat-button (click)="profComponent.editProf()">

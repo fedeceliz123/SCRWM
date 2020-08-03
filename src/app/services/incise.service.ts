@@ -10,6 +10,7 @@ export class InciseService {
 
   selectedIncise: Incise;
   incises: Incise[];
+  env = environment.apiUrl;
 
   private URL_API = environment.apiUrl + 'api/scrwm/incises';
   

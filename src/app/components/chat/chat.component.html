@@ -34,7 +34,7 @@
         <ul *ngFor="let user of Online"> 
             <li>
                 <button mat-button (click)="startChat(user)" *ngIf="user.image, else defaultImage">
-                    <img class="circulo"  [src]="'http://localhost:3000/' + user.image">
+                    <img class="circulo"  [src]="profService.env + user.image">
                 </button>
                 <ng-template #defaultImage>
                     <button mat-button (click)="startChat(user)">

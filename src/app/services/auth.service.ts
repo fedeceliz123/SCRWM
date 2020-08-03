@@ -14,6 +14,7 @@ export class AuthService {
   selectedUser: User;
   users: User[];
   UserId: String = "";
+  env = environment.apiUrl;
 
   constructor(private http: HttpClient, private router: Router) {
     this.selectedUser = new User();
