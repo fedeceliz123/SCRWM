@@ -9,7 +9,7 @@
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
                             <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}
-                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                                <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
@@ -17,7 +17,7 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                                                     </ng-template>  
@@ -50,7 +50,7 @@
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
                             <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}
-                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                                <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
@@ -58,7 +58,7 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                                                     </ng-template>  
@@ -91,7 +91,7 @@
                             <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
                             <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                             <div class="ttpName">
-                                <img class="circulo" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
+                                <img class="circulo" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="inciseService.env + imageService.selectedImage.imagePath">
                                 <ng-template #defaultImage>
                                   <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                                 </ng-template>
@@ -114,7 +114,7 @@
                     <div class="CeditableMin">
                         <div id="E"></div>
                         <ng-container *ngIf="showAround.ImageIncPath">
-                            <img class="media" [src]=" 'http://localhost:3000/' + showAround.ImageIncPath">
+                            <img class="media" [src]="inciseService.env + showAround.ImageIncPath">
                         </ng-container>    
                     </div> 
                 </div>
@@ -123,7 +123,7 @@
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
                             <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> 
-                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                                <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                                 {{ incise.content }}
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -132,7 +132,7 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                                                     </ng-template>  
@@ -156,7 +156,7 @@
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
                             <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}
-                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                                <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
@@ -164,7 +164,7 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                                                     </ng-template>  
@@ -207,7 +207,7 @@
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
                             <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}
-                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                                <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
@@ -215,7 +215,7 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                                                     </ng-template>  
@@ -246,7 +246,7 @@
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
                             <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}
-                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                                <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
@@ -254,7 +254,7 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                                                     </ng-template>  
@@ -286,7 +286,7 @@
                         <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
                         <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                         <div class="ttpName">
-                            <img class="circulo" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="'http://localhost:3000/' + imageService.selectedImage.imagePath">
+                            <img class="circulo" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="inciseService.env + imageService.selectedImage.imagePath">
                             <ng-template #defaultImage>
                               <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                             </ng-template>
@@ -307,7 +307,7 @@
                     <div class="CeditableMin">
                         <div id="E"></div>
                         <ng-container *ngIf="showAround.ImageIncPath">
-                            <img class="media" [src]=" 'http://localhost:3000/' + showAround.ImageIncPath">
+                            <img class="media" [src]="inciseService.env + showAround.ImageIncPath">
                         </ng-container>    
                     </div>
                 </div>
@@ -316,7 +316,7 @@
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
                             <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> 
-                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                                <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                                 {{ incise.content }}
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -325,7 +325,7 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                                                     </ng-template>  
@@ -349,7 +349,7 @@
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
                             <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}
-                                <img class="imageAround"  *ngIf="incise.media" [src]=" 'http://localhost:3000/' + incise.media">
+                                <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === incise.prof">
@@ -357,7 +357,7 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + image.imagePath">
+                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
                                                     </ng-template>  

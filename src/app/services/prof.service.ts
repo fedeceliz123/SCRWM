@@ -10,6 +10,7 @@ export class ProfService {
 
 userProf: Prof;
 profs: Prof[];
+env = environment.apiUrl;
 
   private URL_API = environment.apiUrl + 'api/scrwm/profs';
 

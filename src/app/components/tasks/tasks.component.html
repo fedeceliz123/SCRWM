@@ -10,7 +10,7 @@
                         <mat-expansion-panel-header>
                             <mat-panel-title >
                                 <div class="tooltip">
-                                    <img class="circulo" *ngIf="task.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + task.image.imagePath">
+                                    <img class="circulo" *ngIf="task.image.imagePath, else defaultImage" [src]="authService.env + task.image.imagePath">
                                     <ng-template #defaultImage>
                                         <img class="circulo" src="assets/no-image.png">
                                     </ng-template>
@@ -38,7 +38,7 @@
                         <mat-expansion-panel-header>
                             <mat-panel-title >
                                 <div class="tooltip">
-                                    <img class="circulo" *ngIf="task.image.imagePath, else defaultImage" [src]="'http://localhost:3000/' + task.image.imagePath">
+                                    <img class="circulo" *ngIf="task.image.imagePath, else defaultImage" [src]="authService.env + task.image.imagePath">
                                     <ng-template #defaultImage>
                                             <img class="circulo" src="assets/no-image.png">
                                     </ng-template>
