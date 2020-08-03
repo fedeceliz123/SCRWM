@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ProfService } from 'src/app/services/prof.service';
@@ -46,13 +46,14 @@ export class IncisesComponent implements OnInit{
                 public testing: TestingComponent,
                 public profComponent: ProfComponent,
                 public router: Router,
+                private route: ActivatedRoute,
                 public dialog: MatDialog,
                 public newImageInc: DialogNewImageInc,
                 public imageIncService: ImageIncService,
                 public authService: AuthService,
                 public socketService: SocketService,
                 public chatComponent: ChatComponent,
-    ){ }
+    ){ route.params.subscribe(val => this.ngOnInit()) }
 
     ngOnInit(): void{
     }
@@ -66,10 +67,8 @@ export class IncisesComponent implements OnInit{
         if(window.getSelection().toString() != ""){
           this.ToComment(window.getSelection());
         } else {
-          if(this.chatComponent.partner != ''){
-            this.showAround.DirLast = "Up";
-            this.keyListener.editedIncise();
-          }
+          this.showAround.DirLast = "Up";
+          this.keyListener.editedIncise();
         }
       } else if(event.shiftKey){
         if(event.keyCode === 37){

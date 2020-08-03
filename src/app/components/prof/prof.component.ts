@@ -85,6 +85,7 @@ export class ProfComponent implements OnInit {
     .subscribe(res => {
       this.taskComponent.getList();
       this.testing.checkProf("prof 137");
+      window.location.reload();
     });
   }
 
@@ -132,7 +133,6 @@ export class ProfComponent implements OnInit {
       for(var i in P){
         if(P[i].userId === userId){
           this.profService.userProf = P[i];
-          this.testing.checkProf("prof 51");
           return
         }
       }
@@ -162,7 +162,11 @@ export class ProfComponent implements OnInit {
     I.subtitle = "Click on Set Header in the navBar above to modify us"
     this.inciseService.postIncise(I)
     .subscribe(res => {
-      this.taskComponent.getList();
+      this.inciseService.getIncises().subscribe(res=>{
+        const A = this.inciseService.incises = res as Incise[];
+        this.taskComponent.getList();
+        window.location.reload();
+      });
     });
   }
 

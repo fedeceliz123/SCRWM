@@ -118,6 +118,9 @@ export class TasksComponent implements OnInit {
     this.inciseService.getIncises()
     .subscribe(res => {
       const A = this.inciseService.incises = res as Incise[]; 
+      for(var i in A){
+        console.log(A);
+      }
       this.imageService.getImages()
       .subscribe(res => {
         const I = this.imageService.images = res as Image[];
