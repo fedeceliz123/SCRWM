@@ -7,6 +7,9 @@
     position: fixed;
     bottom: 5px;
     right: 53px;
+    border: solid;
+    border-color: orange;
+    border-width: 1px;
 }  
 
 .mat-card-header{
@@ -53,6 +56,9 @@ display: none;
   margin-top: 8px;
   overflow-x: hidden;
   overflow-y: scroll;
+  border: solid;
+  border-color: orange;
+  border-width: 1px;
 }
 
 .back{

@@ -13,7 +13,7 @@ export class ChatComponent implements OnInit {
 
   mess: string;
   userId: string = sessionStorage.getItem('currentUserId');
-  partner: string = '';
+  partner: string = '';  
   nick: any;
   Online: any[];
 

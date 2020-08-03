@@ -13,6 +13,7 @@ export class InciseService {
   env = environment.apiUrl;
 
   private URL_API = environment.apiUrl + 'api/scrwm/incises';
+  private front = environment.front + 'incises/';
   
   constructor(private http: HttpClient) {
     this.selectedIncise = new Incise();
