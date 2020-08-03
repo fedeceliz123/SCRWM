@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { TasksComponent } from './components/tasks/tasks.component';
 import { IncisesComponent } from './components/incises/incises.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
 
 import { AuthGuard } from './auth.guard';
 
@@ -27,10 +26,6 @@ const routes: Routes = [
   {
     path: 'incises/:_id',            
     component: IncisesComponent,
-  },
-  {
-    path: '**',            
-    component: NotFoundComponent,
   },
 ];
 
