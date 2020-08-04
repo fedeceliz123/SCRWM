@@ -23,28 +23,42 @@
     </div>
 
     <div class="onlineZone">
-        <div class="chatHistory">
-            <ul *ngFor="">
-                <li>
-                    
-                </li>
+        Online
+        <div class="chatActive">
+            <ul *ngFor="let user of Active"> 
+                <div *ngIf="user.prof">
+                    <li class="ttp">
+                        <button mat-button (click)="startChat(user)" *ngIf="user.image, else defaultImage">
+                            <img class="circulo"  [src]="profService.env + user.image">
+                            <span class="ttpText">@{{ user.nick }}</span>
+                        </button>
+                        <ng-template #defaultImage>
+                            <button mat-button (click)="startChat(user)">
+                                <img class="circulo"  src="assets/no-image.png">
+                                <span class="ttpText">{{ user.nick }}</span>
+                            </button>
+                        </ng-template>
+                    </li><br>
+                </div>
             </ul>
         </div>
-        Online
+        <hr>
         <div class="scroll">
             <ul *ngFor="let user of Online"> 
-                <li class="ttp">
-                    <button mat-button (click)="startChat(user)" *ngIf="user.image, else defaultImage">
-                        <img class="circulo"  [src]="profService.env + user.image">
-                        <span class="ttpText">@{{ user.nick }}</span>
-                    </button>
-                    <ng-template #defaultImage>
-                        <button mat-button (click)="startChat(user)">
-                            <img class="circulo"  src="assets/no-image.png">
-                            <span class="ttpText">{{ user.nick }}</span>
+                <div *ngIf="user.prof">
+                    <li class="ttp">
+                        <button mat-button (click)="startChat(user)" *ngIf="user.image, else defaultImage">
+                            <img class="circulo"  [src]="profService.env + user.image">
+                            <span class="ttpText">@{{ user.nick }}</span>
                         </button>
-                    </ng-template>
-                </li><br>
+                        <ng-template #defaultImage>
+                            <button mat-button (click)="startChat(user)">
+                                <img class="circulo"  src="assets/no-image.png">
+                                <span class="ttpText">{{ user.nick }}</span>
+                            </button>
+                        </ng-template>
+                    </li><br>
+                </div>
             </ul>
         </div>
     </div>    
