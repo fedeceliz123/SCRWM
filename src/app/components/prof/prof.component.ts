@@ -6,6 +6,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { ImageIncService } from 'src/app/services/image-inc.service';
 import { InciseService } from 'src/app/services/incise.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SocketService } from 'src/app/services/socket.service';
 
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 import { TestingComponent } from 'src/app/components/testing/testing.component';
@@ -36,6 +37,7 @@ export class ProfComponent implements OnInit {
               public imageIncService: ImageIncService,
               public authService: AuthService,
               public inciseService: InciseService,
+              public socketService: SocketService,
               public taskComponent: TasksComponent,
               public testing: TestingComponent,
               public dialog: MatDialog,
@@ -118,7 +120,7 @@ export class ProfComponent implements OnInit {
     .subscribe(res => {
       const A = this.imageService.images = res as Image[];
       for(var i in A){
-        if(A[i].userId === sessionStorage.getItem('currentUserId')){
+        if(A[i].userId === this.userId){
           this.imageService.selectedImage = A[i];
           return
         }
@@ -133,6 +135,8 @@ export class ProfComponent implements OnInit {
       for(var i in P){
         if(P[i].userId === userId){
           this.profService.userProf = P[i];
+          this.socketService.emit('new user', this.userId);
+          window.location.reload();
           return
         }
       }
@@ -157,7 +161,7 @@ export class ProfComponent implements OnInit {
 
   firstIncise(){
     const I = this.inciseService.selectedIncise = new Incise;
-    I.prof = sessionStorage.getItem('currentUserId');
+    I.prof = this.userId;
     I.title = "My first Scrwm";
     I.subtitle = "Click on Set Header in the navBar above to modify us"
     this.inciseService.postIncise(I)
@@ -165,7 +169,6 @@ export class ProfComponent implements OnInit {
       this.inciseService.getIncises().subscribe(res=>{
         const A = this.inciseService.incises = res as Incise[];
         this.taskComponent.getList();
-        window.location.reload();
       });
     });
   }

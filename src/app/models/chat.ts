@@ -3,15 +3,12 @@ import { Mess } from './mess'
 export class Chat {
 
     _id: string; 
-    userA: string;
-    userB: string;
+    partner: string;
     messages: Mess[];
 
-    constructor(_id="", userA="", userB=""){
+    constructor(_id="", partner=""){
         this._id = _id;
-        this.userA = userA;
-        this.userB = userB;
+        this.partner = partner;
         this.messages = [];
     }
 }
-  

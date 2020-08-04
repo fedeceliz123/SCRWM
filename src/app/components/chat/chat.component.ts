@@ -14,7 +14,7 @@ export class ChatComponent implements OnInit {
   mess: string;
   userId: string = sessionStorage.getItem('currentUserId');
   partner: string = '';  
-  nick: any;
+  nick: string;
   Online: any[];
 
 
@@ -40,43 +40,50 @@ export class ChatComponent implements OnInit {
 
   listenUsers(){
     this.socketService.listen('user ids').subscribe((data) =>{
+      console.log(data)
       this.setConnected(data);
     })
   }
 
   setConnected(data: any){
     this.Online = [];
+    const I = this.imageService.images;
+    const P = this.profService.profs;
     for(var i in data){
       if(data[i] != this.userId){
         let img = "";
-        for(var j in this.imageService.images){
-          if(this.imageService.images[j].userId === data[i]){
-            img = this.imageService.images[j].imagePath;
+        for(var j in I){
+          if(I[j].userId === data[i]){
+            img = I[j].imagePath;
           }
         }
-        this.Online.push({"prof": data[i],"image": img});
+        for(var k in P){
+          if(P[k].userId === data[i]){
+            this.Online.push({"prof": data[i],"image": img, "nick": P[k].nickname});
+          }
+        }
+        
       }
     }
   }
 
   sendChat(form: NgForm){
-    let mess = { "message": form.value.message, "toUser": this.nick.userId };
+    let mess = { "message": form.value.message, "toUser": this.partner };
     this.socketService.emit("send message", mess);
     const line = document.createElement('p');
     line.textContent = form.value.message;
     line.style.minWidth = "400px";
+    line.style.color = "white";
+    line.align = "end";
     document.getElementById('container').appendChild(line);
     form.reset(); 
   }
 
   startChat(user: any){
+    console.log(this.Online)
     const P = this.profService.profs
     this.partner = user.prof;
-    for(var i in P){
-      if(P[i].userId === this.partner){
-        this.nick = P[i];
-      }
-    }
+    this.nick = user.nick;
   }
 
   hideChat(){

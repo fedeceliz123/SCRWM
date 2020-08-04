@@ -4,7 +4,6 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { ProfComponent } from 'src/app/components/prof/prof.component'
 import { MatDialog } from '@angular/material/dialog';
-import { SocketService } from 'src/app/services/socket.service';
 
 declare var M: any; 
 
@@ -20,7 +19,6 @@ export class SigninComponent implements OnInit {
   constructor(public authService: AuthService,
               public profComponent: ProfComponent,
               public dialog: MatDialog,
-              public socketService: SocketService,
   ) { }
 
   ngOnInit(): void {
@@ -58,7 +56,6 @@ export class SigninComponent implements OnInit {
     this.dialog.closeAll();
     this.profComponent.username = A.username;
     sessionStorage.setItem('currentUserId', A._id);
-    this.socketService.emit('new user', A._id);
     form.reset();
     this.profComponent.findProf(A._id);
   }
