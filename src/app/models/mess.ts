@@ -1,12 +1,10 @@
 export class Mess {
-    emisor: string;
-    receptor: string;
+    received: boolean;
     message: string;
     date: string;
     
-    constructor(emisor="", receptor="", message="", date=""){
-        this.emisor = emisor;
-        this.receptor = receptor;
+    constructor(message="", date=""){
+        this.received = false;
         this.message = message;
         this.date = date;
     }

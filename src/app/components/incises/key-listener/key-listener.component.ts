@@ -25,9 +25,6 @@ export class KeyListenerComponent implements OnInit {
   }
   
   editedIncise(comm?: Comm){
-    if(!this.inciseService.selectedIncise._id){
-      alert("Este inciso no tiene alma!")
-    }
     if(document.getElementById('E').textContent){
       const C = document.getElementById('E');
       const incise = this.inciseService.selectedIncise;
