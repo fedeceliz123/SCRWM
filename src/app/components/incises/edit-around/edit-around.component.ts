@@ -41,7 +41,15 @@ export class EditAroundComponent implements OnInit {
     }
     this.newInc = incise
     this.checkContent();
+    this.playAudio();
     this.linkStereo1();
+  }
+
+  playAudio(){
+    let audio = new Audio();
+    audio.src = "assets/audio/pop_drip.wav";
+    audio.load();
+    audio.play();
   }
 
   newInc: Incise;

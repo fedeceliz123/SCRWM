@@ -68,7 +68,7 @@ export class IncisesComponent implements OnInit{
           this.ToComment(window.getSelection());
         } else {
           this.showAround.DirLast = "Up";
-          this.keyListener.editedIncise();
+          this.keyListener.editedIncise();  
         }
       } else if(event.shiftKey){
         if(event.keyCode === 37){

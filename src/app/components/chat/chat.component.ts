@@ -65,17 +65,20 @@ export class ChatComponent implements OnInit {
     const I = this.imageService.images;
     this.socketService.listen('whisper').subscribe((data: any) =>{
       if(this.partner === data.toUser){
-        console.log("1")
         this.addMessage(data);
         return;
       }
-      console.log("2")
       for(var i in this.Online){
         if(this.Online[i].prof === data.toUser){
-          console.log("3")
           this.partner = data.toUser;
           this.setNick(data);
           this.findChat(data);
+
+          let audio = new Audio();
+          audio.src = "assets/audio/chime_bell_ding.wav";
+          audio.load();
+          audio.play();
+
           return;
         }
       }
@@ -83,7 +86,6 @@ export class ChatComponent implements OnInit {
   }
 
   setNick(data: any){
-    console.log(this.Online)
     for(var i in this.Online){
       if(this.Online[i].prof === data.toUser){
         this.nick = this.Online[i].nick;
@@ -93,12 +95,10 @@ export class ChatComponent implements OnInit {
   }
 
   findChat(data: any){
-    console.log("4")
     this.chatService.getChats().subscribe(res=>{
       const C = this.chatService.chats = res as Chat[];
       for(var i in C){
         if(C[i].partner === data.toUser && C[i].userId === this.userId){
-          console.log("5")
           this.chatService.selectedChat = C[i];
           this.addMessage(data);
           return;
@@ -112,7 +112,6 @@ export class ChatComponent implements OnInit {
   }
 
   addMessage(data: any){
-    console.log("6")
     const mess = new Mess;
     mess.received = true;
     mess.message = data.message;
@@ -200,7 +199,11 @@ export class ChatComponent implements OnInit {
 
   hideChat(){
     this.partner = '';
-    this.deleteAllChats();
+    //this.deleteAllChats();
+    let audio = new Audio();
+    audio.src = "assets/audio/digi_plink.wav";
+    audio.load();
+    audio.play();
   }
 
   deleteAllChats(){
