@@ -26,8 +26,12 @@
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <div class="date">
-                            {{ lastEdited(task.incise.updatedAt) }} (Cr. {{ created(task.incise.createdAt) }} )
-                            <img *ngIf="task.incise.publicity === true" src="assets/public.png" style="width: 12px;">
+                            <div>
+                                {{ lastEdited(task.incise.updatedAt) }} (cr. {{ created(task.incise.createdAt) }} )
+                            </div>
+                            <div>
+                                <img *ngIf="task.incise.publicity === true" src="assets/public.jpeg" style="height: 15px; margin-bottom: -3px;">
+                            </div>
                         </div>
                         <p class="subtitle"> {{ task.incise.subtitle }} </p>      
                     </mat-expansion-panel>       

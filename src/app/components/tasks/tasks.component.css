@@ -70,9 +70,10 @@
 
 .date{
     font-size: 12px; 
-    font-weight: bold;
-    color: gray;
+    color: rgb(96, 163, 251);
     margin-top: -2px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .tooltip {

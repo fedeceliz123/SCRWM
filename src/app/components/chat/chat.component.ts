@@ -155,9 +155,17 @@ export class ChatComponent implements OnInit {
   saveChat(){
     const C = this.chatService.selectedChat;
     if(this.chatService.selectedChat._id){
-      this.chatService.putChat(C).subscribe(res=>{});
+      this.chatService.putChat(C).subscribe(res=>{
+        this.chatService.getChats().subscribe(res=>{
+          this.chatService.chats = res as Chat[];
+        })
+      });
     } else {
-      this.chatService.postChat(C).subscribe(res=>{});
+      this.chatService.postChat(C).subscribe(res=>{
+        this.chatService.getChats().subscribe(res=>{
+          this.chatService.chats = res as Chat[];
+        })
+      });
     }
   }
 

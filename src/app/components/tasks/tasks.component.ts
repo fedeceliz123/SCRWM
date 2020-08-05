@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-//import * as moment from 'moment';
+import * as moment from 'moment'; 
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ImageService } from 'src/app/services/image.service';
@@ -105,13 +105,11 @@ export class TasksComponent implements OnInit {
   }];
 
   lastEdited(updatedAt: string){
-    return updatedAt;
-    //return moment(updatedAt).startOf('hour').fromNow();
+    return moment(updatedAt).startOf('hour').fromNow();
   }
 
   created(createdAt: string){
-    return createdAt
-    //return moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
+    return moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
   }
 
   getList(){
