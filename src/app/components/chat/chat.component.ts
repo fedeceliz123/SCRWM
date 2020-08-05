@@ -7,6 +7,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { NgForm } from '@angular/forms';
 
 import { Chat } from 'src/app/models/chat'
+import { Mess } from 'src/app/models/mess'
 
 @Component({
   selector: 'app-chat',
@@ -20,11 +21,6 @@ export class ChatComponent implements OnInit {
   partner: string;  
   nick: string;
   Online: any[];
-  Active: any[] = [{
-    "prof": "",
-    "image": "",
-    "nick": ""
-  }]
 
   constructor(private socketService: SocketService,
               private imageService: ImageService,
@@ -40,7 +36,6 @@ export class ChatComponent implements OnInit {
 
   listenUsers(){
     this.socketService.listen('user ids').subscribe((data) =>{
-      console.log(data)
       this.setConnected(data);
     })
   }
@@ -69,43 +64,120 @@ export class ChatComponent implements OnInit {
   listenMessage(){
     const I = this.imageService.images;
     this.socketService.listen('whisper').subscribe((data: any) =>{
-      if(data.toUser === this.partner){
-        this.newLinePartner(data);
+      if(this.partner === data.toUser){
+        console.log("1")
+        this.addMessage(data);
         return;
       }
+      console.log("2")
       for(var i in this.Online){
         if(this.Online[i].prof === data.toUser){
-          console.log(this.Online[i]);
-          this.Active.push(this.Online[i]);
-          console.log(this.Active)
-          this.Online.splice(this.Online.indexOf(this.Online[i]) ,1);
+          console.log("3")
+          this.partner = data.toUser;
+          this.setNick(data);
+          this.findChat(data);
+          return;
         }
       }
     });
   }
 
-  newLinePartner(data: any){
+  setNick(data: any){
+    console.log(this.Online)
+    for(var i in this.Online){
+      if(this.Online[i].prof === data.toUser){
+        this.nick = this.Online[i].nick;
+        return;
+      }
+    }
+  }
+
+  findChat(data: any){
+    console.log("4")
+    this.chatService.getChats().subscribe(res=>{
+      const C = this.chatService.chats = res as Chat[];
+      for(var i in C){
+        if(C[i].partner === data.toUser && C[i].userId === this.userId){
+          console.log("5")
+          this.chatService.selectedChat = C[i];
+          this.addMessage(data);
+          return;
+        }
+      }
+      this.chatService.selectedChat = new Chat;
+      this.chatService.selectedChat.partner = data.toUser;
+      this.chatService.selectedChat.userId = this.userId;
+      this.addMessage(data);
+    });
+  }
+
+  addMessage(data: any){
+    console.log("6")
+    const mess = new Mess;
+    mess.received = true;
+    mess.message = data.message;
+    mess.date = Date();
+    this.chatService.selectedChat.messages.push(mess);
+    this.displayChatBox();
+  }
+
+  displayChatBox(){
+    if(document.getElementById('container').innerHTML){
+      document.getElementById('container').innerHTML = "";
+   }
+    const M = this.chatService.selectedChat.messages;
+    for(var i in M){
+      if(M[i].received){
+        this.newLinePartner(M[i].message);
+      } else {
+        this.newLineUser(M[i].message);
+      }
+    }
+    this.saveChat();
+  }
+
+  newLinePartner(message: string){
     const line = document.createElement('p');
-    line.textContent = data.message;
+    line.textContent = message;
     line.style.minWidth = "400px";
     line.style.color = "yellow";
     document.getElementById('container').appendChild(line);
   }
 
-  sendChat(form: NgForm){
-    let mess = { "message": form.value.message, "toUser": this.partner };
-    this.socketService.emit("send message", mess);
-    this.newLineUser(form);
-  }
-
-  newLineUser(form: NgForm){
+  newLineUser(message: string){
     const line = document.createElement('p');
-    line.textContent = form.value.message;
+    line.textContent = message;
     line.style.minWidth = "400px";
     line.style.color = "white";
     line.align = "end";
     document.getElementById('container').appendChild(line);
-    form.reset(); 
+  }
+
+  saveChat(){
+    const C = this.chatService.selectedChat;
+    if(this.chatService.selectedChat._id){
+      this.chatService.putChat(C).subscribe(res=>{});
+    } else {
+      this.chatService.postChat(C).subscribe(res=>{});
+    }
+  }
+
+  sendMessenge(form: NgForm){
+    let mess = { "message": form.value.message, "toUser": this.partner };
+    this.socketService.emit("send message", mess);
+    const A = this.fillMess(form);
+    this.chatService.selectedChat = A;
+    this.displayChatBox();
+    form.reset();
+  }
+
+  fillMess(form: NgForm){
+    const mess = new Mess;
+    mess.received = false;
+    mess.message = form.value.message;
+    mess.date = Date();
+    this.chatService.selectedChat.messages.push(mess);
+    return this.chatService.selectedChat;
   }
 
   startChat(user: any){
@@ -114,22 +186,30 @@ export class ChatComponent implements OnInit {
     this.chatService.getChats().subscribe(res=>{
       const C = this.chatService.chats = res as Chat[];
       for(var i in C){
-        if(C[i].userId === user.prof){
+        if(C[i].partner === user.prof && C[i].userId === this.userId){
           this.chatService.selectedChat = C[i];
-          this.getHistory(C[i]);
+          this.displayChatBox();
           return
         }
       }
       this.chatService.selectedChat = new Chat;
+      this.chatService.selectedChat.userId = this.userId;
+      this.chatService.selectedChat.partner = user.prof;
     })
-  }
-
-  getHistory(chat: Chat){
-
   }
 
   hideChat(){
     this.partner = '';
+    this.deleteAllChats();
+  }
+
+  deleteAllChats(){
+    this.chatService.getChats().subscribe(res=>{
+      const C = this.chatService.chats = res as Chat[];
+      for(var i in C){
+        this.chatService.deleteChat(C[i]._id).subscribe(res=>{});
+      }
+    });
   }
 
 }

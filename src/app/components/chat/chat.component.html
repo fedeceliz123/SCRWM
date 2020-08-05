@@ -10,7 +10,7 @@
             <div id="chat">
                 <div id="container"></div>
             </div>
-            <form #chatForm="ngForm" (ngSubmit)="sendChat(chatForm)">
+            <form #chatForm="ngForm" (ngSubmit)="sendMessenge(chatForm)">
                 <div class="inputs">
                     <input matInput style="color: white;" name="message" #message="ngModel" [(ngModel)]="mess" class="form-control" autocomplete="off" cdkFocusInitial>
                     <button class="btn waves-effect waves-light" type="submit" name="action" style="width:60px;">
@@ -24,25 +24,6 @@
 
     <div class="onlineZone">
         Online
-        <div class="chatActive">
-            <ul *ngFor="let user of Active"> 
-                <div *ngIf="user.prof">
-                    <li class="ttp">
-                        <button mat-button (click)="startChat(user)" *ngIf="user.image, else defaultImage">
-                            <img class="circulo"  [src]="profService.env + user.image">
-                            <span class="ttpText">@{{ user.nick }}</span>
-                        </button>
-                        <ng-template #defaultImage>
-                            <button mat-button (click)="startChat(user)">
-                                <img class="circulo"  src="assets/no-image.png">
-                                <span class="ttpText">{{ user.nick }}</span>
-                            </button>
-                        </ng-template>
-                    </li><br>
-                </div>
-            </ul>
-        </div>
-        <hr>
         <div class="scroll">
             <ul *ngFor="let user of Online"> 
                 <div *ngIf="user.prof">
