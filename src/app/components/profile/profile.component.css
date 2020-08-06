@@ -1,0 +1,42 @@
+.container{
+    display: flexbox;
+    max-height: 450px;
+    min-width: 900px;
+}
+
+.left{
+    width: 350px;
+    height: 400px;
+    margin-left: 10px;
+}
+
+.right{
+    width: 500px;
+    height: 380px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.image{
+    height: 350px;
+    width: 350px;
+    margin-left: 10px;
+    margin-top: 5px;
+    border-radius: 50px;
+    border: gba(143, 174, 195, 1); 
+    border-style: outset;
+}
+
+.followers{
+    width: 25px;
+    height: auto;
+}
+
+.diamond{
+    height: 25px;
+}
+
+.points{
+    display: flex;
+    justify-content: space-around;
+}

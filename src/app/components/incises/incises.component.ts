@@ -15,18 +15,17 @@ import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 import { TestingComponent } from 'src/app/components/testing/testing.component';
 import { ProfComponent } from 'src/app/components/prof/prof.component';
 import { ChatComponent } from 'src/app/components/chat/chat.component';
+import { CopyUrlComponent } from 'src/app/components/incises/copy-url/copy-url.component';
+import { NewImageComponent } from 'src/app/components/incises/new-image/new-image.component';
+import { ProfileComponent } from 'src/app/components/profile/profile.component';
 
 import { Comm } from 'src/app/models/comm';
 import { ImageInc } from 'src/app/models/image-inc';
-
+import { Incise } from 'src/app/models/incise';
 
 import {MatDialog} from '@angular/material/dialog';
 
 declare var M: any; 
-
-interface HTMLInputEvent extends Event {
-  target: HTMLInputElement & EventTarget;
-}
 
 @Component({
   selector: 'app-incises',
@@ -48,11 +47,11 @@ export class IncisesComponent implements OnInit{
                 public router: Router,
                 private route: ActivatedRoute,
                 public dialog: MatDialog,
-                public newImageInc: DialogNewImageInc,
                 public imageIncService: ImageIncService,
                 public authService: AuthService,
                 public socketService: SocketService,
                 public chatComponent: ChatComponent,
+                public profileComponent: ProfileComponent,
     ){ route.params.subscribe(val => this.ngOnInit()) }
 
     ngOnInit(): void{
@@ -60,8 +59,6 @@ export class IncisesComponent implements OnInit{
   
 
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
-
-
     if(this.authService.loggedIn()){
       if(event.keyCode === 13){   
         if(window.getSelection().toString() != ""){
@@ -103,6 +100,7 @@ export class IncisesComponent implements OnInit{
     this.router.navigate(['/tasks']);
     this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
     this.showAround.toCenter(this.inciseService.selectedIncise);
+    //this.deleteIncises();
   }
 
   zoomMax(){
@@ -113,7 +111,6 @@ export class IncisesComponent implements OnInit{
     }
   }
 
-  
   addHashtag:boolean = false;
 
   HT(){
@@ -132,15 +129,6 @@ export class IncisesComponent implements OnInit{
         this.showAround.toCenter(this.inciseService.selectedIncise);
       }
       document.getElementById('E').contentEditable = "true";
-    }
-  }
-
-  openDialogDelHashtag(hashtag: string){
-    if(document.getElementById('E').isContentEditable){
-      localStorage.setItem("HTag", hashtag);
-      const dialogRef = this.dialog.open(DialogContent);
-      dialogRef.afterClosed().subscribe(result => {
-      });
     }
   }
 
@@ -196,9 +184,44 @@ export class IncisesComponent implements OnInit{
     });
   }
 
+
+  deleteIncises(){
+    this.inciseService.getIncises()
+    .subscribe(res => {
+      this.inciseService.incises = res as Incise[];
+      for(var i in this.inciseService.incises){
+        this.inciseService.deleteIncise(this.inciseService.incises[i]._id)
+        .subscribe(res => {
+          this.deleteImagesInc();
+        });
+      }
+    });
+  }
+
+  deleteImagesInc(){
+    this.imageIncService.getImages()
+    .subscribe(res => {
+      this.imageIncService.imagesInc = res as ImageInc[];
+      for(var i in this.imageIncService.imagesInc){
+        this.imageIncService.deleteImage(this.imageIncService.imagesInc[i]._id)
+        .subscribe(res => {
+        });
+      }
+    });
+  }
+
+  openDialogDelHashtag(hashtag: string){
+    if(document.getElementById('E').isContentEditable){
+      localStorage.setItem("HTag", hashtag);
+      const dialogRef = this.dialog.open(DialogContent);
+      dialogRef.afterClosed().subscribe(result => {
+      });
+    }
+  }
+
   openDialogNewImageInc(){
     if(this.inciseService.selectedIncise._id){
-      const dialogRef = this.dialog.open(DialogNewImageInc);
+      const dialogRef = this.dialog.open(NewImageComponent);
       dialogRef.afterClosed().subscribe(res => {
       });  
     } else {
@@ -209,7 +232,7 @@ export class IncisesComponent implements OnInit{
 
   onenDialogCopyUrl(){
     if(this.inciseService.selectedIncise._id){
-      const dialogRef = this.dialog.open(DialogCopyUrl);
+      const dialogRef = this.dialog.open(CopyUrlComponent);
       dialogRef.afterClosed().subscribe(res => {
       });  
     } else {
@@ -224,105 +247,6 @@ export class IncisesComponent implements OnInit{
   templateUrl: 'dialog-content.html',
 })
 export class DialogContent {
-
-  constructor(public inciseService: InciseService, 
-              public showAround: ShowAroundComponent,
-  ){ }
-
-  deleteHashtag(){
-    const hashtag = localStorage.getItem("HTag");
-    const A = this.inciseService.selectedIncise;
-    for(var i in A.hashtag){
-      if(A.hashtag[i] === hashtag){
-        const index = A.hashtag.indexOf(i)+1;
-        A.hashtag.splice(index, 1);
-        A.content = document.getElementById('E').textContent;
-        this.showAround.toCenter(A);
-      }
-    }
-  }
-
-}
-
-
-@Component({
-  selector: 'dialog-new-image',
-  templateUrl: 'dialog-new-image.html',
-})
-export class DialogNewImageInc implements OnInit{
-
-  constructor(public inciseService: InciseService,
-              public imageIncService: ImageIncService,
-              public showAround: ShowAroundComponent,
-  ){ }
-
-
-  ngOnInit(): void {
-  }
-
-  imageIncPath: string = this.showAround.ImageIncPath;
-
-  file: File;
-  photoSel: string | ArrayBuffer;
-
-  onPhotoSelected(event: HTMLInputEvent): void {
-    if(event.target.files && event.target.files[0]){    // confirma si existe un archivo subido
-      this.file = <File>event.target.files[0];          // guarda el archivo en file
-      const reader = new FileReader();                   // para que se vea en pantalla
-      reader.onload = e => this.photoSel = reader.result;
-      reader.readAsDataURL(this.file);
-    }
-  }
-
-  insertImageInc(){
-    if(this.photoSel){
-      this.imageIncService.getImages()
-      .subscribe(res => {
-        const A = this.imageIncService.imagesInc = res as ImageInc[];
-        for(var i in A){
-          if(A[i].associatedIncId === this.inciseService.selectedIncise._id){
-            this.imageIncService.deleteImage(A[i]._id)
-            .subscribe(res=>{
-            });
-          }
-        }
-        this.chargeNewImageInc();
-      });  
-    }
-  }
-
-  chargeNewImageInc(){
-    const A = this.imageIncService.selectedImageInc = new ImageInc;
-    A.associatedIncId = this.inciseService.selectedIncise._id;
-    A.userId = sessionStorage.getItem('currentUserId');
-    this.imageIncService.postImage(A, this.file)
-    .subscribe(res => {
-      this.getImage();
-    });
-  }
-
-  getImage(){
-    this.imageIncService.getImages()
-    .subscribe(res => {
-      const A = this.imageIncService.imagesInc = res as ImageInc[];
-      for(var i in A){
-        if(A[i].associatedIncId = this.inciseService.selectedIncise._id){
-          this.imageIncService.selectedImageInc = A[i];
-          this.showAround.toCenter(this.inciseService.selectedIncise);
-          return
-        }
-      }
-    });
-  }
-}
-
-
-
-@Component({
-  selector: 'dialog-copy-url',
-  templateUrl: 'dialog-copy-url.html',
-})
-export class DialogCopyUrl {
 
   constructor(public inciseService: InciseService, 
               public showAround: ShowAroundComponent,

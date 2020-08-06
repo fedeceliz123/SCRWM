@@ -13,7 +13,6 @@ import { TestingComponent } from 'src/app/components/testing/testing.component';
 
 import { Prof } from 'src/app/models/prof';
 import { Image } from 'src/app/models/image';
-import { ImageInc } from 'src/app/models/image-inc';
 import { Incise } from 'src/app/models/incise';
 
 import {MatDialog} from '@angular/material/dialog';
@@ -21,8 +20,6 @@ import {MatDialog} from '@angular/material/dialog';
 interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
 }
-
-declare var M: any;
 
 @Component({
   selector: 'app-prof',
@@ -85,9 +82,9 @@ export class ProfComponent implements OnInit {
     }
     this.profService.putProf(prof)
     .subscribe(res => {
-      this.taskComponent.getList();
+      this.taskComponent.list.getList();
       this.testing.checkProf("prof 137");
-      window.location.reload();
+      //window.location.reload();
     });
   }
 
@@ -128,6 +125,7 @@ export class ProfComponent implements OnInit {
     });
   }
 
+
   findProf(userId: string){
     this.profService.getProfs()
     .subscribe(res => {
@@ -136,7 +134,7 @@ export class ProfComponent implements OnInit {
         if(P[i].userId === userId){
           this.profService.userProf = P[i];
           this.socketService.emit('new user', this.userId);
-          window.location.reload();
+          //window.location.reload();
           return
         }
       }
@@ -155,20 +153,20 @@ export class ProfComponent implements OnInit {
       this.profService.userProf = res as Prof;
       this.testing.checkProf("prof 66");
       this.findProf(userId);
-      this.firstIncise();
+      this.firstIncise(userId);
     });
   }
 
-  firstIncise(){
+  firstIncise(userId: string){
     const I = this.inciseService.selectedIncise = new Incise;
-    I.prof = this.userId;
+    I.prof = userId;
     I.title = "My first Scrwm";
     I.subtitle = "Click on Set Header in the navBar above to modify us"
     this.inciseService.postIncise(I)
     .subscribe(res => {
       this.inciseService.getIncises().subscribe(res=>{
         const A = this.inciseService.incises = res as Incise[];
-        this.taskComponent.getList();
+        this.taskComponent.list.getList();
       });
     });
   }
@@ -182,22 +180,7 @@ export class ProfComponent implements OnInit {
         .subscribe(res => {
         });
       }
-      this.deleteIncises();
       this.deleteImages();
-      this.deleteImagesInc();
-
-    });
-  }
-
-  deleteIncises(){
-    this.inciseService.getIncises()
-    .subscribe(res => {
-      this.inciseService.incises = res as Incise[];
-      for(var i in this.inciseService.incises){
-        this.inciseService.deleteIncise(this.inciseService.incises[i]._id)
-        .subscribe(res => {
-        });
-      }
     });
   }
 
@@ -213,126 +196,11 @@ export class ProfComponent implements OnInit {
     });
   }
 
-  deleteImagesInc(){
-    this.imageIncService.getImages()
-    .subscribe(res => {
-      this.imageIncService.imagesInc = res as ImageInc[];
-      for(var i in this.imageIncService.imagesInc){
-        this.imageIncService.deleteImage(this.imageIncService.imagesInc[i]._id)
-        .subscribe(res => {
-        });
-      }
-    });
-  }
-
-  scrwm: any;
-  
-  seeProf() {
-    for(var i in this.taskComponent.taskList){
-      if(this.taskComponent.taskList[i].incise === this.inciseService.selectedIncise){
-        this.scrwm = this.taskComponent.taskList[i];
-        this.openDialog();
-      }
-    }
-  }
-
-  openDialog(){
-    const dialogRef = this.dialog.open(DialogPublicProf);
-    dialogRef.afterClosed().subscribe(result => {
-      });
-      return; 
-    } 
-
   editProf() {
     const dialogRef = this.dialog.open(ProfComponent);
     dialogRef.afterClosed().subscribe(result => {
     });
     return; 
-  }  
-
-}
-
-
-@Component({
-  selector: 'dialog-public-prof',
-  templateUrl: 'dialog-public-prof.html',
-  styleUrls: ['./dialog-public-prof.css']
-})
-export class DialogPublicProf implements OnInit{
-
-  constructor(public inciseService: InciseService,
-              public taskComponent: TasksComponent,
-              public profComponent: ProfComponent,
-              public profService: ProfService,
-  ){}
-
-  ngOnInit(): void {
-    this.setDiamods();
-  }
-
-  DIAMONDS: number;
-  isFoll: boolean;
-  selProf = this.profComponent.scrwm.prof;
-  userProf = this.profService.userProf;
-
-  setDiamods(){
-    let count = 0
-    this.inciseService.getIncises()
-    .subscribe(res=>{
-      const A = this.inciseService.incises = res as Incise[];
-      for(var i in A){
-        if(A[i].prof === this.selProf.userId){
-          if(A[i].diamond){
-            count = count + A[i].diamond;
-          }
-        }
-      }
-      this.DIAMONDS = count;   
-     })
-  }
-
-  isFollowing(){
-    const F = this.profService.userProf.following;
-    for(var i in F){
-      if(F[i] === this.selProf._id){
-        this.isFoll = true;
-        return this.isFoll;
-      }
-    }
-    this.isFoll = false;
-  }
-
-  followness(form: NgForm){
-    const F = this.userProf.following;
-    if(form.value.event === true){
-      for(var i in F){
-        if(F[i] === this.selProf._id){
-          return
-        }
-      }
-      this.selProf.followers ++;
-      F.push(this.selProf._id);
-      this.saveProfs(this.selProf, this.userProf);
-    }
-    if(form.value.event === false){
-      for(var i in F){
-        if(F[i] === this.selProf._id){
-          this.selProf.followers --;
-          const index = F.indexOf(i)+1;
-          F.splice(index, 1);
-          this.saveProfs(this.selProf, this.userProf);
-        }
-      }
-    }
-  }
-
-  saveProfs(selProf: Prof, userProf: Prof){
-    this.profService.putProf(selProf)
-    .subscribe(res=>{})
-    this.profService.putProf(userProf)
-    .subscribe(res=>{})
   }
 
 }
-
-

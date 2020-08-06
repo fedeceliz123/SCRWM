@@ -4,7 +4,7 @@
     <app-incises></app-incises>
     <div class="right">
         <mat-accordion>
-            <div *ngFor="let task of taskList">
+            <div *ngFor="let task of list.taskList">
                 <div *ngIf="task.incise.title, else noTitle">
                     <mat-expansion-panel hideToggle>
                         <mat-expansion-panel-header>
@@ -26,8 +26,12 @@
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <div class="date">
-                            {{ lastEdited(task.incise.updatedAt) }} (Cr. {{ created(task.incise.createdAt) }} )
-                            <img *ngIf="task.incise.publicity === true" src="assets/public.png" style="width: 12px;">
+                            <div>
+                                {{ lastEdited(task.incise.updatedAt) }} (cr. {{ created(task.incise.createdAt) }} )
+                            </div>
+                            <div>
+                                <img *ngIf="task.incise.publicity === true" src="assets/public.jpeg" style="height: 15px; margin-bottom: -3px;">
+                            </div>
                         </div>
                         <p class="subtitle"> {{ task.incise.subtitle }} </p>      
                     </mat-expansion-panel>       
@@ -56,7 +60,7 @@
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <div class="date">
-                            Last update:{{ lastEdited(task.incise.updatedAt) }} Created:{{ task.incise.createdAt }} Public: {{ task.incise.publicity }}
+                            {{ lastEdited(task.incise.updatedAt) }} (cr. {{ created(task.incise.createdAt) }} )
                         </div>
                         <div class="cab">
                             <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
@@ -78,36 +82,7 @@
     </div>
 
     <ng-container *ngIf="authService.loggedIn()">
-        <div class="extra-right" >
-            <div class="ttpBtn">
-                <button mat-button id="ownBtn" (click)="filterByOwns()">
-                        <img id="BigOwn" src="assets/edit.png">
-                </button>
-                <span class="ttpTextBtn">Own Scrwms</span>
-            </div>
-            <div class="ttpBtn">
-    
-            <button mat-button id="contactBtn" (click)="filterByContacts()">
-                <img id="BigContact" src="assets/read.png">
-            </button>
-            <span class="ttpTextBtn">Following</span>
-            </div>
-                <div class="ttpBtn">
-    
-                <button mat-button id="anchorBtn" (click)="filterByAnchors()">
-                    <img id="BigAnchor" src="assets/anchor.png">
-                </button>
-                <span class="ttpTextBtn">Filter by Anchors</span>
-            </div>
-                <div class="ttpBtn">
-    
-                <button mat-button id="headerBtn" (click)="filterByHeader()">
-                    <img id="BigHeader" src="assets/BigHeader.png">
-                </button>
-                <span class="ttpTextBtn">Only Headers</span>
-            </div>
-            <app-chat></app-chat>
-        </div>
+        <app-list></app-list>
     </ng-container>
 </div>
 

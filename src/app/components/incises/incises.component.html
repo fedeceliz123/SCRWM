@@ -17,9 +17,9 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
-                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                      <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
                                                     @{{ prof.nickname }}
                                                 </div>
@@ -58,9 +58,9 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
-                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                      <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
                                                     @{{ prof.nickname }}
                                                 </div>
@@ -82,18 +82,18 @@
                     <div class="cab">
                         <ng-container *ngIf="authService.loggedIn()">
                             <div *ngIf="inciseService.selectedIncise.after[0]">
-                                <img class="z-axis" src="assets/undo.png" alt="">
+                                <img class="z-axis" src="assets/undo.png" >
                             </div>
                             <div *ngIf="inciseService.selectedIncise.after[0]">
-                                <img class="z-axis" src="assets/redo.png" alt="">
+                                <img class="z-axis" src="assets/redo.png" >
                             </div>
                             <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
                             <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
                             <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                             <div class="ttpName">
-                                <img class="circulo" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="inciseService.env + imageService.selectedImage.imagePath">
+                                <img class="circulo" (click)="profileComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="inciseService.env + imageService.selectedImage.imagePath">
                                 <ng-template #defaultImage>
-                                  <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                  <img class="circulo" (click)="profileComponent.seeProf()" src="assets/no-image.png" >
                                 </ng-template>
                                 <div *ngFor="let prof of profService.profs">
                                     <div *ngIf="prof.userId === inciseService.selectedIncise.prof && prof.nickname">
@@ -132,9 +132,9 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
-                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                      <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
                                                     @{{ prof.nickname }}
                                                 </div>
@@ -164,9 +164,9 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
-                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                      <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
                                                     @{{ prof.nickname }}
                                                 </div>
@@ -215,9 +215,9 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
-                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                      <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
                                                     @{{ prof.nickname }}
                                                 </div>
@@ -254,9 +254,9 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
-                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                      <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
                                                     @{{ prof.nickname }}
                                                 </div>
@@ -277,18 +277,18 @@
                 <div class="center">
                     <div class="cab">
                         <div *ngIf="inciseService.selectedIncise.after[0]">
-                            <img class="z-axis" src="assets/undo.png" alt="">
+                            <img class="z-axis" src="assets/undo.png" >
                         </div>
                         <div *ngIf="inciseService.selectedIncise.after[0]">
-                            <img class="z-axis" src="assets/redo.png" alt="">
+                            <img class="z-axis" src="assets/redo.png" >
                         </div>
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
                         <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
                         <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                         <div class="ttpName">
-                            <img class="circulo" (click)="profComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="inciseService.env + imageService.selectedImage.imagePath">
+                            <img class="circulo" (click)="profileComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="inciseService.env + imageService.selectedImage.imagePath">
                             <ng-template #defaultImage>
-                              <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                              <img class="circulo" (click)="profileComponent.seeProf()" src="assets/no-image.png" >
                             </ng-template>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === inciseService.selectedIncise.prof && prof.nickname">
@@ -325,9 +325,9 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
-                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                      <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
                                                     @{{ prof.nickname }}
                                                 </div>
@@ -357,9 +357,9 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" (click)="profComponent.seeProf()" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
-                                                      <img class="circulo" (click)="profComponent.seeProf()" src="assets/no-image.png" alt="">
+                                                      <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
                                                     @{{ prof.nickname }}
                                                 </div>

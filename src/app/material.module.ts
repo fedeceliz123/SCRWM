@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatCardModule} from '@angular/material/card';
+import { CopyUrlComponent } from './components/incises/copy-url/copy-url.component';
+import { NewImageComponent } from './components/incises/new-image/new-image.component';
 
 @NgModule({
     imports:[
@@ -36,6 +38,7 @@ import {MatCardModule} from '@angular/material/card';
         MatBadgeModule,
         MatCardModule
     ],
+    declarations: [CopyUrlComponent, NewImageComponent],
 })
 
 export class MaterialModule{}

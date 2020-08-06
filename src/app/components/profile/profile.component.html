@@ -1,0 +1,44 @@
+<div class="mat-card">
+    <div class="container">
+      <form #profForm="ngForm" (ngSubmit)="followness(profForm)">
+        <div class="left">
+          <mat-card-header>
+            <mat-card-title>
+              <div class="switch">
+                @{{ scrwm.prof.nickname }}
+                <label *ngIf="scrwm.prof.userId != profService.userProf.userId">
+                  <input type="checkbox" name="event" #event="ngModel" [ngModel]="isFollowing()" class="form-control">
+                  <span class="lever"></span>
+                  Follow
+                </label>
+              </div>
+            </mat-card-title>
+          </mat-card-header>
+            <img class="image" *ngIf="scrwm.image.imagePath, else defaultImage" [src]="profService.env + scrwm.image.imagePath">
+            <ng-template #defaultImage>
+              <img class="image" src="assets/no-image.png">
+            </ng-template>
+            <mat-card-subtitle>
+              <div class="points">
+                <div>
+                  <img class="followers" src="assets/read.png">
+                  Followers: {{ scrwm.prof.followers }}  
+                </div>
+                <div>
+                  <img class="diamond" src="assets/blackDiamond.png">
+                  Diamonds: {{ DIAMONDS }}  
+                </div>
+              </div>
+            </mat-card-subtitle>  
+        </div>
+        <div class="right">
+          <mat-card-content>
+            <div style="font-weight: bold;">MiniBio:</div> {{ scrwm.prof.miniBio }}
+          </mat-card-content> 
+        </div>
+        <div style="text-align: end;">
+          <button mat-button mat-dialog-close type="submit" name="action">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,16 @@
+<mat-dialog-content class="mat-typography">
+
+  <label for="file-input">
+    <img class="imageInc" (click)="photoInput.click()" [src]="photoSel || imageIncPath">
+    <ng-template #uploadPhoto>
+      <img class="imageInc" [src]="photoSel || 'assets/image.png' " (click)="photoInput.click()"/>
+    </ng-template>
+  </label>  
+  <input type="file" style="display:none" (change)="onPhotoSelected($event)" #photoInput/>
+  
+  <div>
+    <button mat-button [mat-dialog-close]="true">Back</button>
+    <button mat-button mat-dialog-close (click)="insertImageInc()" >Insert</button>
+  </div>
+  
+</mat-dialog-content>
