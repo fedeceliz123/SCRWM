@@ -100,6 +100,7 @@ export class IncisesComponent implements OnInit{
     this.router.navigate(['/tasks']);
     this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
     this.showAround.toCenter(this.inciseService.selectedIncise);
+    //this.deleteIncises();
   }
 
   zoomMax(){

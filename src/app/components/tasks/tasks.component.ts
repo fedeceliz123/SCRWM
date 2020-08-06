@@ -41,8 +41,8 @@ export class TasksComponent implements OnInit {
   currentUserId = sessionStorage.getItem('currentUserId');
 
   ngOnInit(): void { 
-    this.list.getList();
     this.showAround.setByDefectInc()
+    this.list.getList();
   }
 
   lastEdited(updatedAt: string){

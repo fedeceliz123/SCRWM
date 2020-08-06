@@ -84,7 +84,7 @@ export class ProfComponent implements OnInit {
     .subscribe(res => {
       this.taskComponent.list.getList();
       this.testing.checkProf("prof 137");
-      window.location.reload();
+      //window.location.reload();
     });
   }
 
@@ -125,6 +125,7 @@ export class ProfComponent implements OnInit {
     });
   }
 
+
   findProf(userId: string){
     this.profService.getProfs()
     .subscribe(res => {
@@ -133,7 +134,7 @@ export class ProfComponent implements OnInit {
         if(P[i].userId === userId){
           this.profService.userProf = P[i];
           this.socketService.emit('new user', this.userId);
-          window.location.reload();
+          //window.location.reload();
           return
         }
       }
@@ -152,13 +153,13 @@ export class ProfComponent implements OnInit {
       this.profService.userProf = res as Prof;
       this.testing.checkProf("prof 66");
       this.findProf(userId);
-      this.firstIncise();
+      this.firstIncise(userId);
     });
   }
 
-  firstIncise(){
+  firstIncise(userId: string){
     const I = this.inciseService.selectedIncise = new Incise;
-    I.prof = this.userId;
+    I.prof = userId;
     I.title = "My first Scrwm";
     I.subtitle = "Click on Set Header in the navBar above to modify us"
     this.inciseService.postIncise(I)
