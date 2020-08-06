@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ImageService } from 'src/app/services/image.service';
@@ -23,6 +23,7 @@ export class ListComponent implements OnInit {
               public chat: ChatComponent) { }
 
   ngOnInit(): void {
+    this.getList();
   }
 
   Own: boolean = false;
@@ -30,6 +31,7 @@ export class ListComponent implements OnInit {
   Anchor: boolean = false;
   Diamond: boolean = false;
   Header: boolean = true;
+  @Output() propagar = new EventEmitter<any>();
 
   filterByOwns(){
     this.Own = !this.Own;
@@ -186,6 +188,7 @@ export class ListComponent implements OnInit {
     }
     this.taskList = filterHeader;
     this.searchList = filterHeader;
+    this.propagar.emit(this.taskList);
   }
 
   searchList: any[] = [{

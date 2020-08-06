@@ -15,7 +15,6 @@ import {MatDialog} from '@angular/material/dialog';
 
 import * as moment from 'moment'; 
 
-
 declare var M: any;
 
 @Component({
@@ -28,21 +27,25 @@ declare var M: any;
 export class TasksComponent implements OnInit {
 
   panelOpenState = false;
-
-  constructor(public inciseService: InciseService,
-              public imageService: ImageService,
-              public profService: ProfService,
-              public authService: AuthService,
-              public showAround: ShowAroundComponent,
-              public dialog: MatDialog,
-              public list: ListComponent
-              ) { }
-
+  taskList: any[];
   currentUserId = sessionStorage.getItem('currentUserId');
+
+  constructor(
+    public inciseService: InciseService,
+    public imageService: ImageService,
+    public profService: ProfService,
+    public authService: AuthService,
+    public showAround: ShowAroundComponent,
+    public dialog: MatDialog,
+    public list: ListComponent
+    ){}
+
+    procesaPropagar(event: any) {
+      this.taskList = event;
+    }
 
   ngOnInit(): void { 
     this.showAround.setByDefectInc()
-    this.list.getList();
   }
 
   lastEdited(updatedAt: string){

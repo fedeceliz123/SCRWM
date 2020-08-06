@@ -4,7 +4,7 @@
     <app-incises></app-incises>
     <div class="right">
         <mat-accordion>
-            <div *ngFor="let task of list.taskList">
+            <div *ngFor="let task of taskList">
                 <div *ngIf="task.incise.title, else noTitle">
                     <mat-expansion-panel hideToggle>
                         <mat-expansion-panel-header>
@@ -82,7 +82,7 @@
     </div>
 
     <ng-container *ngIf="authService.loggedIn()">
-        <app-list></app-list>
+        <app-list (propagar)="procesaPropagar($event)"></app-list>
     </ng-container>
 </div>
 

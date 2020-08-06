@@ -84,7 +84,7 @@ export class ProfComponent implements OnInit {
     .subscribe(res => {
       this.taskComponent.list.getList();
       this.testing.checkProf("prof 137");
-      //window.location.reload();
+      window.location.reload();
     });
   }
 
@@ -134,7 +134,7 @@ export class ProfComponent implements OnInit {
         if(P[i].userId === userId){
           this.profService.userProf = P[i];
           this.socketService.emit('new user', this.userId);
-          //window.location.reload();
+          window.location.reload();
           return
         }
       }
