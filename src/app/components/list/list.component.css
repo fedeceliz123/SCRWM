@@ -1,0 +1,44 @@
+.extra-right{
+    background-color: rgb(224, 232, 251);
+    border-radius: 5px;
+    height: 185px;
+    max-width: 50px;
+    margin-top: 5px;
+    margin-right: 2px;
+}
+
+#BigAnchor, #BigContact, #BigHeader, #BigOwn{
+      width: 25px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-right: 15px;
+      margin-left: 0px;
+}
+
+#BigHeader{
+    color: black;
+}
+
+.ttpBtn {
+  position: relative;
+}
+
+.ttpBtn .ttpTextBtn {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    opacity: 0;
+    transition: opacity 1s;    
+    position: absolute;
+    top: -5px;
+    right: 100%;
+  }
+  
+  .ttpBtn:hover .ttpTextBtn {
+    visibility: visible;
+    opacity: 0.9;
+  }

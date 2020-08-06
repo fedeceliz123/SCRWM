@@ -9,21 +9,23 @@ import { AppComponent } from '../app.component';
 import { AuthGuard } from '../auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
 
-import { IncisesComponent, DialogContent, DialogNewImageInc, DialogCopyUrl } from '../components/incises/incises.component';
+import { IncisesComponent, DialogContent } from '../components/incises/incises.component';
 import { SignupComponent } from '../components/signup/signup.component';
 import { SigninComponent } from '../components/signin/signin.component';
 import { TasksComponent, DialogHeader, DialogNewScrwm } from '../components/tasks/tasks.component';
 import { InitComponent } from '../components/init/init.component';
 import { ShowAroundComponent } from '../components/incises/show-around/show-around.component';
 import { EditAroundComponent } from '../components/incises/edit-around/edit-around.component';
-
+import { CopyUrlComponent } from '../components/incises/copy-url/copy-url.component';
+import { NewImageComponent } from '../components/incises/new-image/new-image.component';
 import { KeyListenerComponent } from '../components/incises/key-listener/key-listener.component';
-import { ProfComponent, DialogPublicProf } from '../components/prof/prof.component'
-
+import { ProfComponent } from '../components/prof/prof.component'
+import { ProfileComponent } from '../components/profile/profile.component'
 import { MaterialModule } from '../material.module';
 import { CommonModule } from '@angular/common';
 import { TestingComponent } from '../components/testing/testing.component';
 import { ChatComponent } from '../components/chat/chat.component';
+import { ListComponent } from 'src/app/components/list/list.component';
 
 @NgModule({
   declarations: [
@@ -35,15 +37,14 @@ import { ChatComponent } from '../components/chat/chat.component';
     TasksComponent,
     DialogHeader,
     DialogNewScrwm,
-    DialogNewImageInc,
     InitComponent,
     ChatComponent,
     ShowAroundComponent,
     KeyListenerComponent,
     ProfComponent,
-    DialogPublicProf,
-    DialogCopyUrl,
-  ],
+    ProfileComponent,
+    ListComponent
+    ],
   imports: [
     BrowserModule,
     CommonModule,
@@ -58,7 +59,6 @@ import { ChatComponent } from '../components/chat/chat.component';
     TasksComponent,
     DialogHeader,
     DialogNewScrwm,
-    DialogNewImageInc,
     IncisesComponent,
     SigninComponent,
     ShowAroundComponent,
@@ -67,17 +67,20 @@ import { ChatComponent } from '../components/chat/chat.component';
     SignupComponent,
     SigninComponent,
     ProfComponent,
-    DialogPublicProf,
-    DialogCopyUrl,
+    ProfileComponent,
+    CopyUrlComponent,
     InitComponent,
     TestingComponent,
     ChatComponent,
+    NewImageComponent,
+    ListComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [ChatComponent]
 })
 export class AppModule { }
