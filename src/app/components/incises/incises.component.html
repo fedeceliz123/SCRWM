@@ -8,7 +8,7 @@
                 <div class="Arriba">
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
-                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}
+                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -49,7 +49,7 @@
                 <div class="Izquierda">
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
-                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}
+                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -122,7 +122,7 @@
                 <div class="Derecha">
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
-                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> 
+                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, '*')"> 
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                                 {{ incise.content }}
                             </div>
@@ -155,7 +155,7 @@
                 <div class="Abajo">
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
-                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}
+                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -206,7 +206,7 @@
                 <div class="Arriba">
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
-                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}
+                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -245,7 +245,7 @@
                 <div class="Izquierda">
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
-                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}
+                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -315,7 +315,7 @@
                 <div class="Derecha">
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
-                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> 
+                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, '*')"> 
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                                 {{ incise.content }}
                             </div>
@@ -348,7 +348,7 @@
                 <div class="Abajo">
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
-                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}
+                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">

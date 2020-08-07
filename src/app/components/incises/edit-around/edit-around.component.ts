@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { InciseService } from 'src/app/services/incise.service';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
-
 import { Incise } from 'src/app/models/incise';
 import { Comm } from 'src/app/models/comm';
 
@@ -13,36 +11,29 @@ declare var M: any;
   templateUrl: './edit-around.component.html',
   styleUrls: ['./edit-around.component.css']
 })
-
-
 export class EditAroundComponent implements OnInit {
 
-  constructor(public inciseService: InciseService, 
+  newInc: Incise;
+
+  constructor(
+    public inciseService: InciseService, 
     public showAround: ShowAroundComponent,
     ){ }
 
   ngOnInit(): void {
   }
 
-  editAround(incise: Incise, direction: any){
-    switch(direction){
-      case "Up":
-        this.showAround.DirLast = "Up";
-        break;
-      case "Down":
-        this.showAround.DirLast = "Down";
-        break;        
-      case "Left":
-        this.showAround.DirLast = "Left";
-        break;
-      case "Right":
-        this.showAround.DirLast = "Right";
-        break;  
-    }
-    this.newInc = incise
+  editAround(incise: Incise, direction: string, comm?: Comm){
+    this.newInc = incise;
     this.checkContent();
     this.playAudio();
-    this.linkStereo1();
+    this.setOldInc(direction, comm);
+  }
+
+  checkContent(){ 
+    if(document.getElementById('E').textContent === ""){
+      document.getElementById('E').textContent = "(Blank)";
+    }
   }
 
   playAudio(){
@@ -52,23 +43,24 @@ export class EditAroundComponent implements OnInit {
     audio.play();
   }
 
-  newInc: Incise;
-
-  checkContent(){ 
-    if (document.getElementById('E').textContent === ""){
-      document.getElementById('E').textContent = "(Blank)";
+  setOldInc(direction: string, comm?: Comm){
+    let oldInc = this.inciseService.selectedIncise
+    oldInc.media = this.showAround.ImageIncPath;
+    oldInc.content = document.getElementById('E').textContent;
+    if(direction === '*'){
+      this.inciseService.putIncise(oldInc).subscribe();
+      this.showAround.toCenter(this.newInc);
+    } else {
+      this.linkStereo1(direction, oldInc, comm);
     }
   }
 
-  linkStereo1(){
-    const oldInc = this.inciseService.selectedIncise
-    oldInc.media = this.showAround.ImageIncPath;
-    oldInc.content = document.getElementById('E').textContent;
-    switch (this.showAround.DirLast){
+  linkStereo1(direction: string, oldInc: Incise, comm?: Comm){
+    switch (direction){
       case "Up":
         for(var i in oldInc.up){
           if(oldInc.up[i] === this.newInc._id){
-            this.linkStereo2(oldInc);
+            this.linkStereo2(direction, oldInc);
             return;
           }
         }
@@ -77,7 +69,7 @@ export class EditAroundComponent implements OnInit {
       case "Down":
         for(var i in oldInc.down){
           if(oldInc.down[i] === this.newInc._id){
-            this.linkStereo2(oldInc);
+            this.linkStereo2(direction, oldInc);
             return;
           }
         }
@@ -86,36 +78,35 @@ export class EditAroundComponent implements OnInit {
       case "Left":
         for(var i in oldInc.left){
           if(oldInc.left[i].IdComm === this.newInc._id){
-            this.linkStereo2(oldInc);
+            this.linkStereo2(direction, oldInc);
             return;
           }
         }
-        const comm = new Comm;
-        comm.IdComm = this.newInc._id;
-        oldInc.left.push(comm);
+        const commt = new Comm;
+        commt.IdComm = this.newInc._id;
+        oldInc.left.push(commt);
         break;
       case "Right":
         for(var i in oldInc.right){
           if(oldInc.right[i] === this.newInc._id){
-            this.linkStereo2(oldInc);
+            this.linkStereo2(direction, oldInc, comm);
             return;
           }
         }
         oldInc.right.push(this.newInc._id);
         break;
     }
-    this.linkStereo2(oldInc)
+    this.linkStereo2(direction, oldInc, comm)
   }
 
-  linkStereo2(oldInc: Incise){
-    this.inciseService.putIncise(oldInc)
-    .subscribe(res => {
-      this.linkStereo3(oldInc);
-      });
+  linkStereo2(direction: string, oldInc: Incise, comm?: Comm){
+    this.inciseService.putIncise(oldInc).subscribe(res=>{
+      this.linkStereo3(direction, oldInc, comm);
+    });
   }
 
-  linkStereo3(oldInc: Incise){
-    switch (this.showAround.DirLast){
+  linkStereo3(direction: string, oldInc: Incise, comm?: Comm){
+    switch (direction){
       case "Up":
         for(var i in this.newInc.down){
           if(this.newInc.down[i] === oldInc._id){
@@ -144,15 +135,20 @@ export class EditAroundComponent implements OnInit {
         this.newInc.right.push(oldInc._id);
         break;
       case "Right":
+        if(comm){
+          this.newInc.left.push(comm)
+          this.linkStereo4();
+          return
+        }
         for(var i in this.newInc.left){
           if(this.newInc.left[i].IdComm === oldInc._id){
             this.linkStereo4();
             return;
           }
         }
-        const comm = new Comm;
-          comm.IdComm = oldInc._id;
-          this.newInc.left.push(comm);
+        const commt = new Comm;
+          commt.IdComm = oldInc._id;
+          this.newInc.left.push(commt);
           break;
     }
     this.linkStereo4();
@@ -161,9 +157,9 @@ export class EditAroundComponent implements OnInit {
   linkStereo4(){
     this.inciseService.putIncise(this.newInc)
     .subscribe(res => {
-        this.inciseService.selectedIncise = this.newInc;
-        this.showAround.toCenter(this.inciseService.selectedIncise);
-      });
+      this.inciseService.selectedIncise = this.newInc;
+      this.showAround.toCenter(this.inciseService.selectedIncise);
+    });
   }
 
 }

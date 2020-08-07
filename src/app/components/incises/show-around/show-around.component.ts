@@ -23,7 +23,6 @@ export class ShowAroundComponent implements OnInit {
   Left: any = [];
   Right: any = [];
   Hashtags: any = [];
-  DirLast: any = "";
   ImageIncPath: string = "";
 
   constructor(public inciseService: InciseService,
@@ -35,7 +34,6 @@ export class ShowAroundComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 
   deepLink(url: string){
     if(url.slice(0,9) === "/incises/"){

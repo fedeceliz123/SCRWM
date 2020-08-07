@@ -19,7 +19,6 @@ import { CopyUrlComponent } from 'src/app/components/incises/copy-url/copy-url.c
 import { NewImageComponent } from 'src/app/components/incises/new-image/new-image.component';
 import { ProfileComponent } from 'src/app/components/profile/profile.component';
 
-import { Comm } from 'src/app/models/comm';
 import { ImageInc } from 'src/app/models/image-inc';
 import { Incise } from 'src/app/models/incise';
 
@@ -35,79 +34,45 @@ declare var M: any;
 
 export class IncisesComponent implements OnInit{   
 
-    constructor(public inciseService: InciseService, 
-                public profService: ProfService,
-                public imageService: ImageService,
-                public editAroundComponent: EditAroundComponent,
-                public showAround: ShowAroundComponent,
-                public keyListener: KeyListenerComponent,
-                public taskComponent: TasksComponent,
-                public testing: TestingComponent,
-                public profComponent: ProfComponent,
-                public router: Router,
-                private route: ActivatedRoute,
-                public dialog: MatDialog,
-                public imageIncService: ImageIncService,
-                public authService: AuthService,
-                public socketService: SocketService,
-                public chatComponent: ChatComponent,
-                public profileComponent: ProfileComponent,
-    ){ route.params.subscribe(val => this.ngOnInit()) }
+  constructor(
+    public inciseService: InciseService, 
+    public profService: ProfService,
+    public imageService: ImageService,
+    public editAroundComponent: EditAroundComponent,
+    public showAround: ShowAroundComponent,
+    public keyListener: KeyListenerComponent,
+    public taskComponent: TasksComponent,
+    public testing: TestingComponent,
+    public profComponent: ProfComponent,
+    public router: Router,
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    public imageIncService: ImageIncService,
+    public authService: AuthService,
+    public socketService: SocketService,
+    public chatComponent: ChatComponent,
+    public profileComponent: ProfileComponent,
+  ){ route.params.subscribe(val => this.ngOnInit()) }
 
-    ngOnInit(): void{
-    }
+  ngOnInit(): void{
+  }  
   
-
   @HostListener("window:keydown", ['$event']) spaceEvent(event: any){
-    if(this.authService.loggedIn()){
-      if(event.keyCode === 13){   
-        if(window.getSelection().toString() != ""){
-          this.ToComment(window.getSelection());
-        } else {
-          this.showAround.DirLast = "Up";
-          this.keyListener.editedIncise();  
-        }
-      } else if(event.shiftKey){
-        if(event.keyCode === 37){
-          this.showAround.DirLast = "Right";
-          this.keyListener.editedIncise();
-        } else if(event.keyCode === 38){
-          this.showAround.DirLast = "Down";
-          this.keyListener.editedIncise();
-        } else if(event.keyCode === 39){
-          M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
-        } else if(event.keyCode === 40){
-          this.showAround.DirLast = "Up";
-          this.keyListener.editedIncise();
-        }
-      }
-    }
-  }
-
-  ToComment(event: any){
-    if(this.authService.loggedIn()){
-      const comm = new Comm;
-      comm.commt = event.toString().trim();
-      comm.initial = event.getRangeAt(0).startOffset;
-      comm.final = event.getRangeAt(0).endOffset;
-      comm.IdComm = this.inciseService.selectedIncise._id;
-      this.showAround.DirLast = "Left";
-      this.keyListener.editedIncise(comm);    
-    }
+    this.keyListener.readKey(event);
   }
 
   zoomMin(){
     this.router.navigate(['/tasks']);
     this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
     this.showAround.toCenter(this.inciseService.selectedIncise);
-    //this.deleteIncises();
   }
 
   zoomMax(){
     if(this.authService.loggedIn()){
       this.router.navigate(['/incises']);
       this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
-      this.showAround.toCenter(this.inciseService.selectedIncise);  
+      this.showAround.toCenter(this.inciseService.selectedIncise); 
+      //this.deleteIncises(); 
     }
   }
 

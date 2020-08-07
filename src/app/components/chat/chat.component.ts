@@ -63,19 +63,13 @@ export class ChatComponent implements OnInit {
 
   listenMessage(){
     const I = this.imageService.images;
-    console.log('1')
     this.socketService.listen('whisper').subscribe((data: any) =>{
-      console.log('2')
       if(this.partner === data.toUser){
-        console.log("3")
         this.addMessage(data);
         return;
       }
-      console.log(this.Online)
-      console.log(data.toUser)
       for(var i in this.Online){
         if(this.Online[i].prof === data.toUser){
-          console.log("5")
           this.partner = data.toUser;
           this.setNick(data);
           this.findChat(data);

@@ -41,4 +41,8 @@ export class TestingComponent implements OnInit {
     }
   }
 
+  notFound(dir: string){
+    alert(dir);
+  }
+
 }
