@@ -100,12 +100,7 @@ export class EditAroundComponent implements OnInit {
   }
 
   linkStereo2(direction: string, oldInc: Incise, comm?: Comm){
-    this.inciseService.putIncise(oldInc).subscribe(res=>{
-      this.linkStereo3(direction, oldInc, comm);
-    });
-  }
-
-  linkStereo3(direction: string, oldInc: Incise, comm?: Comm){
+    this.inciseService.putIncise(oldInc).subscribe();
     switch (direction){
       case "Up":
         for(var i in this.newInc.down){
@@ -155,11 +150,8 @@ export class EditAroundComponent implements OnInit {
   }
 
   linkStereo4(){
-    this.inciseService.putIncise(this.newInc)
-    .subscribe(res => {
-      this.inciseService.selectedIncise = this.newInc;
-      this.showAround.toCenter(this.inciseService.selectedIncise);
-    });
+    this.inciseService.putIncise(this.newInc).subscribe()
+    this.showAround.toCenter(this.newInc);
   }
 
 }
