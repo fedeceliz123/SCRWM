@@ -142,7 +142,9 @@ export class ShowAroundComponent implements OnInit {
                 q++;
                 return color
               });
-              document.getElementById('E').innerHTML = rep;
+              if(q<6){
+                document.getElementById('E').innerHTML = rep;
+              }
             }
             this.Right.push(D[i]);
           }

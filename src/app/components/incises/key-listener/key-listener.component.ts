@@ -25,8 +25,8 @@ export class KeyListenerComponent implements OnInit {
   }
   
   editedIncise(comm?: Comm){
-    if(document.getElementById('E').textContent){
-      const C = document.getElementById('E');
+    const C = document.getElementById('E');
+    if(C.textContent){
       const incise = this.inciseService.selectedIncise;
       this.editAround.newInc = incise;
       incise.content = C.textContent;

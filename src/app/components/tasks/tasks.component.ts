@@ -120,6 +120,7 @@ export class DialogNewScrwm {
 
   constructor(public inciseService: InciseService, 
               public showAround: ShowAroundComponent,
+              public list: ListComponent,
               public taskComponent: TasksComponent,
   ){ }
 
@@ -133,8 +134,8 @@ export class DialogNewScrwm {
     } else if(form.value.publicity === false) {
       incise.publicity = false;
     }
-    this.inciseService.postIncise(incise)
-    .subscribe(res => {
+    this.inciseService.postIncise(incise).subscribe(res => {
+      window.location.reload();
     });
   }
 }
