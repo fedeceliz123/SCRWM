@@ -53,15 +53,15 @@ export class EditAroundComponent implements OnInit {
     this.newInc = incise;
     this.oldInc = this.inciseService.selectedIncise
     this.dir = direction;
-    this.checkContent();
     this.playAudio();
-    this.checkComment(comm);
-  }
-
-  checkContent(){ 
-    if(document.getElementById('E').textContent === ""){
-      document.getElementById('E').textContent = "(Blank)";
+    const E = document.getElementById('E');
+    if(E.textContent === "" && this.oldInc.content === ""){
+      this.inciseService.deleteIncise(this.oldInc._id).subscribe(res=>{
+        this.showAround.toCenter(this.newInc);
+      });
+      return;
     }
+    this.checkComment(comm);
   }
 
   playAudio(){

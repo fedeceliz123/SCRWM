@@ -89,7 +89,7 @@
                                 <span class="ttpTextAfter"> Edited </span>
                             </div>
                             <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
-                            <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
+                            <div class="followers">{{ inciseService.selectedIncise.diamond }} </div>    
                             <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                             <div class="ttpName">
                                 <img class="circulo" (click)="profileComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="inciseService.env + imageService.selectedImage.imagePath">

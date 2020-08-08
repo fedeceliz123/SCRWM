@@ -202,7 +202,7 @@ export class ChatComponent implements OnInit {
       this.chatService.selectedChat = new Chat;
       this.chatService.selectedChat.userId = this.userId;
       this.chatService.selectedChat.partner = user.prof;
-    })
+    }) 
   }
 
   hideChat(){
