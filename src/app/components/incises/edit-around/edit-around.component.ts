@@ -4,8 +4,6 @@ import { ShowAroundComponent } from 'src/app/components/incises/show-around/show
 import { Incise } from 'src/app/models/incise';
 import { Comm } from 'src/app/models/comm';
 
-declare var M: any; 
-
 @Component({
   selector: 'app-edit-around',
   templateUrl: './edit-around.component.html',
@@ -14,6 +12,8 @@ declare var M: any;
 export class EditAroundComponent implements OnInit {
 
   newInc: Incise;
+  oldInc: Incise;
+  dir: string;
 
   constructor(
     public inciseService: InciseService, 
@@ -23,11 +23,39 @@ export class EditAroundComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setAfter(){
+    const C = this.inciseService.selectedIncise
+    this.inciseService.getIncises().subscribe(res=>{
+      const A = this.inciseService.incises = res as Incise[];
+      for(var i in A){
+        if(C.after === A[i]._id){
+          this.editAround(A[i], '*');
+          return;
+        }
+      }
+    });
+  }
+
+  setBefore(){
+    const C = this.inciseService.selectedIncise
+    this.inciseService.getIncises().subscribe(res=>{
+      const A = this.inciseService.incises = res as Incise[];
+      for(var i in A){
+        if(C.before === A[i]._id){
+          this.editAround(A[i], '*');
+          return;
+        }
+      }
+    });
+  }
+
   editAround(incise: Incise, direction: string, comm?: Comm){
     this.newInc = incise;
+    this.oldInc = this.inciseService.selectedIncise
+    this.dir = direction;
     this.checkContent();
     this.playAudio();
-    this.setOldInc(direction, comm);
+    this.checkComment(comm);
   }
 
   checkContent(){ 
@@ -43,113 +71,135 @@ export class EditAroundComponent implements OnInit {
     audio.play();
   }
 
-  setOldInc(direction: string, comm?: Comm){
-    let oldInc = this.inciseService.selectedIncise
-    oldInc.media = this.showAround.ImageIncPath;
-    oldInc.content = document.getElementById('E').textContent;
-    if(direction === '*'){
-      this.inciseService.putIncise(oldInc).subscribe();
-      this.showAround.toCenter(this.newInc);
+  checkComment(comm?: Comm){
+    if(this.oldInc.right[0]
+      && this.oldInc.content !== document.getElementById('E').textContent
+      && this.oldInc.content !== ""){
+      this.createAfterInc(comm)
     } else {
-      this.linkStereo1(direction, oldInc, comm);
+      this.oldInc.media = this.showAround.ImageIncPath;
+      this.oldInc.content = document.getElementById('E').textContent;  
+      this.setOldInc(comm);
     }
   }
 
-  linkStereo1(direction: string, oldInc: Incise, comm?: Comm){
-    switch (direction){
+  createAfterInc(comm?: Comm){
+    let A = new Incise;
+    A.media = this.showAround.ImageIncPath;
+    A.content = document.getElementById('E').textContent;
+    A.prof = sessionStorage.getItem('currentUserId');
+    A.before = this.oldInc._id;
+    this.inciseService.postIncise(A).subscribe(res=>{
+      const C = res as Incise;
+      this.oldInc.after = C._id;
+      this.setOldInc(comm);
+    });
+  }
+
+  setOldInc(comm?: Comm){
+    if(this.dir === '*'){
+      this.inciseService.putIncise(this.oldInc).subscribe();
+      this.showAround.toCenter(this.newInc);
+    } else {
+      this.linkStereo1(comm);
+    }
+  }
+
+  linkStereo1(comm?: Comm){
+    switch (this.dir){
       case "Up":
-        for(var i in oldInc.up){
-          if(oldInc.up[i] === this.newInc._id){
-            this.linkStereo2(direction, oldInc);
+        for(var i in this.oldInc.up){
+          if(this.oldInc.up[i] === this.newInc._id){
+            this.linkStereo2();
             return;
           }
         }
-        oldInc.up.push(this.newInc._id);
+        this.oldInc.up.push(this.newInc._id);
         break;
       case "Down":
-        for(var i in oldInc.down){
-          if(oldInc.down[i] === this.newInc._id){
-            this.linkStereo2(direction, oldInc);
+        for(var i in this.oldInc.down){
+          if(this.oldInc.down[i] === this.newInc._id){
+            this.linkStereo2();
             return;
           }
         }
-        oldInc.down.push(this.newInc._id);
+        this.oldInc.down.push(this.newInc._id);
         break;
       case "Left":
-        for(var i in oldInc.left){
-          if(oldInc.left[i].IdComm === this.newInc._id){
-            this.linkStereo2(direction, oldInc);
+        for(var i in this.oldInc.left){
+          if(this.oldInc.left[i].IdComm === this.newInc._id){
+            this.linkStereo2();
             return;
           }
         }
         const commt = new Comm;
         commt.IdComm = this.newInc._id;
-        oldInc.left.push(commt);
+        this.oldInc.left.push(commt);
         break;
       case "Right":
-        for(var i in oldInc.right){
-          if(oldInc.right[i] === this.newInc._id){
-            this.linkStereo2(direction, oldInc, comm);
+        for(var i in this.oldInc.right){
+          if(this.oldInc.right[i] === this.newInc._id){
+            this.linkStereo2(comm);
             return;
           }
         }
-        oldInc.right.push(this.newInc._id);
+        this.oldInc.right.push(this.newInc._id);
         break;
     }
-    this.linkStereo2(direction, oldInc, comm)
+    this.linkStereo2(comm)
   }
 
-  linkStereo2(direction: string, oldInc: Incise, comm?: Comm){
-    this.inciseService.putIncise(oldInc).subscribe();
-    switch (direction){
+  linkStereo2(comm?: Comm){
+    this.inciseService.putIncise(this.oldInc).subscribe();
+    switch (this.dir){
       case "Up":
         for(var i in this.newInc.down){
-          if(this.newInc.down[i] === oldInc._id){
-            this.linkStereo4();
+          if(this.newInc.down[i] === this.oldInc._id){
+            this.linkStereo3();
             return;
           }
         }
-        this.newInc.down.push(oldInc._id);
+        this.newInc.down.push(this.oldInc._id);
         break;
       case "Down":
         for(var i in this.newInc.up){
-          if(this.newInc.up[i] === oldInc._id){
-            this.linkStereo4();
+          if(this.newInc.up[i] === this.oldInc._id){
+            this.linkStereo3();
             return;
           }
         }
-        this.newInc.up.push(oldInc._id);
+        this.newInc.up.push(this.oldInc._id);
         break;
       case "Left":
         for(var i in this.newInc.right){
-          if(this.newInc.right[i] === oldInc._id){
-            this.linkStereo4();
+          if(this.newInc.right[i] === this.oldInc._id){
+            this.linkStereo3();
             return;
           }
         }
-        this.newInc.right.push(oldInc._id);
+        this.newInc.right.push(this.oldInc._id);
         break;
       case "Right":
         if(comm){
           this.newInc.left.push(comm)
-          this.linkStereo4();
+          this.linkStereo3();
           return
         }
         for(var i in this.newInc.left){
-          if(this.newInc.left[i].IdComm === oldInc._id){
-            this.linkStereo4();
+          if(this.newInc.left[i].IdComm === this.oldInc._id){
+            this.linkStereo3();
             return;
           }
         }
         const commt = new Comm;
-          commt.IdComm = oldInc._id;
-          this.newInc.left.push(commt);
-          break;
+        commt.IdComm = this.oldInc._id;
+        this.newInc.left.push(commt);
+        break;
     }
-    this.linkStereo4();
+    this.linkStereo3();
   }
 
-  linkStereo4(){
+  linkStereo3(){
     this.inciseService.putIncise(this.newInc).subscribe()
     this.showAround.toCenter(this.newInc);
   }

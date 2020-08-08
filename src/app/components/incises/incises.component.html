@@ -77,15 +77,16 @@
                 </div>
 
              
-
                 <div class="center">
                     <div class="cab">
                         <ng-container *ngIf="authService.loggedIn()">
-                            <div *ngIf="inciseService.selectedIncise.after[0]">
-                                <img class="z-axis" src="assets/undo.png" >
+                            <div class="ttpBefore" *ngIf="inciseService.selectedIncise.before != ''">
+                                <img class="z-axis" (click)="editAroundComponent.setBefore()" src="assets/undo.png" >
+                                <span class="ttpTextBefore"> Previous </span>
                             </div>
-                            <div *ngIf="inciseService.selectedIncise.after[0]">
-                                <img class="z-axis" src="assets/redo.png" >
+                            <div class="ttpAfter" *ngIf="inciseService.selectedIncise.after != ''">
+                                <img class="z-axis" (click)="editAroundComponent.setAfter()" src="assets/redo.png">
+                                <span class="ttpTextAfter"> Edited </span>
                             </div>
                             <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
                             <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
@@ -276,11 +277,13 @@
 
                 <div class="center">
                     <div class="cab">
-                        <div *ngIf="inciseService.selectedIncise.after[0]">
-                            <img class="z-axis" src="assets/undo.png" >
+                        <div class="ttpBefore" *ngIf="inciseService.selectedIncise.before != ''">
+                            <img class="z-axis" (click)="editAroundComponent.setBefore()" src="assets/undo.png" >
+                            <span class="ttpTextBefore"> Previous </span>
                         </div>
-                        <div *ngIf="inciseService.selectedIncise.after[0]">
-                            <img class="z-axis" src="assets/redo.png" >
+                        <div class="ttpAfter" *ngIf="inciseService.selectedIncise.after != ''">
+                            <img class="z-axis" (click)="editAroundComponent.setAfter()" src="assets/redo.png">
+                            <span class="ttpTextAfter"> Edited </span>
                         </div>
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
                         <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    

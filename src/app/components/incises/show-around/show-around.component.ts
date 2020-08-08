@@ -45,7 +45,7 @@ export class ShowAroundComponent implements OnInit {
             this.toCenter(A[i]);
           }
         }
-      })  
+      });
     }
   }
 
