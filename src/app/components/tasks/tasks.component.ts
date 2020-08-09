@@ -35,7 +35,7 @@ export class TasksComponent implements OnInit {
   ){}
 
   ngOnInit(): void { 
-    this.showAround.setByDefectInc()
+    this.showAround.setByDefectInc();
   }
 
   procesaPropagar(event: any) {
@@ -129,7 +129,9 @@ export class DialogNewScrwm {
       incise.publicity = false;
     }
     this.inciseService.postIncise(incise).subscribe(res => {
+      this.list.getList();
       window.location.reload();
     });
   }
+
 }

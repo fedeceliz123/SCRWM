@@ -140,10 +140,6 @@ export class ProfComponent implements OnInit {
     C.title = "My first Scrwm";
     C.subtitle = "Click on Set Header in the navBar above to modify us"
     this.inciseService.postIncise(C).subscribe();
-    this.inciseService.getIncises().subscribe(res => {
-      this.inciseService.incises = res as Incise[];
-      this.list.getList();
-    });
   }
 
   deleteProfs(){

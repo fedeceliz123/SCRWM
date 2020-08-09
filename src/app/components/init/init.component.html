@@ -42,11 +42,11 @@
         </nav>
         </li>
         <li>
-          <button mat-button (click)="editProf()" *ngIf="imagePath, else defaultImage">
+          <button mat-button (click)="profComponent.editProf()" *ngIf="imagePath, else defaultImage">
             <img class="circulo" [src]="authService.env + imagePath">
           </button>
           <ng-template #defaultImage>
-            <button mat-button (click)="editProf()">
+            <button mat-button (click)="profComponent.editProf()">
               <img class="circulo" src="assets/no-image.png">
             </button>
           </ng-template>

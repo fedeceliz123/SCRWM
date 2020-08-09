@@ -55,7 +55,7 @@ export class IncisesComponent implements OnInit{
   }
 
   zoomMin(){
-    this.router.navigate(['/tasks']);
+    this.router.navigate(['']);
     this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
     this.showAround.toCenter(this.inciseService.selectedIncise);
   }

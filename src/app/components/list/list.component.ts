@@ -86,6 +86,7 @@ export class ListComponent implements OnInit {
   }
 
   getList(){
+    console.log(this.searchList)
     this.inciseService.getIncises().subscribe(res => {
       const A = this.inciseService.incises = res as Incise[]; 
       this.imageService.getImages().subscribe(res => {
@@ -178,6 +179,7 @@ export class ListComponent implements OnInit {
   }
 
   searcher(event: any){
+    console.log(this.searchList);
     if(event.includes('@')){
       this.taskList = this.searchList.filter(w => w.prof.nickname.toLowerCase().includes(event.toLowerCase().substring(1)));
     } else {

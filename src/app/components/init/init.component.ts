@@ -38,7 +38,7 @@ export class InitComponent implements OnInit {
     public dialog: MatDialog,
     private signupComponent: SignupComponent,
     private signinComponent: SigninComponent,
-    private profComponent: ProfComponent,
+    public profComponent: ProfComponent,
     public list: ListComponent,
     public taskComponent: TasksComponent,
     public incisesComponent: IncisesComponent,
@@ -81,10 +81,7 @@ export class InitComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
     });
   }
-
-  editProf(){
-    this.profComponent.editProf();
-  }
+ 
 }
 
 

@@ -55,7 +55,7 @@ export class EditAroundComponent implements OnInit {
     this.dir = direction;
     this.playAudio();
     const E = document.getElementById('E');
-    if(E.textContent === "" && this.oldInc.content === ""){
+    if(E.textContent === "" && this.oldInc.content === "" && !this.oldInc.media){
       this.inciseService.deleteIncise(this.oldInc._id).subscribe();
       this.showAround.toCenter(this.newInc);
       return;
