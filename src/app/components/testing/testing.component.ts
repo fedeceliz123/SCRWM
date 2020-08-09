@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfService} from 'src/app/services/prof.service'
-import { Prof } from 'src/app/models/prof'
-import { AuthService } from 'src/app/services/auth.service'
+import { ProfService} from 'src/app/services/prof.service';
+import { Prof } from 'src/app/models/prof';
+import { AuthService } from 'src/app/services/auth.service';
+import { ImageService } from 'src/app/services/image.service'
+import { Image } from 'src/app/models/image';
 
 declare var M: any; 
 
@@ -12,8 +14,10 @@ declare var M: any;
 })
 export class TestingComponent implements OnInit {
 
-  constructor(public profService: ProfService,
-              public authService: AuthService,
+  constructor(
+    public profService: ProfService,
+    public authService: AuthService,
+    private imageService: ImageService,
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +48,17 @@ export class TestingComponent implements OnInit {
 
   notFound(dir: string){
     alert(dir);
+  }
+
+  depurateImages(){
+    this.imageService.getImages().subscribe(res => {
+      let I = res as Image;
+      for(var i in I){
+        if(I.imagePath){
+          
+        }
+      }
+    })
   }
 
 }
