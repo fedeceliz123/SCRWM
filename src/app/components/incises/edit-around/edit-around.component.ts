@@ -97,8 +97,10 @@ export class EditAroundComponent implements OnInit {
 
   setOldInc(comm?: Comm){
     if(this.dir === '*'){
-      this.inciseService.putIncise(this.oldInc).subscribe();
-      this.showAround.toCenter(this.newInc);
+      this.inciseService.putIncise(this.oldInc).subscribe(res => {
+        res as Incise;
+        this.showAround.toCenter(this.newInc);
+      });
     } else {
       this.linkStereo1(comm);
     }
@@ -199,8 +201,10 @@ export class EditAroundComponent implements OnInit {
   }
 
   linkStereo3(){
-    this.inciseService.putIncise(this.newInc).subscribe()
-    this.showAround.toCenter(this.newInc);
+    this.inciseService.putIncise(this.newInc).subscribe(res => {
+      res as Incise;
+      this.showAround.toCenter(this.newInc);
+    })
   }
 
 }

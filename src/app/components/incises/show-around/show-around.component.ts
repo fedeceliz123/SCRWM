@@ -82,12 +82,12 @@ export class ShowAroundComponent implements OnInit {
     this.inciseService.selectedIncise = incise;
     this.resetConstants();
     this.setImageInc(incise);
-    this.showAround(incise);
     this.isEditable(incise);
     this.setDiamond(incise);
     this.setAnchor(incise);
     this.setImage(incise);
     this.showHashtag(incise);
+    this.showAround(incise);
   }
 
   resetConstants(){
