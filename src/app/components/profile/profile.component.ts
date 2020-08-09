@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
 import { InciseService } from 'src/app/services/incise.service';
-import { TasksComponent } from 'src/app/components/tasks/tasks.component';
-import { ProfComponent } from 'src/app/components/prof/prof.component';
 import { ProfService } from 'src/app/services/prof.service';
+
+import { TasksComponent } from 'src/app/components/tasks/tasks.component';
+
+import { Scrwm } from 'src/app/models/scrwm';
 import { Incise } from 'src/app/models/incise';
 import { Prof } from 'src/app/models/prof';
+
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -15,10 +19,15 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(public inciseService: InciseService,
-    public taskComponent: TasksComponent,
-    public profComponent: ProfComponent,
+  scrwm: Scrwm;
+  DIAMONDS: number;
+  isFoll: boolean;
+  userProf = this.profService.userProf;
+
+  constructor(
+    public inciseService: InciseService,
     public profService: ProfService,
+    public taskComponent: TasksComponent,
     public dialog: MatDialog,
   ){}
 
@@ -26,49 +35,41 @@ export class ProfileComponent implements OnInit {
     this.setDiamods();
   }
 
-  scrwm: any;
-  selProf: any;
-  DIAMONDS: number;
-  isFoll: boolean;
-  userProf = this.profService.userProf;
-
   seeProf() {
-    for(var i in this.taskComponent.list.taskList){
-      if(this.taskComponent.list.taskList[i].incise === this.inciseService.selectedIncise){
-        this.scrwm = this.taskComponent.list.taskList[i];
-        this.selProf = this.scrwm.prof;
+    let T = this.taskComponent.taskList;
+    for(var i in T){
+      if(T[i].incise._id === this.inciseService.selectedIncise._id){
+        this.scrwm = T[i];
         this.openDialog();
+        return;
       }
     }
   }
 
   openDialog(){
     const dialogRef = this.dialog.open(ProfileComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      });
-      return; 
-    }
+    dialogRef.afterClosed().subscribe(); 
+  }
   
   setDiamods(){
     let count = 0
-    this.inciseService.getIncises()
-    .subscribe(res=>{
-      const A = this.inciseService.incises = res as Incise[];
-      for(var i in A){
-        if(A[i].prof === this.selProf.userId){
-          if(A[i].diamond){
-            count = count + A[i].diamond;
+    this.inciseService.getIncises().subscribe(res => {
+      let C = this.inciseService.incises = res as Incise[];
+      for(var i in C){
+        if(C[i].prof === this.scrwm.prof.userId){
+          if(C[i].diamond){
+            count = count + C[i].diamond;
           }
         }
       }
       this.DIAMONDS = count;   
-     })
+    })
   }
 
   isFollowing(){
     const F = this.profService.userProf.following;
     for(var i in F){
-      if(F[i] === this.selProf._id){
+      if(F[i] === this.scrwm.prof._id){
         this.isFoll = true;
         return this.isFoll;
       }
@@ -79,34 +80,26 @@ export class ProfileComponent implements OnInit {
   followness(form: NgForm){
     const F = this.userProf.following;
     if(form.value.event === true){
-      for(var i in F){
-        if(F[i] === this.selProf._id){
-          return
-        }
-      }
-      this.selProf.followers ++;
-      F.push(this.selProf._id);
-      this.saveProfs(this.selProf, this.userProf);
+      if(F.indexOf(this.scrwm.prof._id) != -1){ return };
+      this.scrwm.prof.followers ++;
+      F.push(this.scrwm.prof._id);
+      this.saveProfs(this.scrwm.prof, this.userProf);
     }
     if(form.value.event === false){
       for(var i in F){
-        if(F[i] === this.selProf._id){
-          this.selProf.followers --;
+        if(F[i] === this.scrwm.prof._id){
+          this.scrwm.prof.followers --;
           const index = F.indexOf(i)+1;
           F.splice(index, 1);
-          this.saveProfs(this.selProf, this.userProf);
+          this.saveProfs(this.scrwm.prof, this.userProf);
         }
       }
     }
   }
 
   saveProfs(selProf: Prof, userProf: Prof){
-    this.profService.putProf(selProf)
-    .subscribe(res=>{})
-    this.profService.putProf(userProf)
-    .subscribe(res=>{})
+    this.profService.putProf(selProf).subscribe()
+    this.profService.putProf(userProf).subscribe()
   }
  
 }
-
-

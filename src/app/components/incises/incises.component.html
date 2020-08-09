@@ -8,7 +8,7 @@
                 <div class="Arriba">
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
-                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
+                            <div class="ArribaInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -49,7 +49,7 @@
                 <div class="Izquierda">
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
-                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
+                            <div class="IzquierdaInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -81,11 +81,11 @@
                     <div class="cab">
                         <ng-container *ngIf="authService.loggedIn()">
                             <div class="ttpBefore" *ngIf="inciseService.selectedIncise.before != ''">
-                                <img class="z-axis" (click)="editAroundComponent.setBefore()" src="assets/undo.png" >
+                                <img class="z-axis" (click)="editAround.setBefore()" src="assets/undo.png" >
                                 <span class="ttpTextBefore"> Previous </span>
                             </div>
                             <div class="ttpAfter" *ngIf="inciseService.selectedIncise.after != ''">
-                                <img class="z-axis" (click)="editAroundComponent.setAfter()" src="assets/redo.png">
+                                <img class="z-axis" (click)="editAround.setAfter()" src="assets/redo.png">
                                 <span class="ttpTextAfter"> Edited </span>
                             </div>
                             <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
@@ -123,7 +123,7 @@
                 <div class="Derecha">
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
-                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, '*')"> 
+                            <div class="DerechaInc" (click)="editAround.editAround(incise, '*')"> 
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                                 {{ incise.content }}
                             </div>
@@ -156,7 +156,7 @@
                 <div class="Abajo">
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
-                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
+                            <div class="AbajoInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -207,7 +207,7 @@
                 <div class="Arriba">
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
-                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
+                            <div class="ArribaInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -246,7 +246,7 @@
                 <div class="Izquierda">
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
-                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
+                            <div class="IzquierdaInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -278,11 +278,11 @@
                 <div class="center">
                     <div class="cab">
                         <div class="ttpBefore" *ngIf="inciseService.selectedIncise.before != ''">
-                            <img class="z-axis" (click)="editAroundComponent.setBefore()" src="assets/undo.png" >
+                            <img class="z-axis" (click)="editAround.setBefore()" src="assets/undo.png" >
                             <span class="ttpTextBefore"> Previous </span>
                         </div>
                         <div class="ttpAfter" *ngIf="inciseService.selectedIncise.after != ''">
-                            <img class="z-axis" (click)="editAroundComponent.setAfter()" src="assets/redo.png">
+                            <img class="z-axis" (click)="editAround.setAfter()" src="assets/redo.png">
                             <span class="ttpTextAfter"> Edited </span>
                         </div>
                         <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
@@ -318,7 +318,7 @@
                 <div class="Derecha">
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
-                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, '*')"> 
+                            <div class="DerechaInc" (click)="editAround.editAround(incise, '*')"> 
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                                 {{ incise.content }}
                             </div>
@@ -351,7 +351,7 @@
                 <div class="Abajo">
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
-                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, '*')"> {{ incise.content }}
+                            <div class="AbajoInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">

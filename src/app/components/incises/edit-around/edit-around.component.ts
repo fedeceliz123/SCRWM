@@ -18,14 +18,14 @@ export class EditAroundComponent implements OnInit {
   constructor(
     public inciseService: InciseService, 
     public showAround: ShowAroundComponent,
-    ){ }
+  ){ }
 
   ngOnInit(): void {
   }
 
   setAfter(){
     const C = this.inciseService.selectedIncise
-    this.inciseService.getIncises().subscribe(res=>{
+    this.inciseService.getIncises().subscribe(res => {
       const A = this.inciseService.incises = res as Incise[];
       for(var i in A){
         if(C.after === A[i]._id){
@@ -38,7 +38,7 @@ export class EditAroundComponent implements OnInit {
 
   setBefore(){
     const C = this.inciseService.selectedIncise
-    this.inciseService.getIncises().subscribe(res=>{
+    this.inciseService.getIncises().subscribe(res => {
       const A = this.inciseService.incises = res as Incise[];
       for(var i in A){
         if(C.before === A[i]._id){
@@ -56,9 +56,8 @@ export class EditAroundComponent implements OnInit {
     this.playAudio();
     const E = document.getElementById('E');
     if(E.textContent === "" && this.oldInc.content === ""){
-      this.inciseService.deleteIncise(this.oldInc._id).subscribe(res=>{
-        this.showAround.toCenter(this.newInc);
-      });
+      this.inciseService.deleteIncise(this.oldInc._id).subscribe();
+      this.showAround.toCenter(this.newInc);
       return;
     }
     this.checkComment(comm);
@@ -89,7 +88,7 @@ export class EditAroundComponent implements OnInit {
     A.content = document.getElementById('E').textContent;
     A.prof = sessionStorage.getItem('currentUserId');
     A.before = this.oldInc._id;
-    this.inciseService.postIncise(A).subscribe(res=>{
+    this.inciseService.postIncise(A).subscribe(res => {
       const C = res as Incise;
       this.oldInc.after = C._id;
       this.setOldInc(comm);

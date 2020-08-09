@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InciseService } from 'src/app/services/incise.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
 import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit-around.component';
 import { Incise } from 'src/app/models/incise';
 import { Comm } from 'src/app/models/comm';
@@ -15,11 +14,11 @@ declare var M: any;
 })
 export class KeyListenerComponent implements OnInit {
 
-  constructor(public inciseService: InciseService, 
-    public showAround: ShowAroundComponent,
+  constructor(
+    public inciseService: InciseService, 
     public authService: AuthService,
     public editAround: EditAroundComponent,
-    ){ }
+  ){ }
 
   ngOnInit(): void {
   }
@@ -38,7 +37,7 @@ export class KeyListenerComponent implements OnInit {
         } else if(event.keyCode === 38){
           this.newIncise("Up");
         } else if(event.keyCode === 39){
-          M.toast({html: "Please select what you want to comment after pressing Ctrl key"})
+          M.toast({ html: "Please select what you want to comment after pressing Ctrl key" })
         } else if(event.keyCode === 40){
           this.newIncise("Down");
         }
@@ -60,7 +59,7 @@ export class KeyListenerComponent implements OnInit {
 
   newIncise(direction: string, comm?: Comm){
     const A = new Incise;
-    this.inciseService.postIncise(A).subscribe(res=>{
+    this.inciseService.postIncise(A).subscribe(res => {
       let C = res as Incise;
       C.prof = sessionStorage.getItem('currentUserId');
       this.editAround.editAround(C, direction, comm);
