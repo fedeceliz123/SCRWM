@@ -3,6 +3,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { InciseService } from 'src/app/services/incise.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ProfService } from 'src/app/services/prof.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 import { Image } from 'src/app/models/image';
 import { Prof } from 'src/app/models/prof';
@@ -29,6 +30,7 @@ export class ListComponent implements OnInit {
     private inciseService: InciseService,
     private imageService: ImageService,
     private profService: ProfService,
+    public authService: AuthService,
   ) { }
 
   ngOnInit(): void {

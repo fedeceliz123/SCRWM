@@ -70,7 +70,8 @@
                                     </mat-chip-list>
                                </div>    
                             </div>
-                        </div>                           
+                        </div>                        
+   
                     </mat-expansion-panel>  
                 </ng-template>
 
@@ -78,7 +79,7 @@
         </mat-accordion>  
     </div>
 
-    <ng-container *ngIf="authService.loggedIn()">
+    <ng-container>
         <app-list (propagar)="procesaPropagar($event)"></app-list>
     </ng-container>
 </div>
