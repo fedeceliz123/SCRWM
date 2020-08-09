@@ -50,6 +50,7 @@ export class ProfComponent implements OnInit {
       for(var i in I){
         if(I[i].userId === this.userId){
           this.imagePath = I[i].imagePath;
+          console.log(this.profService.env + this.imagePath)
         }
       }
     })
