@@ -1,26 +1,3 @@
-<ng-container>
-    <div *ngIf="partner != ''">
-        <div class="mat-card">
-            <div class="mat-card-header" >
-                <div>Private chat with @{{ nick }} </div>
-                <button style="background-color: black;">
-                    <img class="back" src="assets/back.png" (click)="hideChat()">
-                </button>
-            </div>
-            <div id="chat">
-                <div id="container"></div>
-            </div>
-            <form #chatForm="ngForm" (ngSubmit)="sendMessenge(chatForm)">
-                <div class="inputs">
-                    <input matInput style="color: white;" name="message" #message="ngModel" [(ngModel)]="mess" class="form-control" autocomplete="off" cdkFocusInitial>
-                    <button class="btn waves-effect waves-light" type="submit" name="action" style="width:60px;">
-                        <i class="material-icons" style="color: white">send</i>
-                    </button>
-                </div>
-            </form>
-        </div>    
-
-    </div>
 
     <div class="onlineZone">
         Online
@@ -43,5 +20,31 @@
             </ul>
         </div>
     </div>    
+
+    <ng-container>
+        <div ng-hide="partner === ''">
+            <div *ngIf="partner !== ''">
+                <div class="mat-card">
+                    <div class="mat-card-header" >
+                        <div>Private chat with @{{ nick }} </div>
+                        <button style="background-color: black;">
+                            <img class="back" src="assets/back.png" (click)="hideChat()">
+                        </button>
+                    </div>
+                    <div id="chat">
+                        <div id="container"></div>
+                    </div>
+                    <form #chatForm="ngForm" (ngSubmit)="sendMessenge(chatForm)">
+                        <div class="inputs">
+                            <input matInput style="color: white;" name="message" #message="ngModel" [(ngModel)]="mess" class="form-control" autocomplete="off" cdkFocusInitial>
+                            <button class="btn waves-effect waves-light" type="submit" name="action" style="width:60px;">
+                                <i class="material-icons" style="color: white">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div> 
+            </div>
+        </div>
+
 </ng-container>
 

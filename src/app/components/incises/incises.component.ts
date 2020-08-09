@@ -89,7 +89,7 @@ export class IncisesComponent implements OnInit{
   }
 
   diamondSelected(){
-    if(!document.getElementById('E').isContentEditable){
+    if(this.inciseService.selectedIncise.prof !== this.profService.userProf.userId){
       let C = this.inciseService.selectedIncise;
       if(C._id){
         let P = this.profService.userProf;
