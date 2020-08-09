@@ -11,7 +11,6 @@ export class SocketService {
   socket: any;
   readonly uri: string = environment.apiUrl;
 
-
   constructor() {
   this.socket = io(this.uri);
    } 

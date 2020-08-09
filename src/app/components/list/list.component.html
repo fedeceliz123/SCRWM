@@ -1,4 +1,4 @@
-<div class="extra-right" >
+<div class="extra-right" *ngIf="authService.loggedIn()">
     <div class="ttpBtn">
         <button mat-button id="ownBtn" (click)="filterByOwns()">
                 <img id="BigOwn" src="assets/edit.png">

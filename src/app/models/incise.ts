@@ -12,8 +12,8 @@ export class Incise {
         down: string[];
         left: Comm[];
         right: string[];
-        before: string[];
-        after: string[];
+        before: string;
+        after: string;
         media: string;
 
         hashtag: string[];
@@ -23,7 +23,7 @@ export class Incise {
         publicity: boolean;
 
         
-    constructor(_id="", prof="", content="", title="", subtitle="", date="", modified="", media=""){
+    constructor(_id="", prof="", content="", title="", subtitle="", after="", before="", date="", modified="", media=""){
         
         this._id = _id;
         this.prof = prof;
@@ -35,8 +35,8 @@ export class Incise {
         this.down = [];
         this.left = [];
         this.right = [];
-        this.before = [];
-        this.after = [];
+        this.before = before;
+        this.after = after;
         this.media = media
 
         this.hashtag = [];

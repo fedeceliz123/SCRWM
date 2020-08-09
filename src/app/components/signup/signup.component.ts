@@ -13,9 +13,10 @@ declare var M: any;
 })
 export class SignupComponent implements OnInit {
 
-  constructor(public authService: AuthService,
-              public dialog: MatDialog,
-              ) { }
+  constructor(
+    public authService: AuthService,
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -34,8 +35,7 @@ export class SignupComponent implements OnInit {
       return;
     }
     this.username = form.value.username;
-    this.authService.getUsers()
-    .subscribe(res => {
+    this.authService.getUsers().subscribe(res => {
       const A = this.authService.users = res as User[];
       for(var i in A){
         if(A[i].username === this.username){
@@ -48,8 +48,7 @@ export class SignupComponent implements OnInit {
   }
 
   signUp1(form: NgForm){
-    this.authService.signUp(form.value)
-    .subscribe(
+    this.authService.signUp(form.value).subscribe(
       res => {
         form.reset();
         this.dialog.closeAll();

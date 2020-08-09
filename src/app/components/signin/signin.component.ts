@@ -16,22 +16,21 @@ export class SigninComponent implements OnInit {
 
   hide = true;
 
-  constructor(public authService: AuthService,
-              public profComponent: ProfComponent,
-              public dialog: MatDialog,
+  constructor(
+    public authService: AuthService,
+    private profComponent: ProfComponent,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
   }
   
   signIn(form: NgForm){
-    this.authService.signIn(form.value)
-    .subscribe(res => {
+    this.authService.signIn(form.value).subscribe(res => {
       localStorage.setItem('token', res.token);
     },
     err => console.log(err));
-    this.authService.getUsers()
-    .subscribe(res => {
+    this.authService.getUsers().subscribe(res => {
       const A = this.authService.users = res as User[];
       for(var i in A){
         if(A[i].username === form.value.username){

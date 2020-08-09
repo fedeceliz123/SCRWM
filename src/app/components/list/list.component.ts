@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { InciseService } from 'src/app/services/incise.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ProfService } from 'src/app/services/prof.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 import { Image } from 'src/app/models/image';
 import { Prof } from 'src/app/models/prof';
 import { Incise } from 'src/app/models/incise';
-
-import { ChatComponent } from 'src/app/components/chat/chat.component'
+import { Scrwm } from 'src/app/models/scrwm';
 
 @Component({
   selector: 'app-list',
@@ -17,19 +17,25 @@ import { ChatComponent } from 'src/app/components/chat/chat.component'
 })
 export class ListComponent implements OnInit {
 
-  constructor(public inciseService: InciseService,
-              public imageService: ImageService,
-              public profService: ProfService,
-              public chat: ChatComponent) { }
-
-  ngOnInit(): void {
-  }
-
   Own: boolean = false;
   Contact: boolean = false;
   Anchor: boolean = false;
   Diamond: boolean = false;
   Header: boolean = true;
+  taskList: Scrwm[];
+  searchList: Scrwm[];
+  @Output() propagar = new EventEmitter<any>();
+
+  constructor(
+    private inciseService: InciseService,
+    private imageService: ImageService,
+    private profService: ProfService,
+    public authService: AuthService,
+  ) { }
+
+  ngOnInit(): void {
+    this.getList();
+  }
 
   filterByOwns(){
     this.Own = !this.Own;
@@ -79,21 +85,13 @@ export class ListComponent implements OnInit {
     this.getList();
   }
 
-  taskList: any[] = [{
-    "incise": Object,
-    "image": Object,
-    "prof": Object,
-  }];
-
   getList(){
-    this.inciseService.getIncises()
-    .subscribe(res => {
+    console.log(this.searchList)
+    this.inciseService.getIncises().subscribe(res => {
       const A = this.inciseService.incises = res as Incise[]; 
-      this.imageService.getImages()
-      .subscribe(res => {
+      this.imageService.getImages().subscribe(res => {
         const I = this.imageService.images = res as Image[];
-        this.profService.getProfs()
-        .subscribe(res => {
+        this.profService.getProfs().subscribe(res => {
           const P = this.profService.profs = res as Prof[];
           this.getAll(A, I, P);
         });
@@ -139,25 +137,21 @@ export class ListComponent implements OnInit {
     let filterOwn = [];
     if(this.Own){
       filterOwn = unfilteredList.filter( w =>  w.prof.userId === this.profService.userProf.userId);
-    } else {
-      filterOwn = unfilteredList;
-    }
+    } else { filterOwn = unfilteredList }
     this.filterContacts(filterOwn)
   }
 
   filterContacts(filterOwn: any){
     let filterContact = [];
     if(this.Contact){
-      filterContact = filterOwn.filter( w => {
+      filterContact = filterOwn.filter(w => {
         for(var q in this.profService.userProf.following){
           if(w.prof._id === this.profService.userProf.following[q]){
             return this.profService.userProf.following[q];
           };
         }
       });
-    } else {
-      filterContact = filterOwn;
-    }
+    } else { filterContact = filterOwn }
   this.filterAnchors(filterContact)
   }
 
@@ -171,9 +165,7 @@ export class ListComponent implements OnInit {
           }
         }    
       })
-    } else {
-      filterAnchor = filterContact;
-    }
+    } else { filterAnchor = filterContact }
     this.filterHeaders(filterAnchor);
   }
 
@@ -181,20 +173,13 @@ export class ListComponent implements OnInit {
     let filterHeader = [];
     if(this.Header){
       filterHeader = filterAnchor.filter(w => w.incise.title);
-    } else {
-      filterHeader = filterAnchor;
-    }
-    this.taskList = filterHeader;
-    this.searchList = filterHeader;
+    } else { filterHeader = filterAnchor }
+    this.searchList = this.taskList = filterHeader;
+    this.propagar.emit(this.taskList);
   }
 
-  searchList: any[] = [{
-    "incise": Object,
-    "image": Object,
-    "prof": Object,
-  }];
-
   searcher(event: any){
+    console.log(this.searchList);
     if(event.includes('@')){
       this.taskList = this.searchList.filter(w => w.prof.nickname.toLowerCase().includes(event.toLowerCase().substring(1)));
     } else {

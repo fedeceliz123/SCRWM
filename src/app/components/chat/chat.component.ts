@@ -22,11 +22,12 @@ export class ChatComponent implements OnInit {
   nick: string;
   Online: any[];
 
-  constructor(private socketService: SocketService,
-              private imageService: ImageService,
-              public profService: ProfService,
-              public chatService: ChatService,
-  ) { }
+  constructor(
+    private socketService: SocketService,
+    private imageService: ImageService,
+    public profService: ProfService,
+    public chatService: ChatService,
+  ){}
 
   ngOnInit(): void {
     this.listenUsers();
@@ -45,7 +46,7 @@ export class ChatComponent implements OnInit {
     const I = this.imageService.images;
     const P = this.profService.profs;
     for(var i in data){
-      if(data[i] != this.userId){
+      if(data[i] !== this.userId){
         let img = "";
         for(var j in I){
           if(I[j].userId === data[i]){
@@ -63,19 +64,13 @@ export class ChatComponent implements OnInit {
 
   listenMessage(){
     const I = this.imageService.images;
-    console.log('1')
-    this.socketService.listen('whisper').subscribe((data: any) =>{
-      console.log('2')
+    this.socketService.listen('whisper').subscribe((data: any) => {
       if(this.partner === data.toUser){
-        console.log("3")
         this.addMessage(data);
         return;
       }
-      console.log(this.Online)
-      console.log(data.toUser)
       for(var i in this.Online){
         if(this.Online[i].prof === data.toUser){
-          console.log("5")
           this.partner = data.toUser;
           this.setNick(data);
           this.findChat(data);
@@ -129,7 +124,7 @@ export class ChatComponent implements OnInit {
   displayChatBox(){
     if(document.getElementById('container').innerHTML){
       document.getElementById('container').innerHTML = "";
-   }
+    }
     const M = this.chatService.selectedChat.messages;
     for(var i in M){
       if(M[i].received){
@@ -161,14 +156,14 @@ export class ChatComponent implements OnInit {
   saveChat(){
     const C = this.chatService.selectedChat;
     if(this.chatService.selectedChat._id){
-      this.chatService.putChat(C).subscribe(res=>{
-        this.chatService.getChats().subscribe(res=>{
+      this.chatService.putChat(C).subscribe(res => {
+        this.chatService.getChats().subscribe(res => {
           this.chatService.chats = res as Chat[];
         })
       });
     } else {
-      this.chatService.postChat(C).subscribe(res=>{
-        this.chatService.getChats().subscribe(res=>{
+      this.chatService.postChat(C).subscribe(res => {
+        this.chatService.getChats().subscribe(res => {
           this.chatService.chats = res as Chat[];
         })
       });
@@ -208,7 +203,7 @@ export class ChatComponent implements OnInit {
       this.chatService.selectedChat = new Chat;
       this.chatService.selectedChat.userId = this.userId;
       this.chatService.selectedChat.partner = user.prof;
-    })
+    }) 
   }
 
   hideChat(){
@@ -221,10 +216,10 @@ export class ChatComponent implements OnInit {
   }
 
   deleteAllChats(){
-    this.chatService.getChats().subscribe(res=>{
+    this.chatService.getChats().subscribe(res => {
       const C = this.chatService.chats = res as Chat[];
       for(var i in C){
-        this.chatService.deleteChat(C[i]._id).subscribe(res=>{});
+        this.chatService.deleteChat(C[i]._id).subscribe();
       }
     });
   }

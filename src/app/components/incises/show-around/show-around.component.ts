@@ -23,10 +23,10 @@ export class ShowAroundComponent implements OnInit {
   Left: any = [];
   Right: any = [];
   Hashtags: any = [];
-  DirLast: any = "";
   ImageIncPath: string = "";
 
-  constructor(public inciseService: InciseService,
+  constructor(
+    public inciseService: InciseService,
     public profService: ProfService,
     public imageService: ImageService,
     public imageIncService: ImageIncService,
@@ -36,25 +36,22 @@ export class ShowAroundComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   deepLink(url: string){
     if(url.slice(0,9) === "/incises/"){
-      this.inciseService.getIncises()
-      .subscribe(res=>{
+      this.inciseService.getIncises().subscribe(res => {
         const A = this.inciseService.incises = res as Incise[];
         for(var i in A){
           if(A[i]._id === url.slice(9)){
             this.toCenter(A[i]);
           }
         }
-      })  
+      });
     }
   }
 
   setByDefectInc(){
     if(!this.inciseService.selectedIncise._id){
-      this.inciseService.getIncises()
-      .subscribe(res=>{
+      this.inciseService.getIncises().subscribe(res => {
         const A = this.inciseService.incises = res as Incise[];
         for(var i in A){
           if(A[i]._id === localStorage.getItem('byDefectIncise')){
@@ -80,7 +77,7 @@ export class ShowAroundComponent implements OnInit {
     this.toCenter(incise)
   }
 
-  toCenter(incise: Incise) {
+  toCenter(incise: Incise){
     localStorage.setItem('byDefectIncise', incise._id);
     this.inciseService.selectedIncise = incise;
     this.resetConstants();
@@ -93,7 +90,7 @@ export class ShowAroundComponent implements OnInit {
     this.showHashtag(incise);
   }
 
-  resetConstants() {
+  resetConstants(){
     this.Above = [];
     this.Below = [];
     this.Left = [];
@@ -103,8 +100,7 @@ export class ShowAroundComponent implements OnInit {
   }
 
   setImageInc(incise: Incise){
-    this.imageIncService.getImages()
-    .subscribe(res=>{
+    this.imageIncService.getImages().subscribe(res => {
       const I = this.imageIncService.imagesInc = res as ImageInc[]
       for(var i in I){
         if(I[i].associatedIncId === incise._id){
@@ -115,8 +111,7 @@ export class ShowAroundComponent implements OnInit {
   }
 
   showAround(incise: Incise) {
-    this.inciseService.getIncises()
-    .subscribe(res => {
+    this.inciseService.getIncises().subscribe(res => {
       const D = this.inciseService.incises = res as Incise[];
       var q = 0;
       let color = "";
@@ -142,7 +137,9 @@ export class ShowAroundComponent implements OnInit {
                 q++;
                 return color
               });
-              document.getElementById('E').innerHTML = rep;
+              if(q < 6){
+                document.getElementById('E').innerHTML = rep;
+              }
             }
             this.Right.push(D[i]);
           }
@@ -167,7 +164,7 @@ export class ShowAroundComponent implements OnInit {
   }
 
   isEditable(incise: Incise) {
-    if (incise.prof === sessionStorage.getItem('currentUserId')) {
+    if(incise.prof === sessionStorage.getItem('currentUserId') && !incise.after) {
       document.getElementById('E').contentEditable = "true";
       document.getElementById('E').focus();
     } else {
@@ -188,7 +185,6 @@ export class ShowAroundComponent implements OnInit {
   }  
 
   setAnchor(incise: Incise){
-    this.testing.checkProf("show-around 156");
     const P = this.profService.userProf
     for(var i in P.anchors){
       if(P.anchors[i] === incise._id){
@@ -200,8 +196,7 @@ export class ShowAroundComponent implements OnInit {
   }
 
   setImage(incise: Incise) {
-    this.imageService.getImages()
-      .subscribe(res => {
+    this.imageService.getImages().subscribe(res => {
         this.imageService.images = res as Image[];
         const I = this.imageService.images;
         for (var i in I) {

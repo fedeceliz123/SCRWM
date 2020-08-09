@@ -1,4 +1,4 @@
-<div *ngIf="router.url === '/tasks'; else maxIncise">
+<div *ngIf="router.url === '/'; else maxIncise">
     <span>
         <div class="bloqueMin">
             <div class="bloqueMin2">
@@ -8,7 +8,7 @@
                 <div class="Arriba">
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
-                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}
+                            <div class="ArribaInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -17,7 +17,8 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" 
+                                                                         [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
@@ -49,7 +50,7 @@
                 <div class="Izquierda">
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
-                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}
+                            <div class="IzquierdaInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -58,7 +59,8 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" 
+                                                                         [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
@@ -77,28 +79,31 @@
                 </div>
 
              
-
                 <div class="center">
                     <div class="cab">
+                        <div class="ttpBefore" *ngIf="inciseService.selectedIncise.before != ''">
+                            <img class="z-axis" (click)="editAround.setBefore()" src="assets/undo.png" >
+                            <span class="ttpTextBefore"> Previous </span>
+                        </div>
+                        <div class="ttpAfter" *ngIf="inciseService.selectedIncise.after != ''">
+                            <img class="z-axis" (click)="editAround.setAfter()" src="assets/redo.png">
+                            <span class="ttpTextAfter"> Edited </span>
+                        </div>
                         <ng-container *ngIf="authService.loggedIn()">
-                            <div *ngIf="inciseService.selectedIncise.after[0]">
-                                <img class="z-axis" src="assets/undo.png" >
-                            </div>
-                            <div *ngIf="inciseService.selectedIncise.after[0]">
-                                <img class="z-axis" src="assets/redo.png" >
-                            </div>
                             <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
-                            <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
+                            <div class="followers">{{ inciseService.selectedIncise.diamond }} </div>    
                             <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
                             <div class="ttpName">
-                                <img class="circulo" (click)="profileComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="inciseService.env + imageService.selectedImage.imagePath">
-                                <ng-template #defaultImage>
-                                  <img class="circulo" (click)="profileComponent.seeProf()" src="assets/no-image.png" >
-                                </ng-template>
-                                <div *ngFor="let prof of profService.profs">
-                                    <div *ngIf="prof.userId === inciseService.selectedIncise.prof && prof.nickname">
-                                        <span class="ttpTextName"> @{{ prof.nickname }} </span>
-                                    </div>
+                            <img class="circulo" (click)="profileComponent.seeProf()" 
+                                                 *ngIf="imageService.selectedImage.imagePath, else defaultImage" 
+                                                 [src]="inciseService.env + imageService.selectedImage.imagePath">
+                            <ng-template #defaultImage>
+                                <img class="circulo" (click)="profileComponent.seeProf()" src="assets/no-image.png" >
+                            </ng-template>
+                            <div *ngFor="let prof of profService.profs">
+                                <div *ngIf="prof.userId === inciseService.selectedIncise.prof && prof.nickname">
+                                    <span class="ttpTextName"> @{{ prof.nickname }} </span>
+                                </div>
                                 </div>
                             </div>
                             <div class="hashtags">
@@ -106,10 +111,9 @@
                                     <mat-chip-list>
                                         <mat-chip (click)="openDialogDelHashtag(hashtag)">#{{ hashtag }}</mat-chip>
                                     </mat-chip-list>
-                            </div>    
+                                </div>
                             </div>
-                        </ng-container>
-
+                        </ng-container>  
                     </div>
                     <div class="CeditableMin">
                         <div id="E"></div>
@@ -122,7 +126,7 @@
                 <div class="Derecha">
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
-                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> 
+                            <div class="DerechaInc" (click)="editAround.editAround(incise, '*')"> 
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                                 {{ incise.content }}
                             </div>
@@ -132,7 +136,8 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" 
+                                                                         [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
@@ -155,7 +160,7 @@
                 <div class="Abajo">
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
-                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}
+                            <div class="AbajoInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -164,7 +169,8 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" 
+                                                                         [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
@@ -206,7 +212,7 @@
                 <div class="Arriba">
                     <div *ngFor="let incise of showAround.Above">
                         <div class="ttpArr">
-                            <div class="ArribaInc" (click)="editAroundComponent.editAround(incise, 'Up')"> {{ incise.content }}
+                            <div class="ArribaInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -215,7 +221,8 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" 
+                                                                         [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
@@ -234,18 +241,20 @@
                 </div>
 
                 <div class="Arriba">
-                    <ng-template #HTBtn>
-                        <button class="btn btn-primary" (click)="HT()" > # </button>
-                    </ng-template>
-                    <div *ngIf="addHashtag; else HTBtn">
-                        <input #HTInput type="text" style="width: 90px" (keydown)="HT2($event, HTInput)" autofocus>
-                    </div>
+                    <ng-container *ngIf="authService.loggedIn()">
+                        <ng-template #HTBtn >
+                            <button class="btn btn-primary" (click)="HT()" > # </button>
+                        </ng-template>
+                        <div *ngIf="addHashtag; else HTBtn">
+                            <input #HTInput type="text" style="width: 90px" (keydown)="HT2($event, HTInput)" autofocus>
+                        </div>    
+                    </ng-container>
                 </div>
 
                 <div class="Izquierda">
                     <div *ngFor="let incise of showAround.Left">
                         <div class="ttpIzq">
-                            <div class="IzquierdaInc" (click)="editAroundComponent.editAround(incise, 'Left')"> {{ incise.content }}
+                            <div class="IzquierdaInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -254,7 +263,8 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" 
+                                                                         [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
@@ -273,49 +283,54 @@
                 </div>
 
              
-
                 <div class="center">
                     <div class="cab">
-                        <div *ngIf="inciseService.selectedIncise.after[0]">
-                            <img class="z-axis" src="assets/undo.png" >
+                        <div class="ttpBefore" *ngIf="inciseService.selectedIncise.before != ''">
+                            <img class="z-axis" (click)="editAround.setBefore()" src="assets/undo.png" >
+                            <span class="ttpTextBefore"> Previous </span>
                         </div>
-                        <div *ngIf="inciseService.selectedIncise.after[0]">
-                            <img class="z-axis" src="assets/redo.png" >
+                        <div class="ttpAfter" *ngIf="inciseService.selectedIncise.after != ''">
+                            <img class="z-axis" (click)="editAround.setAfter()" src="assets/redo.png">
+                            <span class="ttpTextAfter"> Edited </span>
                         </div>
-                        <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
-                        <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
-                        <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
-                        <div class="ttpName">
-                            <img class="circulo" (click)="profileComponent.seeProf()" *ngIf="imageService.selectedImage.imagePath, else defaultImage" [src]="inciseService.env + imageService.selectedImage.imagePath">
+                        <ng-container *ngIf="authService.loggedIn()">
+                            <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
+                            <div class="followers">{{ inciseService.selectedIncise.diamond }} </div>    
+                            <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
+                            <div class="ttpName">
+                            <img class="circulo" (click)="profileComponent.seeProf()" 
+                                                 *ngIf="imageService.selectedImage.imagePath, else defaultImage" 
+                                                 [src]="inciseService.env + imageService.selectedImage.imagePath">
                             <ng-template #defaultImage>
-                              <img class="circulo" (click)="profileComponent.seeProf()" src="assets/no-image.png" >
+                                <img class="circulo" (click)="profileComponent.seeProf()" src="assets/no-image.png" >
                             </ng-template>
                             <div *ngFor="let prof of profService.profs">
                                 <div *ngIf="prof.userId === inciseService.selectedIncise.prof && prof.nickname">
                                     <span class="ttpTextName"> @{{ prof.nickname }} </span>
                                 </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="hashtags">
-                            <div *ngFor="let hashtag of showAround.Hashtags">
-                                <mat-chip-list>
-                                    <mat-chip (click)="openDialogDelHashtag(hashtag)">#{{ hashtag }}</mat-chip>
-                                </mat-chip-list>
-                           </div>    
-                        </div>
+                            <div class="hashtags">
+                                <div *ngFor="let hashtag of showAround.Hashtags">
+                                    <mat-chip-list>
+                                        <mat-chip (click)="openDialogDelHashtag(hashtag)">#{{ hashtag }}</mat-chip>
+                                    </mat-chip-list>
+                                </div>
+                            </div>
+                        </ng-container>  
                     </div>
                     <div class="CeditableMax">
                         <div id="E"></div>
                         <ng-container *ngIf="showAround.ImageIncPath">
                             <img class="media" [src]="inciseService.env + showAround.ImageIncPath">
                         </ng-container>    
-                    </div>
+                    </div> 
                 </div>
 
                 <div class="Derecha">
                     <div *ngFor="let incise of showAround.Right">
                         <div class="ttpDer">
-                            <div class="DerechaInc" (click)="editAroundComponent.editAround(incise, 'Right')"> 
+                            <div class="DerechaInc" (click)="editAround.editAround(incise, '*')"> 
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                                 {{ incise.content }}
                             </div>
@@ -325,7 +340,8 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" 
+                                                                         [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
@@ -348,7 +364,7 @@
                 <div class="Abajo">
                     <div *ngFor="let incise of showAround.Below">
                         <div class="ttpAbj">
-                            <div class="AbajoInc" (click)="editAroundComponent.editAround(incise, 'Down')"> {{ incise.content }}
+                            <div class="AbajoInc" (click)="editAround.editAround(incise, '*')"> {{ incise.content }}
                                 <img class="imageAround"  *ngIf="incise.media" [src]="inciseService.env + incise.media">
                             </div>
                             <div *ngFor="let prof of profService.profs">
@@ -357,7 +373,8 @@
                                         <div *ngFor="let image of imageService.images">
                                             <div *ngIf="image.userId === incise.prof">
                                                 <div style="color: white;">
-                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" [src]="inciseService.env + image.imagePath">
+                                                    <img class="circulo" *ngIf="image.imagePath, else defaultImage" 
+                                                                         [src]="inciseService.env + image.imagePath">
                                                     <ng-template #defaultImage>
                                                       <img class="circulo" src="assets/no-image.png" >
                                                     </ng-template>  
@@ -374,6 +391,7 @@
                         </div>    
                     </div>
                 </div>
+
                 <div class="ttpBtn">
                     <button class="btn btn-primary" (click)="zoomMin()">
                         <i class="material-icons">fullscreen</i>

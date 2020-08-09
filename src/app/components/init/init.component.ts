@@ -2,17 +2,16 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { ImageService } from 'src/app/services/image.service';
-import { ProfService } from 'src/app/services/prof.service';
 
 import { User } from 'src/app/models/user';
 import { Image } from 'src/app/models/image';
 
 import { SignupComponent } from 'src/app/components/signup/signup.component';
 import { SigninComponent } from 'src/app/components/signin/signin.component';
-import { ProfComponent } from '../prof/prof.component';
+import { ProfComponent } from 'src/app/components/prof/prof.component';
+import { ListComponent } from 'src/app/components/list/list.component';
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 import { IncisesComponent } from 'src/app/components/incises/incises.component';
-import { ListComponent } from 'src/app/components/list/list.component';
 
 import {MatDialog} from '@angular/material/dialog';
 
@@ -28,32 +27,30 @@ document.addEventListener('DOMContentLoaded', function() {
   templateUrl: './init.component.html',
   styleUrls: ['./init.component.css']
 })
-
 export class InitComponent implements OnInit {
 
-  constructor(public imageService: ImageService,
-              public authService: AuthService,
-              public profService: ProfService,
-              public dialog: MatDialog,
-              public signupComponent: SignupComponent,
-              public signinComponent: SigninComponent,
-              public profComponent: ProfComponent,
-              public taskComponent: TasksComponent,
-              public incisesComponent: IncisesComponent,
-              public list: ListComponent,
+  imagePath: string;
+  userId: string = sessionStorage.getItem('currentUserId');
+ 
+  constructor(
+    private imageService: ImageService,
+    public authService: AuthService,
+    public dialog: MatDialog,
+    private signupComponent: SignupComponent,
+    private signinComponent: SigninComponent,
+    public profComponent: ProfComponent,
+    public list: ListComponent,
+    public taskComponent: TasksComponent,
+    public incisesComponent: IncisesComponent,
   ){}
 
   ngOnInit(): void {
     this.setUserImage();
   }
 
-  imagePath: string;
-  userId: string = sessionStorage.getItem('currentUserId');
-
   setUserImage(){
-    this.imageService.getImages()
-    .subscribe(res=>{
-      const I = this.imageService.images = res as Image[]
+    this.imageService.getImages().subscribe(res => {
+      let I = this.imageService.images = res as Image[]
       for(var i in I){
         if(I[i].userId === this.userId){
           this.imagePath = I[i].imagePath;
@@ -63,13 +60,10 @@ export class InitComponent implements OnInit {
   }
 
   deleteUsers(){
-    this.authService.getUsers()
-    .subscribe(res => {
-      const U = this.authService.users = res as User[];
+    this.authService.getUsers().subscribe(res => {
+      let U = this.authService.users = res as User[];
       for(var i in U){
-        this.authService.deleteUser(U[i]._id)
-        .subscribe(res => {
-        });
+        this.authService.deleteUser(U[i]._id).subscribe();
       }
     });
     this.profComponent.deleteProfs();
@@ -87,7 +81,7 @@ export class InitComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
     });
   }
-
+ 
 }
 
 

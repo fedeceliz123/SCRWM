@@ -4,7 +4,7 @@
     <app-incises></app-incises>
     <div class="right">
         <mat-accordion>
-            <div *ngFor="let task of list.taskList">
+            <div *ngFor="let task of taskList">
                 <div *ngIf="task.incise.title, else noTitle">
                     <mat-expansion-panel hideToggle>
                         <mat-expansion-panel-header>
@@ -54,9 +54,7 @@
                                 </div>  
                             </mat-panel-title>
                             <mat-panel-description>
-
                                 <p class="content" (click)="showAround.toCenter(task.incise)">{{ task.incise.content }}  </p>
-                                
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <div class="date">
@@ -73,7 +71,7 @@
                                </div>    
                             </div>
                         </div>                        
-                        
+   
                     </mat-expansion-panel>  
                 </ng-template>
 
@@ -81,8 +79,8 @@
         </mat-accordion>  
     </div>
 
-    <ng-container *ngIf="authService.loggedIn()">
-        <app-list></app-list>
+    <ng-container>
+        <app-list (propagar)="procesaPropagar($event)"></app-list>
     </ng-container>
 </div>
 

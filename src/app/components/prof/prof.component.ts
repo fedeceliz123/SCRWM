@@ -3,13 +3,10 @@ import { NgForm } from '@angular/forms';
 
 import { ProfService } from 'src/app/services/prof.service';
 import { ImageService } from 'src/app/services/image.service';
-import { ImageIncService } from 'src/app/services/image-inc.service';
 import { InciseService } from 'src/app/services/incise.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { SocketService } from 'src/app/services/socket.service';
 
-import { TasksComponent } from 'src/app/components/tasks/tasks.component';
-import { TestingComponent } from 'src/app/components/testing/testing.component';
+import { ListComponent } from 'src/app/components/list/list.component';
 
 import { Prof } from 'src/app/models/prof';
 import { Image } from 'src/app/models/image';
@@ -26,31 +23,30 @@ interface HTMLInputEvent extends Event {
   templateUrl: './prof.component.html',
   styleUrls: ['./prof.component.css']
 })
-
 export class ProfComponent implements OnInit {
 
-  constructor(public profService: ProfService,
-              public imageService: ImageService,
-              public imageIncService: ImageIncService,
-              public authService: AuthService,
-              public inciseService: InciseService,
-              public socketService: SocketService,
-              public taskComponent: TasksComponent,
-              public testing: TestingComponent,
-              public dialog: MatDialog,
+  imagePath: string;
+  userId: string = sessionStorage.getItem('currentUserId');
+  username: string;
+  file: File;
+  photoSel: string | ArrayBuffer;
+
+  constructor(
+    public profService: ProfService,
+    private imageService: ImageService,
+    private inciseService: InciseService,
+    private socketService: SocketService,
+    private list: ListComponent,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this.setUserImage();
   }
-
-  imagePath: string;
-  userId: string = sessionStorage.getItem('currentUserId');
-
+ 
   setUserImage(){
-    this.imageService.getImages()
-    .subscribe(res=>{
-      const I = this.imageService.images = res as Image[]
+    this.imageService.getImages().subscribe(res => {
+      let I = this.imageService.images = res as Image[];
       for(var i in I){
         if(I[i].userId === this.userId){
           this.imagePath = I[i].imagePath;
@@ -58,9 +54,6 @@ export class ProfComponent implements OnInit {
       }
     })
   }
-
-  file: File;
-  photoSel: string | ArrayBuffer;
 
   onPhotoSelected(event: HTMLInputEvent): void {
     if(event.target.files && event.target.files[0]){    // confirma si existe un archivo subido
@@ -72,31 +65,24 @@ export class ProfComponent implements OnInit {
   }
 
   updateProf(form: NgForm){
-    this.testing.checkProf("prof 125");
-    const prof = this.profService.userProf;
-    prof.nickname = form.value.nickname;
-    prof.state = form.value.state;
-    prof.miniBio = form.value.miniBio;
+    let P = this.profService.userProf;
+    P.nickname = form.value.nickname;
+    P.state = form.value.state;
+    P.miniBio = form.value.miniBio;
     if(this.photoSel){
       this.deleteOldImages();
     }
-    this.profService.putProf(prof)
-    .subscribe(res => {
-      this.taskComponent.list.getList();
-      this.testing.checkProf("prof 137");
-      //window.location.reload();
-    });
+    this.profService.putProf(P).subscribe();
+      this.list.getList();
+      window.location.reload();
   }
 
   deleteOldImages(){
-    this.imageService.getImages()
-    .subscribe(res => {
-      const A = this.imageService.images = res as Image[];
+    this.imageService.getImages().subscribe(res => {
+      let A = this.imageService.images = res as Image[];
       for(var i in A){
         if(A[i].userId === this.userId){
-          this.imageService.deleteImage(A[i]._id)
-          .subscribe(res=>{
-          });
+          this.imageService.deleteImage(A[i]._id).subscribe();
         }
       }
       this.chargeNewImage();
@@ -104,37 +90,32 @@ export class ProfComponent implements OnInit {
   }
 
   chargeNewImage(){
-    const A = this.imageService.selectedImage = new Image;
-    A.userId = this.userId;
-    this.imageService.postImage(A, this.file)
-    .subscribe(res => {
-      this.getImage();
-    });
+    let I = this.imageService.selectedImage = new Image;
+    I.userId = this.userId;
+    this.imageService.postImage(I, this.file).subscribe();
+    this.getImage();
   }
 
   getImage(){
-    this.imageService.getImages()
-    .subscribe(res => {
-      const A = this.imageService.images = res as Image[];
-      for(var i in A){
-        if(A[i].userId === this.userId){
-          this.imageService.selectedImage = A[i];
+    this.imageService.getImages().subscribe(res => {
+      let I = this.imageService.images = res as Image[];
+      for(var i in I){
+        if(I[i].userId === this.userId){
+          this.imageService.selectedImage = I[i];
           return
         }
       }
     });
   }
 
-
   findProf(userId: string){
-    this.profService.getProfs()
-    .subscribe(res => {
-      const P = this.profService.profs = res as Prof[];
+    this.profService.getProfs().subscribe(res => {
+      let P = this.profService.profs = res as Prof[];
       for(var i in P){
         if(P[i].userId === userId){
           this.profService.userProf = P[i];
           this.socketService.emit('new user', this.userId);
-          //window.location.reload();
+          window.location.reload();
           return
         }
       }
@@ -142,64 +123,47 @@ export class ProfComponent implements OnInit {
     });
   }
 
-  username: string;
-
   newProf(userId: string){
-    const prof = this.profService.userProf = new Prof;
-    prof.userId = userId;
-    prof.nickname = this.username;
-    this.profService.postProf(prof)
-    .subscribe(res => {
+    let P = this.profService.userProf = new Prof;
+    P.userId = userId;
+    P.nickname = this.username;
+    this.profService.postProf(P).subscribe(res => {
       this.profService.userProf = res as Prof;
-      this.testing.checkProf("prof 66");
       this.findProf(userId);
       this.firstIncise(userId);
     });
   }
 
   firstIncise(userId: string){
-    const I = this.inciseService.selectedIncise = new Incise;
-    I.prof = userId;
-    I.title = "My first Scrwm";
-    I.subtitle = "Click on Set Header in the navBar above to modify us"
-    this.inciseService.postIncise(I)
-    .subscribe(res => {
-      this.inciseService.getIncises().subscribe(res=>{
-        const A = this.inciseService.incises = res as Incise[];
-        this.taskComponent.list.getList();
-      });
-    });
+    let C = this.inciseService.selectedIncise = new Incise;
+    C.prof = userId;
+    C.title = "My first Scrwm";
+    C.subtitle = "Click on Set Header in the navBar above to modify us"
+    this.inciseService.postIncise(C).subscribe();
   }
 
   deleteProfs(){
-    this.profService.getProfs()
-    .subscribe(res => {
-      this.profService.profs = res as Prof[];
-      for(var i in this.profService.profs){
-        this.profService.deleteProf(this.profService.profs[i]._id)
-        .subscribe(res => {
-        });
+    this.profService.getProfs().subscribe(res => {
+      let P = this.profService.profs = res as Prof[];
+      for(var i in P){
+        this.profService.deleteProf(P[i]._id).subscribe();
       }
       this.deleteImages();
     });
   }
 
   deleteImages(){
-    this.imageService.getImages()
-    .subscribe(res => {
-      this.imageService.images = res as Image[];
-      for(var i in this.imageService.images){
-        this.imageService.deleteImage(this.imageService.images[i]._id)
-        .subscribe(res => {
-        });
+    this.imageService.getImages().subscribe(res => {
+      let I = this.imageService.images = res as Image[];
+      for(var i in I){
+        this.imageService.deleteImage(I[i]._id).subscribe();
       }
     });
   }
 
   editProf() {
     const dialogRef = this.dialog.open(ProfComponent);
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    dialogRef.afterClosed().subscribe();
     return; 
   }
 

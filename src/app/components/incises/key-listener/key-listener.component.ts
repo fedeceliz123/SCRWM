@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
 import { InciseService } from 'src/app/services/incise.service';
-
-import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component'
+import { AuthService } from 'src/app/services/auth.service';
 import { EditAroundComponent } from 'src/app/components/incises/edit-around/edit-around.component';
-
 import { Incise } from 'src/app/models/incise';
 import { Comm } from 'src/app/models/comm';
 
+declare var M: any; 
 
 @Component({
   selector: 'app-key-listener',
@@ -16,55 +14,56 @@ import { Comm } from 'src/app/models/comm';
 })
 export class KeyListenerComponent implements OnInit {
 
-  constructor(public inciseService: InciseService, 
-    public showAround: ShowAroundComponent,
+  constructor(
+    public inciseService: InciseService, 
+    public authService: AuthService,
     public editAround: EditAroundComponent,
-    ){ }
+  ){ }
 
   ngOnInit(): void {
   }
   
-  editedIncise(comm?: Comm){
-    if(document.getElementById('E').textContent){
-      const C = document.getElementById('E');
-      const incise = this.inciseService.selectedIncise;
-      this.editAround.newInc = incise;
-      incise.content = C.textContent;
-      incise.media = this.showAround.ImageIncPath;
-      C.textContent = "";
-      this.inciseService.putIncise(incise)
-      .subscribe(res => {
-          this.linkMono(comm);
-      });
+  readKey(event: any){
+    if(this.authService.loggedIn() && document.getElementById('E').textContent){
+      if(event.keyCode === 13){   
+        if(window.getSelection().toString() != ""){
+          this.ToComment(window.getSelection());
+        } else {
+          this.newIncise("Down");
+        }
+      } else if(event.shiftKey){
+        if(event.keyCode === 37){
+          this.newIncise("Left");
+        } else if(event.keyCode === 38){
+          this.newIncise("Up");
+        } else if(event.keyCode === 39){
+          M.toast({ html: "Please select what you want to comment after pressing Ctrl key" })
+        } else if(event.keyCode === 40){
+          this.newIncise("Down");
+        }
+      }
     }
   }
 
-  linkMono(comm?: Comm){  
-    const incise = this.inciseService.selectedIncise = new Incise();
-    switch(this.showAround.DirLast){
-      case "Up":
-          incise.up.push(this.editAround.newInc._id);
-        break;
-      case "Down":
-          incise.down.push(this.editAround.newInc._id);
-        break;
-      case "Left":
-        incise.left.push(comm);
-        break;
-      case "Right":
-          incise.right.push(this.editAround.newInc._id);
-        break;
-      }
-    incise.prof = sessionStorage.getItem('currentUserId');
-    this.savingIncise(incise);
+  ToComment(event: any){
+    document.getElementById('E').contentEditable = "false";
+    if(this.authService.loggedIn()){
+      const comm = new Comm;
+      comm.commt = event.toString().trim();
+      comm.initial = event.getRangeAt(0).startOffset;
+      comm.final = event.getRangeAt(0).endOffset;
+      comm.IdComm = this.inciseService.selectedIncise._id;
+      this.newIncise("Right", comm);    
+    }
   }
 
-  savingIncise(incise: Incise){
-    this.inciseService.postIncise(incise)
-    .subscribe(res => {
-      this.inciseService.selectedIncise = incise = res as Incise;
-      //this.editAround.linkStereo3(incise, this.inciseService.selectedIncise);
-      this.showAround.toCenter(this.inciseService.selectedIncise);
-    });
+  newIncise(direction: string, comm?: Comm){
+    const A = new Incise;
+    this.inciseService.postIncise(A).subscribe(res => {
+      let C = res as Incise;
+      C.prof = sessionStorage.getItem('currentUserId');
+      this.editAround.editAround(C, direction, comm);
+    })
   }
+
 }

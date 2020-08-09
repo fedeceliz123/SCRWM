@@ -1,6 +1,6 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';  
 import { BrowserModule } from '@angular/platform-browser';
-import { Component, OnInit } from '@angular/core';
 import { InciseService } from 'src/app/services/incise.service';
 import { ImageIncService } from 'src/app/services/image-inc.service';
 import { ShowAroundComponent } from 'src/app/components/incises/show-around/show-around.component';
@@ -21,8 +21,8 @@ export class NewImageComponent implements OnInit {
     public imageIncService: ImageIncService,
     public showAround: ShowAroundComponent,
     public browserModule: BrowserModule,
-    public commonModule: CommonModule,
-){ }
+    public commonModule: CommonModule,  
+  ){ }
 
   ngOnInit(): void {
   }
@@ -51,14 +51,11 @@ export class NewImageComponent implements OnInit {
 
   insertImageInc(){
     if(this.photoSel){
-      this.imageIncService.getImages()
-      .subscribe(res => {
+      this.imageIncService.getImages().subscribe(res => {
         const A = this.imageIncService.imagesInc = res as ImageInc[];
         for(var i in A){
           if(A[i].associatedIncId === this.inciseService.selectedIncise._id){
-            this.imageIncService.deleteImage(A[i]._id)
-            .subscribe(res=>{
-            });
+            this.imageIncService.deleteImage(A[i]._id).subscribe();
           }
         }
         this.chargeNewImageInc();
@@ -70,15 +67,13 @@ export class NewImageComponent implements OnInit {
     const A = this.imageIncService.selectedImageInc = new ImageInc;
     A.associatedIncId = this.inciseService.selectedIncise._id;
     A.userId = sessionStorage.getItem('currentUserId');
-    this.imageIncService.postImage(A, this.file)
-    .subscribe(res => {
+    this.imageIncService.postImage(A, this.file).subscribe(res => {
       this.getImage();
     });
   }
 
   getImage(){
-    this.imageIncService.getImages()
-    .subscribe(res => {
+    this.imageIncService.getImages().subscribe(res => {
       const A = this.imageIncService.imagesInc = res as ImageInc[];
       for(var i in A){
         if(A[i].associatedIncId = this.inciseService.selectedIncise._id){
