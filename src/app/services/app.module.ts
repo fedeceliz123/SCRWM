@@ -43,7 +43,9 @@ import { ListComponent } from 'src/app/components/list/list.component';
     KeyListenerComponent,
     ProfComponent,
     ProfileComponent,
-    ListComponent
+    ListComponent,
+    CopyUrlComponent, 
+    NewImageComponent,
     ],
   imports: [
     BrowserModule,

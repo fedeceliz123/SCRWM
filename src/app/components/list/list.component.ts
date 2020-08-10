@@ -178,6 +178,7 @@ export class ListComponent implements OnInit {
   }
 
   searcher(event: any){
+    console.log(event)
     if(event.includes('@')){
       this.taskList = this.searchList.filter(w => w.prof.nickname.toLowerCase().includes(event.toLowerCase().substring(1)));
     } else {
@@ -185,6 +186,7 @@ export class ListComponent implements OnInit {
       || w.incise.subtitle.toLowerCase().includes(event.toLowerCase())
       || w.incise.content.toLowerCase().includes(event.toLowerCase()));  
     }
+    this.propagar.emit(this.taskList);
   }
 
 }

@@ -35,8 +35,9 @@ export class ProfileComponent implements OnInit {
     this.setDiamods();
   }
 
-  seeProf() {
+  seeProf(){
     let T = this.taskComponent.taskList;
+    console.log(T)
     for(var i in T){
       if(T[i].incise._id === this.inciseService.selectedIncise._id){
         this.scrwm = T[i];

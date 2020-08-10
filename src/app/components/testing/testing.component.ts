@@ -22,10 +22,10 @@ export class TestingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  checkProf(ubicación: string){
+  checkProf(ubicacion: string){
     if(!this.profService.userProf._id && !!localStorage.getItem('token')){
-      //this.authService.logOut();
-      M.toast({html: "ubicacion"}); 
+      this.authService.logOut();
+      M.toast({html: ubicacion}); 
       this.findProf();
     }
   }

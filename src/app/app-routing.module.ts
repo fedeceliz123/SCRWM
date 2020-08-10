@@ -6,6 +6,11 @@ import { IncisesComponent } from './components/incises/incises.component';
 import { InitComponent } from './components/init/init.component';
 
 const routes: Routes = [
+  /*{
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  },*/
   {
     path: '',
     component: InitComponent,
