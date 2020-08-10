@@ -77,8 +77,10 @@ export class ProfComponent implements OnInit {
       this.deleteOldImages();
     }
     this.profService.putProf(P).subscribe(res => {
-      this.list.getList();
-      window.location.reload();
+      this.profService.getProfs().subscribe(res => {
+        //this.list.getList();
+        window.location.reload();  
+      })
     });
   }
 

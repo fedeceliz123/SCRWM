@@ -4,6 +4,8 @@ import { InciseService } from 'src/app/services/incise.service';
 import { ImageService } from 'src/app/services/image.service';
 import { ProfService } from 'src/app/services/prof.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ScrwmService } from 'src/app/services/scrwm.service';
+
 
 import { Image } from 'src/app/models/image';
 import { Prof } from 'src/app/models/prof';
@@ -22,8 +24,6 @@ export class ListComponent implements OnInit {
   Anchor: boolean = false;
   Diamond: boolean = false;
   Header: boolean = true;
-  taskList: Scrwm[];
-  searchList: Scrwm[];
   @Output() propagar = new EventEmitter<any>();
 
   constructor(
@@ -31,6 +31,7 @@ export class ListComponent implements OnInit {
     private imageService: ImageService,
     private profService: ProfService,
     public authService: AuthService,
+    public scrwmService: ScrwmService,
   ) { }
 
   ngOnInit(): void {
@@ -173,20 +174,26 @@ export class ListComponent implements OnInit {
     if(this.Header){
       filterHeader = filterAnchor.filter(w => w.incise.title);
     } else { filterHeader = filterAnchor }
-    this.searchList = this.taskList = filterHeader;
-    this.propagar.emit(this.taskList);
+    this.scrwmService.searchList = this.scrwmService.taskList = filterHeader;
+    this.enviar(this.scrwmService.taskList);
   }
 
   searcher(event: any){
-    console.log(event)
+    let list = this.scrwmService.taskList;
     if(event.includes('@')){
-      this.taskList = this.searchList.filter(w => w.prof.nickname.toLowerCase().includes(event.toLowerCase().substring(1)));
+      list = this.scrwmService.searchList.filter(w => w.prof.nickname.toLowerCase().includes(event.toLowerCase().substring(1)));
     } else {
-      this.taskList = this.searchList.filter(w => w.incise.title.toLowerCase().includes(event.toLowerCase())
+      list = this.scrwmService.searchList.filter(w => w.incise.title.toLowerCase().includes(event.toLowerCase())
       || w.incise.subtitle.toLowerCase().includes(event.toLowerCase())
-      || w.incise.content.toLowerCase().includes(event.toLowerCase()));  
+      || w.incise.content.toLowerCase().includes(event.toLowerCase())); 
     }
-    this.propagar.emit(this.taskList);
+    this.enviar(list);
   }
+
+  enviar(list: Scrwm[]){
+    console.log(list)
+    this.propagar.emit(list);
+  }
+
 
 }
