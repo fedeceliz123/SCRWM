@@ -143,7 +143,7 @@ export class ProfComponent implements OnInit {
     let C = this.inciseService.selectedIncise = new Incise;
     C.prof = userId;
     C.title = "My first Scrwm";
-    C.subtitle = "Click on Set Header in the navBar above to modify us"
+    C.subtitle = "Click on Set Header in the navBar above to modify this header"
     this.inciseService.postIncise(C).subscribe();
   }
 

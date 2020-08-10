@@ -17,11 +17,6 @@ import {MatDialog} from '@angular/material/dialog';
 
 declare var M: any;
 
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.tooltipped');
-  var instances = M.Tooltip.init(elems);
-});
-
 @Component({
   selector: 'app-init',
   templateUrl: './init.component.html',

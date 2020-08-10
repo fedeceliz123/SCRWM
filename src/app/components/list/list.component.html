@@ -1,4 +1,5 @@
 <div class="extra-right" *ngIf="authService.loggedIn()">
+    <input  id="search" type="search" required (keyup)="searcher($event.target.value)" autocomplete="off">
     <div class="ttpBtn">
         <button mat-button id="ownBtn" (click)="filterByOwns()">
                 <img id="BigOwn" src="assets/edit.png">
@@ -13,8 +14,7 @@
     <span class="ttpTextBtn">Following</span>
     </div>
         <div class="ttpBtn">
-
-        <button mat-button id="anchorBtn" (click)="filterByAnchors()">
+            <button mat-button id="anchorBtn" (click)="filterByAnchors()">
             <img id="BigAnchor" src="assets/anchor.png">
         </button>
         <span class="ttpTextBtn">Filter by Anchors</span>

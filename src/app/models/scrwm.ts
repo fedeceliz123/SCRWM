@@ -8,9 +8,9 @@ export class Scrwm {
     prof: Prof;
     image: Image;
 
-    constructor(){
-        this.incise;
-        this.prof;
-        this.image;
+    constructor(incise: Incise, prof: Prof, image: Image){
+        this.incise = incise;
+        this.prof = prof;
+        this.image = image
     }
 }
