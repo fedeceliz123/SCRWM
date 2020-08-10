@@ -29,8 +29,12 @@
                             <div>
                                 {{ lastEdited(task.incise.updatedAt) }} (cr. {{ created(task.incise.createdAt) }} )
                             </div>
-                            <div>
-                                <img *ngIf="task.incise.publicity === true" src="assets/public.jpeg" style="height: 15px; margin-bottom: -3px;">
+                            <div class="puntos">
+                                <p class="vistas">{{ inciseService.selectedIncise.vistas }} </p> 
+                                <img class="ojo" id="ojo" src="assets/vista.png">
+                                <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
+                                <img class="diamond" id="diamond" src="assets/diamond.png">
+                                <img *ngIf="task.incise.publicity === true" src="assets/public.jpeg" style="height: 15px; margin-bottom: -3px;">    
                             </div>
                         </div>
                         <p class="subtitle"> {{ task.incise.subtitle }} </p>      
@@ -61,8 +65,11 @@
                             {{ lastEdited(task.incise.updatedAt) }} (cr. {{ created(task.incise.createdAt) }} )
                         </div>
                         <div class="cab">
+                            <p class="vistas">{{ inciseService.selectedIncise.vistas }} </p> 
+                            <img class="ojo" id="ojo" src="assets/vista.png">
                             <p class="followers">{{ inciseService.selectedIncise.diamond }} </p>    
                             <img class="diamond" id="diamond" src="assets/diamond.png">
+                            <img *ngIf="task.incise.publicity === true" src="assets/public.jpeg" style="height: 15px; margin-bottom: -3px;">
                             <div class="hashtags">
                                 <div *ngFor="let hashtag of showAround.Hashtags">
                                     <mat-chip-list>

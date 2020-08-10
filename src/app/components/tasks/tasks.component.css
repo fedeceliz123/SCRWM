@@ -123,13 +123,19 @@
     height: 30px;
 }
 
-.diamond{
+.diamond, .ojo{
     height: 15px;
 }
 
-.followers{
+.diamond{
+    margin-left: 15px;
+}
+
+.followers, .vistas{
     color: rgb(206, 205, 205);
+    font-weight: bold;
     font-size: 12px;
+    margin: 2px;
 }
 
 .hashtags{
@@ -141,7 +147,13 @@
 }
 
 .mat-chip{
-    color: orange;
+    color: blue;
     background-color: white;
     cursor: pointer;
+}
+
+.puntos{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 2px;
 }

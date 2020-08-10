@@ -83,11 +83,6 @@
                     <div class="cab">
 
                         <ng-container *ngIf="authService.loggedIn()">
-                            <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
-                            <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
-                            <div class="followers">{{ inciseService.selectedIncise.diamond }} </div>    
-                            <img class="ojo" id="ojo" src="assets/vista.png">
-                            <div class="vistas">{{ inciseService.selectedIncise.vistas }} </div>  
                             <div class="ttpBefore" *ngIf="inciseService.selectedIncise.before != ''">
                                 <img class="z-axis" (click)="editAround.setBefore()" src="assets/undo.png" >
                                 <span class="ttpTextBefore"> Previous </span>
@@ -95,7 +90,11 @@
                             <div class="ttpAfter" *ngIf="inciseService.selectedIncise.after != ''">
                                 <img class="z-axis" (click)="editAround.setAfter()" src="assets/redo.png">
                                 <span class="ttpTextAfter"> Edited </span>
-                            </div>  
+                            </div>                              <img class="anchor" id="anchor" src="assets/anchor.png" (mouseup)="anchorSelected()">
+                            <img class="diamond" id="diamond" src="assets/diamond.png" (mouseup)="diamondSelected()">
+                            <div class="followers">{{ inciseService.selectedIncise.diamond }} </div>    
+                            <img class="ojo" id="ojo" src="assets/vista.png">
+                            <div class="vistas">{{ inciseService.selectedIncise.vistas }} </div>  
                             <div class="ttpName">
                             <img class="circulo" (click)="profileComponent.seeProf()" 
                                                  *ngIf="imageService.selectedImage.imagePath, else defaultImage" 
