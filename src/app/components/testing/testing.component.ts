@@ -3,7 +3,6 @@ import { ProfService} from 'src/app/services/prof.service';
 import { Prof } from 'src/app/models/prof';
 import { AuthService } from 'src/app/services/auth.service';
 import { ImageService } from 'src/app/services/image.service'
-import { Image } from 'src/app/models/image';
 
 declare var M: any; 
 
@@ -26,15 +25,14 @@ export class TestingComponent implements OnInit {
   checkProf(ubicación: string){
     if(!this.profService.userProf._id && !!localStorage.getItem('token')){
       //this.authService.logOut();
-      //M.toast({html: "Please log in again"}); 
+      M.toast({html: "ubicacion"}); 
       this.findProf();
     }
   }
 
   findProf(){
     if(this.authService.loggedIn()){
-      this.profService.getProfs()
-      .subscribe(res => {
+      this.profService.getProfs().subscribe(res => {
         const A = this.profService.profs = res as Prof[];
         for (var i in A){
           if(A[i].userId === sessionStorage.getItem('currentUserId')){
@@ -44,21 +42,6 @@ export class TestingComponent implements OnInit {
         }
       })  
     }
-  }
-
-  notFound(dir: string){
-    alert(dir);
-  }
-
-  depurateImages(){
-    this.imageService.getImages().subscribe(res => {
-      let I = res as Image;
-      for(var i in I){
-        if(I.imagePath){
-          
-        }
-      }
-    })
   }
 
 }

@@ -70,9 +70,10 @@ export class ShowAroundComponent implements OnInit {
   }
 
   saveLast(incise: Incise){
-    if(this.inciseService.selectedIncise._id){
-      this.inciseService.postIncise(this.inciseService.selectedIncise);
-      this.profService.postProf(this.profService.userProf)
+    let C = this.inciseService.selectedIncise
+    if(C._id){
+      C.content = document.getElementById('E').textContent;
+      this.inciseService.putIncise(C).subscribe();
     }
     this.toCenter(incise)
   }
@@ -80,6 +81,7 @@ export class ShowAroundComponent implements OnInit {
   toCenter(incise: Incise){
     localStorage.setItem('byDefectIncise', incise._id);
     this.inciseService.selectedIncise = incise;
+    this.setVistas(incise);
     this.resetConstants();
     this.setImageInc(incise);
     this.isEditable(incise);
@@ -88,6 +90,12 @@ export class ShowAroundComponent implements OnInit {
     this.setImage(incise);
     this.showHashtag(incise);
     this.showAround(incise);
+  }
+
+  setVistas(incise: Incise){
+    if(incise.prof !== sessionStorage.getItem('currentUserId')){
+      incise.vistas ++;
+    }
   }
 
   resetConstants(){
@@ -181,7 +189,7 @@ export class ShowAroundComponent implements OnInit {
         return
       }
     }
-    document.getElementById('diamond').style.opacity = "0.1";  
+    document.getElementById('diamond').style.opacity = "0.2";  
   }  
 
   setAnchor(incise: Incise){
@@ -192,7 +200,7 @@ export class ShowAroundComponent implements OnInit {
         return
       }
     }
-    document.getElementById('anchor').style.opacity = "0.1";  
+    document.getElementById('anchor').style.opacity = "0.2";  
   }
 
   setImage(incise: Incise) {
