@@ -33,10 +33,10 @@ export class ProfComponent implements OnInit {
 
   constructor(
     public profService: ProfService,
-    private imageService: ImageService,
-    private inciseService: InciseService,
-    private socketService: SocketService,
-    private list: ListComponent,
+    public imageService: ImageService,
+    public inciseService: InciseService,
+    public socketService: SocketService,
+    public list: ListComponent,
     public dialog: MatDialog,
   ) { }
 
