@@ -18,6 +18,7 @@ export class Incise {
 
         hashtag: string[];
         diamond: number;
+        vistas: number;
         date: string;
         modified: string;
         publicity: boolean;
@@ -41,6 +42,7 @@ export class Incise {
 
         this.hashtag = [];
         this.diamond = 0;
+        this.vistas = 0;
         this.date = date;
         this.modified = modified;
         this.publicity = false;

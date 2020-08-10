@@ -7,6 +7,7 @@ import { InciseService } from 'src/app/services/incise.service';
 import { SocketService } from 'src/app/services/socket.service';
 
 import { ListComponent } from 'src/app/components/list/list.component';
+import { TestingComponent } from 'src/app/components/testing/testing.component';
 
 import { Prof } from 'src/app/models/prof';
 import { Image } from 'src/app/models/image';
@@ -33,12 +34,20 @@ export class ProfComponent implements OnInit {
 
   constructor(
     public profService: ProfService,
+<<<<<<< HEAD
     public imageService: ImageService,
     public inciseService: InciseService,
     public socketService: SocketService,
     public list: ListComponent,
+=======
+    private imageService: ImageService,
+    private inciseService: InciseService,
+    private socketService: SocketService,
+    private list: ListComponent,
+    private test: TestingComponent,
+>>>>>>> master
     public dialog: MatDialog,
-  ) { }
+  ){}
 
   ngOnInit(): void {
     this.setUserImage();
@@ -66,6 +75,7 @@ export class ProfComponent implements OnInit {
   }
 
   updateProf(form: NgForm){
+    this.test.checkProf("ProfComponent 71")
     let P = this.profService.userProf;
     P.nickname = form.value.nickname;
     P.state = form.value.state;
@@ -73,9 +83,10 @@ export class ProfComponent implements OnInit {
     if(this.photoSel){
       this.deleteOldImages();
     }
-    this.profService.putProf(P).subscribe();
+    this.profService.putProf(P).subscribe(res => {
       this.list.getList();
       window.location.reload();
+    });
   }
 
   deleteOldImages(){

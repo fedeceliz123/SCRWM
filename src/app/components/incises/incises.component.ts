@@ -98,7 +98,7 @@ export class IncisesComponent implements OnInit{
           if(P.favIncises[index] === C._id){
             P.favIncises.splice(index, 1);
             C.diamond --;
-            document.getElementById('diamond').style.opacity = "0.1";
+            document.getElementById('diamond').style.opacity = "0.2";
             this.profService.putProf(this.profService.userProf).subscribe();
             return;
           }
@@ -120,7 +120,7 @@ export class IncisesComponent implements OnInit{
       while (P.anchors[index]){
         if(P.anchors[index] === C._id){
           P.anchors.splice(index, 1);
-          document.getElementById('anchor').style.opacity = "0.1";
+          document.getElementById('anchor').style.opacity = "0.2";
           this.profService.putProf(this.profService.userProf).subscribe();
           return;
         }
