@@ -4,8 +4,7 @@
     height: 348px;
     width: 445px;
     padding: 10px;
-    position: relative;
-    right: ;
+    position: fixed;
     bottom: 5px;
     right: 53px;
     border: solid;
@@ -100,3 +99,4 @@ display: none;
   visibility: visible;
   opacity: 1;
 }
+

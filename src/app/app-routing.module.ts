@@ -3,11 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { TasksComponent } from './components/tasks/tasks.component';
 import { IncisesComponent } from './components/incises/incises.component';
+import { InitComponent } from './components/init/init.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: TasksComponent,
+    component: InitComponent,
   },
   {
     path: 'incises',            

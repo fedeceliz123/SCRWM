@@ -34,11 +34,11 @@ export class ProfComponent implements OnInit {
 
   constructor(
     public profService: ProfService,
-    private imageService: ImageService,
-    private inciseService: InciseService,
-    private socketService: SocketService,
-    private list: ListComponent,
-    private test: TestingComponent,
+    public imageService: ImageService,
+    public inciseService: InciseService,
+    public socketService: SocketService,
+    public list: ListComponent,
+    public test: TestingComponent,
     public dialog: MatDialog,
   ){}
 
