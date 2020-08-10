@@ -39,7 +39,6 @@ export class TasksComponent implements OnInit {
   }
 
   procesaPropagar(event: any){
-    console.log(event)
     this.taskList = event
   }
   

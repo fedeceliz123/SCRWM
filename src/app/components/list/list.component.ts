@@ -191,7 +191,6 @@ export class ListComponent implements OnInit {
   }
 
   enviar(list: Scrwm[]){
-    console.log(list)
     this.propagar.emit(list);
   }
 
