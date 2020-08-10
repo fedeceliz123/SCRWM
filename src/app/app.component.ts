@@ -18,7 +18,7 @@ export class AppComponent{
     ){
       let path = localStorage.getItem('path');
       if(path) {
-        localStorage.removeItem('path');
+        //localStorage.removeItem('path');
         this.router.navigate([path]);
         this.showAround.deepLink(path);
       }

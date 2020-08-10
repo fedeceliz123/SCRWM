@@ -65,7 +65,7 @@ export class IncisesComponent implements OnInit{
       this.router.navigate(['/incises']);
       this.inciseService.selectedIncise.content = document.getElementById('E').textContent;
       this.showAround.toCenter(this.inciseService.selectedIncise); 
-      this.deleteIncises(); 
+      //this.deleteIncises(); 
     }
   }
 
