@@ -5,8 +5,8 @@
         <mat-card-header>
           <mat-card-title>
             <div class="switch">
-              @{{ scrwm.prof.nickname }}
-              <label *ngIf="scrwm.prof.userId != profService.userProf.userId">
+              @{{ this.scrwmService.selectedScrwm.prof.nickname }}
+              <label *ngIf="this.scrwmService.selectedScrwm.prof.userId != profService.userProf.userId">
                 <input type="checkbox" name="event" #event="ngModel" [ngModel]="isFollowing()" class="form-control">
                 <span class="lever"></span>
                 Follow
@@ -14,7 +14,7 @@
             </div>
           </mat-card-title>
         </mat-card-header>
-          <img class="image" *ngIf="scrwm.image.imagePath, else defaultImage" [src]="profService.env + scrwm.image.imagePath">
+          <img class="image" *ngIf="this.scrwmService.selectedScrwm.image.imagePath, else defaultImage" [src]="profService.env + this.scrwmService.selectedScrwm.image.imagePath">
           <ng-template #defaultImage>
             <img class="image" src="assets/no-image.png">
           </ng-template>
@@ -22,7 +22,7 @@
             <div class="points">
               <div>
                 <img class="followers" src="assets/read.png">
-                Followers: {{ scrwm.prof.followers }}  
+                Followers: {{ this.scrwmService.selectedScrwm.prof.followers }}  
               </div>
               <div>
                 <img class="diamond" src="assets/blackDiamond.png">
@@ -33,7 +33,7 @@
       </div>
       <div class="right">
         <mat-card-content>
-          <div style="font-weight: bold;">MiniBio:</div> {{ scrwm.prof.miniBio }}
+          <div style="font-weight: bold;">MiniBio:</div> {{ this.scrwmService.selectedScrwm.prof.miniBio }}
         </mat-card-content> 
       </div>
       <div style="text-align: end;">

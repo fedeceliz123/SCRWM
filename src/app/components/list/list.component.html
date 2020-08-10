@@ -1,5 +1,4 @@
 <div class="extra-right" *ngIf="authService.loggedIn()">
-    <input  id="search" type="search" required (keyup)="searcher($event.target.value)" autocomplete="off">
     <div class="ttpBtn">
         <button mat-button id="ownBtn" (click)="filterByOwns()">
                 <img id="BigOwn" src="assets/edit.png">

@@ -38,8 +38,9 @@ export class TasksComponent implements OnInit {
     this.showAround.setByDefectInc();
   }
 
-  procesaPropagar(event: any) {
-    this.taskList = event;
+  procesaPropagar(event: any){
+    console.log(event)
+    this.taskList = event
   }
   
   lastEdited(updatedAt: string){
