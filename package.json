@@ -24,6 +24,7 @@
     "@syncfusion/ej2-angular-richtexteditor": "^18.2.45",
     "angular": "^1.8.0",
     "angular-sanitize": "^1.8.0",
+    "moment": "^2.27.0",
     "ng-quill": "^4.5.3",
     "quill": "^1.3.7",
     "rxjs": "^6.6.0",
